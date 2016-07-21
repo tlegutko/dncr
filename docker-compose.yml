@@ -1,0 +1,24 @@
+---
+version: '2'
+services:
+  db:
+    image: mariadb:10.1.14
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "dncr-root-password"
+      MYSQL_USER: "dncr"
+      MYSQL_PASSWORD: "dncr"
+      MYSQL_DATABASE: "dncr"
+  php:
+    build: ./server/
+    links:
+      - db:database
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./server/php:/usr/local/etc/php
+    depends_on:
+      - db
+
