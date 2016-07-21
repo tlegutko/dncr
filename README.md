@@ -1,5 +1,7 @@
 # DNCR
 
+[![Run Status](https://api.shippable.com/projects/5790eff23be4f4faa56d6dae/badge?branch=master)](https://app.shippable.com/projects/5790eff23be4f4faa56d6dae) 
+
 Projekt systemu zarządzania zajęciami i kursantami klubów tanecznych.
 
 # Rozpoczynanie pracy
@@ -7,9 +9,9 @@ Projekt systemu zarządzania zajęciami i kursantami klubów tanecznych.
 1. Zainstaluj zależności:
     * `composer install`
     * `npm install`
-    * `php artisan key:generate`
     * `cp .env.example .env`
-2. Skonfiguruj dane dostępowe do bazy:
+    * `php artisan key:generate`
+2. Skonfiguruj dane dostępowe do bazy w pliku .env:
     * `DB_HOST=http://database`
     * `DB_DATABASE=dncr`
     * `DB_USERNAME=dncr`
