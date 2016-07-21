@@ -1,0 +1,18 @@
+language: php
+php:
+  - 7.0.8
+
+build:
+  ci:
+    - composer self-update
+    - composer install
+    - cp .env.example .env
+    - php artisan key:generate
+    - mkdir -p shippable/testresults
+    - mkdir -p shippable/codecoverage
+    - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
+
+  cache: false
+  cache_dir_list: 
+    - $SHIPPABLE_BUILD_DIR/vendor
+
