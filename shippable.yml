@@ -6,7 +6,7 @@ build:
   ci:
     - composer self-update
     - composer install
-    - cp .env.example .env
+    - cp .env.dev .env
     - php artisan key:generate
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
@@ -16,3 +16,16 @@ build:
   cache_dir_list: 
     - $SHIPPABLE_BUILD_DIR/vendor
 
+integrations:
+  notifications:
+    - integrationName: Slack
+      type: slack
+      recipients:
+        - '#services'
+      branches:
+        only:
+          - master
+      on_success: always
+      on_failure: always
+      on_start: never
+      on_pull_request: never
