@@ -54,7 +54,18 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'mocha', 'coverage', 'junit' ],
+
+    junitReporter: {
+      outputFile: 'testresults/frontend.xml',
+      suite: '',
+      useBrowserName: false
+    },
+
+    coverageReporter: {
+      type: 'cobertura',
+      dir: 'codecoverage'
+    },
 
     // web server port
     port: 9876,
@@ -76,7 +87,7 @@ module.exports = function(config) {
      * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
      */
     browsers: [
-      'Chrome'
+      'PhantomJS'
     ],
 
     /*

@@ -1,19 +1,32 @@
-language: php
-php:
-  - 7.0.8
+language: none
 
 build:
+  pre_ci:
+    - docker build -t dncr-ci:0.1 ./shippable
+
+  pre_ci_boot:
+    image_name: dncr-ci
+    image_tag: 0.1
+    pull: false
+    options: "-e HOME=/root"
+
   ci:
-    - composer self-update
-    - composer install
+    - composer.phar self-update
+    - composer.phar install
     - cp .env.dev .env
     - php artisan key:generate
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
+    - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/
+    - cd frontend
+    - npm update
+    - npm test
+    - cp -r codecoverage/* ../shippable/codecoverage
+    - cp testresults/* ../shippable/testresults
 
-  cache: false
-  cache_dir_list: 
+  cache: true
+  cache_dir_list:
+    - $SHIPPABLE_BUILD_DIR/frontend/node_modules
     - $SHIPPABLE_BUILD_DIR/vendor
 
 integrations:
