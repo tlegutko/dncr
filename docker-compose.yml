@@ -15,7 +15,8 @@ services:
     links:
       - db:database
     ports:
-      - "8080:80"
+      - "80:80"
+      - "2222:22"
     volumes:
       - .:/var/www/html
       - ./server/php:/usr/local/etc/php
