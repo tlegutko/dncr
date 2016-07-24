@@ -20,7 +20,6 @@ build:
     - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/
     - cd frontend
     - npm update
-    - npm run build:ci
     - npm run ci
     - cp -r codecoverage/* ../shippable/codecoverage/*
     - cp testresults/* ../shippable/testresults

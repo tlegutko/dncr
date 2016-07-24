@@ -14,17 +14,18 @@ console.log('`About` component loaded asynchronously');
   `],
   template: `
     <h1>About</h1>
-    <div>
-      For hot module reloading run
-      <pre>npm run start:hmr</pre>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>For hot module reloading run</h3>
+        <pre>npm run start:hmr</pre>
+      </div>
     </div>
-    <div>
-      We shall test it!
-      <h3>
-        patrick@AngularClass.com
-      </h3>
+    <div class="row">
+      <div class="col-md-12">
+        <p>We shall test it!</p>
+        <pre>this.localState = {{ localState | json }}</pre>
+      </div>
     </div>
-    <pre>this.localState = {{ localState | json }}</pre>
   `
 })
 export class About {

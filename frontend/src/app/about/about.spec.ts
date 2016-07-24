@@ -1,9 +1,6 @@
-import { TestComponentBuilder } from '@angular/compiler/testing';
-import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   beforeEachProviders,
-  describe,
   inject,
   it
 } from '@angular/core/testing';

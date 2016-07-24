@@ -18,9 +18,8 @@ const HtmlElementsPlugin = require('./html-elements-plugin');
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
-  baseUrl: '/',
-  isDevServer: helpers.isWebpackDevServer()
+  title: 'DNCR',
+  baseUrl: '/'
 };
 
 /*
@@ -29,7 +28,6 @@ const METADATA = {
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 module.exports = {
-
   /*
    * Static metadata for index.html
    *
@@ -53,11 +51,9 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#entry
    */
   entry: {
-
     'polyfills': './src/polyfills.browser.ts',
     'vendor':    './src/vendor.browser.ts',
     'main':      './src/main.browser.ts'
-
   },
 
   /*
@@ -66,7 +62,6 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#resolve
    */
   resolve: {
-
     /*
      * An array of extensions that should be used to resolve modules.
      *
@@ -79,7 +74,6 @@ module.exports = {
 
     // remove other default values
     modulesDirectories: ['node_modules'],
-
   },
 
   /*
@@ -88,14 +82,12 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#module
    */
   module: {
-
     /*
      * An array of applied pre and post loaders.
      *
      * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
      */
     preLoaders: [
-
       /*
        * Tslint loader support for *.ts files
        *
@@ -120,7 +112,6 @@ module.exports = {
           helpers.root('node_modules/@angular2-material'),
         ]
       }
-
     ],
 
     /*
@@ -132,7 +123,6 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#module-loaders
      */
     loaders: [
-
       /*
        * Typescript loader support for .ts and Angular 2 async routes via .async.ts
        *
@@ -157,12 +147,33 @@ module.exports = {
       /*
        * to string and css loader support for *.css files
        * Returns file content as string
-       *
        */
       {
         test: /\.css$/,
         loaders: ['to-string-loader', 'css-loader']
       },
+
+      /*
+       * Support for SASS files
+       */
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader!sass-loader'
+      },
+
+      /*
+       * Fonts loader.
+       */
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&minetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      },
+
 
       /* Raw loader support for *.html
        * Returns file content as string
@@ -174,9 +185,7 @@ module.exports = {
         loader: 'raw-loader',
         exclude: [helpers.root('src/index.html')]
       }
-
     ]
-
   },
 
   /*
@@ -185,7 +194,6 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
-
     /*
      * Plugin: ForkCheckerPlugin
      * Description: Do type checking in a separate process, so webpack don't need to wait.
@@ -267,7 +275,6 @@ module.exports = {
     new HtmlElementsPlugin({
       headTags: require('./head-config.common')
     }),
-
   ],
 
   /*
@@ -283,5 +290,4 @@ module.exports = {
     clearImmediate: false,
     setImmediate: false
   }
-
 };
