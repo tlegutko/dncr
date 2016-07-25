@@ -1,0 +1,4 @@
+/vendor
+.env
+.idea/workspace.xml
+.idea/tasks.xml

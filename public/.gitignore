@@ -1,0 +1,9 @@
+*.js
+*.map
+*.ttf
+*.eot
+*.svg
+*.woff
+*.woff2
+assets/
+index.html
