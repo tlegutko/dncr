@@ -107,7 +107,7 @@ This will build dev version of application into `public` directory served by Doc
 
 ### Running Docker containers
 
-1. Press Alt + Shift + F10 (or go to Run -> Run... and select 'Application')
+1. Press Alt + Shift + F10 (or go to Run -> Run...) and select 'Application'
 2. Visit [http://localhost](http://localhost)
 
 This command will properly stop and start Docker containers defined in `docker-compose.yml`
@@ -116,7 +116,7 @@ This command will properly stop and start Docker containers defined in `docker-c
 
 ### Running PHP tests
 
-1. Press Alt + 2 (or open Tests window from the bottom)
+1. Press Alt + Shift + F10 (or go to Run -> Run...) and select 'Tests'
 2. Press play for all tests
 
 > Note: You can also select 'Tests' in main toolbox and press play.

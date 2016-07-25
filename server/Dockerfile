@@ -11,13 +11,16 @@ RUN php -r "unlink('composer-setup.php');"
 RUN ln -s /usr/bin/composer.phar /usr/local/bin/composer
 
 # Install supervisor to enable remote PHP interpreter
-RUN apt-get update && apt-get install -y git openssh-server supervisor
+RUN apt-get update && apt-get install -y git wget openssh-server supervisor
 RUN mkdir -p /var/run/sshd /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install required dependencies (MySQL and XDebug)
 RUN docker-php-ext-install pdo_mysql
 RUN pecl install xdebug-2.4.0
+
+# Install PhpUnit
+RUN wget https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit
 
 # Set up SSH daemon
 RUN echo 'root:screencast' | chpasswd
