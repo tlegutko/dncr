@@ -84,8 +84,10 @@ When you open the project (cloned directory) in PhpStorm you need to:
     3. Enter `PHP` tab
     4. Select `Remote PHP7` interpreter.
 4. Setup ability to debug PHP application:
-    1. Go to [Zero-configuration web app debugging with XDebug and PhpStorm](https://confluence.jetbrains.com/display/PhpStorm/Zero-configuration+Web+Application+Debugging+with+Xdebug+and+PhpStorm) page.
-    2. Start from Step 2 (Prepare PhpStorm)
+    1. Toggle the “Start Listening for PHP Debug Connections” button. No special debug run configuration is needed.
+    ![Toggle_Off](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_1.png)
+    ![Toggle_On](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_2.png)
+    2. When debugging for the first time, accept `Incoming Connectiong from Xdebug` dialogue 
 5. Setup NPM integration:
     1. Press Alt + F11
     2. Select `npm` in the top left corner
