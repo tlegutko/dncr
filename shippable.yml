@@ -31,12 +31,13 @@ build:
 
 integrations:
   notifications:
-    - integrationName: Slack
+    - integrationName: Shippable-Slack
       type: slack
       recipients:
         - '#services'
       branches:
         only:
+          - develop
           - master
       on_success: always
       on_failure: always
