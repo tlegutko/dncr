@@ -151,7 +151,3 @@ This is a weird issue and can be fixed by running several commands:
 
 You can also check `netstat -ab` in PowerShell to see whether Docker is listening on `127.0.0.1:2375` (`com.docker.proxy.exe`).
 Unfortunately we have no idea why is it coming up like this.
-
-## I have `composer install` errors on Linux!
-
-Please see your SELinux configuration - it is not allowing Docker to mount volumes properly.
