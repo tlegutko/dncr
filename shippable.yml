@@ -31,7 +31,7 @@ build:
 
 integrations:
   notifications:
-    - integrationName: Shippable-Slack
+    - integrationName: Slack
       type: slack
       recipients:
         - '#services'
