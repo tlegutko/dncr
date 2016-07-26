@@ -17,11 +17,10 @@ build:
     - php artisan key:generate
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/
+    - phpunit --log-junit shippable/testresults/junit.xml
     - cd frontend
     - npm update
     - npm run ci
-    - cp -r codecoverage/* ../shippable/codecoverage/*
     - cp testresults/* ../shippable/testresults
 
   cache: true

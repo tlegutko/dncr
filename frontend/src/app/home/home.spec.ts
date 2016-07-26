@@ -6,8 +6,8 @@ import { BaseRequestOptions, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 
 // Load the implementations that should be tested
-import { AppState } from '../app.service';
 import { Home } from './home.component';
+import { HomeService } from './home.service';
 import { Title } from './title';
 
 describe('Home', () => {
@@ -23,24 +23,24 @@ describe('Home', () => {
       deps: [MockBackend, BaseRequestOptions]
     },
 
-    AppState,
     Title,
-    Home
+    Home,
+    HomeService
   ]);
 
-  it('should have default data', inject([ Home ], (home) => {
-    expect(home.localState).toEqual({ value: '' });
+  it('should have call API', inject([ Home, HomeService ], (home, service) => {
+    // Given
+    let promise = new Promise((resolve) => { resolve({ test: 10 }); });
+    spyOn(service, 'getValue').and.returnValue(promise);
+    // When
+    home.ngOnInit().then(() => {
+      // Then
+      expect(home.value).toEqual({ test: 10 });
+      expect(service.getValue).toHaveBeenCalledWith(10);
+    });
   }));
 
   it('should have a title', inject([ Home ], (home) => {
     expect(!!home.title).toEqual(true);
-  }));
-
-  it('should log ngOnInit', inject([ Home ], (home) => {
-    spyOn(console, 'log');
-    expect(console.log).not.toHaveBeenCalled();
-
-    home.ngOnInit();
-    expect(console.log).toHaveBeenCalled();
   }));
 });

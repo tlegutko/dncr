@@ -10,12 +10,12 @@ import { HomeService } from './home.service';
   templateUrl: './home.template.html'
 })
 export class Home {
-  value: number;
+  value: any;
 
   constructor(public title: Title, public service: HomeService) {
   }
 
   ngOnInit() {
-    this.service.getValue(10).then(data => this.value = data);
+    return this.service.getValue(10).then(data => this.value = data);
   }
 }

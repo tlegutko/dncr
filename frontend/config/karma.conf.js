@@ -54,17 +54,12 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'mocha', 'coverage', 'junit' ],
+    reporters: [ 'mocha', 'junit' ],
 
     junitReporter: {
       outputFile: 'testresults/frontend.xml',
       suite: '',
       useBrowserName: false
-    },
-
-    coverageReporter: {
-      type: 'cobertura',
-      dir: 'codecoverage'
     },
 
     // web server port
