@@ -2,3 +2,4 @@
 .env
 .idea/workspace.xml
 .idea/tasks.xml
+docker-compose.yml

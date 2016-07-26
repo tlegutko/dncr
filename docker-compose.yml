@@ -19,7 +19,6 @@ services:
       - "2222:22"
     volumes:
       - .:/var/www/html
-      - ./server/php:/usr/local/etc/php
+      - ./server/php:/usr/local/etc/php:ro
     depends_on:
       - db
-
