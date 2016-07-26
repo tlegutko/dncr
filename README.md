@@ -55,7 +55,10 @@ Projekt systemu zarządzania zajęciami i kursantami klubów tanecznych.
     * `docker exec -it dncr_php_1 php artisan key:generate`
 5. Generate frontend application:
     * `cd frontend && npm run build:dev`
-6. Go to [http://localhost](http://localhost) to see the application.
+6. (Linux only) Update cache permissions:
+    * `chmod 777 -R storage/*`
+    * `chmod 777 bootstrap/cache`
+7. Go to [http://localhost](http://localhost) to see the application.
 
 # Working with PhpStorm
 
@@ -63,10 +66,10 @@ Projekt systemu zarządzania zajęciami i kursantami klubów tanecznych.
 
 When you open the project (cloned directory) in PhpStorm you need to:
 
-0. (Windows Only) Setup Docker:
+1. (Windows Only) Setup Docker:
     1. Click whale icon in the tray
     2. Select `Shared Drives` and enable `C` (or drive where you have cloned repository)
-1. Setup Docker integration:
+2. Setup Docker integration:
     1. Go to PhpStorm Settings
     2. Enter `Build, Execution, Deployment` tab
     3. Enter `Docker` tab
@@ -75,15 +78,15 @@ When you open the project (cloned directory) in PhpStorm you need to:
             * Enter `http://127.0.0.1:2375` as API URL
             * Clear `Certificates folder`
         * For Linux enter: `unix:///var/run/docker.sock` as API URL
-2. Select proper PHP interpreter in PhpStorm:
+3. Select proper PHP interpreter in PhpStorm:
     1. Go to PhpStorm Settings
     2. Enter `Languages & Frameworks` tab
     3. Enter `PHP` tab
     4. Select `Remote PHP7` interpreter.
-3. Setup ability to debug PHP application:
+4. Setup ability to debug PHP application:
     1. Go to [Zero-configuration web app debugging with XDebug and PhpStorm](https://confluence.jetbrains.com/display/PhpStorm/Zero-configuration+Web+Application+Debugging+with+Xdebug+and+PhpStorm) page.
     2. Start from Step 2 (Prepare PhpStorm)
-4. Setup NPM integration:
+5. Setup NPM integration:
     1. Press Alt + F11
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`

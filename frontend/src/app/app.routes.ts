@@ -6,7 +6,7 @@ import { NoContent } from './no-content';
 import { DataResolver } from './app.resolver';
 
 export const routes: RouterConfig = [
-  { path: '', component: Home },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: Home },
   // make sure you match the component type string to the require in asyncRoutes
   { path: 'about', component: 'About',
