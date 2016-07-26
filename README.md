@@ -1,6 +1,6 @@
 # DNCR
 
-[![Run Status](https://api.shippable.com/projects/5790eff23be4f4faa56d6dae/badge?branch=master)](https://app.shippable.com/projects/5790eff23be4f4faa56d6dae) 
+[![Run Status](https://api.shippable.com/projects/5790eff53be4f4faa56d6db9/badge?branch=develop)](https://app.shippable.com/projects/5790eff53be4f4faa56d6db9)
 
 Projekt systemu zarządzania zajęciami i kursantami klubów tanecznych.
 
