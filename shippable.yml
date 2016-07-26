@@ -37,11 +37,12 @@ integrations:
         - '#services'
       branches:
         only:
+          - develop
           - master
       on_success: always
       on_failure: always
       on_start: never
-      on_pull_request: never
+      on_pull_request: always
     - integrationName: email
       type: email
       on_success: never
