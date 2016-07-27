@@ -87,7 +87,9 @@ When you open the project (cloned directory) in PhpStorm you need to:
     1. Toggle the “Start Listening for PHP Debug Connections” button. No special debug run configuration is needed. 
     ![Toggle_Off](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_1.png)
     ![Toggle_On](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_2.png)
-    This step needs to be repeated after PhpStorm restart.
+    
+        > Note: Remember to repeat this step after PhpStorm restart.
+        
     2. Enter `PhpStorm Settings` > `Language & Frameworks` > `PHP` > `Servers`
     3. Click `+` and in `Name` and `Host` enter `localhost`
     4. (Windows Only) Change `port` to `8080`
