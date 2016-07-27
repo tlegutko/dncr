@@ -2,7 +2,7 @@
 
 [![Run Status](https://api.shippable.com/projects/5790eff53be4f4faa56d6db9/badge?branch=develop)](https://app.shippable.com/projects/5790eff53be4f4faa56d6db9)
 
-Projekt systemu zarządzania zajęciami i kursantami klubów tanecznych.
+Dance studio management software.
 
 # System requirements
 
@@ -84,8 +84,17 @@ When you open the project (cloned directory) in PhpStorm you need to:
     3. Enter `PHP` tab
     4. Select `Remote PHP7` interpreter.
 4. Setup ability to debug PHP application:
-    1. Go to [Zero-configuration web app debugging with XDebug and PhpStorm](https://confluence.jetbrains.com/display/PhpStorm/Zero-configuration+Web+Application+Debugging+with+Xdebug+and+PhpStorm) page.
-    2. Start from Step 2 (Prepare PhpStorm)
+    1. Toggle the “Start Listening for PHP Debug Connections” button. No special debug run configuration is needed. 
+    ![Toggle_Off](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_1.png)
+    ![Toggle_On](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_2.png)
+    
+        > Note: Remember to repeat this step after PhpStorm restart.
+        
+    2. Enter `PhpStorm Settings` > `Language & Frameworks` > `PHP` > `Servers`
+    3. Click `+` and in `Name` and `Host` enter `localhost`
+    4. (Windows Only) Change `port` to `8080`
+    5. Select `Use path mappings` checkbox
+    6. In the `Absolute path on the server` column enter `/var/www/html` next to project main directory.
 5. Setup NPM integration:
     1. Press Alt + F11
     2. Select `npm` in the top left corner
@@ -151,7 +160,3 @@ This is a weird issue and can be fixed by running several commands:
 
 You can also check `netstat -ab` in PowerShell to see whether Docker is listening on `127.0.0.1:2375` (`com.docker.proxy.exe`).
 Unfortunately we have no idea why is it coming up like this.
-
-## I have `composer install` errors on Linux!
-
-Please see your SELinux configuration - it is not allowing Docker to mount volumes properly.
