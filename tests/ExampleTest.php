@@ -13,7 +13,7 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $this->get('/api/values/10')
+             ->seeJsonEquals(['test' => 10]);
     }
 }

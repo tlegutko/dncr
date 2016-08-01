@@ -1,30 +1,21 @@
 import { Component } from '@angular/core';
 
-import { AppState } from '../app.service';
 import { Title } from './title';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'home',
-  providers: [ Title ],
-  styles: [ require('./home.style.scss') ],
+  providers: [ Title, HomeService ],
+  styleUrls: [ './home.style.scss' ],
   templateUrl: './home.template.html'
 })
 export class Home {
-  // Set our default values
-  localState = { value: '' };
-  // TypeScript public modifiers
-  constructor(public appState: AppState, public title: Title) {
+  value: any;
 
+  constructor(public title: Title, public service: HomeService) {
   }
 
   ngOnInit() {
-    console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
-  }
-
-  submitState(value) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
-    this.localState.value = '';
+    return this.service.getValue(10).then(data => this.value = data);
   }
 }

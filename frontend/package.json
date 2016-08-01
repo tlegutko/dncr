@@ -1,15 +1,13 @@
 {
-  "name": "angular2-webpack-starter",
-  "version": "5.0.5",
-  "description": "An Angular 2 Webpack Starter kit featuring Angular 2 (Router, Http, Forms, Services, Tests, E2E, Coverage), Karma, Protractor, Jasmine, Istanbul, TypeScript, and Webpack by AngularClass",
-  "keywords": [
-    "angular2",
-    "webpack",
-    "typescript"
+  "name": "dncr",
+  "version": "0.0.1",
+  "description": "An app for dance schools to manage its customers and classes.",
+  "keywords": [],
+  "authors": [
+    "Amadeusz Starzykiewicz <megawebmaster@gmail.com>"
   ],
-  "author": "Patrick Stapleton <patrick@angularclass.com>",
-  "homepage": "https://github.com/angularclass/angular2-webpack-starter",
-  "license": "MIT",
+  "homepage": "https://github.com/tlegutko/dncr",
+  "license": "Proprietary",
   "scripts": {
     "rimraf": "rimraf",
     "tslint": "tslint",
@@ -19,7 +17,7 @@
     "protractor": "protractor",
     "clean:dist": "npm run rimraf -- ../public/*.js ../public/*.map ../public/index.html ../public/assets",
     "preclean": "npm run clean:dist",
-    "clean": "npm cache clean && npm run rimraf -- node_modules doc codecoverage testresults",
+    "clean": "npm cache clean && npm run rimraf -- node_modules doc testresults",
     "preclean:install": "npm run clean",
     "clean:install": "npm set progress=false && npm install",
     "clean:watch": "npm run watch",
@@ -90,7 +88,6 @@
     "istanbul-instrumenter-loader": "^0.2.0",
     "json-loader": "^0.5.4",
     "karma": "^0.13.22",
-    "karma-coverage": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.1.0",
     "karma-mocha-reporter": "^2.0.0",

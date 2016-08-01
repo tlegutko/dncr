@@ -8,11 +8,4 @@ import { Component } from '@angular/core';
   `
 })
 export class Index {
-  constructor() {
-
-  }
-
-  ngOnInit() {
-    console.log('hello `Index` component');
-  }
 }

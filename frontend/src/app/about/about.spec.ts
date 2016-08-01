@@ -1,8 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import {
-  beforeEachProviders,
-  inject,
-  it
+  beforeEachProviders
 } from '@angular/core/testing';
 
 // Load the implementations that should be tested
@@ -22,13 +20,4 @@ describe('About', () => {
     },
     About
   ]);
-
-  it('should log ngOnInit', inject([ About ], (about) => {
-    spyOn(console, 'log');
-    expect(console.log).not.toHaveBeenCalled();
-
-    about.ngOnInit();
-    expect(console.log).toHaveBeenCalled();
-  }));
-
 });

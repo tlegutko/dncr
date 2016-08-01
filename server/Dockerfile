@@ -11,7 +11,7 @@ RUN php -r "unlink('composer-setup.php');"
 RUN ln -s /usr/bin/composer.phar /usr/local/bin/composer
 
 # Install supervisor to enable remote PHP interpreter
-RUN apt-get update && apt-get install -y git wget openssh-server supervisor
+RUN apt-get update && apt-get install -y git unzip wget openssh-server supervisor
 RUN mkdir -p /var/run/sshd /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
