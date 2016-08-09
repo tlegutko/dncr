@@ -24,10 +24,6 @@ Dance studio management software.
 ### Recommended to install
 
 * [PhpStorm](https://www.jetbrains.com/phpstorm/download/)
-* PhpStorm plugins:
-    * Docker Integration: for easy integration of PhpStorm with our Docker container.
-    
-        > Note: you can install them in PhpStorm Settings -> Plugins -> Browse repositories...
 
 # Getting started
 
@@ -72,7 +68,10 @@ Dance studio management software.
 
 When you open the project (cloned directory) in PhpStorm you need to:
 
-1. Setup Docker integration:
+1. Install Docker Integration:    
+    1. PhpStorm Settings -> Plugins -> Browse repositories...
+    2. "Docker integration" -> install
+2. Setup Docker integration:
     1. Go to PhpStorm Settings
     2. Enter `Build, Execution, Deployment` tab
     3. Enter `Docker` tab
@@ -81,12 +80,12 @@ When you open the project (cloned directory) in PhpStorm you need to:
             * Enter `http://127.0.0.1:2375` as API URL
             * Clear `Certificates folder`
         * For Linux enter: `unix:///var/run/docker.sock` as API URL
-2. Select proper PHP interpreter in PhpStorm:
+3. Select proper PHP interpreter in PhpStorm:
     1. Go to PhpStorm Settings
     2. Enter `Languages & Frameworks` tab
     3. Enter `PHP` tab
     4. Select `Remote PHP7` interpreter.
-3. Setup ability to debug PHP application:
+4. Setup ability to debug PHP application:
     1. Toggle the “Start Listening for PHP Debug Connections” button. No special debug run configuration is needed. 
     ![Toggle_Off](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_1.png)
     ![Toggle_On](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_2.png)
@@ -98,7 +97,7 @@ When you open the project (cloned directory) in PhpStorm you need to:
     4. (Windows Only) Change `port` to `8080`
     5. Select `Use path mappings` checkbox
     6. In the `Absolute path on the server` column enter `/var/www/html` next to project main directory.
-4. Setup NPM integration:
+5. Setup NPM integration:
     1. Press Alt + F11
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`
