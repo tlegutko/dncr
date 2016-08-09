@@ -29,7 +29,7 @@ Dance studio management software.
 
 1. Clone repository
 2. (Windows Only) Setup Docker:
-    1. Click whale icon in the tray
+    1. Click the whale icon in the tray
     2. Select `Shared Drives` and enable `C` (or drive where you have cloned the repository)
 3. Boot up machines: 
     * Go to the repository you cloned
@@ -159,7 +159,7 @@ This is a weird issue and can be fixed by running several commands:
 You can also check `netstat -ab` in PowerShell to see whether Docker is listening on `127.0.0.1:2375` (`com.docker.proxy.exe`).
 Unfortunately we have no idea why is it coming up like this.
 
-## I removed L5 and don't know where to find it!
+## I removed laravel ide helpers and don't know where to find them!
 
 1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
 2. Download L5 gist
