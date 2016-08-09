@@ -1,5 +1,15 @@
-@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins/_breakpoints";
 
 body {
-	margin-top: 5rem;
+  margin-top: 4rem;
+
+  @media (min-width: breakpoint-min(sm)) {
+    margin-top: 5rem;
+  }
+}
+
+// Firefox required input workaround
+input:invalid {
+  box-shadow: none;
 }

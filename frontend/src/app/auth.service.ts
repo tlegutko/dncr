@@ -3,30 +3,41 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { LoginModel } from './login/login.model';
-import { InvalidLoginException } from './login/invalidLogin.exception';
 
 @Injectable()
 export class AuthService {
-  loggedIn = false;
+  LOGGED_IN_KEY = 'logged-in';
 
-  constructor(private router: Router){}
+  private loggedIn = false;
+  private storage: Storage;
+
+  constructor(private router: Router) {
+    this.storage = localStorage;
+    this.loggedIn = this.getFromStorage();
+  }
 
   login(model: LoginModel) {
-    if (model.login == 'admin' && model.password == 'admin1') {
+    if (model.login === 'admin' && model.password === 'admin1') {
       this.loggedIn = true;
+      this.storage.setItem(this.LOGGED_IN_KEY, 'true');
       this.router.navigate(['reception']);
       return;
     }
 
-    throw new InvalidLoginException();
+    throw new Error('Nieprawidłowy login lub hasło.');
   }
 
   logout() {
     this.loggedIn = false;
+    this.storage.removeItem(this.LOGGED_IN_KEY);
     this.router.navigate(['login']);
   }
 
   check() {
     return Observable.of(this.loggedIn);
+  }
+
+  private getFromStorage(): boolean {
+    return this.storage.getItem(this.LOGGED_IN_KEY) === 'true';
   }
 }

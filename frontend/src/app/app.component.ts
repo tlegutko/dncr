@@ -12,13 +12,13 @@ import { AuthService } from './auth.service';
   templateUrl: 'app.template.html'
 })
 export class App {
-  constructor(private _auth: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   logout(){
-    this._auth.logout();
+    this.authService.logout();
   }
 
   isLoggedIn(){
-    return this._auth.check();
+    return this.authService.check();
   }
 }

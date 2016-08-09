@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ReceptionService {
-  constructor(public http: Http) {}
+  constructor(private http: Http) {}
 
   getValue(value: number): Promise<any> {
     let url = `/api/values/${value}`;

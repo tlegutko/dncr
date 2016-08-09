@@ -1,6 +1,6 @@
 // App
 import { AuthService } from './auth.service';
-import { AuthGuard } from './AuthGuard';
+import { AuthGuard } from './auth-guard';
 export * from './app.component';
 export * from './app.routes';
 
