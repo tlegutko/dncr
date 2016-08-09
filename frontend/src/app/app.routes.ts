@@ -1,13 +1,17 @@
 import { WebpackAsyncRoute } from '@angularclass/webpack-toolkit';
 import { RouterConfig } from '@angular/router';
-import { Home } from './home';
+
 import { NoContent } from './no-content';
+import { Reception } from './reception/reception.component';
 
 import { DataResolver } from './app.resolver';
+import { Login } from './login/login.component';
+import { AuthGuard } from './AuthGuard';
 
 export const routes: RouterConfig = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: Home },
+  { path: '', redirectTo: '/reception', pathMatch: 'full' },
+  { path: 'login', component: Login },
+  { path: 'reception', component: Reception, canActivate: [AuthGuard] },
   // make sure you match the component type string to the require in asyncRoutes
   { path: 'about', component: 'About',
     resolve: {

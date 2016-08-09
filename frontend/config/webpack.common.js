@@ -238,6 +238,11 @@ module.exports = {
       to: 'assets'
     }]),
 
+    new CopyWebpackPlugin([{
+      from: 'src/index.css',
+      to: ''
+    }]),
+
     /*
      * Plugin: HtmlWebpackPlugin
      * Description: Simplifies creation of HTML files to serve your webpack bundles.

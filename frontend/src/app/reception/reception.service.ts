@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class HomeService {
+export class ReceptionService {
   constructor(public http: Http) {}
 
   getValue(value: number): Promise<any> {

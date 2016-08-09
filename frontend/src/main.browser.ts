@@ -8,7 +8,8 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 */
 import { PLATFORM_PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HTTP_PROVIDERS } from '@angular/http'
+import { provideForms } from '@angular/forms';
 
 
 /*
@@ -29,6 +30,7 @@ export function main(): Promise<any> {
     ...ENV_PROVIDERS,
     ...APP_PROVIDERS,
     ...HTTP_PROVIDERS,
+    provideForms(),
   ])
   .then(decorateComponentRef)
   .catch(err => console.error(err));
