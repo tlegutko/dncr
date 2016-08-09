@@ -18,7 +18,7 @@ services:
       - "80:80"
       - "2222:22"
     volumes:
-      - .:/var/www/html:Z
+      - .:/var/www/html:z
       - ./server/php:/usr/local/etc/php:ro,Z
     depends_on:
       - db
