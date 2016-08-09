@@ -103,10 +103,6 @@ When you open the project (cloned directory) in PhpStorm you need to:
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`
     4. You should see a list of commands
-5. (Optional) Fetch IDE helpers if not already included:
-    1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
-    2. Download L5 gist
-    3. Place it in application directory (cloned repository)
 
 ## Abilities
 
@@ -142,7 +138,7 @@ This command will properly stop and start Docker containers defined in `docker-c
 
 # Used libraries
 
-We are developing new app so we are using brand new technologies:
+We are developing a new app so we are using brand new technologies:
 
 * [Laravel 5.2](https://laravel.com/docs/5.2/quickstart) as backend server
 * [Angular2](https://angular.io/docs/ts/latest/quickstart.html) with [TypeScript](https://www.typescriptlang.org/docs/tutorial.html)
@@ -163,3 +159,9 @@ This is a weird issue and can be fixed by running several commands:
 
 You can also check `netstat -ab` in PowerShell to see whether Docker is listening on `127.0.0.1:2375` (`com.docker.proxy.exe`).
 Unfortunately we have no idea why is it coming up like this.
+
+## I removed L5 and don't know where to find it!
+
+1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
+2. Download L5 gist
+3. Place it in application directory (cloned repository)
