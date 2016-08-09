@@ -32,7 +32,10 @@ Dance studio management software.
 # Getting started
 
 1. Clone repository
-2. Boot up machines: 
+2. (Windows Only) Setup Docker:
+    1. Click whale icon in the tray
+    2. Select `Shared Drives` and enable `C` (or drive where you have cloned the repository)
+3. Boot up machines: 
     * Go to the repository you cloned
     * (Windows Only) If you have used port 80 you need to update docker-compose.yml: change line 18 to `- "8080:80"` - your server will be available at [http://localhost:8080](http://localhost:8080)
     
@@ -44,21 +47,24 @@ Dance studio management software.
         > Note: If, for any other reason `docker-compose up` doesn't build your image - try again.
     
     * To stop containers use `docker-compose stop`
-3. Install required dependencies:
+4. Install required dependencies:
     * `docker exec -it dncr_php_1 composer install`
     * `cd frontend && npm install`
     
         > For Windows: add `-no-bin-links` to `npm install` command so it properly installs required dependencies.
 
-4. Setup application:
+5. Setup application:
     * `cp .env.dev .env`
     * `docker exec -it dncr_php_1 php artisan key:generate`
-5. Generate frontend application:
+6. Generate frontend application:
     * `cd frontend && npm run build:dev`
-6. (Linux only) Update cache permissions:
+    
+        > For problems with Windows: npm install MISSING_PACKAGE
+
+7. (Linux only) Update cache permissions:
     * `chmod 777 -R storage/*`
     * `chmod 777 bootstrap/cache`
-7. Go to [http://localhost](http://localhost) to see the application.
+8. Go to [http://localhost:8080](http://localhost:8080) to see the application.
 
 # Working with PhpStorm
 
@@ -66,10 +72,7 @@ Dance studio management software.
 
 When you open the project (cloned directory) in PhpStorm you need to:
 
-1. (Windows Only) Setup Docker:
-    1. Click whale icon in the tray
-    2. Select `Shared Drives` and enable `C` (or drive where you have cloned repository)
-2. Setup Docker integration:
+1. Setup Docker integration:
     1. Go to PhpStorm Settings
     2. Enter `Build, Execution, Deployment` tab
     3. Enter `Docker` tab
@@ -78,12 +81,12 @@ When you open the project (cloned directory) in PhpStorm you need to:
             * Enter `http://127.0.0.1:2375` as API URL
             * Clear `Certificates folder`
         * For Linux enter: `unix:///var/run/docker.sock` as API URL
-3. Select proper PHP interpreter in PhpStorm:
+2. Select proper PHP interpreter in PhpStorm:
     1. Go to PhpStorm Settings
     2. Enter `Languages & Frameworks` tab
     3. Enter `PHP` tab
     4. Select `Remote PHP7` interpreter.
-4. Setup ability to debug PHP application:
+3. Setup ability to debug PHP application:
     1. Toggle the “Start Listening for PHP Debug Connections” button. No special debug run configuration is needed. 
     ![Toggle_Off](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_1.png)
     ![Toggle_On](https://confluence.jetbrains.com/download/attachments/50497722/zero_conf_debug_2.png)
@@ -95,12 +98,12 @@ When you open the project (cloned directory) in PhpStorm you need to:
     4. (Windows Only) Change `port` to `8080`
     5. Select `Use path mappings` checkbox
     6. In the `Absolute path on the server` column enter `/var/www/html` next to project main directory.
-5. Setup NPM integration:
+4. Setup NPM integration:
     1. Press Alt + F11
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`
     4. You should see a list of commands
-6. (Optional) Fetch IDE helpers if not already included:
+5. (Optional) Fetch IDE helpers if not already included:
     1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
     2. Download L5 gist
     3. Place it in application directory (cloned repository)
