@@ -24,15 +24,14 @@ Dance studio management software.
 ### Recommended to install
 
 * [PhpStorm](https://www.jetbrains.com/phpstorm/download/)
-* PhpStorm plugins:
-    * Docker Integration: for easy integration of PhpStorm with our Docker container.
-    
-        > Note: you can install them in PhpStorm Settings -> Plugins -> Browse repositories...
 
 # Getting started
 
 1. Clone repository
-2. Boot up machines: 
+2. (Windows Only) Setup Docker:
+    1. Click the whale icon in the tray
+    2. Select `Shared Drives` and enable `C` (or drive where you have cloned the repository)
+3. Boot up machines: 
     * Go to the repository you cloned
     * (Windows Only) If you have used port 80 you need to update docker-compose.yml: change line 18 to `- "8080:80"` - your server will be available at [http://localhost:8080](http://localhost:8080)
     
@@ -44,21 +43,24 @@ Dance studio management software.
         > Note: If, for any other reason `docker-compose up` doesn't build your image - try again.
     
     * To stop containers use `docker-compose stop`
-3. Install required dependencies:
+4. Install required dependencies:
     * `docker exec -it dncr_php_1 composer install`
     * `cd frontend && npm install`
     
         > For Windows: add `-no-bin-links` to `npm install` command so it properly installs required dependencies.
 
-4. Setup application:
+5. Setup application:
     * `cp .env.dev .env`
     * `docker exec -it dncr_php_1 php artisan key:generate`
-5. Generate frontend application:
+6. Generate frontend application:
     * `cd frontend && npm run build:dev`
-6. (Linux only) Update cache permissions:
+    
+        > For problems with Windows: npm install MISSING_PACKAGE
+
+7. (Linux only) Update cache permissions:
     * `chmod 777 -R storage/*`
     * `chmod 777 bootstrap/cache`
-7. Go to [http://localhost](http://localhost) to see the application.
+8. Go to [http://localhost:8080](http://localhost:8080) to see the application.
 
 # Working with PhpStorm
 
@@ -66,9 +68,9 @@ Dance studio management software.
 
 When you open the project (cloned directory) in PhpStorm you need to:
 
-1. (Windows Only) Setup Docker:
-    1. Click whale icon in the tray
-    2. Select `Shared Drives` and enable `C` (or drive where you have cloned repository)
+1. Install Docker Integration:    
+    1. PhpStorm Settings -> Plugins -> Browse repositories...
+    2. "Docker integration" -> install
 2. Setup Docker integration:
     1. Go to PhpStorm Settings
     2. Enter `Build, Execution, Deployment` tab
@@ -100,10 +102,6 @@ When you open the project (cloned directory) in PhpStorm you need to:
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`
     4. You should see a list of commands
-6. (Optional) Fetch IDE helpers if not already included:
-    1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
-    2. Download L5 gist
-    3. Place it in application directory (cloned repository)
 
 ## Abilities
 
@@ -139,7 +137,7 @@ This command will properly stop and start Docker containers defined in `docker-c
 
 # Used libraries
 
-We are developing new app so we are using brand new technologies:
+We are developing a new app so we are using brand new technologies:
 
 * [Laravel 5.2](https://laravel.com/docs/5.2/quickstart) as backend server
 * [Angular2](https://angular.io/docs/ts/latest/quickstart.html) with [TypeScript](https://www.typescriptlang.org/docs/tutorial.html)
@@ -160,3 +158,9 @@ This is a weird issue and can be fixed by running several commands:
 
 You can also check `netstat -ab` in PowerShell to see whether Docker is listening on `127.0.0.1:2375` (`com.docker.proxy.exe`).
 Unfortunately we have no idea why is it coming up like this.
+
+## I removed laravel ide helpers and don't know where to find them!
+
+1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
+2. Download L5 gist
+3. Place it in application directory (cloned repository)
