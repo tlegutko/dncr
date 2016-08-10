@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { AuthService } from './auth.service';
 
 /*
  * App Component
@@ -11,4 +12,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
   templateUrl: 'app.template.html'
 })
 export class App {
+  constructor(private authService: AuthService) {}
+
+  logout(){
+    this.authService.logout();
+  }
+
+  isLoggedIn(){
+    return this.authService.check();
+  }
 }

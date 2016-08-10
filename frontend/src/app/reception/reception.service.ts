@@ -3,8 +3,8 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class HomeService {
-  constructor(public http: Http) {}
+export class ReceptionService {
+  constructor(private http: Http) {}
 
   getValue(value: number): Promise<any> {
     let url = `/api/values/${value}`;
