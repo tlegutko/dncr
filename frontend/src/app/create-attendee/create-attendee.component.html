@@ -1,17 +1,17 @@
-<form class="form-inline">
-  <div class="form-group input-group-sm">
+<form class="form-inline row">
+  <div class="form-group col-xs-2">
     <input type="text" class="form-control" placeholder="Imię" required
     [(ngModel)]="model.name" name="name">
   </div>
-  <div class="form-group input-group-sm">
+  <div class="form-group col-xs-3">
     <input type="text" class="form-control" placeholder="Nazwisko" required
     [(ngModel)]="model.surname" name="surname">
   </div>
-  <div class="form-group input-group-sm">
+  <div class="form-group col-xs-4">
     <input type="email" class="form-control" placeholder="Email" required
     [(ngModel)]="model.email" name="email">
   </div>
-  <div class="form-group input-group-sm">
+  <div class="form-group col-xs-3">
     <input type="tel" class="form-control" placeholder="Telefon" required
     [(ngModel)]="model.phoneNumber" name="phoneNumber">
   </div>
