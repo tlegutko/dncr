@@ -102,6 +102,11 @@ When you open the project (cloned directory) in PhpStorm you need to:
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`
     4. You should see a list of commands
+6. Setup polish dictionary integration:
+    1. Enter `PhpStorm Settings` > `Editor` > `Spelling`
+    2. Enter `Dictionaries` tab
+    3. Click `+` in `Custom Dictionaries Folder`
+    4. Select `dncr/.idea/dictionaries` directory
 
 ## Abilities
 

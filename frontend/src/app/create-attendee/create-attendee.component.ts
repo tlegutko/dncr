@@ -4,14 +4,13 @@ import { Attendee } from './attendee';
 
 @Component({
   selector: 'create-attendee',
-  templateUrl: 'create-attendee.component.html',
-  providers: [
-    CreateAttendeeService
-  ]
+  templateUrl: './create-attendee.component.html',
+  styleUrls: ['./create-attendee.component.scss'],
+  providers: [CreateAttendeeService]
 })
-
 export class CreateAttendee {
   model = new Attendee();
+  title = 'Salsa (początkujący)'; // to be injected in the future
 
   constructor(private createAttendeeService: CreateAttendeeService) {}
 
