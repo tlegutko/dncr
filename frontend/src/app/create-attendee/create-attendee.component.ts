@@ -11,11 +11,31 @@ import { Attendee } from './attendee';
 export class CreateAttendee {
   model = new Attendee();
   title = 'Salsa (początkujący)'; // to be injected in the future
+  showCreateAttendeeForm = false;
+  error = '';
 
   constructor(private createAttendeeService: CreateAttendeeService) {}
 
   createUser() {
     this.createAttendeeService.createAttendee(this.model)
-      .then((response) => console.log(response));
+      .then(() => this.error = '')
+      .catch(error => this.error = error);
+  }
+
+  // noinspection JSMethodCanBeStatic
+  setEmailValidationMessage(emailInput: any) { // [tlegutko] without this method message would be displayed in english
+    if (emailInput.validity.typeMismatch){
+      emailInput.setCustomValidity('Niepoprawny adres email');
+    } else {
+      emailInput.setCustomValidity('');
+    }
+  }
+
+  showCreateAttendeeComponent() {
+    this.showCreateAttendeeForm = true;
+  }
+
+  hideCreateAttendeeComponent() {
+    this.showCreateAttendeeForm = false;
   }
 }

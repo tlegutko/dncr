@@ -1,45 +1,73 @@
-<div class="row create-attendee-top-row">
-  <div class="col-xs-1 p-x-0 hidden-sm-up">
-    <button type="button" class="btn btn-secondary"
-            (click)="createUser()">
-      <i class="fa fa-times"></i>
-    </button>
+<p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
+<div *ngIf="!showCreateAttendeeForm">
+  <div class="hidden-xs-down row">
+    <div class="col xs-1 col-sm-11 p-l-0">
+      <i class="fa fa-users fa-2x pull-xs-left m-x-1" aria-hidden="true"></i>
+      <h5 style="margin-top: 0.6rem; margin-bottom: 0">Lista osób: {{ title }}</h5>
+    </div>
+    <div class="col-xs-1 pull-xs-right p-r-0">
+      <button type="button" class="btn btn-lg create-attendee-plus-button pull-xs-right"
+              (click)="showCreateAttendeeComponent()">
+        <i class="fa fa-plus fa-lg"></i>
+      </button>
+    </div>
   </div>
-  <div class="col-sm-11 hidden-xs-down p-l-0">
-    <button type="button" class="btn btn-secondary pull-xs-left" style="margin-right: 0.5rem"
-            (click)="createUser()">
-      <i class="fa fa-times"></i>
-    </button>
-    <h5 style="margin-top: 0.75rem">Lista osób: {{ title }}</h5>
-  </div>
-  <div class="col-xs-1 pull-xs-right p-r-0">
-    <button type="button" class="btn btn-primary pull-xs-right"
-            (click)="createUser()">
-      <i class="fa fa-floppy-o"></i> Zapisz
-    </button>
+  <div class="hidden-sm-up">
+    <div class="row">
+      <p style="margin: 0.5rem">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        {{ title }}
+      </p>
+    </div>
+    <div class="row">
+      <!--(tlegutko) Button na razie tutaj, jak będzie lista kursantów, to się go przeniesie na dół
+      / wyciągnie do komponentu wyżej, bo chyba się tutaj za dużo rzeczy zrobiło -->
+      <button type="button" class="btn create-attendee-plus-button pull-xs-right"
+              (click)="showCreateAttendeeComponent()">
+        <i class="fa fa-plus fa-lg"></i>
+      </button>
+    </div>
   </div>
 </div>
-<div class="row hidden-sm-up">
-  <p style="margin: 0.5rem">
-    <i class="fa fa-users" aria-hidden="true"></i>
-    {{ title }}
-  </p>
-</div>
-<form class="form row">
-  <div class="form-group col-sm-3 col-xs-12 p-x-0">
-    <input type="text" class="form-control" placeholder="Imię" required
-           [(ngModel)]="model.name" name="name">
+<form *ngIf="showCreateAttendeeForm" class="form" (ngSubmit)="createUser()" #createAttendeeForm="ngForm">
+  <div class="row create-attendee-top-row">
+    <div class="col xs-1 col-sm-11 p-l-0">
+      <button type="button" class="btn btn-secondary pull-xs-left" style="margin-right: 0.5rem"
+              (click)="hideCreateAttendeeComponent()">
+        <i class="fa fa-times"></i>
+      </button>
+      <h5 class="hidden-xs-down" style="margin-top: 0.6rem; margin-bottom: 0">Lista osób: {{ title }}</h5>
+    </div>
+    <div class="col-xs-1 pull-xs-right p-r-0">
+      <button type="submit" class="btn btn-primary pull-xs-right"
+              [disabled]="!createAttendeeForm.form.valid">
+        <i class="fa fa-floppy-o"></i> Zapisz
+      </button>
+    </div>
   </div>
-  <div class="form-group col-sm-3 col-xs-12 p-x-0">
-    <input type="text" class="form-control" placeholder="Nazwisko" required
-           [(ngModel)]="model.surname" name="surname">
+  <div class="row hidden-sm-up">
+    <p style="margin: 0.5rem">
+      <i class="fa fa-users" aria-hidden="true"></i>
+      {{ title }}
+    </p>
   </div>
-  <div class="form-group col-sm-3 col-xs-12 p-x-0">
-    <input type="email" class="form-control" placeholder="Email" required
-           [(ngModel)]="model.email" name="email">
-  </div>
-  <div class="form-group col-sm-3 col-xs-12 p-x-0">
-    <input type="tel" class="form-control" placeholder="Telefon" required
-           [(ngModel)]="model.phoneNumber" name="phoneNumber">
+  <div class="row">
+    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+      <input type="text" class="form-control" placeholder="Imię..." required
+             [(ngModel)]="model.name" name="name">
+    </div>
+    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+      <input type="text" class="form-control" placeholder="Nazwisko..." required
+             [(ngModel)]="model.surname" name="surname">
+    </div>
+    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+      <input #emailInput type="email" class="form-control" placeholder="Email..." required
+             (change)="setEmailValidationMessage(emailInput)"
+             [(ngModel)]="model.email" name="email">
+    </div>
+    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+      <input type="tel" class="form-control" placeholder="Telefon..." required pattern="[0-9]{9}"
+             [(ngModel)]="model.phoneNumber" name="phoneNumber">
+    </div>
   </div>
 </form>
