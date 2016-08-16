@@ -2,9 +2,10 @@ import { RouterConfig } from '@angular/router';
 import { NoContent } from './no-content';
 import { Reception } from './reception/reception.component';
 import { AuthGuard } from './auth-guard';
+import { Homepage } from './homepage/homepage.component';
 
 export const asyncRoutes: AsyncRoutes = {
-  'Login': require('es6-promise-loader!./login'),
+  // 'Login': require('es6-promise-loader!./login'),
 };
 
 
@@ -14,10 +15,7 @@ export const prefetchRouteCallbacks: Array<IdleCallbacks> = [];
 
 export const routes: RouterConfig = [
   {
-    path: '', redirectTo: '/reception', pathMatch: 'full'
-  },
-  {
-    path: 'login', component: 'Login'
+    path: '', component: Homepage
   },
   {
     path: 'reception', component: Reception, canActivate: [AuthGuard]

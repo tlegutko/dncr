@@ -1,7 +1,12 @@
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins/_breakpoints";
 
-body {
+main {
+  display: block;
+  margin-top: 1rem;
+}
+
+nav.navbar ~ main {
   margin-top: 4rem;
 
   @media (min-width: breakpoint-min(sm)) {

@@ -1,0 +1,52 @@
+<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 login" *ngIf="isLoginVisible">
+  <login></login>
+</div>
+<div class="col-sm-12 col-xs-12 landing" [class.col-lg-8]="isLoginVisible" [class.col-md-6]="isLoginVisible">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">
+        <button class="btn btn-primary pull-xs-right" (click)="showLoginForm()" *ngIf="!isLoginVisible">Zaloguj się
+        </button>
+        DNCR
+        <small>do zarządzania klubem tanecznym</small>
+      </h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Zarządzanie klubem tanecznym</h4>
+        </div>
+        <img class="img-fluid" src="assets/img/homepage/desktop_recepcja.png" alt="Widok recepcji">
+        <div class="card-block">
+          <p class="card-text">Aplikacja pozwoli na zarządzanie klubem tanecznym - kursami, grupami i kursantami!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Szczegółowe informacje o kursantach</h4>
+        </div>
+        <img class="img-fluid" src="assets/img/homepage/desktop_recepcja_person_details.png" alt="Szczegóły kursanta">
+        <div class="card-block">
+          <p class="card-text">Pełne i szczegółowe informacje o każdym z kursantów:</p>
+          <ul>
+            <li>Historia płatności</li>
+            <li>Historia kursów i obecności</li>
+            <li>Status kursanta (VIP, normalny, zagrożony)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-xs-center">
+      <p class="alert alert-info">
+        <button type="button" class="btn btn-primary">Napisz do nas</button>
+        już dzisiaj i dowiedz się co możemy dla Ciebie zrobić!
+      </p>
+    </div>
+  </div>
+</div>
