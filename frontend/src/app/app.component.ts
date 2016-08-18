@@ -5,20 +5,23 @@ import { AuthService } from './auth.service';
  * App Component
  * Top Level Component
  */
-@Component({
-  selector: 'app',
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: [ './app.style.scss' ],
-  templateUrl: 'app.template.html'
-})
+@Component(
+  {
+    selector: 'app',
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./app.style.scss'],
+    templateUrl: 'app.template.html'
+  }
+)
 export class App {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
 
-  isLoggedIn(){
+  isLoggedIn() {
     return this.authService.check();
   }
 }
