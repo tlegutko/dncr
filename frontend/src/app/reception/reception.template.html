@@ -1,19 +1,14 @@
-<div class="jumbotron">
-  <h1>Ten komponent będzie recepcją kiedyś</h1>
-  <p class="lead">Jakiś krótki opis! <i class="fa fa-cogs"></i></p>
-</div>
 <div class="row">
-  <div class="col-md-4">
-    <h2>Test</h2>
-    <p>Tutaj pierwsza kolumna</p>
+  <button type="button" class="btn btn-primary" (click)="toggleCourseDetails()" data-toggle="button"
+          aria-pressed="false">
+    Pokaż szczegóły kursu
+  </button>
   </div>
-  <div class="col-md-4">
-    <p>Tutaj druga kolumna</p>
-    <hr />
-    <p *ngIf="value">Dane z API: {{ value.test }}</p>
+<div class="row">
+  <div [ngClass]="setCalendarColumnSize()">
+    <img src="/assets/img/calendar-tmp.png" class="img-fluid" style="width: 100%" alt="Mock kalendarza">
   </div>
-  <div class="col-md-4">
-    <h2>Ostatnia</h2>
-    <p>Trzecia kolumna!</p>
+  <div *ngIf="showCourseDetails" class="col-sm-6">
+    <p>Tutaj kolumna z detalami kursu</p>
   </div>
 </div>

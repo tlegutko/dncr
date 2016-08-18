@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
 
-import { ReceptionService } from './reception.service';
-
 @Component(
   {
     selector: 'reception',
-    providers: [ReceptionService],
     styleUrls: ['./reception.style.scss'],
     templateUrl: './reception.template.html'
   }
 )
 export class Reception {
-  value: any;
+  showCourseDetails: boolean = false;
 
-  constructor(public service: ReceptionService) {
+  constructor() {
   }
 
-  ngOnInit() {
-    return this.service.getValue(10).then(data => this.value = data);
+  toggleCourseDetails() {
+    this.showCourseDetails = !this.showCourseDetails;
   }
+
+  setCalendarColumnSize() {
+    return {
+      'col-sm-6': this.showCourseDetails,
+      'col-sm-12': !this.showCourseDetails,
+    };
+  }
+
 }
