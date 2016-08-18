@@ -3,10 +3,6 @@
 
 body {
   margin-top: 4rem;
-
-  @media (min-width: breakpoint-min(sm)) {
-    margin-top: 5rem;
-  }
 }
 
 // Firefox required input workaround
