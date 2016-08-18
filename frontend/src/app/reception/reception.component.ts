@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 
 import { ReceptionService } from './reception.service';
 
-@Component({
-  selector: 'reception',
-  providers: [ ReceptionService ],
-  styleUrls: [ './reception.style.scss' ],
-  templateUrl: './reception.template.html'
-})
+@Component(
+  {
+    selector: 'reception',
+    providers: [ReceptionService],
+    styleUrls: ['./reception.style.scss'],
+    templateUrl: './reception.template.html'
+  }
+)
 export class Reception {
   value: any;
 

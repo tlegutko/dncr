@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { LoginModel } from './login.model';
 import { NgForm } from '@angular/common';
 
-@Component({
-  selector: 'login',
-  providers: [NgForm],
-  styleUrls: ['./login.style.scss'],
-  templateUrl: './login.template.html'
-})
+@Component(
+  {
+    selector: 'login',
+    providers: [NgForm],
+    styleUrls: ['./login.style.scss'],
+    templateUrl: './login.template.html'
+  }
+)
 export class Login {
   model = new LoginModel();
   error = '';
@@ -18,11 +20,13 @@ export class Login {
   }
 
   ngOnInit() {
-    this.service.check().map((result) => {
-      if (result) {
-        this.router.navigate(['reception']);
+    this.service.check().map(
+      (result) => {
+        if (result) {
+          this.router.navigate(['reception']);
+        }
       }
-    });
+    );
   }
 
   onSubmit() {
