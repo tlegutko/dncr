@@ -1,14 +1,11 @@
 <div class="row">
-  <button type="button" class="btn btn-primary" (click)="toggleCourseDetails()" data-toggle="button"
-          aria-pressed="false">
-    Pokaż szczegóły kursu
-  </button>
-  </div>
+  <a [routerLink]="routerLinkUrl" (click)="toggleRouterLinkUrl()">Szczegóły kursu</a>
+</div>
 <div class="row">
-  <div [ngClass]="setCalendarColumnSize()">
+  <div [ngClass]="setCalendarColumnWidth()">
     <img src="/assets/img/calendar-tmp.png" class="img-fluid" style="width: 100%" alt="Mock kalendarza">
   </div>
-  <div *ngIf="showCourseDetails" class="col-sm-6">
-    <p>Tutaj kolumna z detalami kursu</p>
+  <div [class.hidden-xs-up]="!showAdditionalPane" class="col-sm-6">
+    <router-outlet></router-outlet>
   </div>
 </div>
