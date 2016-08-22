@@ -4,8 +4,8 @@
     {{ currentDate | date:'EEEE, dd.MM.y' }}
   </h3>
   <a [routerLink]="['details']">Pokaż szczegóły</a>
-  <img src="assets/img/manager/calendar.png" alt="Kalendarz zajęć" style="width: 100%;">
+  <img src="assets/img/calendar-tmp.png" alt="Kalendarz zajęć" style="width: 100%;">
 </div>
-<div [class.hidden-xs-down]="!showAdditionalPane" class="col-md-8 col-lg-6">
+<div [class.hidden-xs-up]="!showAdditionalPane" class="col-md-8 col-lg-6">
   <router-outlet></router-outlet>
 </div>
