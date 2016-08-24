@@ -1,42 +1,12 @@
 <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
-<div *ngIf="!showCreateAttendeeForm">
-  <div class="hidden-xs-down row">
-    <div class="col xs-1 col-sm-11 p-l-0">
-      <i class="fa fa-users fa-2x pull-xs-left m-x-1" aria-hidden="true"></i>
-      <h5 style="margin-top: 0.6rem; margin-bottom: 0">Lista osób: {{ title }}</h5>
-    </div>
-    <div class="col-xs-1 pull-xs-right p-r-0">
-      <button type="button" class="btn btn-lg create-attendee-plus-button pull-xs-right"
-              (click)="showCreateAttendeeComponent()">
-        <i class="fa fa-plus fa-lg"></i>
-      </button>
-    </div>
-  </div>
-  <div class="hidden-sm-up">
-    <div class="row">
-      <p style="margin: 0.5rem">
-        <i class="fa fa-users" aria-hidden="true"></i>
-        {{ title }}
-      </p>
-    </div>
-    <div class="row">
-      <!--(tlegutko) Button na razie tutaj, jak będzie lista kursantów, to się go przeniesie na dół
-      / wyciągnie do komponentu wyżej, bo chyba się tutaj za dużo rzeczy zrobiło -->
-      <button type="button" class="btn create-attendee-plus-button pull-xs-right"
-              (click)="showCreateAttendeeComponent()">
-        <i class="fa fa-plus fa-lg"></i>
-      </button>
-    </div>
-  </div>
-</div>
-<form *ngIf="showCreateAttendeeForm" class="form" (ngSubmit)="createUser()" #createAttendeeForm="ngForm">
+<form class="form" (ngSubmit)="createUser()" #createAttendeeForm="ngForm">
   <div class="row create-attendee-top-row">
     <div class="col xs-1 col-sm-11 p-l-0">
-      <button type="button" class="btn btn-secondary pull-xs-left" style="margin-right: 0.5rem"
-              (click)="hideCreateAttendeeComponent()">
+      <button type="button" class="btn btn-secondary pull-xs-left m-r-1"
+              (click)="emitCancelEvent()">
         <i class="fa fa-times"></i>
       </button>
-      <h5 class="hidden-xs-down" style="margin-top: 0.6rem; margin-bottom: 0">Lista osób: {{ title }}</h5>
+      <h5 class="hidden-md-down title-lg">Lista osób: {{ title }}</h5>
     </div>
     <div class="col-xs-1 pull-xs-right p-r-0">
       <button type="submit" class="btn btn-primary pull-xs-right"
@@ -45,27 +15,24 @@
       </button>
     </div>
   </div>
-  <div class="row hidden-sm-up">
-    <p style="margin: 0.5rem">
-      <i class="fa fa-users" aria-hidden="true"></i>
-      {{ title }}
-    </p>
+  <div class="row hidden-lg-up title-sm">
+    <i class="fa fa-users" aria-hidden="true"></i>
+    {{ title }}
   </div>
   <div class="row">
-    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+    <div class="form-group col-sm-3 col-xs-12">
       <input type="text" class="form-control" placeholder="Imię..." required
              [(ngModel)]="model.name" name="name">
     </div>
-    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+    <div class="form-group col-sm-3 col-xs-12">
       <input type="text" class="form-control" placeholder="Nazwisko..." required
              [(ngModel)]="model.surname" name="surname">
     </div>
-    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+    <div class="form-group col-sm-3 col-xs-12">
       <input #emailInput type="email" class="form-control" placeholder="Email..." required
-             (change)="setEmailValidationMessage(emailInput)"
              [(ngModel)]="model.email" name="email">
     </div>
-    <div class="form-group col-sm-3 col-xs-12 p-x-0">
+    <div class="form-group col-sm-3 col-xs-12">
       <input type="tel" class="form-control" placeholder="Telefon..." required pattern="[0-9]{9}"
              [(ngModel)]="model.phoneNumber" name="phoneNumber">
     </div>

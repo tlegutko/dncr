@@ -10,10 +10,6 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['reception']">Recepcja</a>
       </li>
-      <!--Link "Dodaj uzytkownika" do usuniecia pozniej, gdy DNCR-76 będzie zmergowany, to komponent powinien po prostu być w recepcji-->
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['./create-attendee']">Dodaj użytkownika</a>
-      </li>
     </ul>
     <button type="button" class="btn btn-primary pull-xs-right" *ngIf="isLoggedIn() | async" (click)="logout()">
       Wyloguj się

@@ -1,41 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CreateAttendeeService } from './create-attendee.service';
 import { Attendee } from './attendee';
 
 @Component({
-  selector: 'create-attendee',
+  selector: 'create-attendee-form',
   templateUrl: './create-attendee.component.html',
   styleUrls: ['./create-attendee.component.scss'],
   providers: [CreateAttendeeService]
 })
-export class CreateAttendee {
+export class CreateAttendeeComponent {
+  @Input() title: string;
+  @Output() onCancelAction = new EventEmitter<boolean>();
   model = new Attendee();
-  title = 'Salsa (początkujący)'; // to be injected in the future
-  showCreateAttendeeForm = false;
-  error = '';
+  error = ''; // TODO remove
+
+  emitCancelEvent() {
+    this.onCancelAction.emit(false);
+  }
 
   constructor(private createAttendeeService: CreateAttendeeService) {}
 
   createUser() {
     this.createAttendeeService.createAttendee(this.model)
       .then(() => this.error = '')
-      .catch(error => this.error = error);
+      .catch(error => this.error = error); // TODO [tlegutko] Improve error msg on err 500.
   }
 
-  // noinspection JSMethodCanBeStatic
-  setEmailValidationMessage(emailInput: any) { // [tlegutko] without this method message would be displayed in english
-    if (emailInput.validity.typeMismatch){
-      emailInput.setCustomValidity('Niepoprawny adres email');
-    } else {
-      emailInput.setCustomValidity('');
-    }
-  }
-
-  showCreateAttendeeComponent() {
-    this.showCreateAttendeeForm = true;
-  }
-
-  hideCreateAttendeeComponent() {
-    this.showCreateAttendeeForm = false;
-  }
 }
