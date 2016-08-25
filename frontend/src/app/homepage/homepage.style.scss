@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/_variables';
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+.login {
+  float: right;
+
+  @media (max-width: breakpoint-max(sm)) {
+    float: left;
+    margin-bottom: 2rem;
+  }
+}
+
+.landing {
+  .card-title {
+    margin-bottom: 0;
+  }
+}

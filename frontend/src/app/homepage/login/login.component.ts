@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 import { LoginModel } from './login.model';
 import { NgForm } from '@angular/common';
 
@@ -12,21 +11,16 @@ import { NgForm } from '@angular/common';
     templateUrl: './login.template.html'
   }
 )
-export class Login {
+export class LoginComponent {
   model = new LoginModel();
   error = '';
+  isKnownUser = false;
 
-  constructor(private service: AuthService, private router: Router) {
+  constructor(private service: AuthService) {
   }
 
   ngOnInit() {
-    this.service.check().map(
-      (result) => {
-        if (result) {
-          this.router.navigate(['reception']);
-        }
-      }
-    );
+    this.isKnownUser = this.service.isKnownUser();
   }
 
   onSubmit() {
