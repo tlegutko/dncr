@@ -1,0 +1,11 @@
+@import '~bootstrap/scss/_variables';
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+form.card {
+  .form-control-label {
+    text-align: right;
+  }
+  .card-footer {
+    padding: 0.2rem;
+  }
+}

@@ -1,12 +1,13 @@
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins/_breakpoints";
 
-body {
-  margin-top: 4rem;
+main {
+  display: block;
+  margin-top: 1rem;
+}
 
-  @media (min-width: breakpoint-min(sm)) {
-    margin-top: 5rem;
-  }
+nav.navbar ~ main {
+  margin-top: 4rem;
 }
 
 // Firefox required input workaround

@@ -3,5 +3,6 @@
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$/frontend" libraries="{dncr/frontend/node_modules}" />
     <includedPredefinedLibrary name="Node.js Core" />
+    <includedPredefinedLibrary name="dncr/frontend/node_modules" />
   </component>
 </project>
