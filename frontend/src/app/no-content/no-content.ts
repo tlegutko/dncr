@@ -5,11 +5,9 @@ import { Component } from '@angular/core';
     selector: 'no-content',
     template: `
     <div>
-      <h1>404: page missing</h1>
+      <h1>404: strona nie istnieje!</h1>
     </div>
   `
   }
 )
-export class NoContent {
-
-}
+export class NoContent {}

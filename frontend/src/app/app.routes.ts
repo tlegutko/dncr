@@ -3,12 +3,13 @@ import { NoContent } from './no-content';
 import { Reception } from './reception/reception.component';
 import { AuthGuard } from './auth-guard';
 import { WebpackAsyncRoute } from '@angularclass/webpack-toolkit/dist/index';
+import { Homepage } from './homepage/homepage.component';
 
 export const asyncRoutes: AsyncRoutes = {
-  'Login': require('es6-promise-loader!./login'),
   'ManagerComponent': require('es6-promise-loader!./manager'),
   'ManagerCoursesComponent': require('es6-promise-loader!./manager'),
   'ManagerCoursesDetailsComponent': require('es6-promise-loader!./manager'),
+  // 'Login': require('es6-promise-loader!./login'),
 };
 
 // Optimizations for initial loads
@@ -19,9 +20,7 @@ export const prefetchRouteCallbacks: Array<IdleCallbacks> = [
 
 export const routes: RouterConfig = [
   {
-    path: '',
-    redirectTo: '/reception',
-    pathMatch: 'full'
+    path: '', component: Homepage
   }, {
     path: 'login',
     component: 'Login'

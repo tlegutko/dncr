@@ -1,8 +1,7 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+<nav class="navbar navbar-fixed-top navbar-dark bg-inverse" *ngIf="isLoggedIn() | async">
   <a class="navbar-brand" [routerLink]="['/']">DNCR</a>
   <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-header"
-          aria-controls="navbar-header" aria-expanded="false" aria-label="Rozwiń nawigację"
-          *ngIf="isLoggedIn() | async">
+          aria-controls="navbar-header" aria-expanded="false" aria-label="Rozwiń nawigację">
     &#9776;
   </button>
   <div class="collapse navbar-toggleable-sm" id="navbar-header">
@@ -14,7 +13,7 @@
         <a class="nav-link" [routerLink]="['manager']">Menedżer</a>
       </li>
     </ul>
-    <button type="button" class="btn btn-primary pull-xs-right" *ngIf="isLoggedIn() | async" (click)="logout()">
+    <button type="button" class="btn btn-primary pull-xs-right" (click)="logout()">
       Wyloguj się
     </button>
   </div>

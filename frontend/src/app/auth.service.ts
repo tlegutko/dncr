@@ -2,24 +2,27 @@ import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { LoginModel } from './login/login.model';
+import { LoginModel } from './homepage/login';
+import { CookieService } from 'angular2-cookie/core';
 
 @Injectable()
 export class AuthService {
-  LOGGED_IN_KEY = 'logged-in';
+  public LOGGED_IN_KEY = 'logged-in';
+  public KNOWN_USER = 'known_user';
 
   private loggedIn = false;
   private storage: Storage;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cookies: CookieService) {
     this.storage = localStorage;
     this.loggedIn = this.getFromStorage();
   }
 
-  login(model: LoginModel) {
+  public login(model: LoginModel) {
     if (model.login === 'admin' && model.password === 'admin1') {
       this.loggedIn = true;
       this.storage.setItem(this.LOGGED_IN_KEY, 'true');
+      this.cookies.put(this.KNOWN_USER, 'true');
       this.router.navigate(['reception']);
       return;
     }
@@ -27,14 +30,18 @@ export class AuthService {
     throw new Error('Nieprawidłowy login lub hasło.');
   }
 
-  logout() {
+  public logout() {
     this.loggedIn = false;
     this.storage.removeItem(this.LOGGED_IN_KEY);
-    this.router.navigate(['login']);
+    this.router.navigate(['/']);
   }
 
-  check() {
+  public check() {
     return Observable.of(this.loggedIn);
+  }
+
+  public isKnownUser(): boolean {
+    return this.cookies.get(this.KNOWN_USER) === 'true';
   }
 
   private getFromStorage(): boolean {
