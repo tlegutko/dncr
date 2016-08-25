@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CreateAttendeeComponent } from '../../create-attendee/create-attendee.component';
 import { CourseDetailsTitleComponent } from './course-details-title/course-details-title.component';
 import {

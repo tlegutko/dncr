@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Attendee } from './attendee';
 import { Observable } from 'rxjs/Rx'; // [tlegutko] Intellij says unused import, but .toPromise() needs it to work
 
@@ -12,15 +12,20 @@ export class CreateAttendeeService {
   }
 
   createAttendee(attendee: Attendee) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(
+      {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset=UTF-8',
+      }
+    );
+    let options = new RequestOptions({ headers: headers });
     return this.http
-      .post(this.createUserUrl, attendee, headers)
+      .post(this.createUserUrl, attendee, options)
       .toPromise()
       .catch(
         (error) => {
           console.error('Error during attendee creation', error);
-          return Promise.reject(error.json().message);
+          return Promise.reject(JSON.parse(error._body));
         }
       );
   }

@@ -120,6 +120,9 @@ When you open the project (cloned directory) in PhpStorm you need to:
     2. Enter `Dictionaries` tab
     3. Click `+` in `Custom Dictionaries Folder`
     4. Select `dncr/.idea/dictionaries` directory
+9. Install Laravel Plugin.
+    1. Enter `PhpStorm Settings` > `Plugins` > `Spelling` > `Browse repositories...`
+    2. Search for `Laravel Plugin`, select it and `Install`
 
 ## Abilities
 

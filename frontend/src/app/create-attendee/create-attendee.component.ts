@@ -12,7 +12,7 @@ export class CreateAttendeeComponent {
   @Input() title: string;
   @Output() onCancelAction = new EventEmitter<boolean>();
   model = new Attendee();
-  error = ''; // TODO remove
+  error = '';
 
   emitCancelEvent() {
     this.onCancelAction.emit(false);
@@ -22,8 +22,14 @@ export class CreateAttendeeComponent {
 
   createUser() {
     this.createAttendeeService.createAttendee(this.model)
-      .then(() => this.error = '')
-      .catch(error => this.error = error); // TODO [tlegutko] Improve error msg on err 500.
+      .then((r) => {
+        this.error = '';
+        console.log(r);
+      })
+      .catch(error => {
+        console.log(error);
+        this.error = error;
+      });
   }
 
 }

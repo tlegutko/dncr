@@ -12,6 +12,6 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
+        'api/*', // TODO [tlegutko] remove this once real front-end authentication is implemented
     ];
 }
