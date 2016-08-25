@@ -12,6 +12,6 @@ declare(strict_types=1);
 |
 */
 
-Route::resource('api/attendees', 'AttendeesController', ['except' => [
-  'create', 'edit'
+Route::resource('api/attendees', 'AttendeesController', ['only' => [
+  'index', 'store', 'show', 'update', 'destroy'
   ]]);

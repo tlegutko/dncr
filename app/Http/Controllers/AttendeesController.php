@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Attendee;
-use App\Http\Requests\CreateAttendeeRequest;
+use App\Http\Requests\StoreAttendeeRequest;
 
 class AttendeesController extends Controller
 {
@@ -23,24 +23,12 @@ class AttendeesController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  CreateAttendeeRequest $request
+   * @param  StoreAttendeeRequest $request
    *
    * @return \Illuminate\Http\Response
    */
-  public function store(CreateAttendeeRequest $request)
+  public function store(StoreAttendeeRequest $request)
   {
-    //    $requestHasAllRequiredFields = $request->has(['name', 'surname', 'email', 'phoneNumber']);
-    //    if (!$requestHasAllRequiredFields) {
-    //      return response()->json(['message' => 'Brakujące wymagane pola'])->setStatusCode(400);
-    //    }
-    $attendeeAlreadyExists = Attendee::where('email', $request->get('email'))
-                                     ->orWhere('phoneNumber', $request->get('phoneNumber'))
-                                     ->exists();
-    if($attendeeAlreadyExists)
-    {
-      return response()->json(['message' => 'Email lub numer telefonu już wykorzystany.'])->setStatusCode(400);
-    }
-
     return response()->json(Attendee::create($request->all()));
   }
 
@@ -61,12 +49,12 @@ class AttendeesController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  CreateAttendeeRequest $request
+   * @param  StoreAttendeeRequest $request
    * @param  int $id
    *
    * @return \Illuminate\Http\Response
    */
-  public function update(CreateAttendeeRequest $request, $id)
+  public function update(StoreAttendeeRequest $request, $id)
   {
     $attendee = Attendee::findOrFail($id);
 

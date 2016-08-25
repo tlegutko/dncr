@@ -14,7 +14,7 @@ export class CreateAttendeeComponent {
   model = new Attendee();
   error = '';
 
-  emitCancelEvent() {
+  cancel() {
     this.onCancelAction.emit(false);
   }
 

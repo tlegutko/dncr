@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Attendee } from './attendee';
-import { Observable } from 'rxjs/Rx'; // [tlegutko] Intellij says unused import, but .toPromise() needs it to work
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CreateAttendeeService {

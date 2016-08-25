@@ -2,8 +2,7 @@
 <form class="form" (ngSubmit)="createUser()" #createAttendeeForm="ngForm">
   <div class="row create-attendee-top-row">
     <div class="col xs-1 col-sm-11 p-l-0">
-      <button type="button" class="btn btn-secondary pull-xs-left m-r-1"
-              (click)="emitCancelEvent()">
+      <button type="button" class="btn btn-secondary pull-xs-left m-r-1" (click)="cancel()">
         <i class="fa fa-times"></i>
       </button>
       <h5 class="hidden-md-down title-lg">Lista osób: {{ title }}</h5>

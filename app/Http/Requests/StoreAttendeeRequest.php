@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Contracts\Validation\Validator;
 
-class CreateAttendeeRequest extends Request
+class StoreAttendeeRequest extends Request
 {
   /**
    * Get the validation rules that apply to the request.
@@ -17,8 +17,8 @@ class CreateAttendeeRequest extends Request
     return [ // [tlegutko] see dncr/app/resources/lang/pl/validation for translations
              'name' => 'required',
              'surname' => 'required',
-             'email' => 'required | unique:attendees,email',
-             'phoneNumber' => 'required | unique:attendees,phoneNumber',
+             'email' => 'required | email | unique:attendees',
+             'phoneNumber' => 'required | digits:9 | unique:attendees',
     ];
   }
 
