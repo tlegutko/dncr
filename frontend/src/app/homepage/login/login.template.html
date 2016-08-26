@@ -4,10 +4,10 @@
   <div class="card-block">
     <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
     <div class="form-group row">
-      <label for="login" class="col-sm-2 form-control-label">Login</label>
+      <label for="login" class="col-sm-2 form-control-label">E-mail</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="login" placeholder="Login…" name="login" required
-               [(ngModel)]="model.login">
+        <input type="text" class="form-control" id="login" placeholder="E-mail…" name="email" required
+               [(ngModel)]="model.email">
       </div>
     </div>
     <div class="form-group row">

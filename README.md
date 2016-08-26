@@ -52,15 +52,18 @@ Dance studio management software.
 5. Setup application:
     * `cp .env.dev .env`
     * `docker exec -it dncr_php_1 php artisan key:generate`
-6. Generate frontend application:
+    * `docker exec -it dncr_php_1 php artisan jwt:generate`
+6. Create and seed database:
+    * `docker exec -it dncr_php_1 php artisan migrate:refresh --seed`
+7. Generate frontend application:
     * `cd frontend && npm run build:dev`
     
         > For problems with Windows: npm install MISSING_PACKAGE
 
-7. (Linux only) Update cache permissions:
+8. (Linux only) Update cache permissions:
     * `chmod 777 -R storage/*`
-    * `chmod 777 bootstrap/cache`
-8. Go to [http://localhost:8080](http://localhost:8080) to see the application.
+    * `chmod 777 bootstrap/cache
+9. Go to [http://localhost:8080](http://localhost:8080) to see the application.
 
 # Working with PhpStorm
 

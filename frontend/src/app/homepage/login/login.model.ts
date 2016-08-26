@@ -1,4 +1,4 @@
 export class LoginModel {
-  public login: string;
+  public email: string;
   public password: string;
 }
