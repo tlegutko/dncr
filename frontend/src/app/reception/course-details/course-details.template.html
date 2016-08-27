@@ -1,23 +1,15 @@
 <div *ngIf="!showCreateAttendeeForm" class="row">
   <div class="col-lg-10 p-x-0">
-    <course-details-title [title]="courseDetails.title">
-    </course-details-title>
+    <course-details-title [title]="courseDetails.title"></course-details-title>
   </div>
   <div class="hidden-md-down col-lg-2">
-    <course-details-action-button
-      (onClickAction)="toggleCreateAttendeeForm($event)">
-    </course-details-action-button>
+    <course-details-action-button (onClickAction)="toggleCreateAttendeeForm($event)"></course-details-action-button>
   </div>
 </div>
 <div *ngIf="showCreateAttendeeForm">
-  <create-attendee-form
-    [title]="courseDetails.title"
-    (onCancelAction)="toggleCreateAttendeeForm($event)">
-  </create-attendee-form>
+  <create-attendee-form [title]="courseDetails.title" (onCancelAction)="toggleCreateAttendeeForm($event)"></create-attendee-form>
 </div>
 <!--TODO: tutaj lista kursantów-->
 <div *ngIf="!showCreateAttendeeForm" class="hidden-lg-up">
-  <course-details-action-button
-    (onClickAction)="toggleCreateAttendeeForm($event)">
-  </course-details-action-button>
+  <course-details-action-button (onClickAction)="toggleCreateAttendeeForm($event)"></course-details-action-button>
 </div>

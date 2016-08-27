@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 @Component(
   {
     selector: 'course-details-title',
-    templateUrl: './title.component.html',
-    styleUrls: ['./title.component.scss'],
+    templateUrl: './title.template.html',
+    styleUrls: ['./title.style.scss'],
   }
 )
 export class CourseDetailsTitleComponent {

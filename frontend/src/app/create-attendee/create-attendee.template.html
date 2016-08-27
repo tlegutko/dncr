@@ -5,18 +5,12 @@
       <button type="button" class="btn btn-secondary pull-xs-left m-r-1" (click)="cancel()">
         <i class="fa fa-times"></i>
       </button>
-      <h5 class="hidden-md-down title-lg">Lista osób: {{ title }}</h5>
     </div>
-    <div class="col-xs-1 pull-xs-right p-r-0">
-      <button type="submit" class="btn btn-primary pull-xs-right"
-              [disabled]="!createAttendeeForm.form.valid">
-        <i class="fa fa-floppy-o"></i> Zapisz
-      </button>
+    <div class="row">
+      <course-details-title title="title" is-editing="true">
+        <button class="btn btn-lg btn-primary" type="submit">Zapisz</button>
+      </course-details-title>
     </div>
-  </div>
-  <div class="row hidden-lg-up title-sm">
-    <i class="fa fa-users" aria-hidden="true"></i>
-    {{ title }}
   </div>
   <div class="row">
     <div class="form-group col-sm-3 col-xs-12">

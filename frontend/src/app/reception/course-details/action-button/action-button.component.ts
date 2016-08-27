@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 @Component(
   {
     selector: 'course-details-action-button',
-    styleUrls: ['./action-button.component.scss'],
+    styleUrls: ['./action-button.style.scss'],
     template: `
       <button type="button" class="btn btn-md-down-fixed btn-lg-up-title"
               (click)="add()">
