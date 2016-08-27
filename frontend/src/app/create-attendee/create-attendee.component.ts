@@ -4,8 +4,8 @@ import { Attendee } from './attendee';
 
 @Component({
   selector: 'create-attendee-form',
-  templateUrl: './create-attendee.component.html',
-  styleUrls: ['./create-attendee.component.scss'],
+  templateUrl: './create-attendee.template.html',
+  styleUrls: ['./create-attendee.style.scss'],
   providers: [CreateAttendeeService]
 })
 export class CreateAttendeeComponent {
@@ -20,7 +20,7 @@ export class CreateAttendeeComponent {
 
   constructor(private createAttendeeService: CreateAttendeeService) {}
 
-  createUser() {
+  createUser() { // TODO: new attendee should be added to the list when it's implemented
     this.createAttendeeService.createAttendee(this.model)
       .then((r) => {
         this.error = '';

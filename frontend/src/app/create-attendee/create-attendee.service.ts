@@ -8,11 +8,11 @@ export class CreateAttendeeService {
 
   private createUserUrl = 'api/attendees';
 
-  constructor(private http: Http) {
+  constructor(private http: Http) { // TODO: implement proper authentication (AuthHttp)
   }
 
   createAttendee(attendee: Attendee) {
-    let headers = new Headers(
+    let headers = new Headers( // TODO: remove when merging proper authentication
       {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset=UTF-8',

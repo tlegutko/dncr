@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CreateAttendeeComponent } from '../../create-attendee/create-attendee.component';
-import { CourseDetailsTitleComponent } from './course-details-title/course-details-title.component';
+import { CourseDetailsTitleComponent } from './title/title.component';
 import {
   CourseDetailsActionButtonComponent
 } from
-  './course-details-action-button/course-details-action-button.component';
+  './action-button/action-button.component';
 
 @Component(
   {
     selector: 'course-details',
-    templateUrl: './course-details.component.html',
+    templateUrl: './course-details.template.html',
     directives: [
       CreateAttendeeComponent, CourseDetailsTitleComponent, CourseDetailsActionButtonComponent
     ]

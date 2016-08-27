@@ -14,7 +14,7 @@ class StoreAttendeeRequest extends Request
    */
   public function rules()
   {
-    return [ // [tlegutko] see dncr/app/resources/lang/pl/validation for translations
+    return [
              'name' => 'required',
              'surname' => 'required',
              'email' => 'required | email | unique:attendees',

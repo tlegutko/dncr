@@ -43,7 +43,7 @@ class AttendeesController extends Controller
   {
     $attendee = Attendee::findOrFail($id);
 
-    return $attendee;
+    return response()->json($attendee);
   }
 
   /**

@@ -3,10 +3,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
 @Component(
   {
     selector: 'course-details-action-button',
-    styleUrls: ['./course-details-action-button.component.scss'],
+    styleUrls: ['./action-button.component.scss'],
     template: `
       <button type="button" class="btn btn-md-down-fixed btn-lg-up-title"
-              (click)="emitActionEvent()">
+              (click)="add()">
         <i class="fa fa-plus fa-2x"></i>
       </button>
 `
@@ -15,7 +15,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class CourseDetailsActionButtonComponent {
   @Output() onClickAction = new EventEmitter<boolean>();
 
-  emitActionEvent() {
+  add() {
     this.onClickAction.emit(true);
   }
 }
