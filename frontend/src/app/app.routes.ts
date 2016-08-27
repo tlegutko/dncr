@@ -1,6 +1,6 @@
 import { RouterConfig } from '@angular/router';
 import { NoContent } from './no-content';
-import { Reception } from './reception/reception.component';
+import { ReceptionComponent, CourseDetailsComponent } from './reception';
 import { AuthGuard } from './auth-guard';
 import { WebpackAsyncRoute } from '@angularclass/webpack-toolkit/dist/index';
 import { Homepage } from './homepage/homepage.component';
@@ -26,8 +26,17 @@ export const routes: RouterConfig = [
     component: 'Login'
   }, {
     path: 'reception',
-    component: Reception,
-    canActivate: [AuthGuard]
+    component: ReceptionComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: ''
+      },
+      {
+        path: 'course-details',
+        component: CourseDetailsComponent
+      }
+    ]
   }, {
     path: 'manager',
     component: 'ManagerComponent',
