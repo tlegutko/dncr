@@ -1,6 +1,9 @@
-<?php namespace App\Http\Requests;
+<?php
+
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class Request extends FormRequest
 {
@@ -22,5 +25,10 @@ abstract class Request extends FormRequest
                           $this->container->call([$this, 'rules']),
                           $this->messages(),
                           $this->attributes());
+  }
+
+  public function forbiddenResponse()
+  {
+    return new Response(json_encode(['error' => \Lang::get('auth.forbidden')]), 403);
   }
 }

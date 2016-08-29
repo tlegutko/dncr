@@ -11,7 +11,6 @@ class LoginRequest extends Request
    */
   public function authorize()
   {
-    // TODO: Add checking for user status
     return true;
   }
 

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { LoginModel } from './homepage/login/login.model';
 import { CookieService } from 'angular2-cookie/core';
 import { Http, Response } from '@angular/http';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
   private loggedIn = false;
   private storage: Storage;
 
-  constructor(private router: Router, private cookies: CookieService, private http: Http) {
+  constructor(private router: Router, private cookies: CookieService, private http: Http, private authHttp: AuthHttp) {
     this.storage = localStorage;
     this.loggedIn = tokenNotExpired();
   }
@@ -36,9 +36,13 @@ export class AuthService {
   }
 
   public logout() {
-    this.loggedIn = false;
-    this.storage.removeItem(this.TOKEN);
-    this.router.navigate(['/']);
+    this.authHttp.post('/api/logout', {}).subscribe(
+      () => {
+        this.loggedIn = false;
+        this.storage.removeItem(this.TOKEN);
+        this.router.navigate(['/']);
+      }
+    );
   }
 
   public check() {

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -40,6 +39,19 @@ class AuthController extends Controller
     return response()->json(['token' => $token]);
   }
 
+  public function logout()
+  {
+    try
+    {
+      $token = \JWTAuth::getToken();
+      \JWTAuth::invalidate($token);
+    } catch(JWTException $e) {
+      // Do nothing - we wanted to invalidate the token
+    }
+
+    return response()->json();
+  }
+
   /**
    * Redirect the user after determining they are locked out.
    *
@@ -47,7 +59,7 @@ class AuthController extends Controller
    *
    * @return \Illuminate\Http\RedirectResponse
    */
-  protected function sendLockoutResponse(Request $request)
+  protected function sendLockoutResponse(\Illuminate\Http\Request $request)
   {
     $seconds = $this->secondsRemainingOnLockout($request);
 
