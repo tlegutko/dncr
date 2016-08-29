@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component(
   {
     selector: 'reception',
     styleUrls: ['./reception.style.scss'],
     templateUrl: './reception.template.html',
+    directives: [
+      CalendarComponent
+    ]
   }
 )
 export class ReceptionComponent {

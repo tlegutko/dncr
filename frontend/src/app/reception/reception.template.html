@@ -1,12 +1,12 @@
-<div class="row">
+<div class="row" style="height: 2rem;">
   <a *ngIf=!showAdditionalPane [routerLink]="['course-details']" routerLinkActive="active">Pokaż szczegóły kursu.</a>
   <a *ngIf=showAdditionalPane [routerLink]="['/reception']" routerLinkActive="active">Schowaj szczegóły kursu.</a>
 </div>
-<div class="row">
-  <div class="col-xs-12" [class.col-sm-6]="showAdditionalPane">
-    <img src="/assets/img/calendar-tmp.png" class="img-fluid" style="width: 100%" alt="Mock kalendarza">
+<div class="row" style="height: calc(100% - 2rem - 1px)">
+  <div class="col-xs-12" [class.col-sm-6]="showAdditionalPane" style="height: 100%">
+    <calendar></calendar>
   </div>
-  <div [class.hidden-xs-up]="!showAdditionalPane" class="col-xs-12 col-sm-6">
+  <div [class.hidden-xs-up]="!showAdditionalPane" class="col-xs-12 col-sm-6" style="height: 100%">
     <router-outlet></router-outlet>
   </div>
 </div>

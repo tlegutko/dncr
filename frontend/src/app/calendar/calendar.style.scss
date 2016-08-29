@@ -1,0 +1,15 @@
+@import '~bootstrap/scss/_variables';
+
+.fc-today.ui-state-highlight {
+  background: transparent;
+}
+.fc-agendaWeek-view, .fc-month-view {
+  .fc-today.ui-state-highlight {
+    border-color: #d5d5d5;
+    background-color: $gray-lighter;
+  }
+}
+p-schedule {
+  display:  block;
+  height: 100%;
+}

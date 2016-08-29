@@ -115,8 +115,6 @@
           </indentOptions>
         </codeStyleSettings>
         <codeStyleSettings language="TypeScript">
-          <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="true" />
-          <option name="LINE_COMMENT_ADD_SPACE" value="false" />
           <option name="KEEP_LINE_BREAKS" value="false" />
           <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
           <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />

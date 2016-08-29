@@ -8,6 +8,7 @@ import { CourseDetailsActionButtonComponent } from './course-details/action-butt
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { CreateAttendeeComponent } from '../create-attendee/create-attendee.component';
 import { CreateAttendeeField } from '../create-attendee/field/field.component';
+import { ScheduleModule } from 'primeng/primeng';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -37,7 +38,7 @@ export const routes = [
       CreateAttendeeField
     ],
     imports: [
-      BrowserModule, FormsModule, RouterModule.forChild(routes),
+      BrowserModule, FormsModule, RouterModule.forChild(routes), ScheduleModule
     ]
   }
 )

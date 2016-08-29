@@ -9,3 +9,13 @@ app > span.loader {
 	text-align: center;
 	vertical-align: center;
 }
+
+html {
+	display: block;
+	height: 100%;
+}
+
+body {
+  display: block;
+  height: calc(100% - 6rem - 1px);
+}
