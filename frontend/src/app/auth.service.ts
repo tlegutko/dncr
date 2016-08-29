@@ -4,8 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { LoginModel } from './homepage/login/login.model';
 import { CookieService } from 'angular2-cookie/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthService {
@@ -20,18 +21,18 @@ export class AuthService {
     this.loggedIn = tokenNotExpired();
   }
 
-  public login(model: LoginModel) {
-    this.http.post('/api/authorize', model).subscribe(
+  public login(model: LoginModel): Promise<Response> {
+    let request = this.http.post('/api/authorize', model);
+    request.subscribe(
       (response) => {
         this.storage.setItem(this.TOKEN, response.json().token);
         this.loggedIn = tokenNotExpired();
         this.cookies.put(this.KNOWN_USER, 'true');
         this.router.navigate(['/reception']);
-      },
-      () => {
-        throw new Error('Nieprawidłowy login lub hasło.');
       }
     );
+
+    return request.toPromise();
   }
 
   public logout() {

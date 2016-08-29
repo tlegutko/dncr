@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -13,6 +14,12 @@ class AuthController extends Controller
 
   public function login(LoginRequest $request)
   {
+    $this->incrementLoginAttempts($request);
+    if($this->hasTooManyLoginAttempts($request))
+    {
+      return $this->sendLockoutResponse($request);
+    }
+
     // grab credentials from the request
     $credentials = $request->only('email', 'password');
 
@@ -31,5 +38,24 @@ class AuthController extends Controller
     }
 
     return response()->json(['token' => $token]);
+  }
+
+  /**
+   * Redirect the user after determining they are locked out.
+   *
+   * @param  \Illuminate\Http\Request $request
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  protected function sendLockoutResponse(Request $request)
+  {
+    $seconds = $this->secondsRemainingOnLockout($request);
+
+    return response()->json(['error' => $this->getLockoutErrorMessage($seconds)])->setStatusCode(429);
+  }
+
+  protected function loginUsername()
+  {
+    return 'email';
   }
 }

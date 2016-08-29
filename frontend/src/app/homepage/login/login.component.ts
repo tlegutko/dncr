@@ -24,10 +24,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    try {
-      this.service.login(this.model);
-    } catch (e) {
-      this.error = e.message;
-    }
+    this.service.login(this.model).catch((response) => this.error = response.json().error);
   }
 }
