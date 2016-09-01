@@ -26,6 +26,7 @@ const APP_PROVIDERS = [
         new AuthConfig(
           {
             globalHeaders: [{ 'Content-Type': 'application/json' }, { 'Accept': 'application/json' }],
+            noJwtError: true
           }
         ), http
       );

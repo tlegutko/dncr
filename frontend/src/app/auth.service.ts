@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { LoginModel } from './homepage/login/login.model';
 import { CookieService } from 'angular2-cookie/core';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 
@@ -16,7 +16,7 @@ export class AuthService {
   private loggedIn = false;
   private storage: Storage;
 
-  constructor(private router: Router, private cookies: CookieService, private http: Http, private authHttp: AuthHttp) {
+  constructor(private router: Router, private cookies: CookieService, private http: AuthHttp) {
     this.storage = localStorage;
     this.loggedIn = tokenNotExpired();
   }
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   public logout() {
-    this.authHttp.post('/api/logout', {}).subscribe(
+    this.http.post('/api/logout', {}).subscribe(
       () => {
         this.loggedIn = false;
         this.storage.removeItem(this.TOKEN);
