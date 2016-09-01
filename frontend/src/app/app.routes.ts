@@ -11,6 +11,7 @@ export const ROUTES: Routes = [
   {
     path: 'reception',
     loadChildren: () => System.import('./reception'),
+    canActivate: [AuthGuard]
   },
   {
     path: 'manager',
