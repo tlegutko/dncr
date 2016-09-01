@@ -12,26 +12,12 @@ import { Homepage } from './homepage/homepage.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { AUTH_PROVIDERS, AuthHttp, AuthConfig } from 'angular2-jwt';
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS, AuthService, AuthGuard, CookieService, ...AUTH_PROVIDERS, {
+  ...APP_RESOLVER_PROVIDERS, AuthService, AuthGuard, CookieService, {
     provide: XSRFStrategy,
     useValue: new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
-  }, {
-    provide: AuthHttp,
-    useFactory: (http) => {
-      return new AuthHttp(
-        new AuthConfig(
-          {
-            globalHeaders: [{ 'Content-Type': 'application/json' }, { 'Accept': 'application/json' }],
-            noJwtError: true
-          }
-        ), http
-      );
-    },
-    deps: [Http]
   }
 ];
 
