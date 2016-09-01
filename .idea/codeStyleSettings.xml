@@ -26,7 +26,6 @@
           <option name="NAMESPACE_BRACE_STYLE" value="2" />
         </PHPCodeStyleSettings>
         <TypeScriptCodeStyleSettings>
-          <option name="SPACE_AFTER_TYPE_COLON" value="true" />
           <option name="SPACE_BEFORE_FUNCTION_LEFT_PARENTH" value="false" />
           <option name="USE_PUBLIC_MODIFIER" value="true" />
           <option name="USE_DOUBLE_QUOTES" value="false" />

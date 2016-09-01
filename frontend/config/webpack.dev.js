@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
@@ -10,17 +6,18 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 
 /**
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HMR = helpers.hasProcessFlag('hot');
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3000;
 const METADATA = webpackMerge(commonConfig.metadata, {
-  host: 'localhost',
-  port: 3000,
-  ENV: ENV,
-  HMR: HMR
+  host: HOST,
+  port: PORT,
+  ENV: ENV
 });
 
 /**
@@ -90,7 +87,7 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].chunk.js',
 
     library: 'ac_[name]',
-    libraryTarget: 'var',
+    libraryTarget: 'var'
   },
 
   plugins: [
@@ -107,13 +104,20 @@ module.exports = webpackMerge(commonConfig, {
     // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
     new DefinePlugin({
       'ENV': JSON.stringify(METADATA.ENV),
-      'HMR': METADATA.HMR,
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
-        'NODE_ENV': JSON.stringify(METADATA.ENV),
-        'HMR': METADATA.HMR,
+        'NODE_ENV': JSON.stringify(METADATA.ENV)
       }
     }),
+
+    /**
+       * Plugin: NamedModulesPlugin (experimental)
+       * Description: Uses file names as module name.
+       *
+       * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
+       */
+      new NamedModulesPlugin()
+
   ],
 
   /**
@@ -144,7 +148,7 @@ module.exports = webpackMerge(commonConfig, {
       aggregateTimeout: 300,
       poll: 1000
     },
-    outputPath: helpers.root('dist')
+    outputPath: helpers.root('../public')
   },
 
   /*
