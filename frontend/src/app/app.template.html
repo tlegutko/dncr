@@ -12,6 +12,10 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['manager']">Menedżer</a>
       </li>
+      <!--Link do usunięcia, gdy będzie wiadomo gdzie go przenieść-->
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['./instructors-list']">Instruktorzy</a>
+      </li>
     </ul>
     <button type="button" class="btn btn-primary pull-xs-right" (click)="logout()">
       Wyloguj się

@@ -1,6 +1,7 @@
 import { RouterConfig } from '@angular/router';
 import { NoContent } from './no-content';
 import { ReceptionComponent, CourseDetailsComponent } from './reception';
+import { InstructorsListComponent } from './instructor/list/instructors-list.component';
 import { AuthGuard } from './auth-guard';
 import { WebpackAsyncRoute } from '@angularclass/webpack-toolkit/dist/index';
 import { Homepage } from './homepage/homepage.component';
@@ -8,8 +9,9 @@ import { Homepage } from './homepage/homepage.component';
 export const asyncRoutes: AsyncRoutes = {
   'ManagerComponent': require('es6-promise-loader!./manager'),
   'ManagerCoursesComponent': require('es6-promise-loader!./manager'),
-  'ManagerCoursesDetailsComponent': require('es6-promise-loader!./manager'),
-  // 'Login': require('es6-promise-loader!./login'),
+  'ManagerCoursesDetailsComponent': require(
+    'es6-promise-loader!./manager'
+  ), // 'Login': require('es6-promise-loader!./login'),
 };
 
 // Optimizations for initial loads
@@ -20,7 +22,8 @@ export const prefetchRouteCallbacks: Array<IdleCallbacks> = [
 
 export const routes: RouterConfig = [
   {
-    path: '', component: Homepage
+    path: '',
+    component: Homepage
   }, {
     path: 'login',
     component: 'Login'
@@ -37,6 +40,10 @@ export const routes: RouterConfig = [
         component: CourseDetailsComponent
       }
     ]
+  }, {
+    path: 'instructors-list',
+    component: InstructorsListComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'manager',
     component: 'ManagerComponent',
