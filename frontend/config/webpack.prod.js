@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
@@ -27,7 +23,6 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: false
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -124,11 +119,9 @@ module.exports = webpackMerge(commonConfig, {
     // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
     new DefinePlugin({
       'ENV': JSON.stringify(METADATA.ENV),
-      'HMR': METADATA.HMR,
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
         'NODE_ENV': JSON.stringify(METADATA.ENV),
-        'HMR': METADATA.HMR,
       }
     }),
 
@@ -157,31 +150,10 @@ module.exports = webpackMerge(commonConfig, {
 
 
       beautify: false, //prod
-      mangle: { screw_ie8 : true }, //prod
+      mangle: { screw_ie8 : true, keep_fnames: true }, //prod
       compress: { screw_ie8: true }, //prod
       comments: false //prod
-    }),
-
-    /**
-     * Plugin: NormalModuleReplacementPlugin
-     * Description: Replace resources that matches resourceRegExp with newResource
-     *
-     * See: http://webpack.github.io/docs/list-of-plugins.html#normalmodulereplacementplugin
-     */
-
-    new NormalModuleReplacementPlugin(
-      /angular2-hmr/,
-      helpers.root('config/modules/angular2-hmr-prod.js')
-    ),
-
-    /**
-     * Plugin: IgnorePlugin
-     * Description: Don’t generate modules for requests matching the provided RegExp.
-     *
-     * See: http://webpack.github.io/docs/list-of-plugins.html#ignoreplugin
-     */
-
-    // new IgnorePlugin(/angular2-hmr/),
+    })
 
     /**
      * Plugin: CompressionPlugin
