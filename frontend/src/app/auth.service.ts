@@ -29,7 +29,7 @@ export class AuthService {
         this.loggedIn = tokenNotExpired();
         this.cookies.put(this.KNOWN_USER, 'true');
         this.router.navigate(['/reception']);
-      }
+      }, (error) => error
     );
 
     return request.toPromise();

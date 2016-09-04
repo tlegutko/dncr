@@ -24,6 +24,15 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.service.login(this.model).catch((response) => this.error = response.json().error);
+    this.service.login(this.model).catch(
+      (body) => {
+        let response = body.json();
+        if (response.hasOwnProperty('error')) {
+          this.error = response.error;
+        } else {
+          this.error = 'Nieprawidłowy login lub hasło.';
+        }
+      }
+    );
   }
 }
