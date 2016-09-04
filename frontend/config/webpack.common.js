@@ -207,7 +207,9 @@ module.exports = {
       "jQuery": 'jquery',
       "window.jQuery": 'jquery',
       "$": 'jquery',
-      "window.$": 'jquery'
+      "window.$": 'jquery',
+      "Tether": 'tether',
+      "window.Tether": 'tether'
     }),
 
     /*

@@ -52,7 +52,6 @@ Dance studio management software.
 5. Setup application:
     * `cp .env.dev .env`
     * `docker exec -it dncr_php_1 php artisan key:generate`
-    * `docker exec -it dncr_php_1 php artisan jwt:generate`
 6. Create and seed database:
     * `docker exec -it dncr_php_1 php artisan migrate:refresh --seed`
 7. Generate frontend application:
