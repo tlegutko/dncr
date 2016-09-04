@@ -1,18 +1,13 @@
-<div class="jumbotron">
-  <h1>Ten komponent będzie recepcją kiedyś</h1>
-  <p class="lead">Jakiś krótki opis! <i class="fa fa-cogs"></i></p>
+<div class="row">
+  <a *ngIf=!showAdditionalPane [routerLink]="['course-details']" routerLinkActive="active">Pokaż szczegóły kursu.</a>
+  <a *ngIf=showAdditionalPane [routerLink]="['/reception']" routerLinkActive="active">Schowaj szczegóły kursu.</a>
 </div>
 <div class="row">
-  <div class="col-md-4">
-    <h2>Test</h2>
-    <p>Tutaj pierwsza kolumna</p>
+  <div class="col-xs-12" [class.col-sm-6]="showAdditionalPane">
+    <img src="/assets/img/calendar-tmp.png" class="img-fluid" style="width: 100%" alt="Mock kalendarza">
   </div>
-  <div class="col-md-4">
-    <p>Tutaj druga kolumna</p>
-    <hr />
-    <p *ngIf="value">Dane z API: {{ value.test }}</p>
-  </div>
-  <div class="col-md-4">
+  <div [class.hidden-xs-up]="!showAdditionalPane" class="col-sm-6">
+    <router-outlet></router-outlet>
     <course-details></course-details>
   </div>
 </div>

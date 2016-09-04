@@ -1,11 +1,7 @@
-/**
- * @author: @AngularClass
- */
-
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.js');
 
-  config.set({
+  var configuration = {
 
     // base path that will be used to resolve all patterns (e.g. files, exclude)
     basePath: '',
@@ -31,19 +27,10 @@ module.exports = function(config) {
      * preprocess matching files before serving them to the browser
      * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
      */
-    preprocessors: { './config/spec-bundle.js': ['coverage', 'webpack', 'sourcemap'] },
+    preprocessors: { './config/spec-bundle.js': ['webpack', 'sourcemap'] },
 
     // Webpack Config at ./webpack.test.js
     webpack: testWebpackConfig,
-
-    coverageReporter: {
-      dir : 'coverage/',
-      reporters: [
-        { type: 'text-summary' },
-        { type: 'json' },
-        { type: 'html' }
-      ]
-    },
 
     // Webpack please don't spam the console when running in karma!
     webpackServer: { noInfo: true },
@@ -54,7 +41,7 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'mocha', 'junit' ],
+    reporters: [ 'junit', 'mocha'],
 
     junitReporter: {
       outputFile: 'testresults/frontend.xml',
@@ -90,6 +77,7 @@ module.exports = function(config) {
      * if true, Karma captures browsers, runs the tests and exits
      */
     singleRun: true
-  });
+  };
 
+  config.set(configuration);
 };
