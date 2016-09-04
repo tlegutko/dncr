@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 8080;
 const METADATA = webpackMerge(commonConfig.metadata, {
   host: HOST,
   port: PORT,
-  ENV: ENV,
+  ENV: ENV
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -121,7 +121,7 @@ module.exports = webpackMerge(commonConfig, {
       'ENV': JSON.stringify(METADATA.ENV),
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
-        'NODE_ENV': JSON.stringify(METADATA.ENV),
+        'NODE_ENV': JSON.stringify(METADATA.ENV)
       }
     }),
 

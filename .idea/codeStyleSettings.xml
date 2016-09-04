@@ -11,6 +11,9 @@
           <option name="HEX_COLOR_LOWER_CASE" value="true" />
           <option name="HEX_COLOR_LONG_FORMAT" value="true" />
         </CssCodeStyleSettings>
+        <MarkdownNavigatorCodeStyleSettings>
+          <option name="RIGHT_MARGIN" value="72" />
+        </MarkdownNavigatorCodeStyleSettings>
         <PHPCodeStyleSettings>
           <option name="CONCAT_SPACES" value="false" />
           <option name="COMMA_AFTER_LAST_ARRAY_ELEMENT" value="true" />
@@ -84,7 +87,7 @@
           <option name="SPACE_BEFORE_FOR_PARENTHESES" value="false" />
           <option name="SPACE_BEFORE_CATCH_PARENTHESES" value="false" />
           <option name="SPACE_BEFORE_SWITCH_PARENTHESES" value="false" />
-          <option name="CALL_PARAMETERS_WRAP" value="1" />
+          <option name="CALL_PARAMETERS_WRAP" value="5" />
           <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
           <option name="ARRAY_INITIALIZER_WRAP" value="1" />
           <option name="ARRAY_INITIALIZER_LBRACE_ON_NEXT_LINE" value="true" />
