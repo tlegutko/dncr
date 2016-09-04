@@ -1,13 +1,15 @@
-.create-attendee-top-row {
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+:host {
+  display: block;
+}
+
+.top-row {
   background-color: #eceeef;
-  padding: 0.2rem;
+  padding: 0 1px;
 }
 .form-group {
   padding: 0.1rem;
-}
-.title-lg {
-  padding-top: 0.4rem;
-}
-.title-sm {
-  padding: 0.3rem;
+  margin-bottom: 0;
 }

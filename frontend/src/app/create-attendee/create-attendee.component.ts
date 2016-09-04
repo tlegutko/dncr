@@ -3,20 +3,16 @@ import { CreateAttendeeService } from './create-attendee.service';
 import { Attendee } from './attendee';
 
 @Component({
-  selector: 'create-attendee-form',
+             selector: 'create-attendee',
   templateUrl: './create-attendee.template.html',
   styleUrls: ['./create-attendee.style.scss'],
   providers: [CreateAttendeeService]
 })
 export class CreateAttendeeComponent {
   @Input() title: string;
-  @Output() onCancelAction = new EventEmitter<boolean>();
+  @Output() onCancel = new EventEmitter<boolean>();
   model = new Attendee();
   error = '';
-
-  cancel() {
-    this.onCancelAction.emit(false);
-  }
 
   constructor(private createAttendeeService: CreateAttendeeService) {}
 
