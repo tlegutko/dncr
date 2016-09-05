@@ -2,9 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-use Illuminate\Contracts\Validation\Validator;
-
 class StoreAttendeeRequest extends Request
 {
   /**
@@ -15,10 +12,10 @@ class StoreAttendeeRequest extends Request
   public function rules()
   {
     return [
-             'name' => 'required',
-             'surname' => 'required',
-             'email' => 'required | email | unique:attendees',
-             'phoneNumber' => 'required | digits:9 | unique:attendees',
+      'name' => 'required',
+      'surname' => 'required',
+      'email' => 'required | email | unique:attendees',
+      'phoneNumber' => 'required | digits:9 | unique:attendees',
     ];
   }
 

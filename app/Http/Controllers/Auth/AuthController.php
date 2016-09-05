@@ -2,71 +2,72 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
+  use ThrottlesLogins;
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-    /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+  public function login(LoginRequest $request)
+  {
+    $this->incrementLoginAttempts($request);
+    if($this->hasTooManyLoginAttempts($request))
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+      return $this->sendLockoutResponse($request);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    // grab credentials from the request
+    $credentials = $request->only('email', 'password');
+
+    try
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+      // attempt to verify the credentials and create a token for the user
+      if(!$token = \JWTAuth::attempt($credentials))
+      {
+        return response()->json(['error' => \Lang::get('auth.failed')], 401);
+      }
+    }
+    catch(JWTException $e)
+    {
+      // something went wrong whilst attempting to encode the token
+      return response()->json(['error' => \Lang::get('auth.could_not_create_token')], 500);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
+    return response()->json(['token' => $token]);
+  }
+
+  public function logout()
+  {
+    try
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+      $token = \JWTAuth::getToken();
+      \JWTAuth::invalidate($token);
+    } catch(JWTException $e) {
+      // Do nothing - we wanted to invalidate the token
     }
+
+    return response()->json();
+  }
+
+  /**
+   * Redirect the user after determining they are locked out.
+   *
+   * @param  \Illuminate\Http\Request $request
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  protected function sendLockoutResponse(\Illuminate\Http\Request $request)
+  {
+    $seconds = $this->secondsRemainingOnLockout($request);
+
+    return response()->json(['error' => $this->getLockoutErrorMessage($seconds)])->setStatusCode(429);
+  }
+
+  protected function loginUsername()
+  {
+    return 'email';
+  }
 }

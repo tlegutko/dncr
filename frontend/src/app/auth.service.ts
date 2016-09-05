@@ -2,38 +2,47 @@ import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { LoginModel } from './homepage/login';
+import { LoginModel } from './homepage/login/login.model';
 import { CookieService } from 'angular2-cookie/core';
+import { Response } from '@angular/http';
+import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthService {
-  public LOGGED_IN_KEY = 'logged-in';
   public KNOWN_USER = 'known_user';
+  private TOKEN = 'id_token';
 
   private loggedIn = false;
   private storage: Storage;
 
-  constructor(private router: Router, private cookies: CookieService) {
+  constructor(private router: Router, private cookies: CookieService, private http: AuthHttp) {
     this.storage = localStorage;
-    this.loggedIn = this.getFromStorage();
+    this.loggedIn = tokenNotExpired();
   }
 
-  public login(model: LoginModel) {
-    if (model.login === 'admin' && model.password === 'admin1') {
-      this.loggedIn = true;
-      this.storage.setItem(this.LOGGED_IN_KEY, 'true');
-      this.cookies.put(this.KNOWN_USER, 'true');
-      this.router.navigate(['reception']);
-      return;
-    }
+  public login(model: LoginModel): Promise<Response> {
+    let request = this.http.post('/api/authorize', model);
+    request.subscribe(
+      (response) => {
+        this.storage.setItem(this.TOKEN, response.json().token);
+        this.loggedIn = tokenNotExpired();
+        this.cookies.put(this.KNOWN_USER, 'true');
+        this.router.navigate(['/reception']);
+      }, (error) => error
+    );
 
-    throw new Error('Nieprawidłowy login lub hasło.');
+    return request.toPromise();
   }
 
   public logout() {
-    this.loggedIn = false;
-    this.storage.removeItem(this.LOGGED_IN_KEY);
-    this.router.navigate(['/']);
+    this.http.post('/api/logout', {}).subscribe(
+      () => {
+        this.loggedIn = false;
+        this.storage.removeItem(this.TOKEN);
+        this.router.navigate(['/']);
+      }
+    );
   }
 
   public check() {
@@ -42,9 +51,5 @@ export class AuthService {
 
   public isKnownUser(): boolean {
     return this.cookies.get(this.KNOWN_USER) === 'true';
-  }
-
-  private getFromStorage(): boolean {
-    return this.storage.getItem(this.LOGGED_IN_KEY) === 'true';
   }
 }
