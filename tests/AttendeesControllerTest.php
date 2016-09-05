@@ -29,7 +29,7 @@ class AttendeesControllerTest extends TestCase
       'phoneNumber' => '123123888',
       'email' => 'a@g.com',
     ]);
-    $this->seeJson(['error' => 'Dostęp zabroniony.']);
+    $this->seeJson(['error' => 'token_not_provided']);
   }
 
 //  public function testEmptyRequestValidation()

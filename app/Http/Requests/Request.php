@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Request extends FormRequest
@@ -13,7 +13,10 @@ abstract class Request extends FormRequest
    */
   protected function formatErrors(Validator $validator)
   {
-    return $validator->failed();
+    /** @var \Illuminate\Support\MessageBag $errors */
+    $errors = $validator->errors();
+
+    return $errors->messages();
   }
 
   /*

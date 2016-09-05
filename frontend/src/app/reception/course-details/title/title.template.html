@@ -5,6 +5,6 @@
   <i class="fa fa-users fa-2x" aria-hidden="true"></i>
   <h5><span class="hidden-md-down">Lista osób: </span>{{ title }}</h5>
 </div>
-<button type="button" class="save btn btn-sm btn-primary" (click)="onSave.emit(true)" *ngIf="isEditing">
+<button type="submit" class="save btn btn-sm btn-primary" *ngIf="isEditing">
   <i class="fa fa-floppy-o"></i> Zapisz
 </button>

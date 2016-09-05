@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exception\HttpResponseException;
@@ -51,28 +50,20 @@ class Handler extends ExceptionHandler
   {
     if($request->isXmlHttpRequest() || $request->isJson())
     {
-      $error = class_basename($e).' in '.basename($e->getFile()).' line '.$e->getLine().': '.$e->getMessage();
       if($e instanceof HttpResponseException)
       {
         return $e->getResponse();
       }
       elseif($e instanceof ModelNotFoundException)
       {
-        $error = $e->getMessage();
-      }
-      elseif($e instanceof AuthenticationException)
-      {
-        return $this->unauthenticated($request, $e);
-      }
-      elseif($e instanceof AuthorizationException)
-      {
-        $error = $e->getMessage();
+        return response()->json($e->getMessage(), 404);
       }
       elseif($e instanceof ValidationException && $e->getResponse())
       {
         return response()->json($e->getResponse(), 400);
       }
 
+      $error = class_basename($e).' in '.basename($e->getFile()).' line '.$e->getLine().': '.$e->getMessage();
       return response()->json(['exception' => $error], 500);
     }
 

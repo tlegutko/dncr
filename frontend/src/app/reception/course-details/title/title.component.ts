@@ -10,6 +10,5 @@ export class CourseDetailsTitleComponent {
   @Input() title: string;
   @Input() isEditing: boolean;
 
-  @Output() onSave = new EventEmitter<boolean>();
   @Output() onCancel = new EventEmitter<boolean>();
 }
