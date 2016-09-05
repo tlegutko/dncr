@@ -47,7 +47,7 @@ module.exports = {
     /**
      * Make sure root is src
      */
-    root: helpers.root('src'),
+    root: helpers.root('src')
 
   },
 
@@ -144,12 +144,7 @@ module.exports = {
        *
        * See: https://github.com/webpack/raw-loader
        */
-      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] },
-
-      /**
-       * Support for SASS files
-       */
-      { test: /\.scss$/, exclude: /node_modules/, loader: 'raw-loader!sass-loader' }
+      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] }
 
     ],
 
@@ -197,13 +192,11 @@ module.exports = {
     // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
     new DefinePlugin({
       'ENV': JSON.stringify(ENV),
-      'HMR': false,
       'process.env': {
         'ENV': JSON.stringify(ENV),
         'NODE_ENV': JSON.stringify(ENV),
-        'HMR': false,
       }
-    }),
+    })
 
 
   ],

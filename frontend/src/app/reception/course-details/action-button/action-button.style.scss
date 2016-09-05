@@ -1,26 +1,23 @@
 @import '~bootstrap/scss/_variables';
 @import '~bootstrap/scss/mixins/_breakpoints';
 
+:host {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  @media (min-width: breakpoint-min(lg)) {
+    top: 0;
+    bottom: auto;
+  }
+}
+
 .btn {
   background-color: #ffd966;
   width: 4em;
   height: 4em;
   border-radius: 2em;
   padding: 0.5em 0.25em 0.25em 0.25em;
-  position: fixed;
-}
-
-@media (max-width: breakpoint-max(md)) {
-  .btn.btn-md-down-fixed {
-    font-size: 1rem;
-    bottom: 30px;
-    right: 30px;
-  }
-}
-
-@media (min-width: breakpoint-min(lg)) {
-  .btn.btn-lg-up-title {
-    font-size: 0.625rem;
-    right: 10px;
-  }
+  font-size: 0.625rem;
 }

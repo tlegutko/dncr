@@ -2,34 +2,46 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CreateAttendeeService } from './create-attendee.service';
 import { Attendee } from './attendee';
 
-@Component({
-  selector: 'create-attendee-form',
-  templateUrl: './create-attendee.template.html',
-  styleUrls: ['./create-attendee.style.scss'],
-  providers: [CreateAttendeeService]
-})
+interface CreateAttendeeErrors {
+  name?: string[];
+  surname?: string[];
+  email?: string[];
+  phoneNumber?: string[];
+}
+
+@Component(
+  {
+    selector: 'create-attendee',
+    templateUrl: './create-attendee.template.html',
+    styleUrls: ['./create-attendee.style.scss'],
+    providers: [CreateAttendeeService]
+  }
+)
 export class CreateAttendeeComponent {
   @Input() title: string;
-  @Output() onCancelAction = new EventEmitter<boolean>();
+  @Output() onCancel = new EventEmitter<boolean>();
   model = new Attendee();
-  error = '';
+  errors: CreateAttendeeErrors = {};
 
-  cancel() {
-    this.onCancelAction.emit(false);
+  constructor(private createAttendeeService: CreateAttendeeService) {
   }
 
-  constructor(private createAttendeeService: CreateAttendeeService) {}
-
-  createUser() { // TODO: new attendee should be added to the list when it's implemented
+  createUser() {
     this.createAttendeeService.createAttendee(this.model)
-      .then((r) => {
-        this.error = '';
-        console.log(r);
-      })
-      .catch(error => {
-        console.log(error);
-        this.error = error;
-      });
+      .then(
+        (response) => {
+          delete this['errors'];
+          console.log(response);
+          // TODO: new attendee should be added to the list when it's implemented
+        }
+      )
+      .catch(
+        (response) => {
+          let error = response.json();
+          console.error('Error during attendee creation', error);
+          this.errors = error;
+        }
+      );
   }
 
 }

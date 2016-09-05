@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 const webpack = require('webpack');
 const helpers = require('./helpers');
 
@@ -29,6 +25,7 @@ const METADATA = {
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 module.exports = {
+
   /*
    * Static metadata for index.html
    *
@@ -43,7 +40,7 @@ module.exports = {
    *
    * See: http://webpack.github.io/docs/configuration.html#cache
    */
-  //cache: false,
+   //cache: false,
 
   /*
    * The entry point for the bundle
@@ -52,10 +49,12 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#entry
    */
   entry: {
+
     'fonts': 'font-awesome-sass!./config/font-awesome.config.js',
     'polyfills': './src/polyfills.browser.ts',
-    'vendor': './src/vendor.browser.ts',
-    'main': './src/main.browser.ts'
+    'vendor':    './src/vendor.browser.ts',
+    'main':      './src/main.browser.ts'
+
   },
 
   /*
@@ -64,6 +63,7 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#resolve
    */
   resolve: {
+
     /*
      * An array of extensions that should be used to resolve modules.
      *
@@ -76,6 +76,7 @@ module.exports = {
 
     // remove other default values
     modulesDirectories: ['node_modules']
+
   },
 
   /*
@@ -84,35 +85,22 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#module
    */
   module: {
+
     /*
      * An array of applied pre and post loaders.
      *
      * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
      */
     preLoaders: [
-      /*
-       * Tslint loader support for *.ts files
-       *
-       * See: https://github.com/wbuchwalter/tslint-loader
-       */
-      // { test: /\.ts$/, loader: 'tslint-loader', exclude: [ helpers.root('node_modules') ] },
-
-      /*
-       * Source map loader support for *.js files
-       * Extracts SourceMaps for source files that as added as sourceMappingURL comment.
-       *
-       * See: https://github.com/webpack/source-map-loader
-       */
       {
-        test: /\.js$/,
-        loader: 'source-map-loader',
-        exclude: [
-          // these packages have problems with their sourcemaps
-          helpers.root('node_modules/rxjs'),
-          helpers.root('node_modules/@angular'),
-          helpers.root('node_modules/@ngrx'),
-          helpers.root('node_modules/@angular2-material')
-        ]
+        test: /\.ts$/,
+        loader: 'string-replace-loader',
+        query: {
+          search: '(System|SystemJS)(.*[\\n\\r]\\s*\\.|\\.)import\\((.+)\\)',
+          replace: '$1.import($3).then(mod => mod.__esModule ? mod.default : mod)',
+          flags: 'g'
+        },
+        include: [helpers.root('src')]
       }
     ],
 
@@ -125,14 +113,20 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#module-loaders
      */
     loaders: [
+
       /*
        * Typescript loader support for .ts and Angular 2 async routes via .async.ts
+       * Replace templateUrl and stylesUrl with require()
        *
        * See: https://github.com/s-panferov/awesome-typescript-loader
+       * See: https://github.com/TheLarkInn/angular2-template-loader
        */
       {
         test: /\.ts$/,
-        loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+        loaders: [
+          'awesome-typescript-loader',
+          'angular2-template-loader'
+        ],
         exclude: [/\.(spec|e2e)\.ts$/]
       },
 
@@ -149,6 +143,7 @@ module.exports = {
       /*
        * to string and css loader support for *.css files
        * Returns file content as string
+       *
        */
       {
         test: /\.css$/,
@@ -176,7 +171,6 @@ module.exports = {
         loader: "file-loader"
       },
 
-
       /* Raw loader support for *.html
        * Returns file content as string
        *
@@ -191,8 +185,16 @@ module.exports = {
       {
         test: /bootstrap\/dist\/js\/umd\//,
         loader: 'imports?jQuery=jquery'
+      },
+
+      /* File loader for supporting images, for example, in CSS files.
+      */
+      {
+        test: /\.(jpg|png|gif)$/,
+        loader: 'file'
       }
     ]
+
   },
 
   /*
@@ -207,7 +209,7 @@ module.exports = {
       "$": 'jquery',
       "window.$": 'jquery',
       "Tether": 'tether',
-      "window.Tether": "tether"
+      "window.Tether": 'tether'
     }),
 
     /*
@@ -217,17 +219,6 @@ module.exports = {
      * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
      */
     new ForkCheckerPlugin(),
-
-    /*
-     * Plugin: OccurenceOrderPlugin
-     * Description: Varies the distribution of the ids to get the smallest id length
-     * for often used ids.
-     *
-     * See: https://webpack.github.io/docs/list-of-plugins.html#occurrenceorderplugin
-     * See: https://github.com/webpack/docs/wiki/optimization#minimize
-     */
-    new webpack.optimize.OccurenceOrderPlugin(true),
-
     /*
      * Plugin: CommonsChunkPlugin
      * Description: Shares common code between the pages.
@@ -296,6 +287,7 @@ module.exports = {
     new HtmlElementsPlugin({
       headTags: require('./head-config.common')
     })
+
   ],
 
   /*
@@ -307,8 +299,10 @@ module.exports = {
   node: {
     global: 'window',
     crypto: 'empty',
+    process: true,
     module: false,
     clearImmediate: false,
     setImmediate: false
   }
+
 };
