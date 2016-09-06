@@ -29,9 +29,8 @@ export class CreateAttendeeComponent {
   createUser() {
     this.createAttendeeService.createAttendee(this.model)
       .then(
-        (response) => {
-          delete this['errors'];
-          console.log(response);
+        () => {
+          this.errors = {};
           // TODO: new attendee should be added to the list when it's implemented
         }
       )
