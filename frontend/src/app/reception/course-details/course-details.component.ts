@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Attendee } from '../../create-attendee/attendee';
 
 @Component(
   {
@@ -13,6 +14,11 @@ export class CourseDetailsComponent {
   };
   isCreateFormVisible = false;
   error = '';
+
+  public onAttendeeSaved(attendee: Attendee) {
+    // TODO: new attendee should be added to the list when it's implemented
+    this.hideCreateForm();
+  }
 
   showCreateForm() {
     this.isCreateFormVisible = true;
