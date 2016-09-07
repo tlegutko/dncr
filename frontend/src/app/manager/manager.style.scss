@@ -1,6 +1,17 @@
 @import '~bootstrap/scss/_variables';
 
+:host {
+  display: block;
+  height: 100%;
+}
+
 .navbar {
   margin-bottom: 1rem;
   background-color: $gray-lighter;
+  height: 2.5rem;
+}
+
+.row {
+  height: calc(100% - 3.5rem - 2px)
+  // [tlegutko] I've no clue where those 2px come from, but we need them to have scroll-bar stay hidden in course details view
 }

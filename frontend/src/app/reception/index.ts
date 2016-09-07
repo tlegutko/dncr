@@ -8,8 +8,8 @@ import { CourseDetailsActionButtonComponent } from './course-details/action-butt
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { CreateAttendeeComponent } from '../create-attendee/create-attendee.component';
 import { CreateAttendeeField } from '../create-attendee/field/field.component';
-import { ScheduleModule } from 'primeng/primeng';
-import { CalendarComponent } from '../calendar/calendar.component';
+import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
+import { CalendarModule } from '../calendar/index';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -37,10 +37,10 @@ export const routes = [
       CourseDetailsActionButtonComponent,
       CreateAttendeeComponent,
       CreateAttendeeField,
-      CalendarComponent
+      ReceptionCalendarComponent
     ],
     imports: [
-      BrowserModule, FormsModule, RouterModule.forChild(routes), ScheduleModule
+      BrowserModule, FormsModule, RouterModule.forChild(routes), CalendarModule
     ]
   }
 )

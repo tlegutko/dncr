@@ -17,5 +17,5 @@ html {
 
 body {
   display: block;
-  height: calc(100% - 6rem - 1px);
+  height: calc(100% - 6rem);
 }
