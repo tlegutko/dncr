@@ -7,9 +7,6 @@ import { CalendarComponent } from '../calendar/calendar.component';
     selector: 'reception',
     styleUrls: ['./reception.style.scss'],
     templateUrl: './reception.template.html',
-    directives: [
-      CalendarComponent
-    ]
   }
 )
 export class ReceptionComponent {

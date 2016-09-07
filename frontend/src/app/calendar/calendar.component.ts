@@ -15,12 +15,10 @@ export class CalendarComponent implements OnInit {
   events: any[];
   header: any;
   pl: any;
-
-  private static getCurrentDate(): string {
-    return new Date().toJSON().slice(0, 10);
-  }
+  currentDate: string;
 
   ngOnInit() {
+    this.currentDate =  new Date().toJSON().slice(0, 10);
     this.header = {
       left: 'prev,next today',
       center: 'title',
@@ -39,18 +37,18 @@ export class CalendarComponent implements OnInit {
       {
         'id': 1,
         'title': 'Poranny kurs',
-        'start': CalendarComponent.getCurrentDate() + 'T10:00:00',
-        'end': CalendarComponent.getCurrentDate() + 'T11:30:00'
+        'start': this.currentDate + 'T10:00:00',
+        'end': this.currentDate + 'T11:30:00'
       }, {
         'id': 2,
         'title': 'Drugi poranny kurs',
-        'start': CalendarComponent.getCurrentDate() + 'T11:00:00',
-        'end': CalendarComponent.getCurrentDate() + 'T12:30:00'
+        'start': this.currentDate + 'T11:00:00',
+        'end': this.currentDate + 'T12:30:00'
       }, {
         'id': 3,
         'title': 'Popołudniowy kurs',
-        'start': CalendarComponent.getCurrentDate() + 'T16:00:00',
-        'end': CalendarComponent.getCurrentDate() + 'T17:30:00'
+        'start': this.currentDate + 'T16:00:00',
+        'end': this.currentDate + 'T17:30:00'
       },
     ];
   }
