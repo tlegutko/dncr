@@ -12,6 +12,5 @@
 }
 
 .row {
-  height: calc(100% - 3.5rem - 2px)
-  // [tlegutko] I've no clue where those 2px come from, but we need them to have scroll-bar stay hidden in course details view
+  height: calc(100% - 3.5rem)
 }
