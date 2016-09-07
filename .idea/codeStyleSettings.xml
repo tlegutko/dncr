@@ -25,7 +25,6 @@
           <option name="SPACE_BEFORE_CLOSURE_LEFT_PARENTHESIS" value="false" />
           <option name="FORCE_SHORT_DECLARATION_ARRAY_STYLE" value="true" />
           <option name="PHPDOC_USE_FQCN" value="true" />
-          <option name="MULTILINE_CHAINED_CALLS_SEMICOLON_ON_NEW_LINE" value="true" />
           <option name="NAMESPACE_BRACE_STYLE" value="2" />
         </PHPCodeStyleSettings>
         <TypeScriptCodeStyleSettings>
@@ -89,7 +88,7 @@
           <option name="SPACE_BEFORE_SWITCH_PARENTHESES" value="false" />
           <option name="CALL_PARAMETERS_WRAP" value="5" />
           <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
-          <option name="ARRAY_INITIALIZER_WRAP" value="1" />
+          <option name="ARRAY_INITIALIZER_WRAP" value="2" />
           <option name="ARRAY_INITIALIZER_LBRACE_ON_NEXT_LINE" value="true" />
           <option name="ARRAY_INITIALIZER_RBRACE_ON_NEXT_LINE" value="true" />
           <option name="IF_BRACE_FORCE" value="3" />

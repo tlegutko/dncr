@@ -2,12 +2,24 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Request extends FormRequest
 {
   /**
+   * {@inheritdoc}
+   */
+  protected function formatErrors(Validator $validator)
+  {
+    /** @var \Illuminate\Support\MessageBag $errors */
+    $errors = $validator->errors();
+
+    return $errors->messages();
+  }
+
+  /*
    * Get the validator instance for the request.
    *
    * @return \Illuminate\Validation\Validator

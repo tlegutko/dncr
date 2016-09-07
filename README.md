@@ -104,6 +104,27 @@ When you open the project (cloned directory) in PhpStorm you need to:
     2. Select `npm` in the top left corner
     3. Click + and select `dncr/frontend/package.json`
     4. You should see a list of commands
+6. Setup TSLint integration:
+    1. Enter `PhpStorm Settings` > `Language & Frameworks` > `TypeScript` > `TSLint`
+    2. `Enable` at the top should be checked
+    3. Set `TSLint package` to `dncr/frontend/node_modules/tslint`
+    4. `Configuration file` should be set to `dncr/frontend/tslint.json`
+7. Setup database integration:
+    1. Make sure that docker container `dncr_db_1` is running
+    2. Open `View` > `Tool windows` > `Database`
+    3. In `Database` view on the right and click `+`
+    4. Select `Data sources` > `MySQL`
+    5. Leave default `Host: localhost` and `Port: 3306`. As for `Database`, `User` and `Password` - ask somebody on the team
+    6. Click `Test Connection` and save changes 
+    7. To open database query editor, click console icon (first from the right) in `Database` view
+8. Setup polish dictionary integration:
+    1. Enter `PhpStorm Settings` > `Editor` > `Spelling`
+    2. Enter `Dictionaries` tab
+    3. Click `+` in `Custom Dictionaries Folder`
+    4. Select `dncr/.idea/dictionaries` directory
+9. Install Laravel Plugin.
+    1. Enter `PhpStorm Settings` > `Plugins` > `Spelling` > `Browse repositories...`
+    2. Search for `Laravel Plugin`, select it and `Install`
 
 ## Abilities
 
