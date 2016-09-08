@@ -7,6 +7,16 @@ use App\Http\Requests\Request;
 class StoreInstructorRequest extends Request
 {
   /**
+   * Determine if the user is authorized to make this request.
+   *
+   * @return bool
+   */
+  public function authorize()
+  {
+    return true;
+  }
+
+  /**
    * Get the validation rules that apply to the request.
    *
    * @return array
@@ -21,4 +31,13 @@ class StoreInstructorRequest extends Request
     ];
   }
 
+  public function attributes()
+  {
+    return [
+      'name' => 'imię',
+      'surname' => 'nazwisko',
+      'email' => 'adres e-mail',
+      'phoneNumber' => 'numer telefonu',
+    ];
+  }
 }

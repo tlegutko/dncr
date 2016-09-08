@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class InstructorsController extends Controller
 {
   /**
+   * InstructorsController constructor.
+   */
+  public function __construct()
+  {
+    $this->middleware('api');
+  }
+
+  /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
