@@ -20,6 +20,7 @@ interface CreateAttendeeErrors {
 export class CreateAttendeeComponent {
   @Input() title: string;
   @Output() onCancel = new EventEmitter<boolean>();
+  @Output() onSave = new EventEmitter<Attendee>();
   model = new Attendee();
   errors: CreateAttendeeErrors = {};
 
@@ -30,9 +31,11 @@ export class CreateAttendeeComponent {
     this.createAttendeeService.createAttendee(this.model)
       .then(
         (response) => {
-          delete this['errors'];
-          console.log(response);
-          // TODO: new attendee should be added to the list when it's implemented
+          if (response.ok) {
+            let attendee = response.json();
+            this.errors = {};
+            this.onSave.emit(attendee);
+          }
         }
       )
       .catch(
