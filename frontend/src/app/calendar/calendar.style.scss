@@ -4,6 +4,10 @@
   background: transparent;
 }
 
+.fc-event {
+  cursor: pointer;
+}
+
 .fc-agendaWeek-view, .fc-month-view {
   .fc-today.ui-state-highlight {
     border-color: #d5d5d5;

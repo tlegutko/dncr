@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 
 /**
  * CalendarComponent is a wrapper for reception-calendar and manager-calendar.
@@ -6,6 +6,7 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
  * If functionality differs (i.e. onEventClick), it should be passed to this component.
  * For further documentation see http://www.primefaces.org/primeng/#/schedule.
  * Parameters:
+ * @Input() defaultView default view to display on calendar. can be `month`, `agendaWeek`, `agendaDay`. default: `month`
  * @Input() events events to display. Event format: https://fullcalendar.io/docs/event_data/Event_Source_Object/.
  * @Input() editable whether events can be modified (dragged and resized).
  * @Output($event) onEventClick action to take when event is clicked
@@ -18,8 +19,8 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
     selector: 'calendar',
     styleUrls: ['./calendar.style.scss'],
     template: `
-    <p-schedule class="test" [events]="events" [header]="header" [height]="'parent'" [nowIndicator]="true"
-    [locale]="pl" [defaultView]="'agendaDay'" [scrollTime]="'10:00:00'" [minTime]="'6:00:00'" [editable]="editable"
+    <p-schedule [events]="events" [header]="header" [height]="'parent'" [nowIndicator]="true"
+    [locale]="locale" [defaultView]="defaultView" scrollTime="9:00:00" minTime="7:00:00" [editable]="editable"
     (onEventClick)="onEventClick.emit($event)" (onDayClick) = "onDayClick.emit($event)"
     (onEventResize)="onEventResize.emit($event)" (onEventDrop) = "onEventDrop.emit($event)">
     </p-schedule>
@@ -27,26 +28,25 @@ import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } fro
     encapsulation: ViewEncapsulation.None,
   }
 )
-export class CalendarComponent implements OnInit {
+export class CalendarComponent {
   header: any;
-  pl: any;
-  currentDate: string;
+  locale: any;
   @Input() events: any[];
+  @Input() defaultView: string;
   @Input() editable: boolean;
   @Output() onEventClick = new EventEmitter();
   @Output() onDayClick = new EventEmitter();
   @Output() onEventResize = new EventEmitter();
   @Output() onEventDrop = new EventEmitter();
 
-  ngOnInit() {
-    this.currentDate = new Date().toJSON().slice(0, 10);
+  constructor() {
     this.header = {
       left: 'prev,next today',
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     };
-    this.pl = {
-      lang: 'pl',
+    this.locale = {
+      locale: 'pl',
       buttonText: {
         today: 'dzisiaj',
         month: 'miesiąc',
@@ -54,26 +54,5 @@ export class CalendarComponent implements OnInit {
         day: 'dzień'
       },
     };
-    if (this.events == null) { // TODO delete once real events arrive
-      this.events = [
-        {
-          'id': 1,
-          'title': 'Poranny kurs',
-          'start': this.currentDate + 'T10:00:00',
-          'end': this.currentDate + 'T11:30:00'
-        }, {
-          'id': 2,
-          'title': 'Drugi poranny kurs',
-          'start': this.currentDate + 'T11:00:00',
-          'end': this.currentDate + 'T12:30:00'
-        }, {
-          'id': 3,
-          'title': 'Popołudniowy kurs',
-          'start': this.currentDate + 'T16:00:00',
-          'end': this.currentDate + 'T17:30:00'
-        },
-      ];
-    }
   }
-
 }
