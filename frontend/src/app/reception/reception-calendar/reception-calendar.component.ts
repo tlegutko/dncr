@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CalendarEventAction, CalendarDayClick } from '../../calendar/calendar.component';
 
 @Component(
   {
     selector: 'reception-calendar',
     template: `<calendar [events]="mockEvents" [editable]="false" defaultView="agendaDay"
-              (onEventClick)="onEventClick($event)" (onDayClick)="onDayClick($event)"></calendar>
+              (eventClick)="onEventClick($event)" (dayClick)="onDayClick($event)"></calendar>
     `
   }
 )
@@ -20,7 +21,6 @@ export class ReceptionCalendarComponent {
         'title': 'Poranny kurs',
         'start': currentDate + 'T10:00:00',
         'end': currentDate + 'T11:30:00',
-        'timezone': ''
       }, {
         'id': 2,
         'title': 'Drugi poranny kurs',
@@ -35,13 +35,13 @@ export class ReceptionCalendarComponent {
     ];
   }
 
-  onEventClick(e) {
+  onEventClick(e: CalendarEventAction) {
     console.log('clicked on event in reception: ' + e.calEvent.title);
     this.router.navigate(['course-details'], { relativeTo: this.route });
   }
 
-  onDayClick(e) {
-    console.log('clicked on day in reception with date: ' + e.date._d);
+  onDayClick(e: CalendarDayClick) {
+    console.log('clicked on day in reception with date: ' + e.date.format());
     this.router.navigate(['/reception']);
   }
 }

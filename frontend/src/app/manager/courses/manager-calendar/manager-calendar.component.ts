@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {
+  CalendarDayClick, CalendarEventAction, CalendarEventModifyAction, CalendarComponent
+} from '../../../calendar/calendar.component';
 
 @Component(
   {
     selector: 'manager-calendar',
     template: `<calendar [events]="mockEvents" [editable]="true" defaultView="agendaWeek" 
-              (onEventClick)="onEventClick($event)" (onDayClick)="onDayClick($event)"  
-              (onEventResize)="onEventResize($event)" (onEventDrop)="onEventDrop($event)"> 
+              (eventClick)="onEventClick($event)" (dayClick)="onDayClick($event)"  
+              (eventResize)="onEventResize($event)" (eventDrop)="onEventDrop($event)"> 
               </calendar>
     `
   }
@@ -37,21 +40,21 @@ export class ManagerCalendarComponent {
     ];
   }
 
-  onEventClick(e) {
+  onEventClick(e: CalendarEventAction) {
     console.log('clicked on event in manager: ' + e.calEvent.title);
     this.router.navigate(['details'], { relativeTo: this.route });
   }
 
-  onDayClick(e) {
-    console.log('clicked on day in manager with date: ' + e.date._d);
+  onDayClick(e: CalendarDayClick) {
+    console.log('clicked on day in manager with date: ' + e.date.format());
     this.router.navigate(['/manager/courses']);
   }
 
-  onEventResize(e) {
+  onEventResize(e: CalendarEventModifyAction) {
     console.log(e.event.title + ' resized');
   }
 
-  onEventDrop(e) {
+  onEventDrop(e: CalendarEventModifyAction) {
     console.log(e.event.title + ' moved');
   }
 }
