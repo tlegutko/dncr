@@ -1,3 +1,6 @@
+@import '~bootstrap/scss/_variables';
+
 .navbar {
   margin-bottom: 1rem;
+  background-color: $gray-lighter;
 }

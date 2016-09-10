@@ -1,0 +1,10 @@
+<button type="button" class="cancel btn btn-sm btn-secondary" (click)="onCancel.emit(true)" *ngIf="isEditing">
+  <i class="fa fa-times"></i>
+</button>
+<div class="title" [class.editing]="isEditing">
+  <i class="fa fa-users fa-2x" aria-hidden="true"></i>
+  <h5><span class="hidden-md-down">Lista osób: </span>{{ title }}</h5>
+</div>
+<button type="submit" class="save btn btn-sm btn-primary" *ngIf="isEditing">
+  <i class="fa fa-floppy-o"></i> Zapisz
+</button>

@@ -9,15 +9,16 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(): Observable<boolean> {
-    return this.authService.check().map(
+    let check = this.authService.check();
+    check.subscribe(
       (result) => {
-        if (result) {
-          return true;
-        } else {
+        if (!result) {
+          // TODO: Add "login required" message ;)
           this.router.navigate(['/']);
-          return false;
         }
       }
     );
+
+    return check;
   }
 }

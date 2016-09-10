@@ -1,6 +1,10 @@
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins/_breakpoints";
 
+:host {
+  display: block;
+}
+
 main {
   display: block;
   margin-top: 1rem;
