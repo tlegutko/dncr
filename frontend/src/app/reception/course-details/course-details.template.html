@@ -3,11 +3,11 @@
 <course-details-title [title]="course.title" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
 <h1>{{details.name}}</h1>
 <ul class="list-group">
-  <div class="list-group-item clearfix" *ngFor="let participant of details.participants">
+  <div class="list-group-item clearfix" *ngFor="let attendee of details.attendees">
       <span class="pull-xs-left">
       <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="">
-          {{participant}}
+          {{attendee}}
       </label>
       </span>
       <span class="pull-xs-right btn-group">

@@ -16,13 +16,6 @@ export class CourseDetailsComponent {
   isCreateFormVisible = false;
   error = '';
 
-    constructor() {
-        this.details = {
-            name: 'kurs',
-            participants: ['k1', 'k2']
-        };
-    }
-
   public onAttendeeSaved(attendee: Attendee) {
     // TODO: new attendee should be added to the list when it's implemented
     this.hideCreateForm();
