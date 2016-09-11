@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CreateAttendeeService } from './create-attendee.service';
-import { Attendee } from './attendee';
+import { AttendeeService } from '../attendee.service';
+import { Attendee } from '../attendee';
 
 interface CreateAttendeeErrors {
   name?: string[];
@@ -14,7 +14,7 @@ interface CreateAttendeeErrors {
     selector: 'create-attendee',
     templateUrl: './create-attendee.template.html',
     styleUrls: ['./create-attendee.style.scss'],
-    providers: [CreateAttendeeService]
+    providers: [AttendeeService]
   }
 )
 export class CreateAttendeeComponent {
@@ -24,11 +24,11 @@ export class CreateAttendeeComponent {
   model = new Attendee();
   errors: CreateAttendeeErrors = {};
 
-  constructor(private createAttendeeService: CreateAttendeeService) {
+  constructor(private attendeeService: AttendeeService) {
   }
 
   createUser() {
-    this.createAttendeeService.createAttendee(this.model)
+    this.attendeeService.createAttendee(this.model)
       .then(
         (response) => {
           if (response.ok) {

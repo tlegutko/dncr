@@ -1,0 +1,11 @@
+@import '../../../../node_modules/bootstrap/scss/_variables';
+@import '../../../../node_modules/bootstrap/scss/mixins/_breakpoints';
+
+:host {
+  display: block;
+}
+
+.top-row {
+  background-color: #eceeef;
+  padding: 0 1px;
+}

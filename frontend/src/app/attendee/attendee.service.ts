@@ -1,26 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Attendee } from '../../create-attendee/attendee';
-import 'rxjs/add/operator/toPromise';
-import { AuthHttp } from 'angular2-jwt';
+import { Injectable }     from '@angular/core';
 import { Response } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
+import { Attendee } from './attendee';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class GetCourseAttendeesService {
-  private attendeesUrl = 'api/attendees';
+export class AttendeeService {
+  private attendeesUrl = 'api/attendee';
 
-  constructor(private http: AuthHttp) {
-  }
+  constructor (private http: AuthHttp) {}
 
-  getAttendees(): Observable<Attendee[]> { // TODO: make it dependant on a given course
+  getAttendees(): Observable<Attendee[]> {
     return this.http.get(this.attendeesUrl)
       .map(this.extractData);
-      // .catch(this.handleError);
+    // .catch(this.handleError);
   }
+
+  createAttendee(attendee: Attendee): Promise<Response> {
+    return this.http
+      .post(this.attendeesUrl, attendee)
+      .toPromise();
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body.data || { };
   }
+
   private handleError (error: any) { // TODO: proper error handling
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

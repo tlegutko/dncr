@@ -1,0 +1,19 @@
+@import '../../../../../node_modules/bootstrap/scss/_variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins/_clearfix';
+@import '../../../../../node_modules/bootstrap/scss/mixins/_breakpoints';
+@import '../../../../../node_modules/bootstrap/scss/mixins/_grid';
+@import '../../../../../node_modules/bootstrap/scss/mixins/_grid-framework';
+@import '../../../../../node_modules/bootstrap/scss/_grid';
+
+:host {
+  @extend .col-md-3;
+  @extend .col-sm-6;
+  @extend .col-xs-12;
+  padding: 0;
+  display: inline-block;
+}
+
+.form-group {
+  padding: 0.1rem;
+  margin-bottom: 0;
+}

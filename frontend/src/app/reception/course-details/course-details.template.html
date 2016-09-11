@@ -1,18 +1,5 @@
 <create-attendee [title]="course.title" (onCancel)="hideCreateForm()" (onSave)="onAttendeeSaved($event)"
                  *ngIf="isCreateFormVisible"></create-attendee>
 <course-details-title [title]="course.title" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
-<ul class="list-group">
-  <div class="list-group-item clearfix" *ngFor="let attendee of course.attendees">
-      <span class="pull-xs-left">
-      <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="">
-          {{attendee}}
-      </label>
-      </span>
-      <span class="pull-xs-right btn-group">
-        <button class="btn btn-sm"><i class="fa fa-usd"></i></button>
-        <button class="btn btn-sm"><i class="fa fa-eye"></i></button>
-      </span>
-  </div>
-</ul>
+<attendee-list></attendee-list>
 <course-details-action-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></course-details-action-button>

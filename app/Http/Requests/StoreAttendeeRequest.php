@@ -24,8 +24,8 @@ class StoreAttendeeRequest extends Request
     return [
       'name' => 'required',
       'surname' => 'required',
-      'email' => 'required | email | unique:attendees',
-      'phoneNumber' => 'required | digits:9 | unique:attendees',
+      'email' => 'required | email | unique:attendee',
+      'phoneNumber' => 'required | digits:9 | unique:attendee',
     ];
   }
 

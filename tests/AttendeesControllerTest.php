@@ -23,7 +23,7 @@ class AttendeesControllerTest extends TestCase
 
   public function testRequiresToken()
   {
-    $this->post('/api/attendees', [
+    $this->post('/api/attendee', [
       'name' => 'Jan',
       'surname' => 'Kowalski',
       'phoneNumber' => '123123888',
@@ -76,7 +76,7 @@ class AttendeesControllerTest extends TestCase
 //
 //  private function validationErrorTest($invalidRequest, $expectedResponse)
 //  {
-//    $this->json('POST', '/api/attendees', $invalidRequest);
+//    $this->json('POST', '/api/attendee', $invalidRequest);
 //    $this->assertResponseStatus(422);
 //    $this->seeJsonEquals($expectedResponse);
 //  }

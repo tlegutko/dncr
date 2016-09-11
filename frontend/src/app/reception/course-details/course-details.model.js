@@ -1,8 +1,8 @@
 "use strict";
-var CoureDetails = (function () {
-    function CoureDetails() {
+var CourseDetails = (function () {
+    function CourseDetails() {
     }
-    return CoureDetails;
+    return CourseDetails;
 }());
-exports.CoureDetails = CoureDetails;
+exports.CoureDetails = CourseDetails;
 //# sourceMappingURL=course-details.model.js.map

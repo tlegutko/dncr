@@ -1,4 +1,4 @@
-import { Attendee } from '../../create-attendee/attendee';
+import { Attendee } from '../../attendee/attendee';
 
 export class CourseDetailsModel {
     public name: string;
