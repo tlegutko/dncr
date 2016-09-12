@@ -242,7 +242,23 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: 'src/assets',
       to: 'assets'
-    }]),
+    }, {
+      from: 'node_modules/primeui/themes/delta/theme.css',
+      to: 'assets/primeui/themes/delta/theme.css'
+    },
+      {
+        from: 'node_modules/primeui/themes/delta/images/',
+        to: 'assets/primeui/themes/delta/images'
+      },
+      {
+        from: 'node_modules/primeui/primeui-ng-all.min.css',
+        to: 'assets/primeui/primeui-ng-all.min.css'
+      },
+      {
+        from: 'node_modules/fullcalendar/dist/fullcalendar.min.css',
+        to: 'assets/fullcalendar/fullcalendar.min.css'
+      }
+    ]),
 
     new CopyWebpackPlugin([{
       from: 'src/index.css',
