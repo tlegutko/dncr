@@ -1,5 +1,3 @@
-@import '~bootstrap/scss/_variables';
-
 :host {
   display: block;
   height: 100%;
@@ -7,8 +5,7 @@
 
 .navbar {
   margin-bottom: 1rem;
-  background-color: $gray-lighter;
-  height: 2.5rem;
+  height: 3rem;
 }
 
 .row {
