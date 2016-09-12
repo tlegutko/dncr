@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { InstructorsService } from './instructors.service';
 import { Instructor } from './instructor';
-import splice = require('core-js/fn/array/splice');
 
 @Component(
   {
@@ -20,7 +19,9 @@ export class ManagerInstructorsComponent {
   }
 
   public remove(instructor: Instructor) {
-    this.instructorsService.remove(instructor)
-      .then(response => this.instructors.splice(this.instructors.indexOf(instructor), 1));
+    if (confirm('Czy na pewno usunąć instruktora?')) {
+      this.instructorsService.remove(instructor)
+        .then(response => this.instructors.splice(this.instructors.indexOf(instructor), 1));
+    }
   }
 }
