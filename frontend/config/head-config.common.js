@@ -38,7 +38,13 @@ module.exports = {
     { rel: 'manifest', href: '/assets/manifest.json' },
 
     /** Basic styles */
-    { rel: "stylesheet", href: "/index.css" }
+    { rel: "stylesheet", href: "/index.css" },
+
+    /** Styles for calendar dependencies */
+    { rel: "stylesheet", href: "/assets/fullcalendar/fullcalendar.min.css"},
+    { rel: "stylesheet", href: "/assets/primeui/themes/delta/theme.css"},
+    { rel: "stylesheet", href: "/assets/primeui/primeui-ng-all.min.css"}
+
   ],
   meta: [
     { name: 'msapplication-TileColor', content: '#00bcd4' },

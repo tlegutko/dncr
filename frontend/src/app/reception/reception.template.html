@@ -1,12 +1,8 @@
-<div class="row">
-  <a *ngIf=!showAdditionalPane [routerLink]="['course-details']" routerLinkActive="active">Pokaż szczegóły kursu.</a>
-  <a *ngIf=showAdditionalPane [routerLink]="['/reception']" routerLinkActive="active">Schowaj szczegóły kursu.</a>
-</div>
-<div class="row">
-  <div class="col-xs-12" [class.col-sm-6]="showAdditionalPane">
-    <img src="/assets/img/calendar-tmp.png" class="img-fluid" style="width: 100%" alt="Mock kalendarza">
+<div class="row full-height">
+  <div class="col-xs-12 full-height" [class.col-sm-6]="showAdditionalPane">
+    <reception-calendar></reception-calendar>
   </div>
-  <div [class.hidden-xs-up]="!showAdditionalPane" class="col-xs-12 col-sm-6">
+  <div class="col-xs-12 col-sm-6 full-height" [class.hidden-xs-up]="!showAdditionalPane">
     <router-outlet></router-outlet>
   </div>
 </div>
