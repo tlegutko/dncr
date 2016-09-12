@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ManagerComponent } from './manager.component';
 import { ManagerCoursesComponent } from './courses/courses.component';
 import { ManagerCoursesDetailsComponent } from './courses/details/details.component';
+import { ManagerInstructorsComponent } from './instructors/instructors.component';
 import { ManagerCalendarComponent } from './courses/manager-calendar/manager-calendar.component';
 import { CalendarModule } from '../calendar/index';
 
@@ -29,6 +30,9 @@ export const routes = [
             component: ManagerCoursesDetailsComponent
           }
         ]
+      }, {
+        path: 'instructors',
+        component: ManagerInstructorsComponent
       }
     ]
   }
