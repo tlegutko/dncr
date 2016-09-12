@@ -3,19 +3,20 @@
 
 :host {
   display: block;
+  height: 100%;
+
+  // Firefox required input workaround
+  input:invalid {
+    box-shadow: none;
+  }
 }
 
 main {
   display: block;
-  height: 100%;
-  margin-top: 1rem;
+  height: calc(100% - 1rem);
+  padding-top: 1rem;
 }
 
 nav.navbar ~ main {
-  margin-top: 4rem;
-}
-
-// Firefox required input workaround
-input:invalid {
-  box-shadow: none;
+  padding-top: 4rem;
 }

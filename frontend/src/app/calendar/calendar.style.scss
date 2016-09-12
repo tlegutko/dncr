@@ -1,5 +1,9 @@
 @import '~bootstrap/scss/_variables';
 
+.fc-toolbar {
+  margin-bottom: 0.5rem;
+}
+
 .fc-today.ui-state-highlight {
   background: transparent;
 }

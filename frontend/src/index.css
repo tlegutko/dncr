@@ -10,12 +10,6 @@ app > span.loader {
   vertical-align: center;
 }
 
-html {
-  display: block;
+html, body {
   height: 100%;
-}
-
-body {
-  display: block;
-  height: calc(100% - 6rem - 2px);
 }
