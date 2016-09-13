@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class AttendeeService {
-  private attendeesUrl = 'api/attendee';
+  private attendeesUrl = 'api/attendees';
 
   constructor (private http: AuthHttp) {}
 

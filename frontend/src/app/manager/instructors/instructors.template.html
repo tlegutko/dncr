@@ -1,0 +1,28 @@
+<div class="col-xs-12">
+  <p class="alert alert-danger" *ngIf="error">{{ error }}</p>
+  <table class="table table-striped">
+    <tr>
+      <th class="col-xs-3">Imię</th>
+      <th class="col-xs-3">Nazwisko</th>
+      <th class="col-xs-3">Email</th>
+      <th class="col-xs-2">Numer telefonu</th>
+      <th class="col-xs-1"></th>
+    </tr>
+    <tr *ngFor="let instructor of instructors">
+      <td class="col-xs-3">{{ instructor.name }}</td>
+      <td class="col-xs-3">{{ instructor.surname }}</td>
+      <td class="col-xs-3">{{ instructor.email }}</td>
+      <td class="col-xs-2">{{ instructor.phoneNumber }}</td>
+      <td class="text-xs-center col-xs-1 actions">
+        <button class="btn btn-sm btn-danger" type="button" (click)="remove(instructor)">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="instructors.length == 0">
+      <td colspan="5" class="text-xs-center">
+        <p class="alert alert-info">Brak instruktorów</p>
+      </td>
+    </tr>
+  </table>
+</div>
