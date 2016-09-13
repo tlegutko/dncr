@@ -1,8 +1,9 @@
-import { Injectable }     from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Attendee } from './attendee';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class AttendeeService {
@@ -12,19 +13,14 @@ export class AttendeeService {
 
   getAttendees(): Observable<Attendee[]> {
     return this.http.get(this.attendeesUrl)
-      .map(this.extractData);
-    // .catch(this.handleError);
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
   }
 
   createAttendee(attendee: Attendee): Promise<Response> {
     return this.http
       .post(this.attendeesUrl, attendee)
       .toPromise();
-  }
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
   }
 
   private handleError (error: any) { // TODO: proper error handling
