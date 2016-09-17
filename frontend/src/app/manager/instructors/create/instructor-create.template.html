@@ -1,23 +1,26 @@
-<div class="row padding-box">
-  <div class="form-group col-xs-3 padding-box">
-    <input type="text" class="form-control" placeholder="Imię..." required
+<form class="form clearfix" (ngSubmit)="createInstructor()" #createInstructorForm="ngForm">
+  <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
+  <form-field [errors]="errors.name" class="col-xs-3">
+    <input type="text" class="form-control" [class.form-control-danger]="errors.name" placeholder="Imię..." required
            [(ngModel)]="model.name" name="name">
-  </div>
-  <div class="form-group col-xs-3 padding-box">
-    <input type="text" class="form-control" placeholder="Nazwisko..." required
+  </form-field>
+  <form-field [errors]="errors.surname" class="col-xs-3">
+    <input type="text" class="form-control" [class.form-control-danger]="errors.surname" placeholder="Nazwisko..."
+           required
            [(ngModel)]="model.surname" name="surname">
-  </div>
-  <div class="form-group col-xs-3 padding-box">
-    <input #emailInput type="email" class="form-control" placeholder="Email..." required
+  </form-field>
+  <form-field [errors]="errors.email" class="col-xs-3">
+    <input type="email" class="form-control" [class.form-control-danger]="errors.email" placeholder="E-mail..." required
            [(ngModel)]="model.email" name="email">
-  </div>
-  <div class="form-group col-xs-2 padding-box">
-    <input type="tel" class="form-control" placeholder="Telefon..." required pattern="[0-9]{9}"
-           [(ngModel)]="model.phoneNumber" name="phoneNumber">
-  </div>
+  </form-field>
+  <form-field [errors]="errors.phoneNumber" class="col-xs-2">
+    <input type="tel" class="form-control" [class.form-control-danger]="errors.phoneNumber" placeholder="Telefon..."
+           required pattern="[0-9]{9}" [(ngModel)]="model.phoneNumber" name="phoneNumber">
+  </form-field>
   <div class="form-group text-xs-center col-xs-1">
-    <button class="btn btn-sm btn-primary" type="submit" (click)="createInstructor()">
+    <button class="btn btn-block btn-success" type="submit">
       <i class="fa fa-plus" aria-hidden="true"></i>
+      <span class="sr-only">Dodaj</span>
     </button>
   </div>
-</div>
+</form>

@@ -3,6 +3,13 @@ import { InstructorsService } from '../instructors.service';
 import { Instructor } from '../instructor';
 import splice = require('core-js/fn/array/splice');
 
+interface CreateInstructorErrors {
+  name?: string[];
+  surname?: string[];
+  email?: string[];
+  phoneNumber?: string[];
+}
+
 @Component(
   {
     selector: 'instructor-create',
@@ -14,6 +21,7 @@ import splice = require('core-js/fn/array/splice');
 export class InstructorCreateComponent {
   @Output() onCreated = new EventEmitter<Instructor>();
   model = new Instructor();
+  errors: CreateInstructorErrors = {};
 
   constructor(private instructorsService: InstructorsService) {
   }
@@ -24,6 +32,13 @@ export class InstructorCreateComponent {
         addedInstructor => {
           this.model = new Instructor();
           this.onCreated.emit(addedInstructor);
+        }
+      )
+      .catch(
+        (response) => {
+          let error = response.json();
+          console.error('Error during attendee creation', error);
+          this.errors = error;
         }
       );
   }

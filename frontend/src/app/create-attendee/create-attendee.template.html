@@ -3,21 +3,21 @@
     <course-details-title [title]="title" [isEditing]="true" (onCancel)="onCancel.emit(true)"></course-details-title>
   </div>
   <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
-  <create-attendee-field [errors]="errors.name">
+  <form-field [errors]="errors.name" class="col-md-3 col-sm-6 col-xs-12">
     <input type="text" class="form-control" [class.form-control-danger]="errors.name" placeholder="Imię..." required
            [(ngModel)]="model.name" name="name">
-  </create-attendee-field>
-  <create-attendee-field [errors]="errors.surname">
+  </form-field>
+  <form-field [errors]="errors.surname" class="col-md-3 col-sm-6 col-xs-12">
     <input type="text" class="form-control" [class.form-control-danger]="errors.surname" placeholder="Nazwisko..."
            required
            [(ngModel)]="model.surname" name="surname">
-  </create-attendee-field>
-  <create-attendee-field [errors]="errors.email">
+  </form-field>
+  <form-field [errors]="errors.email" class="col-md-3 col-sm-6 col-xs-12">
     <input type="email" class="form-control" [class.form-control-danger]="errors.email" placeholder="E-mail..." required
            [(ngModel)]="model.email" name="email">
-  </create-attendee-field>
-  <create-attendee-field [errors]="errors.phoneNumber">
+  </form-field>
+  <form-field [errors]="errors.phoneNumber" class="col-md-3 col-sm-6 col-xs-12">
     <input type="tel" class="form-control" [class.form-control-danger]="errors.phoneNumber" placeholder="Telefon..."
            required pattern="[0-9]{9}" [(ngModel)]="model.phoneNumber" name="phoneNumber">
-  </create-attendee-field>
+  </form-field>
 </form>
