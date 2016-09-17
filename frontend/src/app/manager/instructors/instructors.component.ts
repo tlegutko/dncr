@@ -7,7 +7,7 @@ import { Instructor } from './instructor';
     selector: 'manager-instructors',
     templateUrl: './instructors.template.html',
     styleUrls: ['./instructors.style.scss'],
-    providers: [InstructorsService],
+    providers: [InstructorsService]
   }
 )
 export class ManagerInstructorsComponent {
@@ -23,5 +23,9 @@ export class ManagerInstructorsComponent {
       this.instructorsService.remove(instructor)
         .then(response => this.instructors.splice(this.instructors.indexOf(instructor), 1));
     }
+  }
+
+  public add(instructor: Instructor) {
+    this.instructors.push(instructor);
   }
 }

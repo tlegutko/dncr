@@ -1,23 +1,26 @@
-<form class="form clearfix" (ngSubmit)="createUser()" #createAttendeeForm="ngForm">
-  <div class="col-xs-12 top-row">
-    <course-details-title [title]="title" [isEditing]="true" (onCancel)="onCancel.emit(true)"></course-details-title>
-  </div>
+<form class="form clearfix" (ngSubmit)="createInstructor()" #createInstructorForm="ngForm">
   <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
-  <form-field [errors]="errors.name" class="col-md-3 col-sm-6 col-xs-12">
+  <form-field [errors]="errors.name" class="col-xs-3">
     <input type="text" class="form-control" [class.form-control-danger]="errors.name" placeholder="Imię..." required
            [(ngModel)]="model.name" name="name">
   </form-field>
-  <form-field [errors]="errors.surname" class="col-md-3 col-sm-6 col-xs-12">
+  <form-field [errors]="errors.surname" class="col-xs-3">
     <input type="text" class="form-control" [class.form-control-danger]="errors.surname" placeholder="Nazwisko..."
            required
            [(ngModel)]="model.surname" name="surname">
   </form-field>
-  <form-field [errors]="errors.email" class="col-md-3 col-sm-6 col-xs-12">
+  <form-field [errors]="errors.email" class="col-xs-3">
     <input type="email" class="form-control" [class.form-control-danger]="errors.email" placeholder="E-mail..." required
            [(ngModel)]="model.email" name="email">
   </form-field>
-  <form-field [errors]="errors.phoneNumber" class="col-md-3 col-sm-6 col-xs-12">
+  <form-field [errors]="errors.phoneNumber" class="col-xs-2">
     <input type="tel" class="form-control" [class.form-control-danger]="errors.phoneNumber" placeholder="Telefon..."
            required pattern="[0-9]{9}" [(ngModel)]="model.phoneNumber" name="phoneNumber">
   </form-field>
+  <div class="form-group text-xs-center col-xs-1">
+    <button class="btn btn-block btn-success" type="submit">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      <span class="sr-only">Dodaj</span>
+    </button>
+  </div>
 </form>
