@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 
 /*
@@ -8,7 +8,6 @@ import { AuthService } from './auth.service';
 @Component(
   {
     selector: 'app',
-    encapsulation: ViewEncapsulation.None,
     styleUrls: ['./app.style.scss'],
     templateUrl: 'app.template.html'
   }

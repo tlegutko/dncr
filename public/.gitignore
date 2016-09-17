@@ -6,4 +6,5 @@
 *.woff
 *.woff2
 assets/
+index.css
 index.html

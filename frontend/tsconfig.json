@@ -19,7 +19,8 @@
       "selenium-webdriver",
       "source-map",
       "uglify-js",
-      "webpack"
+      "webpack",
+      "moment"
     ]
   },
   "exclude": [
