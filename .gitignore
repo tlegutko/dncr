@@ -10,3 +10,5 @@
 .idea/dictionaries/*
 !.idea/dictionaries/polish.dic
 docker-compose.yml
+*.js
+*.js.map

@@ -1,9 +1,9 @@
-@import '../../../../../node_modules/bootstrap/scss/_variables';
-@import '../../../../../node_modules/bootstrap/scss/mixins/_clearfix';
-@import '../../../../../node_modules/bootstrap/scss/mixins/_breakpoints';
-@import '../../../../../node_modules/bootstrap/scss/mixins/_grid';
-@import '../../../../../node_modules/bootstrap/scss/mixins/_grid-framework';
-@import '../../../../../node_modules/bootstrap/scss/_grid';
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_clearfix';
+@import '~bootstrap/scss/mixins/_breakpoints';
+@import '~bootstrap/scss/mixins/_grid';
+@import '~bootstrap/scss/mixins/_grid-framework';
+@import '~bootstrap/scss/_grid';
 
 :host {
   @extend .col-md-3;
