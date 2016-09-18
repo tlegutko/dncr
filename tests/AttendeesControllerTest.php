@@ -23,7 +23,7 @@ class AttendeesControllerTest extends TestCase
 
   public function testRequiresToken()
   {
-    $this->post('/api/attendee', [
+    $this->post('/api/attendees', [
       'name' => 'Jan',
       'surname' => 'Kowalski',
       'phoneNumber' => '123123888',

@@ -25,7 +25,7 @@ export class AttendeeService {
 
   private handleError (error: any) { // TODO: proper error handling
     let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+      error.status ? `${error.status} - ${error.statusText}` : 'Błąd serwera';
     console.error(errMsg);
     return Observable.throw(errMsg);
   }

@@ -6,8 +6,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
   {
     selector: 'reception',
     styleUrls: ['./reception.style.scss'],
-    templateUrl: './reception.template.html',
-    directives: [ CourseDetailsComponent ]
+    templateUrl: './reception.template.html'
   }
 )
 export class ReceptionComponent {
