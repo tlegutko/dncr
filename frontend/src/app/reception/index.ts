@@ -7,7 +7,6 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import { CourseDetailsActionButtonComponent } from './course-details/action-button/action-button.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { CreateAttendeeComponent } from '../attendee/create/create-attendee.component';
-import { CreateAttendeeField } from '../attendee/create/field/field.component';
 import { AttendeeListComponent } from './course-details/attendee-list/attendee-list.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CalendarModule } from '../calendar/index';
@@ -37,7 +36,10 @@ export const routes = [
       CourseDetailsComponent,
       CourseDetailsTitleComponent,
       CourseDetailsActionButtonComponent,
-      CreateAttendeeComponent, ReceptionCalendarComponent, Field
+      CreateAttendeeComponent,
+      ReceptionCalendarComponent,
+      AttendeeListComponent,
+      Field
     ],
     imports: [
       BrowserModule, FormsModule, RouterModule.forChild(routes), CalendarModule
