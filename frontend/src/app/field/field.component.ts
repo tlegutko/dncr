@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component(
   {
-    selector: 'create-attendee-field',
+    selector: 'form-field',
     template: `
       <div class="form-group" [class.has-danger]="errors">
         <ng-content></ng-content>
@@ -14,6 +14,6 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./field.style.scss']
   }
 )
-export class CreateAttendeeField {
+export class Field {
   @Input() errors: string[] = [];
 }

@@ -22,4 +22,11 @@ export class InstructorsService {
       .delete(this.resource + '/' + instructor.id)
       .toPromise();
   }
+
+  create(instructor: Instructor): Promise<Instructor> {
+    return this.http
+      .post(this.resource, instructor)
+      .map((response: Response) => response.json())
+      .toPromise();
+  }
 }

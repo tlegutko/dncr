@@ -3,12 +3,9 @@
 @import '~bootstrap/scss/mixins/_breakpoints';
 @import '~bootstrap/scss/mixins/_grid';
 @import '~bootstrap/scss/mixins/_grid-framework';
-@import '~bootstrap/scss/_grid';
+@import '~bootstrap/scss/grid';
 
 :host {
-  @extend .col-md-3;
-  @extend .col-sm-6;
-  @extend .col-xs-12;
   padding: 0;
   display: inline-block;
 }
