@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+  use CamelCaseConverter;
+
   protected $fillable = [
     'name',
     'company_id',
