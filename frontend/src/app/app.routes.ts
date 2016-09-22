@@ -10,12 +10,12 @@ export const ROUTES: Routes = [
   },
   {
     path: 'reception',
-    loadChildren: () => System.import('./reception'),
+    loadChildren: () => System.import('./reception/reception.module'),
     canActivate: [AuthGuard]
   },
   {
     path: 'manager',
-    loadChildren: () => System.import('./manager'),
+    loadChildren: () => System.import('./manager/manager.module'),
     canActivate: [AuthGuard]
   },
   {
