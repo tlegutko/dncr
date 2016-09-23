@@ -11,9 +11,9 @@ import { Component, Input } from '@angular/core';
         </div>
       </div>
     `,
-    styleUrls: ['./field.style.scss']
+    styleUrls: ['./form-field.style.scss']
   }
 )
-export class Field {
+export class FormField {
   @Input() errors: string[] = [];
 }

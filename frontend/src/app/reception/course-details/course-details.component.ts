@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Attendee } from '../../create-attendee/attendee';
+import { Attendee } from 'app/create-attendee/attendee';
 
 @Component(
   {

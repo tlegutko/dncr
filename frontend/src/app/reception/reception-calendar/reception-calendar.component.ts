@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { CalendarItem } from '../../_commons/calendar/calendar.interface';
-import { CalendarEvent, CalendarDayClick } from '../../_commons/calendar/calendar-events.interface';
+import { CalendarItem } from 'app/_commons/calendar/calendar.interface';
+import { CalendarEvent, CalendarDayClick } from 'app/_commons/calendar/calendar-events.interface';
 
 @Component(
   {

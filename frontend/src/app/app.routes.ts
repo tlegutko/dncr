@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { NoContent } from './no-content';
 import { Homepage } from './homepage/homepage.component';
-import { AuthGuard } from './auth-guard';
+import { AuthGuard } from 'app/_commons/auth';
 
 export const ROUTES: Routes = [
   {

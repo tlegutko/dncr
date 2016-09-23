@@ -10,6 +10,12 @@
     "noEmitHelpers": true,
     "strictNullChecks": false,
     "baseUrl": "./src",
+    "paths": {
+      "*": [
+        "*",
+        "../node_modules/*"
+      ]
+    },
     "types": [
       "core-js",
       "hammerjs",
