@@ -2,7 +2,7 @@ import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { LoginModel } from './homepage/login/login.model';
+import { LoginModel } from 'app/homepage/login';
 import { CookieService } from 'angular2-cookie/core';
 import { Response } from '@angular/http';
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { NoContent } from './no-content';
 import { Homepage } from './homepage/homepage.component';
-import { AuthGuard } from './auth-guard';
+import { AuthGuard } from 'app/_commons/auth';
 
 export const ROUTES: Routes = [
   {
@@ -10,12 +10,12 @@ export const ROUTES: Routes = [
   },
   {
     path: 'reception',
-    loadChildren: () => System.import('./reception'),
+    loadChildren: () => System.import('./reception/reception.module'),
     canActivate: [AuthGuard]
   },
   {
     path: 'manager',
-    loadChildren: () => System.import('./manager'),
+    loadChildren: () => System.import('./manager/manager.module'),
     canActivate: [AuthGuard]
   },
   {

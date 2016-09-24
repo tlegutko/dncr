@@ -9,8 +9,7 @@ import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { NoContent } from './no-content';
 import { Homepage } from './homepage/homepage.component';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth-guard';
+import { AuthService, AuthGuard } from 'app/_commons/auth';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { AUTH_PROVIDERS, AuthHttp, AuthConfig } from 'angular2-jwt';
 

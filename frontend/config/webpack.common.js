@@ -75,7 +75,12 @@ module.exports = {
     root: helpers.root('src'),
 
     // remove other default values
-    modulesDirectories: ['node_modules']
+    modulesDirectories: ['node_modules'],
+
+    // Alias for main application
+    alias: {
+      'app': helpers.root('src/app')
+    }
 
   },
 
