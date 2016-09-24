@@ -9,4 +9,12 @@ Route::resource('api/attendees', 'AttendeesController', ['only' => [
 Route::resource('api/instructors', 'InstructorsController', ['only' => [
   'index', 'store', 'show', 'update', 'destroy',
 ]]);
-Route::resource('api/courses', 'CoursesController', ['only' => ['index', 'store']]);
+Route::resource('api/courses',
+                'CoursesController',
+                [
+                  'only' => [
+                    'index',
+                    'store',
+                    'show',
+                  ],
+                ]);

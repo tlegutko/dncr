@@ -16,4 +16,11 @@ export class CoursesService {
       .catch((response) => Observable.throw('Błąd pobierania kursów.'))
     ;
   }
+
+  public get(id: number): Observable<Course> {
+    let url = 'api/courses/' + id;
+    return this.http.get(url)
+      .map((response) => response.json())
+      .catch((response) => Observable.throw('Błąd pobierania kursu.'));
+  }
 }

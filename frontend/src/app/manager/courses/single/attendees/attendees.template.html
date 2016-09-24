@@ -1,0 +1,4 @@
+<h2>Kursanci</h2>
+<div class="attendees" *ngIf="course">
+  <attendee-row *ngFor="let attendee of course.attendees" [attendee]="attendee"></attendee-row>
+</div>

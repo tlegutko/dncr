@@ -28,4 +28,11 @@ class CoursesController extends Controller
   {
     return response()->json(Course::create($request->all()));
   }
+
+  public function show(int $id)
+  {
+    $course = Course::findOrFail($id);
+
+    return response()->json($course);
+  }
 }

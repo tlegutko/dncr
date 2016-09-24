@@ -1,0 +1,16 @@
+<h1 *ngIf="course">
+  <i class="fa fa-info-circle"></i>
+  <span>{{ course.name }}</span>
+  <button type="button" class="btn btn-secondary" (click)="close()">
+    <i class="fa fa-times"></i>
+    <span class="sr-only">Zamknij</span>
+  </button>
+</h1>
+<nav class="nav nav-inline" *ngIf="course">
+  <a class="nav-link" routerLinkActive="active" [routerLink]="['/manager/courses', course.id]"
+     [routerLinkActiveOptions]="{ exact: true }">Szczegóły</a>
+  <a class="nav-link" routerLinkActive="active" [routerLink]="['actions']">Akcje</a>
+  <a class="nav-link" routerLinkActive="active" [routerLink]="['attendees']">Kursanci</a>
+</nav>
+<hr/>
+<router-outlet></router-outlet>

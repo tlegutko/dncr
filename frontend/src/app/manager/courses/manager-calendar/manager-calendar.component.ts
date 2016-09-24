@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CalendarItem } from 'app/_commons/calendar/calendar.interface';
 import { CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar/calendar-events.interface';
 import { Course, CoursesService } from 'app/manager/courses';
@@ -20,7 +20,7 @@ import * as moment from 'moment';
 export class ManagerCalendarComponent {
   public events: CalendarItem[];
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: CoursesService) {
+  constructor(private router: Router, private service: CoursesService) {
     this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
   }
 
@@ -57,8 +57,7 @@ export class ManagerCalendarComponent {
   }
 
   onEventClick(e: CalendarEvent) {
-    console.log('clicked on event in manager: ' + e.calEvent.title);
-    this.router.navigate(['details'], { relativeTo: this.route });
+    this.router.navigate(['/manager/courses', e.calEvent.id]);
   }
 
   onDayClick(e: CalendarDayClick) {
