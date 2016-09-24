@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
 import { CalendarItem } from 'app/_commons/calendar/calendar.interface';
 import { CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar/calendar-events.interface';
+import { Course, CoursesService } from 'app/manager/courses';
+import * as moment from 'moment';
 
 @Component(
   {
     selector: 'manager-calendar',
     template: `
     <!--suppress JSUnresolvedVariable -->
-    <calendar [events]="mockEvents" [editable]="true" defaultView="agendaWeek" 
+    <calendar [events]="events" [editable]="true" defaultView="agendaWeek" 
       (eventClick)="onEventClick($event)" (dayClick)="onDayClick($event)"  
       (eventResize)="onEventResize($event)" (eventDrop)="onEventDrop($event)"> 
     </calendar>
@@ -17,28 +18,34 @@ import { CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commo
   }
 )
 export class ManagerCalendarComponent {
-  mockEvents: CalendarItem[];
+  public events: CalendarItem[];
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-    let currentDate = new Date().toJSON().slice(0, 10);
-    this.mockEvents = [
-      {
-        'id': 1,
-        'title': 'Poranny kurs',
-        'start': moment(currentDate + 'T10:00:00'),
-        'end': moment(currentDate + 'T11:30:00'),
-      }, {
-        'id': 2,
-        'title': 'Drugi poranny kurs',
-        'start': moment(currentDate + 'T11:00:00'),
-        'end': moment(currentDate + 'T12:30:00'),
-      }, {
-        'id': 3,
-        'title': 'Popołudniowy kurs',
-        'start': moment(currentDate + 'T16:00:00'),
-        'end': moment(currentDate + 'T17:30:00'),
-      },
-    ];
+  constructor(private router: Router, private route: ActivatedRoute, private service: CoursesService) {
+    this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
+  }
+
+  public mapCoursesToEvents(courses: Course[]): CalendarItem[] {
+    let events: CalendarItem[] = [];
+    courses.forEach(
+      (course) => course.times.forEach(
+        (time) => time.events.forEach(
+          (event) => {
+            let start = moment(event.date + ' ' + time.startTime, 'YYYY-MM-DD HH:mm:ss');
+            let end = moment(event.date + ' ' + time.endTime, 'YYYY-MM-DD HH:mm:ss');
+            events.push(
+              {
+                id: course.id,
+                object: course,
+                title: course.name,
+                start: start,
+                end: end
+              }
+            );
+          }
+        )
+      )
+    );
+    return events;
   }
 
   onEventResize(e: CalendarModifyEvent) {
