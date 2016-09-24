@@ -33,8 +33,7 @@ class AttendeesTableSeeder extends Seeder
     DB::table('attendees')->insert([
                                      'name' => 'Amadeusz',
                                      'surname' => 'Starzykiewicz',
-                                     'email' => 'astarzykiewicz@dncr
-                                   .eu',
+                                     'email' => 'astarzykiewicz@dncr.eu',
                                      'phoneNumber' => '432156789',
                                    ]);
     DB::table('attendees')->insert([
