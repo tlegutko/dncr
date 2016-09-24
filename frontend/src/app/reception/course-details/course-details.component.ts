@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Attendee } from 'app/attendee/attendee';
-import { AttendeeService } from 'app/attendee/attendee.service';
+import { Component } from '@angular/core';
+import { Attendee, AttendeeService } from 'app/attendee';
+import { CourseDetailsModel } from './course-details.model';
 
-@Component({
+@Component(
+  {
     selector: 'course-details',
     templateUrl: './course-details.template.html',
     styleUrls: ['./course-details.style.scss'],
     providers: [AttendeeService] // TODO: Don't get all attendees from database, take them from a course
   }
 )
-export class CourseDetailsComponent implements OnInit { // TODO: remove "implements OnInit" when attendees will be taken
-  // from course
-  course = { // TODO: populate view with an actual course from database
+export class CourseDetailsComponent {
+  // TODO: populate view with an actual course from database
+  course: CourseDetailsModel = {
     title: 'Salsa (początkujący)',
     attendees: null
   };
@@ -19,9 +20,6 @@ export class CourseDetailsComponent implements OnInit { // TODO: remove "impleme
   error = '';
 
   constructor(private attendeeService: AttendeeService) {
-  } // TODO: remove when attendees will be taken from course
-
-  public ngOnInit(): void {
     this.getAttendees();
   } // TODO: remove when attendees will be taken from course
 

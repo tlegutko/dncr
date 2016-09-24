@@ -1,6 +1,6 @@
-import { Attendee } from '../../attendee/attendee';
+import { Attendee } from 'app/attendee/attendee';
 
 export class CourseDetailsModel {
-    public name: string;
-    public attendees: Array<Attendee>;
+  public title: string;
+  public attendees: Attendee[];
 }

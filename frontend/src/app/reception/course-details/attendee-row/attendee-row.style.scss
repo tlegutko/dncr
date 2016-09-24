@@ -1,27 +1,31 @@
-div {
-  width: 200px;
-}
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/clearfix';
 
-h2 {
-  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-}
+:host {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding: .25rem 0;
+  border-bottom: 1px solid $gray-lighter;
+  @include clearfix();
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+  &:last-child {
+    border-bottom: 0;
+  }
 
-li {
-  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
-  border-bottom: 1px solid #ccc;
-}
+  > div {
+    display: inline-block;
+    flex-grow: 1;
 
-li a {
-  text-decoration: none;
-  color: #000;
-  display: block;
-  width: 200px;
+    label {
+      margin: 0;
+    }
+
+    input[type=checkbox], span {
+      vertical-align: middle;
+    }
+    span {
+      padding-top: 5px;
+    }
+  }
 }
