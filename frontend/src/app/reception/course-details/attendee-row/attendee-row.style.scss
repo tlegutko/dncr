@@ -1,0 +1,31 @@
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/clearfix';
+
+:host {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding: .25rem 0;
+  border-bottom: 1px solid $gray-lighter;
+  @include clearfix();
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  > div {
+    display: inline-block;
+    flex-grow: 1;
+
+    label {
+      margin: 0;
+    }
+
+    input[type=checkbox], span {
+      vertical-align: middle;
+    }
+    span {
+      padding-top: 5px;
+    }
+  }
+}

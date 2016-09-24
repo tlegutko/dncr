@@ -6,7 +6,8 @@ import { ReceptionComponent } from './reception.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsActionButtonComponent } from './course-details/action-button/action-button.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
-import { CreateAttendeeComponent } from 'app/create-attendee/create-attendee.component';
+import { CreateAttendeeComponent } from 'app/attendee/create/create-attendee.component';
+import { AttendeeRowComponent } from './course-details/attendee-row/attendee-row.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
 
@@ -33,7 +34,10 @@ export const routes = [
       ReceptionComponent,
       CourseDetailsComponent,
       CourseDetailsTitleComponent,
-      CourseDetailsActionButtonComponent, CreateAttendeeComponent, ReceptionCalendarComponent
+      CourseDetailsActionButtonComponent,
+      CreateAttendeeComponent,
+      ReceptionCalendarComponent,
+      AttendeeRowComponent
     ],
     imports: [
       BrowserModule, FormsModule, CommonsModule, RouterModule.forChild(routes)
