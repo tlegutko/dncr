@@ -1,5 +1,5 @@
 <create-attendee [title]="course.title" (onCancel)="hideCreateForm()" (onSave)="onAttendeeSaved($event)"
                  *ngIf="isCreateFormVisible"></create-attendee>
 <course-details-title [title]="course.title" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
-<attendee-list></attendee-list>
+<attendee-row *ngFor="let attendee of attendees" [attendee]="attendee"></attendee-row>
 <course-details-action-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></course-details-action-button>

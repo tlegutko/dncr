@@ -7,7 +7,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import { CourseDetailsActionButtonComponent } from './course-details/action-button/action-button.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { CreateAttendeeComponent } from 'app/attendee/create/create-attendee.component';
-import { AttendeeListComponent } from './course-details/attendee-list/attendee-list.component';
+import { AttendeeRowComponent } from './course-details/attendee-row/attendee-row.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
 
@@ -37,8 +37,7 @@ export const routes = [
       CourseDetailsActionButtonComponent,
       CreateAttendeeComponent,
       ReceptionCalendarComponent,
-      AttendeeListComponent,
-      Field
+      AttendeeRowComponent
     ],
     imports: [
       BrowserModule, FormsModule, CommonsModule, RouterModule.forChild(routes)
