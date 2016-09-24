@@ -7,9 +7,8 @@ import { ManagerCoursesComponent } from './courses/courses.component';
 import { ManagerCoursesDetailsComponent } from './courses/details/details.component';
 import { ManagerInstructorsComponent } from './instructors/instructors.component';
 import { ManagerCalendarComponent } from './courses/manager-calendar/manager-calendar.component';
-import { CalendarModule } from '../calendar/index';
 import { InstructorCreateComponent } from './instructors/create/instructor-create.component';
-import { Field } from '../field/field.component';
+import { CommonsModule } from 'app/_commons/commons.module';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -46,11 +45,10 @@ export const routes = [
       // Components / Directives/ Pipes
       ManagerComponent,
       ManagerCoursesComponent,
-      ManagerCoursesDetailsComponent,
-      ManagerCalendarComponent, ManagerInstructorsComponent, InstructorCreateComponent, Field
+      ManagerCoursesDetailsComponent, ManagerCalendarComponent, ManagerInstructorsComponent, InstructorCreateComponent
     ],
     imports: [
-      BrowserModule, FormsModule, RouterModule.forChild(routes), CalendarModule
+      BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule
     ]
   }
 )
