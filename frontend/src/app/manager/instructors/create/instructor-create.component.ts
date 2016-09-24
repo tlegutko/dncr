@@ -1,6 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { InstructorsService } from '../instructors.service';
-import { Instructor } from '../instructor';
+import { Instructor, InstructorsService } from 'app/manager/instructors';
 import splice = require('core-js/fn/array/splice');
 
 interface CreateInstructorErrors {

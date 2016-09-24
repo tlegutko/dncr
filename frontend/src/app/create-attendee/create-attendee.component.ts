@@ -9,6 +9,7 @@ interface CreateAttendeeErrors {
   phoneNumber?: string[];
 }
 
+// TODO: Should be moved to _commons if really is common to the app.
 @Component(
   {
     selector: 'create-attendee',

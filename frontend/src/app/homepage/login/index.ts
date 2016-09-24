@@ -1,2 +1,2 @@
 export * from './login.component';
-export * from './login.model.ts';
+export * from './login.model';
