@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
-import { Attendee } from 'app/create-attendee/attendee';
+import { Attendee, AttendeeService } from 'app/attendee';
+import { CourseDetailsModel } from './course-details.model';
 
 @Component(
   {
     selector: 'course-details',
     templateUrl: './course-details.template.html',
-    styleUrls: ['./course-details.style.scss']
+    styleUrls: ['./course-details.style.scss'],
+    providers: [AttendeeService] // TODO: Don't get all attendees from database, take them from a course
   }
 )
 export class CourseDetailsComponent {
-  course = {
-    title: 'Salsa (początkujący)'
+  // TODO: populate view with an actual course from database
+  course: CourseDetailsModel = {
+    title: 'Salsa (początkujący)',
+    attendees: null
   };
   isCreateFormVisible = false;
   error = '';
 
+  constructor(private attendeeService: AttendeeService) {
+    this.getAttendees();
+  } // TODO: remove when attendees will be taken from course
+
   public onAttendeeSaved(attendee: Attendee) {
-    // TODO: new attendee should be added to the list when it's implemented
+    this.course.attendees.push(attendee);
     this.hideCreateForm();
   }
 
@@ -26,5 +34,12 @@ export class CourseDetailsComponent {
 
   hideCreateForm() {
     this.isCreateFormVisible = false;
+  }
+
+  getAttendees() { // TODO: remove when attendees will be taken from course
+    this.attendeeService.getAttendees()
+      .subscribe(
+        (attendees) => this.course.attendees = attendees, (error: any) => this.error = error
+      );
   }
 }
