@@ -13,6 +13,7 @@ import { CourseDetailsModel } from './course-details.model';
 export class CourseDetailsComponent {
   // TODO: populate view with an actual course from database
   course: CourseDetailsModel = {
+    id: 1,
     title: 'Salsa (początkujący)',
     attendees: null
   };

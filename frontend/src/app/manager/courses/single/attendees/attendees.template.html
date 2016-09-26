@@ -1,4 +1,9 @@
-<h2>Kursanci</h2>
+<manager-course-attendees-title [isEditing]="false" *ngIf="!isCreateFormVisible"></manager-course-attendees-title>
+<create-attendee (onSave)="onAttendeeSaved($event)" [courseId]="course.id" *ngIf="isCreateFormVisible && course">
+  <manager-course-attendees-title [isEditing]="true" (onCancel)="hideCreateForm()"></manager-course-attendees-title>
+</create-attendee>
 <div class="attendees" *ngIf="course">
-  <attendee-row *ngFor="let attendee of course.attendees" [attendee]="attendee"></attendee-row>
+  <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee"></attendee-row>
 </div>
+<manager-course-attendee-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible">
+</manager-course-attendee-button>

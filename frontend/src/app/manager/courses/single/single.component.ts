@@ -5,7 +5,7 @@ import { Course } from 'app/manager/courses';
 @Component(
   {
     selector: 'manager-courses-single',
-    styleUrls: ['./single.styles.scss'],
+    styleUrls: ['./single.style.scss'],
     templateUrl: './single.template.html'
   }
 )

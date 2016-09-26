@@ -10,5 +10,6 @@ import { Attendee } from 'app/attendee';
 )
 export class AttendeeRowComponent {
   @Input() attendee: Attendee;
+  @Input() checkable: boolean;
 }
 
