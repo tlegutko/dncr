@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 class StoreAttendeeRequest extends Request
 {
+  use CamelCaseConverter;
+
   /**
    * Determine if the user is authorized to make this request.
    *
@@ -22,10 +24,11 @@ class StoreAttendeeRequest extends Request
   public function rules()
   {
     return [
+      'course_id' => 'required',
       'name' => 'required',
       'surname' => 'required',
       'email' => 'required | email | unique:attendees',
-      'phoneNumber' => 'required | digits:9 | unique:attendees',
+      'phone_number' => 'required | digits:9 | unique:attendees',
     ];
   }
 
@@ -35,7 +38,7 @@ class StoreAttendeeRequest extends Request
       'name' => 'imię',
       'surname' => 'nazwisko',
       'email' => 'adres e-mail',
-      'phoneNumber' => 'numer telefonu',
+      'phone_number' => 'numer telefonu',
     ];
   }
 }

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCourseRequest;
+use App\Models\Attendee;
 use App\Models\Course;
 
 class CoursesController extends Controller
@@ -34,5 +35,12 @@ class CoursesController extends Controller
     $course = Course::findOrFail($id);
 
     return response()->json($course);
+  }
+
+  public function attendees(int $id)
+  {
+    $attendees = Attendee::query()->where('course_id', '=', $id)->get();
+
+    return response()->json($attendees);
   }
 }
