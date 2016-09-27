@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 class StoreAttendeeRequest extends Request
 {
-  use CamelCaseConverter;
+  use RequestCamelCaseConverter;
 
   /**
    * Determine if the user is authorized to make this request.

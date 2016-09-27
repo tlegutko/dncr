@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
-trait CamelCaseConverter
+trait ModelCamelCaseConverter
 {
   public function fill(array $attributes)
   {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseEvent extends Model
 {
-  use CamelCaseConverter;
+  use ModelCamelCaseConverter;
 
   protected $fillable = [
     'course_time_id',

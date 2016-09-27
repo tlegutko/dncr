@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-  use CamelCaseConverter;
+  use ModelCamelCaseConverter;
 
   protected $fillable = [
     'name',

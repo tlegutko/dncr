@@ -17,7 +17,7 @@ class UpdateAttendeesAddCourse extends Migration
       {
         $table->renameColumn('phoneNumber', 'phone_number');
         $table->integer('course_id')->unsigned();
-        $table->foreign('course_id')->references('id')->on('courses');
+        $table->foreign('course_id', 'attendee_course')->references('id')->on('courses');
       });
   }
 
@@ -32,6 +32,7 @@ class UpdateAttendeesAddCourse extends Migration
       function(Blueprint $table)
       {
         $table->renameColumn('phone_number', 'phoneNumber');
+        $table->dropForeign('attendee_course');
         $table->dropColumn('course_id');
       });
   }

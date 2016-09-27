@@ -17,9 +17,9 @@ class CreateCourseTimesTable extends Migration
       {
         $table->increments('id');
         $table->integer('course_id')->unsigned();
-        $table->foreign('course_id')->references('id')->on('courses');
+        $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         $table->integer('location_id')->unsigned();
-        $table->foreign('location_id')->references('id')->on('locations');
+        $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
         $table->date('start_date');
         $table->time('start_time');
         $table->time('end_time');

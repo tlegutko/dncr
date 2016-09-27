@@ -17,7 +17,7 @@ class CreateCourseEventsTable extends Migration
       {
         $table->increments('id');
         $table->integer('course_time_id')->unsigned();
-        $table->foreign('course_time_id')->references('id')->on('course_times');
+        $table->foreign('course_time_id')->references('id')->on('course_times')->onDelete('cascade');
         $table->date('date');
         $table->timestamps();
       });

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
-trait CamelCaseConverter
+trait RequestCamelCaseConverter
 {
   public function input($key = null, $default = null)
   {

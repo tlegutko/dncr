@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-  use CamelCaseConverter;
+  use ModelCamelCaseConverter;
 
   protected $fillable = [
     'company_id',

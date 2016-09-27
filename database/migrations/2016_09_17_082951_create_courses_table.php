@@ -17,8 +17,8 @@ class CreateCoursesTable extends Migration
       {
         $table->increments('id');
         $table->integer('company_id')->unsigned();
-        $table->foreign('company_id')->references('id')->on('companies');
-        $table->string('name', '50');
+        $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+        $table->string('name', 50);
         $table->decimal('price');
         $table->integer('classes_count')->unsigned();
         $table->integer('seats_count')->unsigned();
