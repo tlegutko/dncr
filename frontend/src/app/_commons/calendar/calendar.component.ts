@@ -10,7 +10,7 @@ import { CalendarEvent, CalendarDayClick, CalendarModifyEvent } from './calendar
     template: `
     <!--suppress JSUnresolvedVariable -->
     <p-schedule [events]="events" [header]="header" height="parent" [nowIndicator]="true"
-    [locale]="locale" [defaultView]="defaultView" scrolltime="9:00:00" minTime="7:00:00" [editable]="editable"
+    [locale]="locale" [defaultView]="defaultView" scrollTime="9:00:00" minTime="7:00:00" [editable]="editable"
     (onEventClick)="eventClick.emit($event)" (onDayClick) = "dayClick.emit($event)"
     (onEventResize)="eventResize.emit($event)" (onEventDrop) = "eventDrop.emit($event)"
     (onEventMouseover)="eventMouseover.emit($event)" (onEventMouseOut)="eventMouseout.emit($event)"

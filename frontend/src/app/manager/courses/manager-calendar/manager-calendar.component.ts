@@ -19,6 +19,7 @@ export class ManagerCalendarComponent {
   public events: CalendarItem[];
 
   constructor(private router: Router, private service: CoursesService) {
+    console.log('constr');
     this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
   }
 
@@ -43,6 +44,6 @@ export class ManagerCalendarComponent {
 
   onDayClick(e: CalendarDayClick) {
     console.log('clicked on day in manager with date: ' + e.date.format());
-    this.router.navigate(['/manager/courses']);
+    this.router.navigate(['/manager/courses/create-course']);
   }
 }

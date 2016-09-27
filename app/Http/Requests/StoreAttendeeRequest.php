@@ -31,14 +31,4 @@ class StoreAttendeeRequest extends Request
       'phone_number' => 'required | digits:9 | unique:attendees',
     ];
   }
-
-  public function attributes()
-  {
-    return [
-      'name' => 'imię',
-      'surname' => 'nazwisko',
-      'email' => 'adres e-mail',
-      'phone_number' => 'numer telefonu',
-    ];
-  }
 }

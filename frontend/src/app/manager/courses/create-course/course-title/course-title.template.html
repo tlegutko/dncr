@@ -1,0 +1,13 @@
+<div class="col-xs-1">
+  <i class="fa fa-info-circle fa-2x " aria-hidden="true"></i>
+</div>
+<div class="col-xs-8 input-group p-x-0">
+  <input #titleInput type="text" class="form-control" placeholder="Podaj nazwę kursu ..."
+         (keyup.enter)="title=titleInput.value"
+         (blur)="title=titleInput.value">
+</div>
+<div class="col-xs-3">
+  <button type="button" class="btn btn-block btn-primary" (click)="save.emit(title)">
+    <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
+  </button>
+</div>
