@@ -116,11 +116,6 @@ export interface CalendarItem {
    * Sets an event's text color just like the calendar-wide eventTextColor option.
    */
   textColor?: string;
-
-  /**
-   * Object that corresponds to the event.
-   */
-  object?: any;
 }
 
 /**

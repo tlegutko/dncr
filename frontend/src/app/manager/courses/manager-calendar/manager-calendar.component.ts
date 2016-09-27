@@ -35,7 +35,6 @@ export class ManagerCalendarComponent {
             events.push(
               {
                 id: course.id,
-                object: course,
                 title: course.name,
                 start: start,
                 end: end

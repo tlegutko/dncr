@@ -34,7 +34,7 @@ export class CreateAttendeeComponent implements OnInit {
     this.errors = {};
     this.attendeeService.create(this.model)
       .subscribe(
-        (attendee) => this.onSave.emit(attendee), (response) => this.errors = response
+        (attendee) => this.onSave.emit(attendee), (failedResponse) => this.errors = failedResponse
       );
   }
 
