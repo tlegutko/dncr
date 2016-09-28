@@ -6,6 +6,9 @@ import 'rxjs/add/operator/catch';
 import { Course } from './course.model';
 import { Attendee } from 'app/attendee';
 import { CalendarItem } from 'app/_commons/calendar';
+import 'rxjs/add/operator/catch';
+import { CreateCourseRequestJson } from './create-course/create-course-request';
+import { Response } from '@angular/http';
 
 @Injectable()
 export class CoursesService {
@@ -54,5 +57,12 @@ export class CoursesService {
     return this.http.get(url)
       .map((response) => response.json())
       .catch((response) => Observable.throw('Błąd pobierania kursantów.'));
+  }
+
+  public createCourse(createCourseRequest: CreateCourseRequestJson): Promise<Response> {
+    let url = `api/courses`;
+    return this.http
+      .post(url, createCourseRequest)
+      .toPromise();
   }
 }

@@ -33,6 +33,5 @@ export class ReceptionCalendarComponent {
 
   onDayClick(e: CalendarDayClick) {
     console.log('clicked on day in reception with date: ' + e.date.format());
-    this.router.navigate(['/reception']);
   }
 }

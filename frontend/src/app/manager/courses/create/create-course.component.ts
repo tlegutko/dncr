@@ -1,10 +1,10 @@
 import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
-import { CreateCourseService } from './create-course.service';
 import { CreateCourseRequest } from './create-course-request';
 import { CreateCourseTitleComponent } from './course-title/course-title.component';
 import { CreateCoursePropertiesComponent } from './course-properties/course-properties.component';
 import { CourseTimesComponent } from './course-times/course-times.component';
 import { CalendarEvent } from '../../../_commons/calendar/calendar-events.interface';
+import { CoursesService } from '../courses.service';
 
 interface CreateCourseErrors {
   name?: string[];
@@ -21,9 +21,8 @@ interface CreateCourseErrors {
 @Component(
   {
     selector: 'create-course',
-    templateUrl: './create-course.template.html',
-    styleUrls: ['./create-course.style.scss'],
-    providers: [CreateCourseService],
+    templateUrl: './create-course.component.html',
+    styleUrls: ['./create-course.component.scss'],
   }
 )
 export class CreateCourseComponent {
@@ -36,7 +35,7 @@ export class CreateCourseComponent {
   model = CreateCourseRequest.mock();
   errors: CreateCourseErrors = {};
 
-  constructor(private createCourseService: CreateCourseService) {
+  constructor(private createCourseService: CoursesService) {
   }
 
   createCourse(courseTitle: string) {
