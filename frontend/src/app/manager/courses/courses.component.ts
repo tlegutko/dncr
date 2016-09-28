@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { CoursesService } from './courses.service';
 
 @Component(
   {
     selector: 'manager-courses',
     styleUrls: ['./courses.component.scss'],
-    templateUrl: './courses.component.html',
-    providers: [CoursesService]
+    templateUrl: './courses.component.html'
   }
 )
 export class ManagerCoursesComponent {

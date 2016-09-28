@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Course, CoursesService } from 'app/manager/courses';
+import { Course, CoursesService } from 'app/course';
 import { Attendee } from 'app/attendee';
 
 @Component(

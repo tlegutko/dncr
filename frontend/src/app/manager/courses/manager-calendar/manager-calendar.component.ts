@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CalendarItem } from 'app/_commons/calendar/calendar.interface';
-import { CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar/calendar-events.interface';
-import { Course, CoursesService } from 'app/manager/courses';
-import * as moment from 'moment';
+import { CalendarItem, CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
+import { Course, CoursesService } from 'app/course';
 
 @Component(
   {
@@ -26,24 +24,8 @@ export class ManagerCalendarComponent {
 
   public mapCoursesToEvents(courses: Course[]): CalendarItem[] {
     let events: CalendarItem[] = [];
-    courses.forEach(
-      (course) => course.times.forEach(
-        (time) => time.events.forEach(
-          (event) => {
-            let start = moment(event.date + ' ' + time.startTime, 'YYYY-MM-DD HH:mm:ss');
-            let end = moment(event.date + ' ' + time.endTime, 'YYYY-MM-DD HH:mm:ss');
-            events.push(
-              {
-                id: course.id,
-                title: course.name,
-                start: start,
-                end: end
-              }
-            );
-          }
-        )
-      )
-    );
+    courses.forEach((course) => events = events.concat(this.service.courseToCalendarItems(course)));
+
     return events;
   }
 
