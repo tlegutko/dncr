@@ -5,4 +5,4 @@
 <div class="attendees">
   <attendee-row *ngFor="let attendee of course.attendees" [attendee]="attendee" [checkable]="true"></attendee-row>
 </div>
-<course-details-action-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></course-details-action-button>
+<add-item-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></add-item-button>

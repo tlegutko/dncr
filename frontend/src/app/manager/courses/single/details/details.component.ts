@@ -5,7 +5,7 @@ import { Course } from 'app/manager/courses';
 @Component(
   {
     selector: 'manager-courses-single-details',
-    templateUrl: './details.template.html'
+    templateUrl: './details.component.html'
   }
 )
 export class ManagerCoursesDetailsComponent {

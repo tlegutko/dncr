@@ -6,8 +6,8 @@ import { Attendee } from 'app/attendee';
 @Component(
   {
     selector: 'manager-courses-single-attendees',
-    styleUrls: ['./attendees.style.scss'],
-    templateUrl: './attendees.template.html'
+    styleUrls: ['./attendees.component.scss'],
+    templateUrl: './attendees.component.html'
   }
 )
 export class ManagerCoursesAttendeesComponent {

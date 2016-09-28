@@ -5,8 +5,8 @@ import { CoursesService } from './courses.service';
 @Component(
   {
     selector: 'manager-courses',
-    styleUrls: ['./courses.style.scss'],
-    templateUrl: './courses.template.html',
+    styleUrls: ['./courses.component.scss'],
+    templateUrl: './courses.component.html',
     providers: [CoursesService]
   }
 )

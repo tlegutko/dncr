@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { CourseDetailsComponent } from './course-details/course-details.component';
 
 @Component(
   {
     selector: 'reception',
-    styleUrls: ['./reception.style.scss'],
-    templateUrl: './reception.template.html'
+    styleUrls: ['./reception.component.scss'],
+    templateUrl: './reception.component.html'
   }
 )
 export class ReceptionComponent {

@@ -5,7 +5,7 @@ import { Course } from 'app/manager/courses';
 @Component(
   {
     selector: 'manager-courses-single-actions',
-    templateUrl: './actions.template.html'
+    templateUrl: './actions.component.html'
   }
 )
 export class ManagerCoursesActionsComponent {

@@ -11,8 +11,7 @@ import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeModule } from 'app/attendee';
 import {
   ManagerCoursesSingleComponent, ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent,
-  ManagerCoursesActionsComponent, ManagerCourseAttendeesButtonComponent, ManagerCourseAttendeesTitleComponent,
-  CourseResolve
+  ManagerCoursesActionsComponent, ManagerCourseAttendeesTitleComponent, CourseResolve
 } from './courses/single';
 import { CoursesService } from './courses';
 
@@ -67,8 +66,7 @@ export const routes = [
       ManagerComponent,
       ManagerCoursesComponent,
       ManagerCoursesSingleComponent,
-      ManagerCoursesDetailsComponent,
-      ManagerCoursesAttendeesComponent, ManagerCourseAttendeesButtonComponent, ManagerCourseAttendeesTitleComponent,
+      ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent, ManagerCourseAttendeesTitleComponent,
       ManagerCoursesActionsComponent,
       ManagerCalendarComponent,
       ManagerInstructorsComponent,

@@ -5,8 +5,8 @@ import { Course } from 'app/manager/courses';
 @Component(
   {
     selector: 'manager-courses-single',
-    styleUrls: ['./single.style.scss'],
-    templateUrl: './single.template.html'
+    styleUrls: ['./single.component.scss'],
+    templateUrl: './single.component.html'
   }
 )
 export class ManagerCoursesSingleComponent {

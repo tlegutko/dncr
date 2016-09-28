@@ -5,8 +5,8 @@ import { Instructor } from './instructor';
 @Component(
   {
     selector: 'manager-instructors',
-    templateUrl: './instructors.template.html',
-    styleUrls: ['./instructors.style.scss'],
+    templateUrl: './instructors.component.html',
+    styleUrls: ['./instructors.component.scss'],
     providers: [InstructorsService]
   }
 )

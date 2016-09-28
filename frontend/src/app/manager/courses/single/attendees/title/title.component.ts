@@ -2,8 +2,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component(
   {
     selector: 'manager-course-attendees-title',
-    templateUrl: './title.template.html',
-    styleUrls: ['./title.style.scss'],
+    templateUrl: './title.component.html',
+    styleUrls: ['./title.component.scss'],
   }
 )
 export class ManagerCourseAttendeesTitleComponent {

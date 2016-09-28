@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReceptionComponent } from './reception.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { CourseDetailsActionButtonComponent } from './course-details/action-button/action-button.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
@@ -32,8 +31,7 @@ export const routes = [
       // Components / Directives/ Pipes
       ReceptionComponent,
       CourseDetailsComponent,
-      CourseDetailsTitleComponent,
-      CourseDetailsActionButtonComponent, ReceptionCalendarComponent
+      CourseDetailsTitleComponent, ReceptionCalendarComponent
     ],
     imports: [
       BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule

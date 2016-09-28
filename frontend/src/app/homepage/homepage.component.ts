@@ -7,8 +7,8 @@ import { AuthService } from 'app/_commons/auth';
   {
     selector: 'homepage',
     directives: [LoginComponent],
-    styleUrls: ['./homepage.style.scss'],
-    templateUrl: './homepage.template.html'
+    styleUrls: ['./homepage.component.scss'],
+    templateUrl: './homepage.component.html'
   }
 )
 export class Homepage {

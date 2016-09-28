@@ -5,5 +5,4 @@
 <div class="attendees" *ngIf="course">
   <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee"></attendee-row>
 </div>
-<manager-course-attendee-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible">
-</manager-course-attendee-button>
+<add-item-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></add-item-button>
