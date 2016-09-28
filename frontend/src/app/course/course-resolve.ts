@@ -9,18 +9,11 @@ export class CourseResolve implements Resolve<Course> {
   constructor(private router: Router, private service: CoursesService) {
   }
 
-  resolve(route: ActivatedRouteSnapshot): Promise<Course>|boolean {
+  resolve(route: ActivatedRouteSnapshot): Promise<Course> {
     let id = +route.params['id'];
+    // TODO: Would be nice to get a notification that something went wrong.
     return this.service.get(id).toPromise().then(
-      (course: Course) => {
-        if (course) {
-          return course;
-        } else {
-          // id not found
-          this.router.navigate(['/manager/courses']);
-          return false;
-        }
-      }
+      (course) => course, () => this.router.navigate(route.parent.url)
     );
   }
 }
