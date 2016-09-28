@@ -8,6 +8,11 @@ use App\Models\Course;
 
 class CoursesController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('api');
+  }
+
   public function index()
   {
     $courses = Course::with([
