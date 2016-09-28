@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Company;
+use App\Models\User;
+
 class InstructorsTableSeeder extends Seeder
 {
   /**
@@ -11,15 +14,19 @@ class InstructorsTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('instructors')->insert([
-                                    'name' => 'Jan', 'surname' => 'Kowalski', 'email' => 'jan@kowalski.com',
-                                    'phoneNumber' => '555 555 555',
-                                  ])
-    ;
-    DB::table('instructors')->insert([
-                                    'name' => 'Michał', 'surname' => 'Nowak', 'email' => 'michał@nowak.com',
-                                    'phoneNumber' => '666 666 666',
-                                  ])
-    ;
+    factory(User::class)->create([
+                                   'name' => 'Jan',
+                                   'surname' => 'Kowalski',
+                                   'email' => 'jan@kowalski.com',
+                                   'company_id' => Company::where('name', 'Firma 1')->first()->id,
+                                   'type' => User::TYPE_INSTRUCTOR,
+                                 ]);
+    factory(User::class)->create([
+                                   'name' => 'Michał',
+                                   'surname' => 'Nowak',
+                                   'email' => 'michał@nowak.com',
+                                   'company_id' => Company::where('name', 'Firma 2')->first()->id,
+                                   'type' => User::TYPE_INSTRUCTOR,
+                                 ]);
   }
 }

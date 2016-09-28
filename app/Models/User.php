@@ -9,6 +9,11 @@ class User extends Authenticatable
 {
   use Notifiable;
 
+  const TYPE_INSTRUCTOR = 'instructor';
+  const TYPE_USER = 'user';
+
+  protected $table = 'users';
+
   /**
    * The attributes that are mass assignable.
    *
@@ -16,7 +21,10 @@ class User extends Authenticatable
    */
   protected $fillable = [
     'name',
+    'surname',
     'email',
+    'phone_number',
+    'type',
     'password',
   ];
 
@@ -29,4 +37,9 @@ class User extends Authenticatable
     'password',
     'remember_token',
   ];
+
+  public function company()
+  {
+    return $this->belongsTo(Company::class);
+  }
 }

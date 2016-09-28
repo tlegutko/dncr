@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Company;
+
 class CompaniesTableSeeder extends Seeder
 {
   /**
@@ -11,13 +13,7 @@ class CompaniesTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('companies')->insert([
-                                     'name' => 'Firma 1',
-                                     'valid_to' => (new DateTime())->add(new DateInterval('P30D')),
-                                   ]);
-    DB::table('companies')->insert([
-                                     'name' => 'Firma 2',
-                                     'valid_to' => (new DateTime())->add(new DateInterval('P10D')),
-                                   ]);
+    factory(Company::class)->create(['name' => 'Firma 1']);
+    factory(Company::class)->create(['name' => 'Firma 2']);
   }
 }
