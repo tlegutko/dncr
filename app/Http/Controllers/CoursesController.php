@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCourseRequest;
 use App\Models\Attendee;
 use App\Models\Course;
+use App\Models\CourseEvent;
+use DateInterval;
+use DateTime;
 
 class CoursesController extends Controller
 {
@@ -26,7 +29,7 @@ class CoursesController extends Controller
     return response()->json($courses);
   }
 
-/**
+  /**
    * Store a newly created resource in storage.
    *
    * @param  StoreCourseRequest $request
@@ -35,11 +38,14 @@ class CoursesController extends Controller
    */
   public function store(StoreCourseRequest $request)
   {
-    $course = Course::create($request->only('name', 'price', 'classes_count', 'description', 'seats_count'));
-    $courseTime = $course->courseTimes()->create($request->only('start_date',
-                                                                'start_time',
-                                                                'end_time',
-                                                                'repeat_weeks_count'));
+    $courseData = $request->only('name', 'price', 'classes_count', 'description', 'seats_count') + ['company_id' => 1];
+    // TODO remove mock company_id above and inject real one once DNCR-92 is merged
+    $course = Course::create($courseData);
+    $courseTime = $course->times()->create($request->only('start_date',
+                                                          'start_time',
+                                                          'end_time',
+                                                          'repeat_weeks_count',
+                                                          'location_id'));
     $courseTime->course()->associate($course);
     $courseTime->save();
 
@@ -52,24 +58,24 @@ class CoursesController extends Controller
       $event->courseTime()->associate($courseTime);
       array_push($events, $event);
     }
-    $created_events = $courseTime->courseEvents()->saveMany($events);
+    $created_events = $courseTime->events()->saveMany($events);
 
     $startDiff = $start_date->diff(new DateTime($courseTime->start_time));
     $endDiff = $start_date->diff(new DateTime($courseTime->end_time));
 
-    $events_response = [];
-    foreach($created_events as $event) {
+    $events_response = []; // TODO replace with whole course with course_time and events
+    foreach($created_events as $event)
+    {
       $start_time = new DateTime($event->date);
       $end_time = clone $start_date;
       $event_response = [
         'id' => $event->id,
         'title' => $course->name,
         'start' => $start_time->add($startDiff)->format(DATE_ISO8601),
-        'end' => $end_time->add($endDiff)->format(DATE_ISO8601)
+        'end' => $end_time->add($endDiff)->format(DATE_ISO8601),
       ];
       array_push($events_response, $event_response);
     }
-
     return response()->json($events_response);
   }
 

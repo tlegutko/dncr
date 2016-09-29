@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 class StoreCourseRequest extends Request
 {
+  use RequestCamelCaseConverter;
   /**
    * Determine if the user is authorized to make this request.
    *
@@ -31,6 +32,8 @@ class StoreCourseRequest extends Request
       'start_time' => 'required | date',
       'end_time' => 'required | date',
       'repeat_weeks_count' => 'required | numeric',
+      'location_id' => 'required | numeric',
+      'instructor_id' => 'required | numeric',
     ];
   }
 }
