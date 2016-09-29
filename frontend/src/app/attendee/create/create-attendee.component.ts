@@ -13,8 +13,7 @@ interface CreateAttendeeErrors {
   {
     selector: 'create-attendee',
     templateUrl: './create-attendee.template.html',
-    styleUrls: ['./create-attendee.style.scss'],
-    providers: [AttendeeService]
+    styleUrls: ['./create-attendee.style.scss']
   }
 )
 export class CreateAttendeeComponent implements OnInit {

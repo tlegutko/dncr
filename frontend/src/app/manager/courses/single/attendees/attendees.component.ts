@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Course, CoursesService } from 'app/manager/courses';
-import { Attendee } from 'app/attendee';
+import { Course } from 'app/course';
+import { Attendee, AttendeeService } from 'app/attendee';
 
 @Component(
   {
@@ -15,11 +15,11 @@ export class ManagerCoursesAttendeesComponent {
   public attendees: Attendee[];
   public isCreateFormVisible = false;
 
-  constructor(route: ActivatedRoute, service: CoursesService) {
+  constructor(route: ActivatedRoute, service: AttendeeService) {
     route.parent.data.forEach(
       (data: { course: Course }) => {
         this.course = data.course;
-        service.getAttendees(data.course.id).subscribe((attendees) => this.attendees = attendees);
+        service.getAttendees(data.course).subscribe((attendees) => this.attendees = attendees);
       }
     );
   }

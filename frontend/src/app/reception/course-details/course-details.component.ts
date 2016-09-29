@@ -1,46 +1,47 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Attendee, AttendeeService } from 'app/attendee';
-import { CourseDetailsModel } from './course-details.model';
+import { Course } from 'app/course';
 
 @Component(
   {
     selector: 'course-details',
     templateUrl: './course-details.component.html',
-    styleUrls: ['./course-details.component.scss'],
-    providers: [AttendeeService] // TODO: Don't get all attendees from database, take them from a course
+    styleUrls: ['./course-details.component.scss']
   }
 )
 export class CourseDetailsComponent {
-  // TODO: populate view with an actual course from database
-  course: CourseDetailsModel = {
-    id: 1,
-    title: 'Salsa (początkujący)',
-    attendees: null
-  };
+  public course: Course;
+  public attendees: Attendee[];
   isCreateFormVisible = false;
   error = '';
 
-  constructor(private attendeeService: AttendeeService) {
-    this.getAttendees();
-  } // TODO: remove when attendees will be taken from course
+  constructor(private attendeeService: AttendeeService, route: ActivatedRoute) {
+    route.data.forEach(
+      (data: { course: Course }) => {
+        this.course = data.course;
+        this.getAttendees(this.course);
+      }
+    );
+  }
 
   public onAttendeeSaved(attendee: Attendee) {
-    this.course.attendees.push(attendee);
+    this.attendees.push(attendee);
     this.hideCreateForm();
   }
 
-  showCreateForm() {
+  public showCreateForm() {
     this.isCreateFormVisible = true;
   }
 
-  hideCreateForm() {
+  public hideCreateForm() {
     this.isCreateFormVisible = false;
   }
 
-  getAttendees() { // TODO: remove when attendees will be taken from course
-    this.attendeeService.getAttendees()
+  private getAttendees(course: Course) {
+    this.attendeeService.getAttendees(course)
       .subscribe(
-        (attendees) => this.course.attendees = attendees, (error: any) => this.error = error
+        (attendees) => this.attendees = attendees, (error: any) => this.error = error
       );
   }
 }
