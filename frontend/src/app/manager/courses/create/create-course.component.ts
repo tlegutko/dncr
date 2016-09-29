@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
-import { CreateCourseRequest } from './create-course-request';
+import { CreateCourseRequest } from './create-course.model';
 import { CreateCourseTitleComponent } from './course-title/course-title.component';
 import { CreateCoursePropertiesComponent } from './course-properties/course-properties.component';
 import { CourseTimesComponent } from './course-times/course-times.component';
@@ -32,17 +32,29 @@ export class CreateCourseComponent {
   @ViewChild(CreateCoursePropertiesComponent) propertiesComponent: CreateCoursePropertiesComponent;
 
   @Output() save = new EventEmitter<CalendarEvent>();
-  model = CreateCourseRequest.mock();
   errors: CreateCourseErrors = {};
 
   constructor(private createCourseService: CoursesService) {
   }
 
   createCourse(courseTitle: string) {
-    console.log(courseTitle);
-    console.log(this.courseTimesComponent.getModel());
-    console.log(this.propertiesComponent.getModel());
-    this.createCourseService.createCourse(this.model.toJson())
+    let times = this.courseTimesComponent.getModel();
+    let properties = this.propertiesComponent.getModel();
+    // let request: CreateCourseRequest = {
+    //   name: courseTitle,
+    //   startDate: times.startTime,
+    //   startTime: times.startTime,
+    //   endTime: times.endTime,
+    //   repeatWeeksCount: times.repeatWeeksCount,
+    //   classesCount: properties.classesCount,
+    //   seatsCount: properties.seatsCount,
+    //   instructorId: properties.instructorId,
+    //   locationId: properties.locationId,
+    //   price: properties.price,
+    //   description: properties.description,
+    // };
+    let request = CreateCourseRequest.mock();
+    this.createCourseService.createCourse(request)
       .then(
         (response) => {
           if (response.ok) {

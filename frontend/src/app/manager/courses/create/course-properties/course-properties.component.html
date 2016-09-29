@@ -1,1 +1,50 @@
-Properties
+<form-field [errors]="errors.classesCount" class="col-xs-12 row">
+  <label for="classesCount" class="col-xs-3 col-xl-2 col-form-label">Liczba zajęć</label>
+  <div class="col-xs-9 col-xl-10">
+    <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.classesCount"
+           [(ngModel)]="model.classesCount" name="classesCount" id="classesCount" required
+           placeholder="Podaj liczbę zajęć ...">
+  </div>
+</form-field>
+<form-field [errors]="errors.seatsCount" class="col-xs-12 row">
+  <label for="seatsCount" class="col-xs-3 col-xl-2 col-form-label">Liczba miejsc</label>
+  <div class="col-xs-9 col-xl-10">
+    <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.seatsCount"
+           [(ngModel)]="model.seatsCount" name="seatsCount" id="seatsCount" required
+           placeholder="Podaj liczbę miejsc ...">
+  </div>
+</form-field>
+<form-field [errors]="errors.instructorId" class="col-xs-12 row">
+  <label for="instructorId" class="col-xs-3 col-xl-2 col-form-label">Prowadzący</label>
+  <div class="col-xs-9 col-xl-10">
+    <select class="form-control form-control-sm" [class.form-control-danger]="errors.instructorId"
+            [(ngModel)]="model.instructorId" name="instructorId" id="instructorId" required>
+      <option *ngFor="let i of instructors" [value]="i">{{i}}</option>
+    </select>
+  </div>
+</form-field>
+<form-field [errors]="errors.locationId" class="col-xs-12 row">
+  <label for="locationId" class="col-xs-3 col-xl-2 col-form-label">Sala</label>
+  <div class="col-xs-9 col-xl-10">
+    <select class="form-control form-control-sm" [class.form-control-danger]="errors.locationId"
+            [(ngModel)]="model.locationId" name="locationId" id="locationId" required>
+      <option *ngFor="let l of locations" [value]="l">{{l}}</option>
+    </select>
+  </div>
+</form-field>
+<form-field [errors]="errors.price" class="col-xs-12 row">
+  <label for="price" class="col-xs-3 col-xl-2 col-form-label">Cena</label>
+  <div class="col-xs-9 col-xl-10">
+    <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.price"
+           [(ngModel)]="model.price" name="price" id="price" required placeholder="Podaj cenę ...">
+  </div>
+</form-field>
+<form-field [errors]="errors.description" class="col-xs-12 row">
+  <label for="description" class="col-xs-3 col-xl-2 col-form-label">Opis</label>
+  <div class="col-xs-9 col-xl-10">
+    <textarea type="textarea" rows="4" class="form-control form-control-sm"
+              [class.form-control-danger]="errors.description"
+              [(ngModel)]="model.description" name="description" id="description" required
+              placeholder="Dodaj opis kursu ..."></textarea>
+  </div>
+</form-field>

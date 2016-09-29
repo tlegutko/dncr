@@ -19,7 +19,6 @@ export class ManagerCalendarComponent {
   public events: CalendarItem[];
 
   constructor(private router: Router, private service: CoursesService) {
-    console.log('constr');
     this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
   }
 

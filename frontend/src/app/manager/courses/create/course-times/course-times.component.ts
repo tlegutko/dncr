@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CourseTimeForm } from './course-times-form';
+import { CourseTimeForm } from '../create-course.model';
 
 interface CourseTimesErrors {
   startTime?: string[];
@@ -25,6 +25,6 @@ export class CourseTimesComponent {
   errors: CourseTimesErrors = {};
 
   getModel(): CourseTimeForm {
-    return this.model;
+    return this.model; // TODO convert startTime to startDate as well
   }
 }
