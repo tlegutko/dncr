@@ -5,14 +5,15 @@ import { CourseDetailsModel } from './course-details.model';
 @Component(
   {
     selector: 'course-details',
-    templateUrl: './course-details.template.html',
-    styleUrls: ['./course-details.style.scss'],
+    templateUrl: './course-details.component.html',
+    styleUrls: ['./course-details.component.scss'],
     providers: [AttendeeService] // TODO: Don't get all attendees from database, take them from a course
   }
 )
 export class CourseDetailsComponent {
   // TODO: populate view with an actual course from database
   course: CourseDetailsModel = {
+    id: 1,
     title: 'Salsa (początkujący)',
     attendees: null
   };

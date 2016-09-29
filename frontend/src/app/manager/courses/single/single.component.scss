@@ -1,0 +1,22 @@
+@import '~bootstrap/scss/_variables';
+
+:host {
+  display: block;
+}
+
+h1 {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+
+  span {
+    flex-grow: 1;
+    padding: 6px 1rem 0;
+  }
+}
+
+.nav a.active {
+  color: $gray-light;
+}

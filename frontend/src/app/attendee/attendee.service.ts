@@ -17,10 +17,18 @@ export class AttendeeService {
       .catch(this.handleError);
   }
 
-  createAttendee(attendee: Attendee): Promise<Response> {
+  create(attendee: Attendee): Observable<Attendee> {
     return this.http
       .post(this.attendeesUrl, attendee)
-      .toPromise();
+      .map((response) => response.json())
+      .catch(
+        (response) => {
+          if (response.ok) {
+            return Observable.throw('Błąd serwera');
+          }
+          return Observable.throw(response.json());
+        }
+      );
   }
 
   private handleError (error: any) { // TODO: proper error handling

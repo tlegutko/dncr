@@ -7,8 +7,8 @@ import { NgForm } from '@angular/common';
   {
     selector: 'login',
     providers: [NgForm],
-    styleUrls: ['./login.style.scss'],
-    templateUrl: './login.template.html'
+    styleUrls: ['./login.component.scss'],
+    templateUrl: './login.component.html'
   }
 )
 export class LoginComponent {

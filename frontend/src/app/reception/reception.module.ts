@@ -4,12 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReceptionComponent } from './reception.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { CourseDetailsActionButtonComponent } from './course-details/action-button/action-button.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
-import { CreateAttendeeComponent } from 'app/attendee/create/create-attendee.component';
-import { AttendeeRowComponent } from './course-details/attendee-row/attendee-row.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
+import { AttendeeModule } from 'app/attendee';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -33,14 +31,10 @@ export const routes = [
       // Components / Directives/ Pipes
       ReceptionComponent,
       CourseDetailsComponent,
-      CourseDetailsTitleComponent,
-      CourseDetailsActionButtonComponent,
-      CreateAttendeeComponent,
-      ReceptionCalendarComponent,
-      AttendeeRowComponent
+      CourseDetailsTitleComponent, ReceptionCalendarComponent
     ],
     imports: [
-      BrowserModule, FormsModule, CommonsModule, RouterModule.forChild(routes)
+      BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule
     ]
   }
 )

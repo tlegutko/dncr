@@ -12,8 +12,8 @@ interface CreateInstructorErrors {
 @Component(
   {
     selector: 'instructor-create',
-    templateUrl: './instructor-create.template.html',
-    styleUrls: ['./instructor-create.style.scss'],
+    templateUrl: './instructor-create.component.html',
+    styleUrls: ['./instructor-create.component.scss'],
     providers: [InstructorsService]
   }
 )

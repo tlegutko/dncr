@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { AttendeeService } from '../attendee.service';
 import { Attendee } from '../attendee';
 
@@ -9,7 +9,6 @@ interface CreateAttendeeErrors {
   phoneNumber?: string[];
 }
 
-// TODO: Should be moved to _commons if really is common to the app.
 @Component(
   {
     selector: 'create-attendee',
@@ -18,9 +17,8 @@ interface CreateAttendeeErrors {
     providers: [AttendeeService]
   }
 )
-export class CreateAttendeeComponent {
-  @Input() title: string;
-  @Output() onCancel = new EventEmitter<boolean>();
+export class CreateAttendeeComponent implements OnInit {
+  @Input() courseId: number;
   @Output() onSave = new EventEmitter<Attendee>();
   model = new Attendee();
   errors: CreateAttendeeErrors = {};
@@ -28,23 +26,15 @@ export class CreateAttendeeComponent {
   constructor(private attendeeService: AttendeeService) {
   }
 
+  ngOnInit() {
+    this.model.courseId = this.courseId;
+  }
+
   createUser() {
-    this.attendeeService.createAttendee(this.model)
-      .then(
-        (response) => {
-          if (response.ok) {
-            let attendee = response.json();
-            this.errors = {};
-            this.onSave.emit(attendee);
-          }
-        }
-      )
-      .catch(
-        (response) => {
-          let error = response.json();
-          console.error('Error during attendee creation', error);
-          this.errors = error;
-        }
+    this.errors = {};
+    this.attendeeService.create(this.model)
+      .subscribe(
+        (attendee) => this.onSave.emit(attendee), (failedResponse) => this.errors = failedResponse
       );
   }
 

@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component(
   {
     selector: 'manager',
-    styleUrls: ['./manager.style.scss'],
-    templateUrl: './manager.template.html'
+    styleUrls: ['./manager.component.scss'],
+    templateUrl: './manager.component.html'
   }
 )
 export class ManagerComponent {

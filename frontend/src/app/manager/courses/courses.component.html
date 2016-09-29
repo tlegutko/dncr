@@ -1,0 +1,7 @@
+<div class="col-xs-12 full-height" [class.col-md-4]="showAdditionalPane" [class.col-lg-6]="showAdditionalPane"
+     [class.hidden-sm-down]="showAdditionalPane">
+  <manager-calendar></manager-calendar>
+</div>
+<div class="col-xs-12 col-md-8 col-lg-6 full-height" [class.hidden-xs-up]="!showAdditionalPane">
+  <router-outlet></router-outlet>
+</div>

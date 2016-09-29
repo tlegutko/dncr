@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendee extends Model
 {
+  use ModelCamelCaseConverter;
+
   protected $fillable = [
     'name',
     'surname',
     'email',
-    'phoneNumber',
+    'phone_number',
+    'course_id',
   ];
 }

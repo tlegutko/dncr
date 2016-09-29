@@ -1,6 +1,6 @@
 <form class="form clearfix" (ngSubmit)="createUser()" #createAttendeeForm="ngForm">
   <div class="col-xs-12 top-row">
-    <course-details-title [title]="title" [isEditing]="true" (onCancel)="onCancel.emit(true)"></course-details-title>
+    <ng-content></ng-content>
   </div>
   <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
   <form-field [errors]="errors.name" class="col-md-3 col-sm-6 col-xs-12">
