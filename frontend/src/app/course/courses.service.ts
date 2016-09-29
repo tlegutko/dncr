@@ -7,7 +7,7 @@ import { Course } from './course.model';
 import { Attendee } from 'app/attendee';
 import { CalendarItem } from 'app/_commons/calendar';
 import 'rxjs/add/operator/catch';
-import { CreateCourseRequestJson } from './create-course/create-course-request';
+import { CreateCourseRequestJson } from './create/create-course-request';
 import { Response } from '@angular/http';
 
 @Injectable()
