@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
       <div class="form-group" [class.has-danger]="errors">
         <ng-content></ng-content>
         <div class="form-control-feedback" *ngIf="errors">
-          <span *ngFor="let error of errors">{{ error }}</span>
+          <span *ngFor="let error of errors">{{ error }} </span>
         </div>
       </div>
     `,

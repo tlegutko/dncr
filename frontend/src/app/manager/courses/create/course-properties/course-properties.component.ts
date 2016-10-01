@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CoursePropertiesForm } from '../create-course.model';
+import { Component, Input } from '@angular/core';
+import { CreateCourseErrors, CreateCourseRequest } from '../create-course.model';
 @Component(
   {
     selector: 'course-properties',
@@ -9,22 +9,10 @@ import { CoursePropertiesForm } from '../create-course.model';
 )
 export class CreateCoursePropertiesComponent {
 
-  model = new CoursePropertiesForm;
-  errors: CoursePropertiesErrors = {};
+  @Input() model: CreateCourseRequest;
+  @Input() errors: CreateCourseErrors;
   // TODO fetch instr and locations from backend
   instructors = ['Jan Kowalski', 'Stanisław Taneczny', 'Zosia Zgrabna'];
   locations = ['Duża sala', 'Mała sala', 'Sala awaryjna'];
 
-  getModel() {
-    return this.model; // TODO convert instr names to id only
-  }
-}
-
-interface CoursePropertiesErrors {
-  classesCount?: string[];
-  seatsCount?: string[];
-  instructorId?: string[];
-  locationId?: string[];
-  price?: string[];
-  description?: string[];
 }

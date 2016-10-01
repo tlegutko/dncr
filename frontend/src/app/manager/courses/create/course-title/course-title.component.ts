@@ -1,11 +1,15 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { CreateCourseRequest, CreateCourseErrors } from '../create-course.model';
 @Component(
   {
     selector: 'course-title',
-    templateUrl: './course-title.template.html'
+    templateUrl: './course-title.component.html'
   }
 )
 export class CreateCourseTitleComponent {
-  title: string = '';
-  @Output() save = new EventEmitter<string>();
+  @Input() model: CreateCourseRequest;
+
+  @Input() errors: CreateCourseErrors;
+  @Output() save = new EventEmitter<boolean>();
+
 }

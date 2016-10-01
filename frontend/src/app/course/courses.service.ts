@@ -7,7 +7,6 @@ import { Course } from './course.model';
 import { Attendee } from 'app/attendee';
 import { CalendarItem } from 'app/_commons/calendar';
 import 'rxjs/add/operator/catch';
-import { Response } from '@angular/http';
 import { CreateCourseRequest } from './create/create-course.model';
 
 @Injectable()
@@ -19,8 +18,7 @@ export class CoursesService {
     let url = 'api/courses';
     return this.http.get(url)
       .map((response) => response.json())
-      .catch((response) => Observable.throw('Błąd pobierania kursów.'))
-    ;
+      .catch((response) => Observable.throw('Błąd pobierania kursów.'));
   }
 
   public courseToCalendarItems(course: Course): CalendarItem[] {
@@ -59,10 +57,19 @@ export class CoursesService {
       .catch((response) => Observable.throw('Błąd pobierania kursantów.'));
   }
 
-  public createCourse(createCourseRequest: CreateCourseRequest): Promise<Response> {
+  public create(createCourseRequest: CreateCourseRequest): Observable<Course> {
     let url = `api/courses`;
-    return this.http
-      .post(url, createCourseRequest)
-      .toPromise();
+    return this.http.post(url, createCourseRequest)
+      .map((response) => response.json())
+      // .catch((response) => Observable.throw(response.json()));
+      .catch(
+        (response) => {
+          if (response.status === 500) {
+            return Observable.throw('Błąd serwera');
+          } else {
+            return Observable.throw(response.json());
+          }
+        }
+      );
   }
 }

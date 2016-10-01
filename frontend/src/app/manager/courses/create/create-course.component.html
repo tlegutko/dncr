@@ -1,9 +1,12 @@
-<div class="row">
-  <course-title (save)="createCourse($event)"></course-title>
-</div>
-<hr/>
-<div class="row">
-  <course-times></course-times>
-</div>
-<hr/>
-  <course-properties></course-properties>
+<form (ngSubmit)="createCourse()">
+  <div class="row">
+    <course-title [model]="model" [errors]="errors"></course-title>
+  </div>
+  <hr/>
+  <p class="alert alert-danger" role="alert" *ngIf="isErrorMessage">{{ errors }}</p>
+  <div class="row">
+    <course-times [model]="model" [errors]="errors"></course-times>
+  </div>
+  <hr/>
+  <course-properties [model]="model" [errors]="errors"></course-properties>
+</form>

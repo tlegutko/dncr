@@ -1,14 +1,11 @@
 <?php
 
 return [
-  'attributes' => array(
-    'email' => 'adres e-mail',
-    'name' => 'imię',
-    'phone_number' => 'numer telefonu',
-    'surname' => 'nazwisko',
-  ),
+  'date' => 'Pole ":attribute" musi być poprawną datą.',
   'digits' => 'Podany numer telefonu jest niepoprawny. Poprawny format to 9 cyfr.',
   'email' => 'Podany adres email jest niepoprawny.',
-  'required' => 'Pole :attribute jest wymagane.',
+  'integer' => 'Pole ":attribute" musi być liczbą całkowitą.',
+  'min.numeric' => 'Pole ":attribute" nie może być mniejsze niż :min.',
+  'required' => 'Pole ":attribute" jest wymagane.',
   'unique' => 'Podany :attribute został już wykorzystany w systemie.',
 ];

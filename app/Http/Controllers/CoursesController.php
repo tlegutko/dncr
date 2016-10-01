@@ -41,42 +41,26 @@ class CoursesController extends Controller
     $courseData = $request->only('name', 'price', 'classes_count', 'description', 'seats_count') + ['company_id' => 1];
     // TODO remove mock company_id above and inject real one once DNCR-92 is merged
     $course = Course::create($courseData);
-    $courseTime = $course->times()->create($request->only('start_date',
-                                                          'start_time',
-                                                          'end_time',
-                                                          'repeat_weeks_count',
-                                                          'location_id'));
+
+    $courseTimeData = $request->only('start_date', 'start_time', 'end_time', 'repeat_weeks_count', 'location_id');
+    $courseTime = $course->times()->create($courseTimeData);
     $courseTime->course()->associate($course);
     $courseTime->save();
 
     $start_date = new DateTime($courseTime->start_date);
     $events = [];
-    foreach(range(0, $courseTime->repeat_weeks_count) as $week)
+    $step = $courseTime->repeat_weeks_count;
+    foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
     {
       $date = clone($start_date);
-      $event = new CourseEvent(['date' => $date->add(new DateInterval("P{$week}W"))->format(DATE_ISO8601)]);
+      $event = new CourseEvent(['date' => $date->add(new DateInterval("P{$week}W"))]);
       $event->courseTime()->associate($courseTime);
       array_push($events, $event);
     }
-    $created_events = $courseTime->events()->saveMany($events);
+    $courseTime->events()->saveMany($events);
 
-    $startDiff = $start_date->diff(new DateTime($courseTime->start_time));
-    $endDiff = $start_date->diff(new DateTime($courseTime->end_time));
-
-    $events_response = []; // TODO replace with whole course with course_time and events
-    foreach($created_events as $event)
-    {
-      $start_time = new DateTime($event->date);
-      $end_time = clone $start_date;
-      $event_response = [
-        'id' => $event->id,
-        'title' => $course->name,
-        'start' => $start_time->add($startDiff)->format(DATE_ISO8601),
-        'end' => $end_time->add($endDiff)->format(DATE_ISO8601),
-      ];
-      array_push($events_response, $event_response);
-    }
-    return response()->json($events_response);
+    $course->load('times.events');
+    return response()->json($course);
   }
 
   public function show(int $id)
