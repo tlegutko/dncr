@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from './create-course.model';
 import { CalendarEvent } from '../../../_commons/calendar/calendar-events.interface';
-import { CoursesService } from '../courses.service';
+import { CreateCourseErrors, CreateCourseRequest } from '../../../course/course.model';
+import { CoursesService } from '../../../course/courses.service';
 
 @Component(
   {
@@ -15,7 +15,8 @@ export class CreateCourseComponent {
   @Output() save = new EventEmitter<CalendarEvent>();
   errors: CreateCourseErrors = {};
   isGeneralErrorMessage: Boolean = false;
-  model = new CreateCourseRequest();
+  // model = new CreateCourseRequest();
+  model = CreateCourseRequest.mock();
 
   constructor(private coursesService: CoursesService) {
   }

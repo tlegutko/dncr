@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from '../create-course.model';
+import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
 
 @Component(
   {

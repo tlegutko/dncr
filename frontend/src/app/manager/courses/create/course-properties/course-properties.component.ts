@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { CreateCourseErrors, CreateCourseRequest } from '../create-course.model';
 import { InstructorsService } from '../../../instructors/instructors.service';
 import { Instructor } from '../../../instructors/instructor';
 import { LocationsService } from '../../../locations/locations.service';
+import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
 @Component(
   {
     selector: 'course-properties',

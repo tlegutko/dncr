@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from '../create-course.model';
+import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
 @Component(
   {
     selector: 'course-title',
@@ -11,5 +11,4 @@ export class CreateCourseTitleComponent {
 
   @Input() errors: CreateCourseErrors;
   @Output() save = new EventEmitter<boolean>();
-
 }

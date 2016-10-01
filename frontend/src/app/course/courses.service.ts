@@ -3,11 +3,9 @@ import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import 'rxjs/add/operator/catch';
-import { Course } from './course.model';
+import { Course, CreateCourseRequest } from './course.model';
 import { Attendee } from 'app/attendee';
 import { CalendarItem } from 'app/_commons/calendar';
-import 'rxjs/add/operator/catch';
-import { CreateCourseRequest } from './create/create-course.model';
 
 @Injectable()
 export class CoursesService {
