@@ -19,7 +19,7 @@
   <div class="col-xs-9 col-xl-10 p-x-0">
     <select class="form-control form-control-sm" [class.form-control-danger]="errors.instructorId"
             [(ngModel)]="model.instructorId" name="instructorId" id="instructorId" required>
-      <option *ngFor="let i of instructors" [value]="i">{{i}}</option>
+      <option *ngFor="let i of instructors" [value]="i.id">{{i.name + ' ' + i.surname}}</option>
     </select>
   </div>
 </form-field>
@@ -28,7 +28,7 @@
   <div class="col-xs-9 col-xl-10 p-x-0">
     <select class="form-control form-control-sm" [class.form-control-danger]="errors.locationId"
             [(ngModel)]="model.locationId" name="locationId" id="locationId" required>
-      <option *ngFor="let l of locations" [value]="l">{{l}}</option>
+      <option *ngFor="let l of locations" [value]="l.id">{{l.name}}</option>
     </select>
   </div>
 </form-field>

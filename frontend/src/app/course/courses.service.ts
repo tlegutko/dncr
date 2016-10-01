@@ -61,7 +61,6 @@ export class CoursesService {
     let url = `api/courses`;
     return this.http.post(url, createCourseRequest)
       .map((response) => response.json())
-      // .catch((response) => Observable.throw(response.json()));
       .catch(
         (response) => {
           if (response.status === 500) {

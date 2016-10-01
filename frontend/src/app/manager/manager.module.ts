@@ -18,6 +18,8 @@ import { CreateCourseComponent } from './courses/create/create-course.component'
 import { CreateCourseTitleComponent } from './courses/create/course-title/course-title.component';
 import { CourseTimesComponent } from './courses/create/course-times/course-times.component';
 import { CreateCoursePropertiesComponent } from './courses/create/course-properties/course-properties.component';
+import { InstructorsService } from './instructors/instructors.service';
+import { LocationsService } from './locations/locations.service';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -87,6 +89,9 @@ export const routes = [
     ],
     imports: [
       BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
+    ],
+    providers: [
+      CourseResolve, CoursesService, InstructorsService, LocationsService
     ]
   }
 )

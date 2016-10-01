@@ -23,3 +23,6 @@ Route::get('api/courses', 'CoursesController@index');
 Route::post('api/courses', 'CoursesController@store');
 Route::get('api/courses/{id}', 'CoursesController@show');
 Route::get('api/courses/{id}/attendees', 'CoursesController@attendees');
+
+// Locations
+Route::get('api/locations', 'LocationsController@index');

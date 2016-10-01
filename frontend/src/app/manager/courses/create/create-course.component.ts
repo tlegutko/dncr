@@ -14,22 +14,24 @@ export class CreateCourseComponent {
 
   @Output() save = new EventEmitter<CalendarEvent>();
   errors: CreateCourseErrors = {};
-  isErrorMessage: boolean;
+  isGeneralErrorMessage: Boolean = false;
   model = new CreateCourseRequest();
 
   constructor(private coursesService: CoursesService) {
   }
 
-  test(form: any) {
-    console.log(form);
+  test() {
+    console.log(this.isGeneralErrorMessage);
+  }
+
+  handleErrors(error: any) {
+    this.isGeneralErrorMessage = (typeof error === 'string');
+    this.errors = error;
   }
 
   createCourse() {
     this.coursesService.create(this.model).subscribe(
-      (course) => this.errors = {}, (failedResponse) => {
-        this.isErrorMessage = (typeof failedResponse === 'string');
-        this.errors = failedResponse;
-      }
+      (course) => this.errors = {}, (errors) => this.handleErrors(errors)
     );
   }
 }

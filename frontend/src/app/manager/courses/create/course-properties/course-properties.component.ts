@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CreateCourseErrors, CreateCourseRequest } from '../create-course.model';
+import { InstructorsService } from '../../../instructors/instructors.service';
+import { Instructor } from '../../../instructors/instructor';
+import { LocationsService } from '../../../locations/locations.service';
 @Component(
   {
     selector: 'course-properties',
@@ -7,12 +10,24 @@ import { CreateCourseErrors, CreateCourseRequest } from '../create-course.model'
     styleUrls: ['./course-properties.component.scss']
   }
 )
-export class CreateCoursePropertiesComponent {
+export class CreateCoursePropertiesComponent implements OnInit {
 
   @Input() model: CreateCourseRequest;
   @Input() errors: CreateCourseErrors;
-  // TODO fetch instr and locations from backend
-  instructors = ['Jan Kowalski', 'Stanisław Taneczny', 'Zosia Zgrabna'];
-  locations = ['Duża sala', 'Mała sala', 'Sala awaryjna'];
+  @Output() error = new EventEmitter<CreateCourseErrors>();
+  instructors: Instructor[];
+  locations: any[];
+
+  constructor(private instructorsService: InstructorsService, private locationsService: LocationsService) {
+  }
+
+  public ngOnInit(): void {
+    this.instructorsService.list().subscribe(
+      (instructors) => this.instructors = instructors, (errors) => this.error.emit(errors)
+    );
+    this.locationsService.list().subscribe(
+      (locations) => this.locations = locations, (errors) => this.error.emit(errors)
+    );
+  }
 
 }
