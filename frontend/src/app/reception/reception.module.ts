@@ -9,6 +9,8 @@ import { ReceptionCalendarComponent } from './reception-calendar/reception-calen
 import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeModule } from 'app/attendee';
 import { CourseModule, CourseResolve } from 'app/course';
+import { AttendeeDetailsComponent } from './attendee-details/attendee-details.component';
+import { AttendeeDetailsTitleComponent } from './attendee-details/title/title.component';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -24,6 +26,9 @@ export const routes = [
         resolve: {
           course: CourseResolve
         }
+      }, {
+        path: 'course-details/:course-id/attendee-details/:attendee-id',
+        component: AttendeeDetailsComponent
       }
     ]
   }
@@ -35,7 +40,10 @@ export const routes = [
       // Components / Directives/ Pipes
       ReceptionComponent,
       CourseDetailsComponent,
-      CourseDetailsTitleComponent, ReceptionCalendarComponent
+      CourseDetailsTitleComponent,
+      ReceptionCalendarComponent,
+      AttendeeDetailsComponent,
+      AttendeeDetailsTitleComponent
     ],
     imports: [
       BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule

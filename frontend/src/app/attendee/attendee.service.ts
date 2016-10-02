@@ -17,7 +17,14 @@ export class AttendeeService {
     let url = `api/courses/${course.id}/attendees`;
     return this.http.get(url)
       .map((response: Response) => response.json())
-      .catch(() => Observable.throw('Błąd pobierania kursantów.'));
+      .catch(() => Observable.throw('Błąd pobierania kursantów'));
+  }
+
+  getAttendee(id: number): Observable<Attendee> {
+    let url = `${this.attendeesUrl}/${id}`;
+    return this.http.get(url)
+      .map((response) => response.json())
+      .catch(() => Observable.throw('Błąd pobierania kursanta'));
   }
 
   create(attendee: Attendee): Observable<Attendee> {

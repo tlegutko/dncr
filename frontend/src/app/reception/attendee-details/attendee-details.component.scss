@@ -1,0 +1,20 @@
+@import "~bootstrap/scss/_variables";
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.att-det-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.profile-photo {
+  margin-right: 1rem;
+  padding: .2em .25em .15em;
+  border: solid .08em $body-color;
+  border-radius: .1em;
+}

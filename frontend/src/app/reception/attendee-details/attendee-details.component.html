@@ -1,0 +1,22 @@
+<attendee-details-title [title]="course.name"></attendee-details-title>
+<div class="att-det-container">
+  <div class="att-det-column">
+    <i class="profile-photo fa fa-user fa-3x" aria-hidden="true"></i></div>
+  <div class="att-det-column">
+    <div>
+      <h5>
+        {{attendee.name}} {{attendee.surname}}
+      </h5>
+    </div>
+    <div>
+      <span class="hidden-sm-down">Telefon: </span>
+      {{attendee.phoneNumber}}
+    </div>
+    <div>
+      <span class="hidden-sm-down">Adres e-mail: </span>
+      {{attendee.email}}
+    </div>
+  </div>
+</div>
+<hr class="rule">
+<img class="img-fluid" src="assets/img/attendee-details/attendee-history-tmp.png" alt="Widok recepcji">
