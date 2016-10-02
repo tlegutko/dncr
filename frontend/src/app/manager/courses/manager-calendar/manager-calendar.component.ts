@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarItem, CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
 import { CoursesService } from 'app/course';
-import { CreateCourseTime } from '../../../course/course.model';
 
 @Component(
   {
@@ -45,7 +44,7 @@ export class ManagerCalendarComponent implements OnInit {
 
   onDayClick(e: CalendarDayClick) {
     console.log('clicked on day in manager with date: ' + e.date.format());
-    this.service.setRecentlyClickedTime(new CreateCourseTime(e.date));
+    this.service.broadcastCalendarDateClick(e.date);
     this.router.navigate(['/manager/courses/create-course']);
   }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 import 'rxjs/add/operator/catch';
 import { Course, CreateCourseRequest, CreateCourseTime } from './course.model';
 import { Attendee } from 'app/attendee';
@@ -13,9 +14,11 @@ export class CoursesService {
   courseUpdatesSource = new Subject<CalendarItem[]>();
   courseUpdates = this.courseUpdatesSource.asObservable();
 
-  private recentlyClickedTime: CreateCourseTime;
+  recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
+  recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
 
   constructor(private http: AuthHttp) {
+    this.recentlyClickedTimeSource.next(CreateCourseTime.defaultTime()); // default for page refresh
   }
 
   public list(): Observable<Course[]> {
@@ -34,6 +37,10 @@ export class CoursesService {
 
   public broadcastNewCourse(course: Course) {
     this.courseUpdatesSource.next(this.courseToCalendarItems(course));
+  }
+
+  public broadcastCalendarDateClick(clickedTime: Moment) {
+    this.recentlyClickedTimeSource.next(new CreateCourseTime(clickedTime));
   }
 
   public get(id: number): Observable<Course> {
@@ -63,17 +70,6 @@ export class CoursesService {
           }
         }
       );
-  }
-
-  getRecentlyClickedTime() {
-    if (this.recentlyClickedTime == null) {
-      this.recentlyClickedTime = new CreateCourseTime(moment().startOf('hour'));
-    }
-    return this.recentlyClickedTime;
-  }
-
-  setRecentlyClickedTime(createCourseTime: CreateCourseTime) {
-    this.recentlyClickedTime = createCourseTime;
   }
 
   private mapCoursesToEvents(courses: Course[]): CalendarItem[] {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
+import { CreateCourseRequest, CreateCourseErrors, CreateCourseTime } from '../../../../course/course.model';
 import { CoursesService } from '../../../../course/courses.service';
 
 @Component(
@@ -18,9 +18,15 @@ export class CourseTimesComponent implements OnInit {
   }
 
   public ngOnInit() {
-    let courseTime = this.coursesService.getRecentlyClickedTime();
+    this.coursesService.recentlyClickedTime.subscribe(
+      (courseTime) => this.setModelTime(courseTime)
+    );
+  }
+
+  private setModelTime(courseTime: CreateCourseTime) {
     this.model.startTime = courseTime.startTime;
     this.model.endTime = courseTime.endTime;
     this.model.repeatWeeksCount = 1;
   }
+
 }

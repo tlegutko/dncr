@@ -47,6 +47,9 @@ do
 	fi
 done
 
+echo -e "${COLOR}### check if dockers are running ###${NC}"
+docker-compose up -d
+
 echo -e "${COLOR}### composer install ###${NC}"
 docker exec -i dncr_php_1 composer install
 
