@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as moment from 'moment';
 import 'rxjs/add/operator/catch';
 import { Course, CreateCourseRequest } from './course.model';
@@ -9,6 +9,10 @@ import { CalendarItem } from 'app/_commons/calendar';
 
 @Injectable()
 export class CoursesService {
+
+  courseUpdatesSource = new Subject<CalendarItem[]>();
+  courseUpdates = this.courseUpdatesSource.asObservable();
+
   constructor(private http: AuthHttp) {
   }
 
@@ -19,26 +23,15 @@ export class CoursesService {
       .catch((response) => Observable.throw('Błąd pobierania kursów.'));
   }
 
-  public courseToCalendarItems(course: Course): CalendarItem[] {
-    let events: CalendarItem[] = [];
-    course.times.forEach(
-      (time) => time.events.forEach(
-        (event) => {
-          let start = moment(event.date + ' ' + time.startTime, 'YYYY-MM-DD HH:mm:ss');
-          let end = moment(event.date + ' ' + time.endTime, 'YYYY-MM-DD HH:mm:ss');
-          events.push(
-            {
-              id: course.id,
-              title: course.name,
-              start: start,
-              end: end
-            }
-          );
-        }
-      )
-    );
+  public calendarEvents(): Observable<CalendarItem[]> {
+    let url = 'api/courses';
+    return this.http.get(url)
+      .map((response) => this.mapCoursesToEvents(response.json()))
+      .catch((response) => Observable.throw('Błąd pobierania wydarzeń.'));
+  }
 
-    return events;
+  public broadcastNewCourse(course: Course) {
+    this.courseUpdatesSource.next(this.courseToCalendarItems(course));
   }
 
   public get(id: number): Observable<Course> {
@@ -68,5 +61,33 @@ export class CoursesService {
           }
         }
       );
+  }
+
+  private mapCoursesToEvents(courses: Course[]): CalendarItem[] {
+    let events: CalendarItem[] = [];
+    courses.forEach((course) => events = events.concat(this.courseToCalendarItems(course)));
+
+    return events;
+  }
+
+  private courseToCalendarItems(course: Course): CalendarItem[] {
+    let events: CalendarItem[] = [];
+    course.times.forEach(
+      (time) => time.events.forEach(
+        (event) => {
+          let start = moment(event.date + ' ' + time.startTime, 'YYYY-MM-DD HH:mm:ss');
+          let end = moment(event.date + ' ' + time.endTime, 'YYYY-MM-DD HH:mm:ss');
+          events.push(
+            {
+              id: course.id,
+              title: course.name,
+              start: start,
+              end: end
+            }
+          );
+        }
+      )
+    );
+    return events;
   }
 }

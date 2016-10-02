@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CalendarEvent } from '../../../_commons/calendar/calendar-events.interface';
 import { CreateCourseErrors, CreateCourseRequest } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
+import { Router } from '@angular/router';
 
 @Component(
   {
@@ -18,7 +19,7 @@ export class CreateCourseComponent {
   // model = new CreateCourseRequest();
   model = CreateCourseRequest.mock();
 
-  constructor(private coursesService: CoursesService) {
+  constructor(private router: Router, private coursesService: CoursesService) {
   }
 
   test() {
@@ -32,7 +33,10 @@ export class CreateCourseComponent {
 
   createCourse() {
     this.coursesService.create(this.model).subscribe(
-      (course) => this.errors = {}, (errors) => this.handleErrors(errors)
+      (course) => {
+        this.coursesService.broadcastNewCourse(course);
+        this.router.navigate(['/manager/courses', course.id]);
+      }, (errors) => this.handleErrors(errors)
     );
   }
 }

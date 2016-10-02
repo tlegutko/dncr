@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarItem, CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
 import { Course, CoursesService } from 'app/course';
@@ -15,18 +15,17 @@ import { Course, CoursesService } from 'app/course';
     `
   }
 )
-export class ManagerCalendarComponent {
+export class ManagerCalendarComponent implements OnInit {
   public events: CalendarItem[];
 
   constructor(private router: Router, private service: CoursesService) {
-    this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
   }
 
-  public mapCoursesToEvents(courses: Course[]): CalendarItem[] {
-    let events: CalendarItem[] = [];
-    courses.forEach((course) => events = events.concat(this.service.courseToCalendarItems(course)));
-
-    return events;
+  public ngOnInit(): void {
+    this.service.calendarEvents().subscribe((events) => this.events = events);
+    this.service.courseUpdates.subscribe((events) => {
+      this.events = this.events.concat(events);
+    });
   }
 
   onEventResize(e: CalendarModifyEvent) {

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarItem, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
-import { CoursesService, Course } from 'app/course';
+import { CoursesService } from 'app/course';
 
 @Component(
   {
@@ -13,18 +13,14 @@ import { CoursesService, Course } from 'app/course';
     `
   }
 )
-export class ReceptionCalendarComponent {
+export class ReceptionCalendarComponent implements OnInit {
   public events: CalendarItem[];
 
   constructor(private router: Router, private service: CoursesService) {
-    this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
   }
 
-  public mapCoursesToEvents(courses: Course[]): CalendarItem[] {
-    let events: CalendarItem[] = [];
-    courses.forEach((course) => events = events.concat(this.service.courseToCalendarItems(course)));
-
-    return events;
+  public ngOnInit(): void {
+    this.service.calendarEvents().subscribe((events) => this.events = events);
   }
 
   onEventClick(e: CalendarEvent) {
