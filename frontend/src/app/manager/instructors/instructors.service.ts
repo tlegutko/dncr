@@ -11,14 +11,7 @@ export class InstructorsService {
   constructor(private http: AuthHttp) {
   }
 
-  getList(): Promise<Instructor[]> {
-    return this.http
-      .get(this.resource)
-      .map((response: Response) => response.json())
-      .toPromise();
-  }
-
-  list(): Observable<Instructor[]> { // TODO merge with above once consulted with Szymon
+  list(): Observable<Instructor[]> {
     return this.http
       .get(this.resource)
       .map((response: Response) => response.json())

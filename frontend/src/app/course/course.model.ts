@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export class Course {
   id: number;
   companyId: number;
@@ -42,13 +44,24 @@ export class CreateCourseRequest {
     mockModel.classesCount = 1;
     mockModel.seatsCount = 1;
     mockModel.description = 'najlepszy kurs';
-    mockModel.startDate = '2016-09-12';
     mockModel.startTime = '2016-09-12T19:00:00';
     mockModel.endTime = '2016-09-12T20:00:00';
     mockModel.repeatWeeksCount = 1;
     mockModel.locationId = 1;
     mockModel.instructorId = 1;
     return mockModel;
+  }
+
+}
+
+export class CreateCourseTime {
+  startTime: string;
+  endTime: string;
+  dateFormat = 'YYYY-MM-DD HH:mm:ss';
+
+  constructor(startTime: Moment) {
+    this.startTime = startTime.format(this.dateFormat);
+    this.endTime = startTime.clone().add(1, 'hours').format(this.dateFormat);
   }
 
 }

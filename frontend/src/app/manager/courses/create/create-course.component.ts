@@ -16,14 +16,9 @@ export class CreateCourseComponent {
   @Output() save = new EventEmitter<CalendarEvent>();
   errors: CreateCourseErrors = {};
   isGeneralErrorMessage: Boolean = false;
-  // model = new CreateCourseRequest();
-  model = CreateCourseRequest.mock();
+  model = new CreateCourseRequest();
 
   constructor(private router: Router, private coursesService: CoursesService) {
-  }
-
-  test() {
-    console.log(this.isGeneralErrorMessage);
   }
 
   handleErrors(error: any) {

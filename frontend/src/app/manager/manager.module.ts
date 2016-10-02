@@ -39,7 +39,7 @@ export const routes = [
             path: ''
           }, {
             path: 'create-course',
-            component: CreateCourseComponent
+            component: CreateCourseComponent,
           }, {
             path: ':id',
             component: ManagerCoursesSingleComponent,
@@ -77,6 +77,7 @@ export const routes = [
       ManagerCoursesSingleComponent,
       ManagerCoursesDetailsComponent,
       ManagerCoursesAttendeesComponent,
+
       ManagerCourseAttendeesTitleComponent,
       ManagerCoursesActionsComponent,
       ManagerCalendarComponent,

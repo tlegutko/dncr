@@ -42,8 +42,9 @@ class CoursesController extends Controller
     // TODO remove mock company_id above and inject real one once DNCR-92 is merged
     $course = Course::create($courseData);
 
-    $courseTimeData = $request->only('start_date', 'start_time', 'end_time', 'repeat_weeks_count', 'location_id');
-    $courseTime = $course->times()->create($courseTimeData);
+    $start_date_from_request = ['start_date' => (new DateTime($request->start_time))->format('Y-m-d')];
+    $courseTimeData = $request->only('start_time', 'end_time', 'repeat_weeks_count', 'location_id');
+    $courseTime = $course->times()->create($courseTimeData + $start_date_from_request);
     $courseTime->course()->associate($course);
     $courseTime->save();
 
@@ -60,6 +61,7 @@ class CoursesController extends Controller
     $courseTime->events()->saveMany($events);
 
     $course->load('times.events');
+
     return response()->json($course);
   }
 

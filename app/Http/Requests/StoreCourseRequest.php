@@ -27,7 +27,6 @@ class StoreCourseRequest extends Request
       'price' => 'required | numeric | min:0',
       'classes_count' => 'required | integer | min:1',
       'seats_count' => 'required | integer | min:1',
-      'start_date' => 'required | date',
       'start_time' => 'required | date',
       'end_time' => 'required | date',
       'repeat_weeks_count' => 'required | integer | min:0',
@@ -43,8 +42,7 @@ class StoreCourseRequest extends Request
       'price' => 'cena',
       'classes_count' => 'liczba zajęć',
       'seats_count' => 'liczba miejsc',
-      'start_date' => 'rozpoczęcie',
-      'start_time' => 'rozpoczęcie', // TODO wywalić
+      'start_time' => 'rozpoczęcie',
       'end_time' => 'zakończenie',
       'repeat_weeks_count' => 'powtarzaj co',
       'location_id' => 'sala',

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarItem, CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
-import { Course, CoursesService } from 'app/course';
+import { CoursesService } from 'app/course';
+import { CreateCourseTime } from '../../../course/course.model';
 
 @Component(
   {
@@ -23,9 +24,11 @@ export class ManagerCalendarComponent implements OnInit {
 
   public ngOnInit(): void {
     this.service.calendarEvents().subscribe((events) => this.events = events);
-    this.service.courseUpdates.subscribe((events) => {
-      this.events = this.events.concat(events);
-    });
+    this.service.courseUpdates.subscribe(
+      (events) => {
+        this.events = this.events.concat(events);
+      }
+    );
   }
 
   onEventResize(e: CalendarModifyEvent) {
@@ -42,6 +45,7 @@ export class ManagerCalendarComponent implements OnInit {
 
   onDayClick(e: CalendarDayClick) {
     console.log('clicked on day in manager with date: ' + e.date.format());
+    this.service.setRecentlyClickedTime(new CreateCourseTime(e.date));
     this.router.navigate(['/manager/courses/create-course']);
   }
 }

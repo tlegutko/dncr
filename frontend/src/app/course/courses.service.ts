@@ -3,7 +3,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { Observable, Subject } from 'rxjs';
 import * as moment from 'moment';
 import 'rxjs/add/operator/catch';
-import { Course, CreateCourseRequest } from './course.model';
+import { Course, CreateCourseRequest, CreateCourseTime } from './course.model';
 import { Attendee } from 'app/attendee';
 import { CalendarItem } from 'app/_commons/calendar';
 
@@ -12,6 +12,8 @@ export class CoursesService {
 
   courseUpdatesSource = new Subject<CalendarItem[]>();
   courseUpdates = this.courseUpdatesSource.asObservable();
+
+  private recentlyClickedTime: CreateCourseTime;
 
   constructor(private http: AuthHttp) {
   }
@@ -63,6 +65,17 @@ export class CoursesService {
       );
   }
 
+  getRecentlyClickedTime() {
+    if (this.recentlyClickedTime == null) {
+      this.recentlyClickedTime = new CreateCourseTime(moment().startOf('hour'));
+    }
+    return this.recentlyClickedTime;
+  }
+
+  setRecentlyClickedTime(createCourseTime: CreateCourseTime) {
+    this.recentlyClickedTime = createCourseTime;
+  }
+
   private mapCoursesToEvents(courses: Course[]): CalendarItem[] {
     let events: CalendarItem[] = [];
     courses.forEach((course) => events = events.concat(this.courseToCalendarItems(course)));
@@ -90,4 +103,5 @@ export class CoursesService {
     );
     return events;
   }
+
 }
