@@ -7,7 +7,7 @@
            [(ngModel)]="model.name" name="name" id="name" required>
   </form-field>
   <div class="col-xs-3">
-    <button type="submit" class="btn btn-block btn-primary">
+    <button type="button" (click)="save.emit(true)" class="btn btn-block btn-primary">
       <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
     </button>
   </div>

@@ -14,12 +14,13 @@ import {
   ManagerCoursesSingleComponent, ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent,
   ManagerCoursesActionsComponent, ManagerCourseAttendeesTitleComponent
 } from './courses/single';
-import { CreateCourseComponent } from './courses/create/create-course.component';
-import { CreateCourseTitleComponent } from './courses/create/course-title/course-title.component';
-import { CourseTimesComponent } from './courses/create/course-times/course-times.component';
-import { CreateCoursePropertiesComponent } from './courses/create/course-properties/course-properties.component';
+import { CreateCourseTitleComponent } from './courses/course-title/course-title.component';
+import { CourseTimesComponent } from './courses/edit/course-times/course-times.component';
+import { CreateCoursePropertiesComponent } from './courses/edit/course-properties/course-properties.component';
 import { InstructorsService } from './instructors/instructors.service';
 import { LocationsService } from './locations/locations.service';
+import { CreateCourseComponent } from './courses/create/create-course.component';
+import { EditCourseComponent } from './courses/edit/edit-course.component';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -82,6 +83,7 @@ export const routes = [
       ManagerCalendarComponent,
       ManagerInstructorsComponent,
       InstructorCreateComponent,
+      EditCourseComponent,
       CreateCourseComponent,
       CreateCourseTitleComponent,
       CourseTimesComponent,

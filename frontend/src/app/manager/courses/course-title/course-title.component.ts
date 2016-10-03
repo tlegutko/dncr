@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
+import { CreateCourseRequest, CreateCourseErrors } from '../../../course/course.model';
 @Component(
   {
     selector: 'course-title',

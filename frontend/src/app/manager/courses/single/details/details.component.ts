@@ -1,20 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
+import { CreateCourseErrors } from '../../../../course/course.model';
 
 @Component(
   {
     selector: 'manager-courses-single-details',
-    templateUrl: './details.component.html'
+    template: '<edit-course [model]="model" [errors]="errors"></edit-course>'
   }
 )
-export class ManagerCoursesDetailsComponent {
-  public course: Course;
+export class ManagerCoursesDetailsComponent implements OnInit {
+  model: Course;
+  errors: CreateCourseErrors = {};
 
-  constructor(route: ActivatedRoute) {
-    route.parent.data.forEach(
+  constructor(private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.route.parent.data.forEach(
       (data: { course: Course }) => {
-        this.course = data.course;
+        this.model = data.course;
+        console.log(this.model);
       }
     );
   }
