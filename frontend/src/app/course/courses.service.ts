@@ -11,8 +11,8 @@ import { CalendarItem } from 'app/_commons/calendar';
 @Injectable()
 export class CoursesService {
 
-  courseUpdatesSource = new Subject<CalendarItem[]>();
-  courseUpdates = this.courseUpdatesSource.asObservable();
+  courseCreatedSource = new Subject<CalendarItem[]>();
+  courseCreated = this.courseCreatedSource.asObservable();
 
   recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
   recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
@@ -36,7 +36,7 @@ export class CoursesService {
   }
 
   public broadcastNewCourse(course: Course) {
-    this.courseUpdatesSource.next(this.courseToCalendarItems(course));
+    this.courseCreatedSource.next(this.courseToCalendarItems(course));
   }
 
   public broadcastCalendarDateClick(clickedTime: Moment) {
@@ -44,14 +44,14 @@ export class CoursesService {
   }
 
   public get(id: number): Observable<Course> {
-    let url = 'api/courses/' + id;
+    let url = `api/courses/${id}`;
     return this.http.get(url)
       .map((response) => response.json())
       .catch((response) => Observable.throw('Błąd pobierania kursu.'));
   }
 
   public getAttendees(courseId: number): Observable<Attendee[]> {
-    let url = 'api/courses/' + courseId + '/attendees';
+    let url = `api/courses/${courseId}/attendees`;
     return this.http.get(url)
       .map((response) => response.json())
       .catch((response) => Observable.throw('Błąd pobierania kursantów.'));
@@ -61,6 +61,7 @@ export class CoursesService {
     let url = `api/courses`;
     return this.http.post(url, createCourseRequest)
       .map((response) => response.json())
+      .do((course) => this.broadcastNewCourse(course))
       .catch(
         (response) => {
           if (response.status === 500) {

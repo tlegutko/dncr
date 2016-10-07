@@ -29,7 +29,6 @@ export class CreateCourseComponent {
   createCourse() {
     this.coursesService.create(this.model).subscribe(
       (course) => {
-        this.coursesService.broadcastNewCourse(course);
         this.router.navigate(['/manager/courses', course.id]);
       }, (errors) => this.handleErrors(errors)
     );

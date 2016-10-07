@@ -3,6 +3,7 @@ import { InstructorsService } from '../../../instructors/instructors.service';
 import { Instructor } from '../../../instructors/instructor';
 import { LocationsService } from '../../../locations/locations.service';
 import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
+import { CourseLocation } from '../../../locations/locations.model';
 @Component(
   {
     selector: 'course-properties',
@@ -16,7 +17,7 @@ export class CreateCoursePropertiesComponent implements OnInit {
   @Input() errors: CreateCourseErrors;
   @Output() error = new EventEmitter<CreateCourseErrors>();
   instructors: Instructor[];
-  locations: any[];
+  locations: CourseLocation[];
 
   constructor(private instructorsService: InstructorsService, private locationsService: LocationsService) {
   }

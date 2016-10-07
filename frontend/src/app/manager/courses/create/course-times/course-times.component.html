@@ -19,7 +19,7 @@
   </div>
 </form-field>
 <form-field [errors]="errors.endTime" class="col-xs-12 row moved-errors">
-  <label for="startTime" class="col-xs-3 col-xl-2 col-form-label test">Zakończenie</label>
+  <label for="endTime" class="col-xs-3 col-xl-2 col-form-label test">Zakończenie</label>
   <div class="col-xs-8 col-xl-9 p-x-0">
     <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.endTime"
            [(ngModel)]="model.endTime" name="endTime" id="endTime" required>
@@ -29,7 +29,7 @@
   </div>
 </form-field>
 <form-field [errors]="errors.repeatWeeksCount" class="col-xs-12 row moved-errors">
-  <label for="startTime" class="col-xs-3 col-xl-2 col-form-label test">Powtarzaj co</label>
+  <label for="repeatWeeksCount" class="col-xs-3 col-xl-2 col-form-label test">Powtarzaj co</label>
   <div class="col-xs-2 p-x-0">
     <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.repeatWeeksCount"
            [(ngModel)]="model.repeatWeeksCount" name="repeatWeeksCount" id="repeatWeeksCount" required>

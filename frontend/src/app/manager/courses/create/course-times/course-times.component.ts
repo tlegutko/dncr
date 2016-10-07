@@ -18,6 +18,7 @@ export class CourseTimesComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.model.repeatWeeksCount = 1;
     this.coursesService.recentlyClickedTime.subscribe(
       (courseTime) => this.setModelTime(courseTime)
     );
@@ -26,7 +27,6 @@ export class CourseTimesComponent implements OnInit {
   private setModelTime(courseTime: CreateCourseTime) {
     this.model.startTime = courseTime.startTime;
     this.model.endTime = courseTime.endTime;
-    this.model.repeatWeeksCount = 1;
   }
 
 }

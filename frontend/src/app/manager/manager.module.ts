@@ -92,7 +92,7 @@ export const routes = [
       BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
     ],
     providers: [
-      CourseResolve, InstructorsService, LocationsService
+      InstructorsService, LocationsService
     ]
   }
 )

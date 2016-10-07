@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\CourseEvent;
 use DateInterval;
 use DateTime;
+use DB;
 
 class CoursesController extends Controller
 {
@@ -40,25 +41,30 @@ class CoursesController extends Controller
   {
     $courseData = $request->only('name', 'price', 'classes_count', 'description', 'seats_count') + ['company_id' => 1];
     // TODO remove mock company_id above and inject real one once DNCR-92 is merged
-    $course = Course::create($courseData);
+    $startDate = ['start_date' => (new DateTime($request->start_time))->format('Y-m-d')];
+    $courseTimeData = $request->only('start_time', 'end_time', 'repeat_weeks_count', 'location_id') + $startDate;
 
-    $start_date_from_request = ['start_date' => (new DateTime($request->start_time))->format('Y-m-d')];
-    $courseTimeData = $request->only('start_time', 'end_time', 'repeat_weeks_count', 'location_id');
-    $courseTime = $course->times()->create($courseTimeData + $start_date_from_request);
-    $courseTime->course()->associate($course);
-    $courseTime->save();
-
-    $start_date = new DateTime($courseTime->start_date);
-    $events = [];
-    $step = $courseTime->repeat_weeks_count;
-    foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
+    $course = DB::transaction(function() use ($courseData, $courseTimeData)
     {
-      $date = clone($start_date);
-      $event = new CourseEvent(['date' => $date->add(new DateInterval("P{$week}W"))]);
-      $event->courseTime()->associate($courseTime);
-      array_push($events, $event);
-    }
-    $courseTime->events()->saveMany($events);
+      $course = Course::create($courseData);
+      $courseTime = $course->times()->create($courseTimeData);
+      $courseTime->course()->associate($course);
+      $courseTime->save();
+
+      $start_date = new DateTime($courseTime->start_date);
+      $events = [];
+      $step = $courseTime->repeat_weeks_count;
+      foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
+      {
+        $date = clone($start_date);
+        $event = new CourseEvent(['date' => $date->add(new DateInterval("P{$week}W"))]);
+        $event->courseTime()->associate($courseTime);
+        array_push($events, $event);
+      }
+      $courseTime->events()->saveMany($events);
+
+      return $course;
+    });
 
     $course->load('times.events');
 
