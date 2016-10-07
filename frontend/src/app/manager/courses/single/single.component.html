@@ -1,21 +1,21 @@
-<h1 *ngIf="course">
-  <i class="fa fa-info-circle fa-lg"></i>
-  <span>{{ course.name }}</span>
-  <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
-  <button type="submit" class="btn btn-primary">
-    <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
-  </button>
-  <!--<button type="button" class="btn btn-secondary" (click)="close()">-->
-    <!--<i class="fa fa-times"></i>-->
-    <!--<span class="sr-only">Zamknij</span>-->
+<!--<h1 *ngIf="course">-->
+  <!--<i class="fa fa-info-circle fa-lg"></i>-->
+  <!--<span>{{ course.name }}</span>-->
+  <!--&lt;!&ndash;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&ndash;&gt;-->
+  <!--<button type="submit" class="btn btn-primary">-->
+    <!--<i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz-->
   <!--</button>-->
-</h1>
-<!--<course-title [model]="model" [errors]="errors"></course-title>-->
+  <!--&lt;!&ndash;<button type="button" class="btn btn-secondary" (click)="close()">&ndash;&gt;-->
+    <!--&lt;!&ndash;<i class="fa fa-times"></i>&ndash;&gt;-->
+    <!--&lt;!&ndash;<span class="sr-only">Zamknij</span>&ndash;&gt;-->
+  <!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--</h1>-->
+<course-title *ngIf="course" [model]="course" [errors]="errors" (save)="onSave()"></course-title>
+<br/>
 <nav class="nav nav-inline" *ngIf="course">
   <a class="nav-link" routerLinkActive="active" [routerLink]="['/manager/courses', course.id]"
      [routerLinkActiveOptions]="{ exact: true }">Szczegóły</a>
   <a class="nav-link" routerLinkActive="active" [routerLink]="['actions']">Akcje</a>
   <a class="nav-link" routerLinkActive="active" [routerLink]="['attendees']">Kursanci</a>
 </nav>
-<hr/>
 <router-outlet></router-outlet>

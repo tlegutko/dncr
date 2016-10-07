@@ -21,10 +21,7 @@ class CoursesController extends Controller
 
   public function index()
   {
-    $courses = Course::with([
-                              'times',
-                              'times.events',
-                            ])->get();
+    $courses = Course::with('times.events')->get();
 
     return response()->json($courses);
   }
@@ -67,7 +64,7 @@ class CoursesController extends Controller
 
   public function show(int $id)
   {
-    $course = Course::findOrFail($id);
+    $course = Course::with('times.events')->findOrFail($id);
 
     return response()->json($course);
   }

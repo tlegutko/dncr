@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
+import { CreateCourseErrors } from '../../../course/course.model';
+import { CoursesService } from '../../../course/courses.service';
 
 @Component(
   {
@@ -9,15 +11,23 @@ import { Course } from 'app/course';
     templateUrl: './single.component.html'
   }
 )
-export class ManagerCoursesSingleComponent {
-  public course: Course;
+export class ManagerCoursesSingleComponent implements OnInit {
+  private course: Course;
+  private errors: CreateCourseErrors = {};
 
-  constructor(private router: Router, route: ActivatedRoute) {
-    route.data.forEach(
+  constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
+  }
+
+  public ngOnInit() {
+    this.route.data.forEach(
       (data: { course: Course }) => {
         this.course = data.course;
       }
     );
+  }
+
+  public onSave() {
+    this.coursesService.broadcastCourseSaveRequest();
   }
 
   public close() {
