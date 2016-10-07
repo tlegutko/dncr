@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'app/_commons/auth';
 
 /*
@@ -13,11 +14,11 @@ import { AuthService } from 'app/_commons/auth';
   }
 )
 export class App {
-  constructor(private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.logout().subscribe(() => this.router.navigate(['/']));
   }
 
   isLoggedIn() {

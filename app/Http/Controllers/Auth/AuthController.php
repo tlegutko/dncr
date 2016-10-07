@@ -25,7 +25,6 @@ class AuthController extends Controller
 
     try
     {
-      // attempt to verify the credentials and create a token for the user
       if(!$token = \JWTAuth::attempt($credentials))
       {
         return response()->json(['error' => \Lang::get('auth.failed')], 401);
@@ -33,7 +32,19 @@ class AuthController extends Controller
     }
     catch(JWTException $e)
     {
-      // something went wrong whilst attempting to encode the token
+      return response()->json(['error' => \Lang::get('auth.could_not_create_token')], 500);
+    }
+
+    return response()->json(['token' => $token]);
+  }
+  public function refresh()
+  {
+    try
+    {
+      $token = \JWTAuth::refresh();
+    }
+    catch(JWTException $e)
+    {
       return response()->json(['error' => \Lang::get('auth.could_not_create_token')], 500);
     }
 
