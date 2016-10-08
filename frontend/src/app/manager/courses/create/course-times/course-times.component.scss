@@ -1,18 +1,13 @@
-$row-height: 1.8rem;
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
 
-label {
-  padding-right: 0.5rem;
-  font-weight: bold;
-  text-align: right;
-  height: $row-height;
+:host {
+  display: block;
 }
 
-.fa-calendar {
-  height: $row-height;
-}
-
-p {
-  display: inline-block;
-  padding-left: 0.5rem;
-  height: 1rem;
+course-times labelled-form-field form-field label {
+  @media (min-width: breakpoint-min(sm)) {
+    text-align: right;
+  }
+  height: 1.8rem;
 }

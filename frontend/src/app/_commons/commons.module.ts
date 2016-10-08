@@ -6,11 +6,12 @@ import { FormField } from './form-field';
 import { CalendarComponent } from './calendar';
 import { AddItemButtonComponent } from './add-item-button';
 import { AuthService, AuthGuard } from './auth';
+import { LabelledFormField } from './labelled-form-field';
 
 @NgModule(
   {
     declarations: [
-      FormField, CalendarComponent, AddItemButtonComponent
+      FormField, LabelledFormField, CalendarComponent, AddItemButtonComponent
     ],
     imports: [
       BrowserModule, FormsModule, ScheduleModule
@@ -19,7 +20,7 @@ import { AuthService, AuthGuard } from './auth';
       AuthService, AuthGuard
     ],
     exports: [
-      FormField, CalendarComponent, AddItemButtonComponent
+      FormField, LabelledFormField, CalendarComponent, AddItemButtonComponent
     ]
   }
 )

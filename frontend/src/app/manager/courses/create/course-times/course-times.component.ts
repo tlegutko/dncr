@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { CreateCourseRequest, CreateCourseErrors, CreateCourseTime } from '../../../../course/course.model';
 import { CoursesService } from '../../../../course/courses.service';
 
@@ -7,6 +7,7 @@ import { CoursesService } from '../../../../course/courses.service';
     selector: 'course-times',
     templateUrl: './course-times.component.html',
     styleUrls: ['./course-times.component.scss'],
+    encapsulation: ViewEncapsulation.None,
   }
 )
 export class CourseTimesComponent implements OnInit {

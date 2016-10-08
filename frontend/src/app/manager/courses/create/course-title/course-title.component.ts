@@ -3,7 +3,8 @@ import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/cour
 @Component(
   {
     selector: 'course-title',
-    templateUrl: './course-title.component.html'
+    templateUrl: './course-title.component.html',
+    styleUrls: ['./course-title.component.scss'],
   }
 )
 export class CreateCourseTitleComponent {

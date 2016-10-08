@@ -77,4 +77,6 @@ export interface CreateCourseErrors {
   startTime?: string[];
   endTime?: string[];
   repeatWeeksCount?: string[];
+  instructorId?: string[];
+  locationId?: string[];
 }

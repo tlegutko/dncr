@@ -1,12 +1,14 @@
-<div class="col-xs-1">
-  <i class="fa fa-info-circle fa-2x " aria-hidden="true"></i>
-</div>
-<form-field [errors]="errors.name" class="col-xs-8 input-group p-x-0">
-  <input #titleInput type="text" class="form-control" placeholder="Podaj nazwę kursu ..."
-         [(ngModel)]="model.name" name="name" id="name" required>
-</form-field>
-<div class="col-xs-3">
-  <button type="submit" class="btn btn-block btn-primary">
-    <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
-  </button>
+<div class="row">
+  <div class="col-xs-1">
+    <i class="fa fa-info-circle fa-2x " aria-hidden="true"></i>
+  </div>
+  <form-field [errors]="errors.name" class="col-xs-8 input-group p-x-0">
+    <input #titleInput type="text" class="form-control" placeholder="Podaj nazwę kursu ..."
+           [(ngModel)]="model.name" name="name" id="name" required>
+  </form-field>
+  <div class="col-xs-3">
+    <button type="submit" class="btn btn-block btn-primary">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
+    </button>
+  </div>
 </div>

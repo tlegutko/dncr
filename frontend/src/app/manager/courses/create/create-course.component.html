@@ -1,11 +1,7 @@
 <form (ngSubmit)="createCourse()">
-  <div class="row">
-    <course-title [model]="model" [errors]="errors"></course-title>
-  </div>
+  <course-title [model]="model" [errors]="errors"></course-title>
   <hr/>
-  <div class="row">
-    <course-times [model]="model" [errors]="errors"></course-times>
-  </div>
+  <course-times [model]="model" [errors]="errors"></course-times>
   <hr/>
   <course-properties [model]="model" [errors]="errors"></course-properties>
 </form>
