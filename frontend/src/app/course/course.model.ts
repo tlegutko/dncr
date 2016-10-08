@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import * as moment from 'moment';
 
 export class Course {
   id: number;
@@ -60,10 +59,6 @@ export class CreateCourseTime {
   startTime: string;
   endTime: string;
   dateFormat = 'YYYY-MM-DD HH:mm:ss';
-
-  static defaultTime(): CreateCourseTime {
-    return new CreateCourseTime(moment().startOf('hour'));
-  }
 
   constructor(startTime: Moment) {
     this.startTime = startTime.format(this.dateFormat);

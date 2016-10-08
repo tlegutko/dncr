@@ -3,10 +3,9 @@
     <course-title [model]="model" [errors]="errors"></course-title>
   </div>
   <hr/>
-  <p class="alert alert-danger" role="alert" *ngIf="isGeneralErrorMessage">{{ errors }}</p>
   <div class="row">
     <course-times [model]="model" [errors]="errors"></course-times>
   </div>
   <hr/>
-  <course-properties [model]="model" [errors]="errors" (error)="handleErrors($event)"></course-properties>
+  <course-properties [model]="model" [errors]="errors"></course-properties>
 </form>

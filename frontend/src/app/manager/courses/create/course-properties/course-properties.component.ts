@@ -15,7 +15,6 @@ export class CreateCoursePropertiesComponent implements OnInit {
 
   @Input() model: CreateCourseRequest;
   @Input() errors: CreateCourseErrors;
-  @Output() error = new EventEmitter<CreateCourseErrors>();
   instructors: Instructor[];
   locations: CourseLocation[];
 
@@ -24,10 +23,10 @@ export class CreateCoursePropertiesComponent implements OnInit {
 
   public ngOnInit(): void {
     this.instructorsService.list().subscribe(
-      (instructors) => this.instructors = instructors, (errors) => this.error.emit(errors)
+      (instructors) => this.instructors = instructors, (errors) => this.errors = errors
     );
     this.locationsService.list().subscribe(
-      (locations) => this.locations = locations, (errors) => this.error.emit(errors)
+      (locations) => this.locations = locations, (errors) => this.errors = errors
     );
   }
 

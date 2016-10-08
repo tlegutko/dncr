@@ -12,7 +12,8 @@
   <label for="startTime" class="col-xs-3 col-xl-2 col-form-label test">Rozpoczęcie</label>
   <div class="col-xs-8 col-xl-9 p-x-0">
     <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.startTime"
-           [(ngModel)]="model.startTime" name="startTime" id="startTime" required>
+           [(ngModel)]="model.startTime" name="startTime" id="startTime" required
+           placeholder="Podaj datę rozpoczęcia ...">
   </div>
   <div class="col-xs-1">
     <i class="fa fa-lg fa-calendar date-picker-icon test" aria-hidden="true"></i>
@@ -22,7 +23,8 @@
   <label for="endTime" class="col-xs-3 col-xl-2 col-form-label test">Zakończenie</label>
   <div class="col-xs-8 col-xl-9 p-x-0">
     <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.endTime"
-           [(ngModel)]="model.endTime" name="endTime" id="endTime" required>
+           [(ngModel)]="model.endTime" name="endTime" id="endTime" required
+           placeholder="Podaj datę zakończenia ...">
   </div>
   <div class="col-xs-1">
     <i class="fa fa-lg fa-calendar date-picker-icon test" aria-hidden="true"></i>

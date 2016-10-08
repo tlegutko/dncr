@@ -77,7 +77,6 @@ export const routes = [
       ManagerCoursesSingleComponent,
       ManagerCoursesDetailsComponent,
       ManagerCoursesAttendeesComponent,
-
       ManagerCourseAttendeesTitleComponent,
       ManagerCoursesActionsComponent,
       ManagerCalendarComponent,

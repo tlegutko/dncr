@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCourseRequest;
 use App\Models\Attendee;
 use App\Models\Course;
-use App\Models\CourseEvent;
 use DateInterval;
 use DateTime;
 use DB;
@@ -48,20 +47,15 @@ class CoursesController extends Controller
     {
       $course = Course::create($courseData);
       $courseTime = $course->times()->create($courseTimeData);
-      $courseTime->course()->associate($course);
-      $courseTime->save();
 
-      $start_date = new DateTime($courseTime->start_date);
-      $events = [];
+      $startDate = new DateTime($courseTime->start_date);
       $step = $courseTime->repeat_weeks_count;
       foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
       {
-        $date = clone($start_date);
-        $event = new CourseEvent(['date' => $date->add(new DateInterval("P{$week}W"))]);
-        $event->courseTime()->associate($courseTime);
-        array_push($events, $event);
+        $startDateCopy = clone($startDate);
+        $eventDate = ['date' => $startDateCopy->add(new DateInterval("P{$week}W"))];
+        $courseTime->events()->create($eventDate);
       }
-      $courseTime->events()->saveMany($events);
 
       return $course;
     });

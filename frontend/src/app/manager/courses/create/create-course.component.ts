@@ -15,22 +15,16 @@ export class CreateCourseComponent {
 
   @Output() save = new EventEmitter<CalendarEvent>();
   errors: CreateCourseErrors = {};
-  isGeneralErrorMessage: Boolean = false;
   model = new CreateCourseRequest();
 
   constructor(private router: Router, private coursesService: CoursesService) {
-  }
-
-  handleErrors(error: any) {
-    this.isGeneralErrorMessage = (typeof error === 'string');
-    this.errors = error;
   }
 
   createCourse() {
     this.coursesService.create(this.model).subscribe(
       (course) => {
         this.router.navigate(['/manager/courses', course.id]);
-      }, (errors) => this.handleErrors(errors)
+      }, (errors) => this.errors = errors
     );
   }
 }

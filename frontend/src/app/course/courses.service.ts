@@ -11,14 +11,16 @@ import { CalendarItem } from 'app/_commons/calendar';
 @Injectable()
 export class CoursesService {
 
-  courseCreatedSource = new Subject<CalendarItem[]>();
+  /* tslint:disable */ // necessary for private member to appear before public one
+  private courseCreatedSource = new Subject<Course>();
   courseCreated = this.courseCreatedSource.asObservable();
+  calendarItemsCreated = this.courseCreated.map(this.courseToCalendarItems);
 
   recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
   recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
+  /* tslint:enable */
 
   constructor(private http: AuthHttp) {
-    this.recentlyClickedTimeSource.next(CreateCourseTime.defaultTime()); // default for page refresh
   }
 
   public list(): Observable<Course[]> {
@@ -33,10 +35,6 @@ export class CoursesService {
     return this.http.get(url)
       .map((response) => this.mapCoursesToEvents(response.json()))
       .catch((response) => Observable.throw('Błąd pobierania wydarzeń.'));
-  }
-
-  public broadcastNewCourse(course: Course) {
-    this.courseCreatedSource.next(this.courseToCalendarItems(course));
   }
 
   public broadcastCalendarDateClick(clickedTime: Moment) {
@@ -61,7 +59,7 @@ export class CoursesService {
     let url = `api/courses`;
     return this.http.post(url, createCourseRequest)
       .map((response) => response.json())
-      .do((course) => this.broadcastNewCourse(course))
+      .do((course) => this.courseCreatedSource.next(course))
       .catch(
         (response) => {
           if (response.status === 500) {
