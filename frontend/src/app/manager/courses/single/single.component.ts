@@ -27,7 +27,7 @@ export class ManagerCoursesSingleComponent implements OnInit {
   }
 
   public onSave() {
-    this.coursesService.broadcastCourseSaveRequest();
+    this.coursesService.broadcastCourseSaveRequest(this.course.name);
   }
 
   public close() {

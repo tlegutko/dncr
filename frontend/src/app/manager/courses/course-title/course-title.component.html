@@ -1,14 +1,26 @@
-<div class="row">
-  <div class="col-xs-1">
-    <i class="fa fa-info-circle fa-2x " aria-hidden="true"></i>
-  </div>
-  <form-field [errors]="errors.name" class="col-xs-8 input-group p-x-0">
-    <input #titleInput type="text" class="form-control" placeholder="Podaj nazwę kursu ..."
-           [(ngModel)]="model.name" name="name" id="name" required>
-  </form-field>
-  <div class="col-xs-3">
-    <button type="button" (click)="save.emit(true)" class="btn btn-block btn-primary">
-      <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
-    </button>
-  </div>
-</div>
+<h1>
+  <i class="fa fa-info-circle fa-lg"></i>
+  <span *ngIf="!isEditing">
+    {{ model.name }}
+  <button *ngIf="isEditIconVisible" type="button" class="btn btn-sm btn-secondary" (click)="toggleEditing()">
+    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+  </button>
+  </span>
+  <span *ngIf="isEditing" [class.editing]="isEditing">
+    <form-field [errors]="errors.name" class="p-x-0" [class.col-xs-8]="isEditIconVisible"
+                [class.col-xs-9]="!isEditIconVisible">
+      <input #titleInput type="text" class="form-control" placeholder="Podaj nazwę kursu ..."
+             [(ngModel)]="model.name" name="name" id="name" required>
+    </form-field>
+    <div class="col-xs-1 p-x-0">
+      <button *ngIf="isEditIconVisible" type="button" class="btn btn-block btn-secondary" (click)="toggleEditing()">
+        <i class="fa fa-times" aria-hidden="false"></i>
+      </button>
+    </div>
+    <div class="col-xs-3 p-x-0">
+      <button type="button" (click)="onSave()" class="btn btn-block btn-primary">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
+      </button>
+    </div>
+  </span>
+</h1>

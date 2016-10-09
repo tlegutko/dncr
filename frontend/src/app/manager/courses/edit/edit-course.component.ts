@@ -25,7 +25,14 @@ export class EditCourseComponent implements OnInit {
 
   ngOnInit() {
     this.coursesService.courseSaveRequested.subscribe(
-      () => this.coursesService.create(this.model)
+      (courseName) => {
+        this.model.name = courseName;
+        this.coursesService.create(this.model)
+          .subscribe(
+            () => {
+            }, (errors) => this.errors = errors
+          );
+      }
     );
   }
 

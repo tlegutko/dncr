@@ -5,7 +5,7 @@ import { CoursesService } from '../../../course/courses.service';
   {
     selector: 'create-course',
     template: `
-      <course-title [model]="model" [errors]="errors" (save)="editCourse.save()"></course-title>
+      <course-title [model]="model" [errors]="errors" [isEditing]="true" (save)="editCourse.save()"></course-title>
       <edit-course #editCourse [model]="model" [errors]="errors"></edit-course>
     `,
     styles: [':host { display: block }'],

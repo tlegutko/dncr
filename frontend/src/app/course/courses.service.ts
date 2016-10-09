@@ -19,7 +19,7 @@ export class CoursesService {
   courseCreated = this.courseCreatedSource.asObservable();
   calendarItemsCreated = this.courseCreated.map(this.courseToCalendarItems);
 
-  private courseSaveRequestedSource = new Subject<boolean>();
+  private courseSaveRequestedSource = new Subject<string>();
   courseSaveRequested = this.courseSaveRequestedSource.asObservable();
 
   private recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
@@ -47,8 +47,8 @@ export class CoursesService {
     this.recentlyClickedTimeSource.next(new CreateCourseTime(clickedTime));
   }
 
-  public broadcastCourseSaveRequest() {
-    this.courseSaveRequestedSource.next(true);
+  public broadcastCourseSaveRequest(courseName: string) {
+    this.courseSaveRequestedSource.next(courseName);
   }
 
   public get(id: number): Observable<Course> {

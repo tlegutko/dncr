@@ -1,17 +1,4 @@
-<!--<h1 *ngIf="course">-->
-  <!--<i class="fa fa-info-circle fa-lg"></i>-->
-  <!--<span>{{ course.name }}</span>-->
-  <!--&lt;!&ndash;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&ndash;&gt;-->
-  <!--<button type="submit" class="btn btn-primary">-->
-    <!--<i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz-->
-  <!--</button>-->
-  <!--&lt;!&ndash;<button type="button" class="btn btn-secondary" (click)="close()">&ndash;&gt;-->
-    <!--&lt;!&ndash;<i class="fa fa-times"></i>&ndash;&gt;-->
-    <!--&lt;!&ndash;<span class="sr-only">Zamknij</span>&ndash;&gt;-->
-  <!--&lt;!&ndash;</button>&ndash;&gt;-->
-<!--</h1>-->
-<course-title *ngIf="course" [model]="course" [errors]="errors" (save)="onSave()"></course-title>
-<br/>
+<course-title *ngIf="course" [model]="course" [errors]="errors" [isEditing]="false" (save)="onSave()"></course-title>
 <nav class="nav nav-inline" *ngIf="course">
   <a class="nav-link" routerLinkActive="active" [routerLink]="['/manager/courses', course.id]"
      [routerLinkActiveOptions]="{ exact: true }">Szczegóły</a>

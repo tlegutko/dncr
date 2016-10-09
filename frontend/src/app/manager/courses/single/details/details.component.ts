@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
 import { CreateCourseErrors, CreateCourseRequest } from '../../../../course/course.model';
-import { EditCourseComponent } from '../../edit/edit-course.component';
 
 @Component(
   {
@@ -13,8 +12,6 @@ import { EditCourseComponent } from '../../edit/edit-course.component';
 export class ManagerCoursesDetailsComponent implements OnInit {
   model: CreateCourseRequest;
   errors: CreateCourseErrors = {};
-
-  @ViewChild(EditCourseComponent) private editCourse: EditCourseComponent;
 
   constructor(private route: ActivatedRoute) {
   }
