@@ -11,6 +11,10 @@ export class Course {
   createdAt: string;
   updatedAt: string;
   times: CourseTime[];
+
+  constructor(id: number) {
+    this.id = id;
+  }
 }
 
 export class CourseTime {

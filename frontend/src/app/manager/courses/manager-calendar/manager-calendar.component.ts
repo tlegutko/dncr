@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CalendarItem, CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
 import { CoursesService } from 'app/course';
+import { Course } from '../../../course/course.model';
+import { Moment } from 'moment';
 
 @Component(
   {
@@ -16,9 +17,12 @@ import { CoursesService } from 'app/course';
   }
 )
 export class ManagerCalendarComponent implements OnInit {
-  public events: CalendarItem[];
 
-  constructor(private router: Router, private service: CoursesService) {
+  @Output() courseClick = new EventEmitter<Course>();
+  @Output() dayClick = new EventEmitter<Moment>();
+  private events: CalendarItem[];
+
+  constructor(private service: CoursesService) {
   }
 
   public ngOnInit(): void {
@@ -39,12 +43,11 @@ export class ManagerCalendarComponent implements OnInit {
   }
 
   onEventClick(e: CalendarEvent) {
-    this.router.navigate(['/manager/courses', e.calEvent.id]);
+    this.courseClick.emit(new Course(+e.calEvent.id));
   }
 
   onDayClick(e: CalendarDayClick) {
-    console.log('clicked on day in manager with date: ' + e.date.format());
     this.service.broadcastCalendarDateClick(e.date);
-    this.router.navigate(['/manager/courses/create-course']);
+    this.dayClick.emit(e.date);
   }
 }

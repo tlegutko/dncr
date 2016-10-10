@@ -1,30 +1,30 @@
-<labelled-form-field [errors]="errors.classesCount" [labelFor]="model.classesCount" [label]="'Liczba zajęć'">
+<labelled-form-field [errors]="errors.classesCount" [for]="classesCount" [label]="'Liczba zajęć'">
   <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.classesCount"
          [(ngModel)]="model.classesCount" name="classesCount" id="classesCount" required
          placeholder="Podaj liczbę zajęć ...">
 </labelled-form-field>
-<labelled-form-field [errors]="errors.seatsCount" [labelFor]="model.seatsCount" [label]="'Liczba miejsc'">
+<labelled-form-field [errors]="errors.seatsCount" [for]="seatsCount" [label]="'Liczba miejsc'">
   <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.seatsCount"
          [(ngModel)]="model.seatsCount" name="seatsCount" id="seatsCount" required
          placeholder="Podaj liczbę miejsc ...">
 </labelled-form-field>
-<labelled-form-field [errors]="errors.instructorId" [labelFor]="model.instructorId" [label]="'Prowadzący'">
+<labelled-form-field [errors]="errors.instructorId" [for]="instructorId" [label]="'Prowadzący'">
   <select class="form-control form-control-sm" [class.form-control-danger]="errors.instructorId"
           [(ngModel)]="model.instructorId" name="instructorId" id="instructorId" required>
     <option *ngFor="let i of instructors" [value]="i.id">{{i.name + ' ' + i.surname}}</option>
   </select>
 </labelled-form-field>
-<labelled-form-field [errors]="errors.locationId" [labelFor]="model.locationId" [label]="'Sala'">
+<labelled-form-field [errors]="errors.locationId" [for]="locationId" [label]="'Sala'">
   <select class="form-control form-control-sm" [class.form-control-danger]="errors.locationId"
           [(ngModel)]="model.locationId" name="locationId" id="locationId" required>
     <option *ngFor="let l of locations" [value]="l.id">{{l.name}}</option>
   </select>
 </labelled-form-field>
-<labelled-form-field [errors]="errors.price" [labelFor]="model.price" [label]="'Cena'">
+<labelled-form-field [errors]="errors.price" [for]="price" [label]="'Cena'">
   <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.price"
          [(ngModel)]="model.price" name="price" id="price" required placeholder="Podaj cenę ...">
 </labelled-form-field>
-<labelled-form-field [errors]="errors.description" [labelFor]="model.description" [label]="'Opis'">
+<labelled-form-field [errors]="errors.description" [for]="description" [label]="'Opis'">
   <textarea type="textarea" rows="4" class="form-control form-control-sm"
             [class.form-control-danger]="errors.description"
             [(ngModel)]="model.description" name="description" id="description"
