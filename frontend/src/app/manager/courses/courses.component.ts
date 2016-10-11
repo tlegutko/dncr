@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { Course } from '../../course/course.model';
+import { Moment } from 'moment';
 
 @Component(
   {
@@ -21,4 +23,13 @@ export class ManagerCoursesComponent {
       }
     );
   }
+
+  onCourseClick(course: Course) {
+    this.router.navigate(['/manager/courses', course.id]);
+  }
+
+  onDayClick(moment: Moment) {
+    this.router.navigate(['/manager/courses/create-course']);
+  }
+
 }

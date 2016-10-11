@@ -7,10 +7,17 @@
 
 :host {
   padding: 0;
-  display: inline-block;
+  display: block;
 }
 
 .form-group {
   padding: 0.1rem;
+  margin-bottom: 0;
+}
+
+ul {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0;
   margin-bottom: 0;
 }

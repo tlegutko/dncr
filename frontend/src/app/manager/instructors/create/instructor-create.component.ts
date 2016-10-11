@@ -36,7 +36,7 @@ export class InstructorCreateComponent {
       .catch(
         (response) => {
           let error = response.json();
-          console.error('Error during attendee creation', error);
+          console.error('Error during instructor creation', error);
           this.errors = error;
         }
       );

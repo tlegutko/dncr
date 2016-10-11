@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CalendarItem, CalendarModifyEvent, CalendarEvent, CalendarDayClick } from 'app/_commons/calendar';
-import { Course, CoursesService } from 'app/course';
+import { CoursesService } from 'app/course';
+import { Course } from '../../../course/course.model';
+import { Moment } from 'moment';
 
 @Component(
   {
@@ -15,18 +16,22 @@ import { Course, CoursesService } from 'app/course';
     `
   }
 )
-export class ManagerCalendarComponent {
-  public events: CalendarItem[];
+export class ManagerCalendarComponent implements OnInit {
 
-  constructor(private router: Router, private service: CoursesService) {
-    this.service.list().subscribe((courses) => this.events = this.mapCoursesToEvents(courses));
+  @Output() courseClick = new EventEmitter<Course>();
+  @Output() dayClick = new EventEmitter<Moment>();
+  private events: CalendarItem[];
+
+  constructor(private service: CoursesService) {
   }
 
-  public mapCoursesToEvents(courses: Course[]): CalendarItem[] {
-    let events: CalendarItem[] = [];
-    courses.forEach((course) => events = events.concat(this.service.courseToCalendarItems(course)));
-
-    return events;
+  public ngOnInit(): void {
+    this.service.calendarEvents().subscribe((events) => this.events = events);
+    this.service.calendarItemsCreated.subscribe(
+      (events) => {
+        this.events = this.events.concat(events);
+      }
+    );
   }
 
   onEventResize(e: CalendarModifyEvent) {
@@ -38,11 +43,11 @@ export class ManagerCalendarComponent {
   }
 
   onEventClick(e: CalendarEvent) {
-    this.router.navigate(['/manager/courses', e.calEvent.id]);
+    this.courseClick.emit(new Course(+e.calEvent.id));
   }
 
   onDayClick(e: CalendarDayClick) {
-    console.log('clicked on day in manager with date: ' + e.date.format());
-    this.router.navigate(['/manager/courses']);
+    this.service.broadcastCalendarDateClick(e.date);
+    this.dayClick.emit(e.date);
   }
 }
