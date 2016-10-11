@@ -10,13 +10,12 @@ import { CalendarItem } from 'app/_commons/calendar';
 
 @Injectable()
 export class CoursesService {
-
   /* tslint:disable */ // necessary for private member to appear before public one
   private courseCreatedSource = new Subject<Course>();
+  private recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
+
   courseCreated = this.courseCreatedSource.asObservable();
   calendarItemsCreated = this.courseCreated.map(this.courseToCalendarItems);
-
-  recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
   recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
   /* tslint:enable */
 

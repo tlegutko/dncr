@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Course } from '../course/course.model';
-import { Moment } from 'moment';
 
 @Component(
   {
@@ -27,9 +26,4 @@ export class ReceptionComponent {
   onCourseClick(course: Course) {
     this.router.navigate(['/reception/course-details', course.id]);
   }
-
-  onDayClick(moment: Moment) {
-    console.log('clicked on day in reception with date: ' + moment.format());
-  }
-
 }
