@@ -36,29 +36,31 @@
     padding-left: 0.2em;
 
     @media (min-width: breakpoint-min(lg)) {
-      margin: 0 1rem;
       padding-top: 0;
       padding-left: 0;
       text-align: left;
     }
 
-    i {
-      display: none;
-    }
   }
 
-  i {
-    vertical-align: middle;
-
-    @media (min-width: breakpoint-min(lg)) {
-      margin-right: 1rem;
-    }
-  }
   h5 {
-    display: inline-block;
-    vertical-align: sub;
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 7px 0 0;
+
+    span {
+      flex-grow: 1;
+      vertical-align: middle;
+    }
+
+    > i {
+      @media (min-width: breakpoint-min(lg)) {
+        margin-right: 1rem;
+        margin-left: 1rem;
+      }
+    }
+
   }
 
   @media (min-width: breakpoint-min(lg)) {
