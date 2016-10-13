@@ -35,10 +35,10 @@ class StoreAttendeeRequest extends Request
   public function attributes()
   {
     return [
-      'name' => 'imię',
-      'surname' => 'nazwisko',
       'email' => 'adres e-mail',
+      'name' => 'imię',
       'phone_number' => 'numer telefonu',
+      'surname' => 'nazwisko',
     ];
   }
 }

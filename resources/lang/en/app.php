@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'not_found' => 'Adres nie został znaleziony.'
+  'not_found' => 'Address not found.',
 ];

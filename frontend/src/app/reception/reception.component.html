@@ -1,6 +1,6 @@
 <div class="row full-height">
   <div class="col-xs-12 full-height" [class.col-sm-6]="showAdditionalPane">
-    <reception-calendar></reception-calendar>
+    <reception-calendar (courseClick)="onCourseClick($event)"></reception-calendar>
   </div>
   <div class="col-xs-12 col-sm-6 full-height" [class.hidden-xs-up]="!showAdditionalPane">
     <router-outlet></router-outlet>

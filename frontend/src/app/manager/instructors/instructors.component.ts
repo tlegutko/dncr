@@ -14,8 +14,8 @@ export class ManagerInstructorsComponent {
   instructors: Instructor[] = [];
 
   constructor(private instructorsService: InstructorsService) {
-    this.instructorsService.getList()
-      .then(instructors => this.instructors = instructors);
+    this.instructorsService.list()
+      .subscribe(instructors => this.instructors = instructors);
   }
 
   public remove(instructor: Instructor) {

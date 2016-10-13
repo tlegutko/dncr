@@ -23,4 +23,7 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('courses', 'CoursesController@store');
   Route::get('courses/{id}', 'CoursesController@show');
   Route::get('courses/{id}/attendees', 'CoursesController@attendees');
+
+  // Locations
+  Route::get('locations', 'LocationsController@index');
 });
