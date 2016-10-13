@@ -16,9 +16,10 @@ class CreateCompaniesTable extends Migration
       function(Blueprint $table)
       {
         $table->increments('id');
-        $table->string('name', 50);
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         $table->timestamp('valid_to');
-        $table->timestamps();
+        $table->string('name', 50);
       });
   }
 
