@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { Course } from '../course/course.model';
 
 @Component(
   {
@@ -11,7 +12,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class ReceptionComponent {
   showAdditionalPane = false;
 
-  constructor(router: Router) {
+  constructor(private router: Router) {
     let receptionRoute = '/reception';
     router.events.subscribe(
       (e) => {
@@ -20,5 +21,9 @@ export class ReceptionComponent {
         }
       }
     );
+  }
+
+  onCourseClick(course: Course) {
+    this.router.navigate(['/reception/course-details', course.id]);
   }
 }
