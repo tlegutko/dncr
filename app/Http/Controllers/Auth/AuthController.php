@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
@@ -59,14 +60,18 @@ class AuthController extends Controller
    *
    * @return \Illuminate\Http\RedirectResponse
    */
-  protected function sendLockoutResponse(\Illuminate\Http\Request $request)
+  protected function sendLockoutResponse(Request $request)
   {
-    $seconds = $this->secondsRemainingOnLockout($request);
+    $seconds = $this->limiter()->availableIn(
+      $this->throttleKey($request)
+    );
 
-    return response()->json(['error' => $this->getLockoutErrorMessage($seconds)])->setStatusCode(429);
+    $message = \Lang::get('auth.throttle', ['seconds' => $seconds]);
+
+    return response()->json(['error' => $message])->setStatusCode(429);
   }
 
-  protected function loginUsername()
+  protected function username()
   {
     return 'email';
   }

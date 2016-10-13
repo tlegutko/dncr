@@ -23,21 +23,14 @@ class Kernel extends HttpKernel
    * @var array
    */
   protected $middlewareGroups = [
-    'web' => [
-      \App\Http\Middleware\EncryptCookies::class,
-      \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-      \Illuminate\Session\Middleware\StartSession::class,
-      \App\Http\Middleware\VerifyCsrfToken::class,
+    'api' => [
+      'throttle:60,1',
+      'bindings'
     ],
 
-    'api' => [
-      \App\Http\Middleware\EncryptCookies::class,
-      \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-      \Illuminate\Session\Middleware\StartSession::class,
-      \App\Http\Middleware\VerifyCsrfToken::class,
-      'throttle:60,1',
-      \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-    ],
+    'auth' => [
+      'jwt.auth',
+    ]
   ];
 
   /**
@@ -48,7 +41,8 @@ class Kernel extends HttpKernel
    * @var array
    */
   protected $routeMiddleware = [
-    'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+    'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    'can' => \Illuminate\Auth\Middleware\Authorize::class,
     'throttle' => \App\Http\Middleware\ThrottleRequests::class,
     'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
     'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
