@@ -28,15 +28,17 @@ Dance studio management software.
 # Getting started
 
 1. Clone repository
+
+    > Note: Rest of `Getting Started` section can be done automatically using `prepenv.sh` script. Run `./prepenv.sh -k -p -w` . Run `./prepenv.sh -h` for more info about this script. This script doesn't cover (Windows Only) parts. After running script go to `Working with PhpStorm` section.
 2. (Windows Only) Setup Docker:
     1. Click the whale icon in the tray
     2. Select `Shared Drives` and enable `C` (or drive where you have cloned the repository)
+
 3. Boot up machines: 
     * Go to the repository you cloned
     * (Windows Only) If you have used port 80 you need to update docker-compose.yml: change line 18 to `- "8080:80"` - your server will be available at [http://localhost:8080](http://localhost:8080)
     
         > Note: Remember not to commit this changed file!
-    
     * Run `docker-compose up -d` - this will build and boot required Docker images in background
     
         > Note: drop `-d` to see all logs in the console.
@@ -61,7 +63,7 @@ Dance studio management software.
 
 8. (Linux only) Update cache permissions:
     * `chmod 777 -R storage/*`
-    * `chmod 777 bootstrap/cache
+    * `chmod 777 bootstrap/cache`
 9. Go to [http://localhost:8080](http://localhost:8080) to see the application.
 
 # Working with PhpStorm
@@ -187,3 +189,7 @@ Unfortunately we have no idea why is it coming up like this.
 1. Visit [https://github.com/barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
 2. Download L5 gist
 3. Place it in application directory (cloned repository)
+
+## I have `permission denied` errors after generating file with artisan!
+
+1. Use `dartisan.sh` script. Type `./dartisan.sh -h` for more info.

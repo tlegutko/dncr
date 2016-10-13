@@ -13,11 +13,11 @@ Runs composer install, artisan migrate:refresh --seed and npm install and additi
 usage: ./prepenv.sh [options]
 
 -d, --docker-compose	restart docker-compose
--h, --help		        display this message
+-h, --help              display this message
 -k, --generate-key  	generate secret key with artisan
 -p, --set-permissions	set permissions for /storage/* and /bootstrap/cache. requires sudo.
 -r, --reset-db          recreate db container, use when changing branches with different db migrations
--w, --watch		        execute script npm run watch
+-w, --watch             execute script npm run watch
 
 Examples:
 ./prepenv.sh            runs composer install, artisan migrate:refresh --seed inside docker and npm install
@@ -53,38 +53,30 @@ docker-compose up -d
 echo -e "${COLOR}### composer install ###${NC}"
 docker exec -i dncr_php_1 composer install
 
+for var in "$@"
+do
+	if [[ $var == "-k" || $var == "--generate-key" ]]; then
+		    echo -e "${COLOR}### generating secret key ###${NC}"
+			cp .env.dev .env
+			./dartisan.sh key:2generate
+	fi
+	if [[ $var == "-p" || $var == "--set-permissions" ]]; then
+				echo -e "${COLOR}### setting permissions ###${NC}"
+			chmod 777 -R storage/*
+			chmod 777 bootstrap/cache
+	fi
+done
+
 echo -e "${COLOR}### refreshing & seeding database migrations ###${NC}"
-docker exec -i dncr_php_1 php artisan migrate:refresh --seed
+./dartisan.sh migrate:refresh --seed
 
 echo -e "${COLOR}### npm install ###${NC}"
 cd frontend && npm install
 
-#other options
-while test $# -gt 0; do
-	case "$1" in
-		-d|--docker-compose)
-			shift
-			;;
-		-k|--generate-key)
-			echo -e "${COLOR}### generating secret key ###${NC}"
-			cp .env.dev .env
-			docker exec -i dncr_php_1 php artisan key:generate
-			shift
-			;;
-		-p|--set-permissions)
-			echo -e "${COLOR}### setting permissions ###${NC}"
-			cd ..
-			chmod 777 -R storage/*
-			chmod 777 bootstrap/cache
-			shift
-			;;
-		-r|--reset-db)
-			shift
-			;;
-		-w|--watch)
+for var in "$@"
+do
+	if [[ $var == "-w" || $var == "--watch" ]]; then
 			echo -e "${COLOR}### npm watch ###${NC}"
 			npm run watch:dev
-			break
-			;;
-	esac
+	fi
 done
