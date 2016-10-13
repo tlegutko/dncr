@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,16 +17,17 @@ class CreateUsersTable extends Migration
       function(Blueprint $table)
       {
         $table->increments('id');
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         $table->string('name');
         $table->string('surname');
         $table->string('password');
         $table->string('email')->unique();
         $table->string('phone_number')->unique();
-        $table->string('type');
+        $table->string('type')->default(User::TYPE_DEFAULT);
         $table->integer('company_id')->unsigned()->index();
         $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         $table->rememberToken();
-        $table->timestamps();
       });
   }
 

@@ -13,6 +13,12 @@ class Company extends Model
     'valid_to',
   ];
 
+  protected $dates = [
+    'created_at',
+    'updated_at',
+    'valid_to',
+  ];
+
   /**
    * @return User[]
    */

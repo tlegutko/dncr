@@ -16,10 +16,11 @@ class CreateCourseEventsTable extends Migration
       function(Blueprint $table)
       {
         $table->increments('id');
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         $table->integer('course_time_id')->unsigned();
         $table->foreign('course_time_id')->references('id')->on('course_times')->onDelete('cascade');
         $table->date('date');
-        $table->timestamps();
       });
   }
 

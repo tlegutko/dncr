@@ -10,7 +10,7 @@ class User extends Authenticatable
   use Notifiable;
 
   const TYPE_INSTRUCTOR = 'instructor';
-  const TYPE_USER = 'user';
+  const TYPE_DEFAULT = 'default';
 
   protected $table = 'users';
 
