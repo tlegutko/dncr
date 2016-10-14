@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
-import { CreateCourseErrors, CreateCourseRequest } from '../../../../course/course.model';
+import { StoreCourseErrors } from '../../../../course/course.model';
 
 @Component(
   {
@@ -10,8 +10,8 @@ import { CreateCourseErrors, CreateCourseRequest } from '../../../../course/cour
   }
 )
 export class ManagerCoursesDetailsComponent implements OnInit {
-  model: CreateCourseRequest;
-  errors: CreateCourseErrors = {};
+  model: Course;
+  errors: StoreCourseErrors = {};
 
   constructor(private route: ActivatedRoute) {
   }
@@ -19,7 +19,7 @@ export class ManagerCoursesDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.parent.data.forEach(
       (data: { course: Course }) => {
-        this.model = CreateCourseRequest.fromCourse(data.course);
+        this.model = data.course;
       }
     );
   }

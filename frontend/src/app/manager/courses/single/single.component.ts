@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
-import { CreateCourseErrors } from '../../../course/course.model';
+import { StoreCourseErrors } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
 
 @Component(
@@ -13,7 +13,7 @@ import { CoursesService } from '../../../course/courses.service';
 )
 export class ManagerCoursesSingleComponent implements OnInit {
   private course: Course;
-  private errors: CreateCourseErrors = {};
+  private errors: StoreCourseErrors = {};
 
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
   }

@@ -14,12 +14,6 @@
     <option *ngFor="let i of instructors" [value]="i.id">{{i.name + ' ' + i.surname}}</option>
   </select>
 </labelled-form-field>
-<labelled-form-field [errors]="errors.locationId" [for]="locationId" [label]="'Sala'">
-  <select class="form-control form-control-sm" [class.form-control-danger]="errors.locationId"
-          [(ngModel)]="model.locationId" name="locationId" id="locationId" required>
-    <option *ngFor="let l of locations" [value]="l.id">{{l.name}}</option>
-  </select>
-</labelled-form-field>
 <labelled-form-field [errors]="errors.price" [for]="price" [label]="'Cena'">
   <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.price"
          [(ngModel)]="model.price" name="price" id="price" required placeholder="Podaj cenę ...">

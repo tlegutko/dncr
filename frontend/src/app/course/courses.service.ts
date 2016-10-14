@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Course, CreateCourseRequest, CreateCourseTime } from './course.model';
+import { Course, CreateCourseTime } from './course.model';
 import { Attendee } from 'app/attendee';
 import { CalendarItem } from 'app/_commons/calendar';
 import { AuthHttp } from 'app/_commons/auth';
@@ -15,14 +15,11 @@ export class CoursesService {
   /* tslint:disable */ // necessary for private member to appear before public one
   private courseCreatedSource = new Subject<Course>();
   private recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
+  private courseSaveRequestedSource = new Subject<string>();
 
   courseCreated = this.courseCreatedSource.asObservable();
   calendarItemsCreated = this.courseCreated.map(this.courseToCalendarItems);
-
-  private courseSaveRequestedSource = new Subject<string>();
   courseSaveRequested = this.courseSaveRequestedSource.asObservable();
-
-  private recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
   recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
   /* tslint:enable */
 
@@ -65,11 +62,11 @@ export class CoursesService {
       .catch(() => Observable.throw('Błąd pobierania kursantów.'));
   }
 
-  public create(createCourseRequest: CreateCourseRequest): Observable<Course> {
+  public create(course: Course): Observable<Course> {
     let url = `api/courses`;
-    return this.http.post(url, createCourseRequest)
+    return this.http.post(url, course)
       .map((response: Response) => response.json())
-      .do((course) => this.courseCreatedSource.next(course))
+      .do((createdCourse) => this.courseCreatedSource.next(createdCourse))
       .catch(
         (response) => {
           if (response.status === 500) {

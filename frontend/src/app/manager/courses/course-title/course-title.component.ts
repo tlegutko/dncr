@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from '../../../course/course.model';
+import { StoreCourseErrors, Course } from '../../../course/course.model';
 import { Router, NavigationEnd } from '@angular/router';
 @Component(
   {
@@ -8,20 +8,27 @@ import { Router, NavigationEnd } from '@angular/router';
     styleUrls: ['./course-title.component.scss'],
   }
 )
-export class CreateCourseTitleComponent implements OnInit {
-  @Input() model: CreateCourseRequest;
-  @Input() errors: CreateCourseErrors;
+export class CourseTitleComponent implements OnInit {
+
+  @Input() model: Course;
+  @Input() errors: StoreCourseErrors;
   @Input() isEditing: boolean;
 
   @Output() save = new EventEmitter<boolean>();
 
+  private state: TitleState;
   private isEditIconVisible: boolean;
   private nameBeforeEdit: string;
+  private createCourseUrl = 'manager/courses/create-course';
+  private coursePropertiesExactUrl: string;
 
   constructor(private router: Router) {
+    this.router.isActive('blabla', true);
   }
 
   ngOnInit() {
+    let id = 1; // TODO model.id
+    this.coursePropertiesExactUrl = `/manager/courses/${id}`;
     this.router.events.subscribe(
       (e) => {
         if (e instanceof NavigationEnd) {
@@ -32,6 +39,8 @@ export class CreateCourseTitleComponent implements OnInit {
   }
 
   private setEditProperties(url: string) {
+
+
     let nonEditableRoutes = ['actions', 'attendees'];
     let splitUrl = url.split('\/');
     let isTitleEditable = nonEditableRoutes.every((elem) => !splitUrl.includes(elem));
@@ -43,6 +52,21 @@ export class CreateCourseTitleComponent implements OnInit {
       this.model.name = this.nameBeforeEdit;
       this.nameBeforeEdit = null;
     }
+  }
+
+  private getState(url: string) {
+    let state: TitleState;
+    switch (url) {
+      case this.coursePropertiesExactUrl:
+        state = TitleState.TextEditable;
+        break;
+      case this.createCourseUrl:
+        state = TitleState.Editing;
+        break;
+      default:
+        state = TitleState.Text;
+    }
+    return state;
   }
 
   private onSave() {
@@ -60,4 +84,8 @@ export class CreateCourseTitleComponent implements OnInit {
       this.nameBeforeEdit = null;
     }
   }
+}
+
+enum TitleState {
+  Editing, EditingUndoable, Text, TextEditable
 }

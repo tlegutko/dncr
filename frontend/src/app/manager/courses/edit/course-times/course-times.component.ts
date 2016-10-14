@@ -1,5 +1,7 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/course.model';
+import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
+import { StoreCourseErrors, CourseTime } from '../../../../course/course.model';
+import { CourseLocation } from '../../../locations/locations.model';
+import { LocationsService } from '../../../locations/locations.service';
 
 @Component(
   {
@@ -9,9 +11,19 @@ import { CreateCourseRequest, CreateCourseErrors } from '../../../../course/cour
     encapsulation: ViewEncapsulation.None,
   }
 )
-export class CourseTimesComponent {
+export class CourseTimesComponent implements OnInit {
 
-  @Input() model: CreateCourseRequest;
-  @Input() errors: CreateCourseErrors;
+  @Input() model: CourseTime[];
+  @Input() errors: StoreCourseErrors;
+  locations: CourseLocation[];
+
+  constructor(private locationsService: LocationsService){
+  }
+
+  public ngOnInit(): void {
+    this.locationsService.list().subscribe(
+      (locations) => this.locations = locations, (errors) => this.errors = errors
+    );
+  }
 
 }

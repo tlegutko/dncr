@@ -14,7 +14,7 @@ import {
   ManagerCoursesSingleComponent, ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent,
   ManagerCoursesActionsComponent, ManagerCourseAttendeesTitleComponent
 } from './courses/single';
-import { CreateCourseTitleComponent } from './courses/course-title/course-title.component';
+import { CourseTitleComponent } from './courses/course-title/course-title.component';
 import { CourseTimesComponent } from './courses/edit/course-times/course-times.component';
 import { CreateCoursePropertiesComponent } from './courses/edit/course-properties/course-properties.component';
 import { InstructorsService } from './instructors/instructors.service';
@@ -85,7 +85,7 @@ export const routes = [
       InstructorCreateComponent,
       EditCourseComponent,
       CreateCourseComponent,
-      CreateCourseTitleComponent,
+      CourseTitleComponent,
       CourseTimesComponent,
       CreateCoursePropertiesComponent
     ],

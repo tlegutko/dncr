@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CreateCourseErrors, CreateCourseRequest } from '../../../course/course.model';
+import { StoreCourseErrors, Course } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     selector: 'edit-course',
     template: `
       <hr/>
-      <course-times [model]="model" [errors]="errors"></course-times>
+      <course-times [model]="model.times" [errors]="errors"></course-times>
       <hr/>
       <course-properties [model]="model" [errors]="errors"></course-properties>
     `,
@@ -17,8 +17,8 @@ import { Router } from '@angular/router';
 )
 export class EditCourseComponent implements OnInit {
 
-  @Input() model: CreateCourseRequest;
-  @Input() errors: CreateCourseErrors;
+  @Input() model: Course;
+  @Input() errors: StoreCourseErrors;
 
   constructor(private router: Router, private coursesService: CoursesService) {
   }

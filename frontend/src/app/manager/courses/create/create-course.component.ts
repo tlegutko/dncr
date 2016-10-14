@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateCourseErrors, CreateCourseRequest, CreateCourseTime } from '../../../course/course.model';
+import { StoreCourseErrors, CreateCourseTime, Course } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
 @Component(
   {
@@ -12,21 +12,19 @@ import { CoursesService } from '../../../course/courses.service';
   }
 )
 export class CreateCourseComponent implements OnInit {
-  model = new CreateCourseRequest();
-  errors: CreateCourseErrors = {};
+  model = new Course();
+  errors: StoreCourseErrors = {};
 
   constructor(private coursesService: CoursesService) {
   }
 
   public ngOnInit() {
-    this.model.repeatWeeksCount = 1;
+    this.model.setDefaultRepeatWeeksCount();
     this.coursesService.recentlyClickedTime.subscribe(
-      (courseTime) => this.setModelTime(courseTime)
+      (courseTime) => {
+        this.model.setTime(courseTime);
+      }
     );
   }
 
-  private setModelTime(courseTime: CreateCourseTime) {
-    this.model.startTime = courseTime.startTime;
-    this.model.endTime = courseTime.endTime;
-  }
 }
