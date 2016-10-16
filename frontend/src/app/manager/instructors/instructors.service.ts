@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Instructor } from './instructor';
-import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs';
+import { AuthHttp } from 'app/_commons/auth';
 
 @Injectable()
 export class InstructorsService {
@@ -15,7 +15,7 @@ export class InstructorsService {
     return this.http
       .get(this.resource)
       .map((response: Response) => response.json())
-      .catch((response) => Observable.throw('Błąd pobierania instruktorów.'));
+      .catch(() => Observable.throw('Błąd pobierania instruktorów.'));
   }
 
   remove(instructor: Instructor): Promise<Response> {
