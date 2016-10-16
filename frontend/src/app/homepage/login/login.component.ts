@@ -27,7 +27,9 @@ export class LoginComponent {
   onSubmit() {
     this.service.login(this.model)
       .subscribe(
-        () => this.router.navigate(['/reception']), (body) => {
+        () => {
+          this.router.navigate(['/reception']);
+        }, (body) => {
           let response = body.json();
           if (response.hasOwnProperty('error')) {
             this.error = response.error;

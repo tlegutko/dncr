@@ -1,49 +1,52 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { Response } from '@angular/http';
-import { tokenNotExpired, AuthHttp, JwtHelper } from 'angular2-jwt';
+import { Router } from '@angular/router';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
 import { LoginModel } from 'app/homepage/login';
+import { AuthHttp } from './http';
 
 @Injectable()
 export class AuthService {
+  private static TOKEN = 'id_token';
+  private static refreshTimeout: any;
   public KNOWN_USER = 'known_user';
-  private TOKEN = 'id_token';
 
-  private loggedIn = false;
-  private storage: Storage;
-  private refreshTimeout: any;
+  public static clear() {
+    clearTimeout(AuthService.refreshTimeout);
+    localStorage.removeItem(AuthService.TOKEN);
+  }
 
-  constructor(private cookies: CookieService, private http: AuthHttp) {
-    this.storage = localStorage;
-    this.loggedIn = tokenNotExpired();
+  constructor(private cookies: CookieService, private http: AuthHttp, private router: Router) {
     this.scheduleTokenRefreshing();
   }
 
   public login(model: LoginModel): Observable<Response> {
-    let request = this.http.post('/api/authorize', model);
-    request.subscribe((response) => this.saveToken(response));
-
-    return request;
+    return this.http.post('/api/authorize', model)
+      .do((response) => this.saveToken(response));
   }
 
   public logout(): Observable<Response> {
-    let request = this.http.post('/api/logout', {});
-    request.subscribe(() => this.clear());
-
-    return request;
+    return this.http.post('/api/logout', {})
+      .do(() => AuthService.clear());
   }
 
-  public clear() {
-    clearTimeout(this.refreshTimeout);
-    this.loggedIn = false;
-    this.storage.removeItem(this.TOKEN);
-  }
+  public isLoggedIn(): boolean {
+    try {
+      if (!tokenNotExpired()){
+        if (this.router.url !== '/') {
+          this.router.navigate(['/']);
+        }
+        return false;
+      }
 
-  public check() {
-    return Observable.of(this.loggedIn);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   public isKnownUser(): boolean {
@@ -51,24 +54,24 @@ export class AuthService {
   }
 
   private saveToken(response: Response) {
-    this.storage.setItem(this.TOKEN, response.json().token);
-    this.loggedIn = tokenNotExpired();
+    localStorage.setItem(AuthService.TOKEN, response.json().token);
     this.cookies.put(this.KNOWN_USER, 'true');
     this.scheduleTokenRefreshing();
   }
 
   private scheduleTokenRefreshing() {
-    if (!this.loggedIn) {
+    if (!this.isLoggedIn()) {
+      AuthService.clear();
       return;
     }
 
     let helper = new JwtHelper();
-    let token = this.storage.getItem(this.TOKEN);
+    let token = localStorage.getItem(AuthService.TOKEN);
     let expiry = helper.decodeToken(token).exp * 1000;
     let now = moment().valueOf();
     let timeout = expiry - now - 60000; // Subtract 1 minute to be sure token is still valid
 
-    this.refreshTimeout = setTimeout(
+    AuthService.refreshTimeout = setTimeout(
       () => this.http.post('/api/refresh-token', {}).subscribe((response) => this.saveToken(response)), timeout
     );
   }

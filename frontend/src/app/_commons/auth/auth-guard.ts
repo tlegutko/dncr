@@ -9,16 +9,13 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(): Observable<boolean> {
-    let check = this.authService.check();
-    check.subscribe(
-      (result) => {
-        if (!result) {
-          // TODO: Add "login required" message ;)
-          this.router.navigate(['/']);
-        }
-      }
-    );
+    let isLoggedIn = this.authService.isLoggedIn();
 
-    return check;
+    if (!isLoggedIn){
+      // TODO: Add "login required" message ;)
+      this.router.navigate(['/']);
+    }
+
+    return Observable.of(isLoggedIn);
   }
 }

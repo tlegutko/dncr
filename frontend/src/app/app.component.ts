@@ -18,10 +18,12 @@ export class App {
   }
 
   logout() {
-    this.authService.logout().subscribe(() => this.router.navigate(['/']));
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 
   isLoggedIn() {
-    return this.authService.check();
+    return this.authService.isLoggedIn();
   }
 }
