@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Attendee } from 'app/attendee';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component(
   {
@@ -12,12 +11,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AttendeeRowComponent {
   @Input() attendee: Attendee;
   @Input() checkable: boolean;
+  @Output() onOpenAttendeeDetails = new EventEmitter<Attendee>();
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-  }
-
-  public open_attendee_details() {
-    this.router.navigate(['./attendee-details/', this.attendee.id], { relativeTo: this.route });
+  public openAttendeeDetails() {
+    this.onOpenAttendeeDetails.emit(this.attendee);
   }
 }
-
