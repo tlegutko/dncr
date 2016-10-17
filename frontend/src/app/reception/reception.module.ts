@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ReceptionComponent } from './reception.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
@@ -38,7 +38,7 @@ export const routes = [
       CourseDetailsTitleComponent, ReceptionCalendarComponent
     ],
     imports: [
-      BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
+      CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
     ]
   }
 )

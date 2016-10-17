@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
 import { Http } from '@angular/http';
@@ -9,6 +9,7 @@ import { CalendarComponent } from './calendar';
 import { AddItemButtonComponent } from './add-item-button';
 import { AuthHttp, AuthService, AuthGuard } from './auth';
 import { LabelledFormField } from './labelled-form-field';
+import { NotificationsService } from 'angular2-notifications';
 
 @NgModule(
   {
@@ -16,13 +17,14 @@ import { LabelledFormField } from './labelled-form-field';
       FormField, LabelledFormField, CalendarComponent, AddItemButtonComponent
     ],
     imports: [
-      BrowserModule, FormsModule, ScheduleModule
+      CommonModule, FormsModule, ScheduleModule
     ],
     providers: [
       AuthService, AuthGuard, {
         provide: AuthHttp,
-        useFactory: (http) => {
+        useFactory: (notifications, http) => {
           return new AuthHttp(
+            notifications,
             new AuthConfig(
               {
                 globalHeaders: [{ 'Content-Type': 'application/json' }, { 'Accept': 'application/json' }],
@@ -31,7 +33,7 @@ import { LabelledFormField } from './labelled-form-field';
             ), http
           );
         },
-        deps: [Http]
+        deps: [NotificationsService, Http]
       }
     ],
     exports: [

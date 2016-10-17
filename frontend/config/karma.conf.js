@@ -1,5 +1,5 @@
-module.exports = function(config) {
-  var testWebpackConfig = require('./webpack.test.js');
+module.exports = function (config) {
+  var testWebpackConfig = require('./webpack.test.js')({env: 'test'});
 
   var configuration = {
 
@@ -14,26 +14,36 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     // list of files to exclude
-    exclude: [ ],
+    exclude: [],
 
     /*
      * list of files / patterns to load in the browser
      *
      * we are building the test environment in ./spec-bundle.js
      */
-    files: [ { pattern: './config/spec-bundle.js', watched: false } ],
+    files: [{pattern: './config/spec-bundle.js', watched: false}],
 
     /*
      * preprocess matching files before serving them to the browser
      * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
      */
-    preprocessors: { './config/spec-bundle.js': ['webpack', 'sourcemap'] },
+    preprocessors: {'./config/spec-bundle.js': ['webpack', 'sourcemap']},
 
     // Webpack Config at ./webpack.test.js
     webpack: testWebpackConfig,
+    coverageReporter: {
+      type: 'in-memory'
+    },
+
+    remapCoverageReporter: {
+      'text-summary': null,
+      json: './coverage/coverage.json',
+      html: './coverage/html'
+    },
+
 
     // Webpack please don't spam the console when running in karma!
-    webpackServer: { noInfo: true },
+    webpackMiddleware: {stats: 'errors-only'},
 
     /*
      * test results reporter to use
@@ -41,7 +51,7 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'junit', 'mocha'],
+    reporters: ['junit', 'mocha', 'coverage', 'remap-coverage'],
 
     junitReporter: {
       outputFile: 'testresults/frontend.xml',

@@ -14,6 +14,12 @@ import { AuthService } from 'app/_commons/auth';
   }
 )
 export class App {
+  public options = {
+    position: ['top', 'right'],
+    timeOut: 3000,
+    lastOnBottom: false
+  };
+
   constructor(private router: Router, private authService: AuthService) {
   }
 

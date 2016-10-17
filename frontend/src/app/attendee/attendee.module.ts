@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeRowComponent } from './attendee-row/attendee-row.component';
 import { CreateAttendeeComponent } from './create/create-attendee.component';
@@ -12,7 +12,7 @@ import { AttendeeService } from './attendee.service';
       AttendeeRowComponent, CreateAttendeeComponent
     ],
     imports: [
-      BrowserModule, FormsModule, CommonsModule
+      CommonModule, FormsModule, CommonsModule
     ],
     exports: [
       AttendeeRowComponent, CreateAttendeeComponent
