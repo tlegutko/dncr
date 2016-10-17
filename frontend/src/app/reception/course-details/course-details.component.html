@@ -1,7 +1,7 @@
 <create-attendee (onSave)="onAttendeeSaved($event)" [courseId]="course.id" *ngIf="isCreateFormVisible && course">
-  <course-details-title [title]="course.title" [isEditing]="true" (onCancel)="hideCreateForm()"></course-details-title>
+  <course-details-title [title]="course.name" [isEditing]="true" (onCancel)="hideCreateForm()"></course-details-title>
 </create-attendee>
-<course-details-title [title]="course.title" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
+<course-details-title [title]="course.name" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
 <div class="attendees" *ngIf="attendees">
   <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee" [checkable]="true"></attendee-row>
 </div>

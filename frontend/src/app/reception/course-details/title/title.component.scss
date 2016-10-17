@@ -14,18 +14,20 @@ div {
 }
 
 .btn.save {
-    margin-left: auto;
+  margin-left: auto;
 }
 
-.title {
-  h5 {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 0 0 1rem;
-    padding: 7px 0 0;
+i.fa-users {
+  margin-left: 0.5rem;
+}
 
-    span {
-      margin-left: 1rem;
-    }
-  }
+span {
+  margin-right: 0.5rem;
+}
+
+h5 {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 0 0.5rem;
+  padding: 7px 0 0;
 }

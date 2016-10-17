@@ -1,4 +1,4 @@
-<div class="title">
+<div>
   <button type="button" class="cancel btn btn-sm btn-secondary" (click)="onCancel.emit(true)" *ngIf="isEditing">
     <i class="fa fa-times"></i>
   </button>
@@ -6,9 +6,9 @@
     <i class="fa fa-times"></i>
     <span class="sr-only">Zamknij</span>
   </button>
+  <i class="fa fa-users fa-2x" aria-hidden="true"></i>
   <h5>
-    <i class="fa fa-users fa-2x" aria-hidden="true"></i>
-    <span class="hidden-md-down">Lista osób: </span>{{ title }}
+    <span class="hidden-md-down">Lista osób: </span> {{ title }}
   </h5>
   <button type="submit" class="save btn btn-sm btn-primary" *ngIf="isEditing">
     <i class="fa fa-floppy-o"></i> Zapisz
