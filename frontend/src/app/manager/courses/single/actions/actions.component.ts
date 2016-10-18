@@ -18,4 +18,8 @@ export class ManagerCoursesActionsComponent {
       }
     );
   }
+
+  public sendMailToAttendees() {
+
+  }
 }

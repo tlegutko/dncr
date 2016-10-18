@@ -2,6 +2,7 @@
 
 Route::post('authorize', 'Auth\AuthController@login');
 Route::post('logout', 'Auth\AuthController@logout')->middleware('auth');
+Route::post('send', 'MailController@send');
 
 Route::group(['middleware' => 'auth'], function(){
   // Attendees
