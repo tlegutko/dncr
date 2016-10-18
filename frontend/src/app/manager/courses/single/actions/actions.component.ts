@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
+import { MailService } from './mail.service';
+import { PlaintextMailRequest } from 'app/Http/Requests';
+import { AttendeeService } from 'app/attendee/attendee.service';
 
 @Component(
   {
@@ -11,7 +14,7 @@ import { Course } from 'app/course';
 export class ManagerCoursesActionsComponent {
   public course: Course;
 
-  constructor(route: ActivatedRoute) {
+  constructor(route: ActivatedRoute, private mailService: MailService, private attendeeService: AttendeeService) {
     route.parent.data.forEach(
       (data: { course: Course }) => {
         this.course = data.course;
@@ -19,7 +22,8 @@ export class ManagerCoursesActionsComponent {
     );
   }
 
-  public sendMailToAttendees() {
-
+  public sendMailToAttendees(context: String) {
+    this.mailService.send(new PlaintextMailRequest(this.attendeeService.getAttendees(this.course), 'Powiadomienie z' +
+      ' DNCR.PL z: ' + this.course.name, context));
   }
 }

@@ -2,7 +2,7 @@
   <label for="textarea">Wyślij wiadomość do uczestników kursu:</label>
   <textarea class="form-control" id="textarea" rows="3"></textarea>
   <div class="pull-xs-right">
-    <button type="button" class="btn btn-primary">
+    <button type="button" class="btn btn-primary" ng-click="sendMailToAttendees(textarea.value)">
       <i class="fa fa-envelope-o" aria-hidden="true"></i>
       Wyślij
     </button>
