@@ -52,17 +52,13 @@ class Handler extends ExceptionHandler
   {
     if($request->isXmlHttpRequest() || $request->isJson())
     {
-      if($e instanceof HttpResponseException)
+      if($e instanceof HttpResponseException || $e instanceof ValidationException)
       {
         return $e->getResponse();
       }
       elseif($e instanceof ModelNotFoundException)
       {
         return response()->json($e->getMessage(), 404);
-      }
-      elseif($e instanceof ValidationException && $e->getResponse())
-      {
-        return response()->json($e->getResponse(), 400);
       }
       elseif($e instanceof NotFoundHttpException)
       {
