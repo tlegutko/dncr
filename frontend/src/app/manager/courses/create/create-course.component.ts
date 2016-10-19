@@ -13,9 +13,10 @@ import { CoursesService } from '../../../course/courses.service';
 )
 export class CreateCourseComponent implements OnInit {
   model = new Course();
-  errors: StoreCourseErrors = {};
+  errors: StoreCourseErrors = new StoreCourseErrors();
 
   constructor(private coursesService: CoursesService) {
+    this.model = Course.mock(); // TODO remove and handle undefined
   }
 
   public ngOnInit() {

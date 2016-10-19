@@ -67,8 +67,10 @@ export class CoursesService {
     return this.http.post(url, course)
       .map((response: Response) => response.json())
       .do((createdCourse) => this.courseCreatedSource.next(createdCourse))
+      .do(c => console.log(c.json()))
       .catch(
         (response) => {
+          console.log(response.json());
           if (response.status === 500) {
             return Observable.throw('Błąd serwera');
           } else {

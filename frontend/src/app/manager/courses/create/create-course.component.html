@@ -1,7 +1,7 @@
 <form (ngSubmit)="createCourse()">
   <course-title [model]="model" [errors]="errors"></course-title>
   <hr/>
-  <course-times [model]="model" [errors]="errors"></course-times>
+  <course-times [model]="model.times" [errors]="errors.times"></course-times>
   <hr/>
   <course-properties [model]="model" [errors]="errors"></course-properties>
 </form>

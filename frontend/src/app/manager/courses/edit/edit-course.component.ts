@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     selector: 'edit-course',
     template: `
       <hr/>
-      <course-times [model]="model.times" [errors]="errors"></course-times>
+      <course-times [model]="model.times" [errors]="errors.times"></course-times>
       <hr/>
       <course-properties [model]="model" [errors]="errors"></course-properties>
     `,
