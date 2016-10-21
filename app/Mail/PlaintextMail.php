@@ -12,17 +12,17 @@ class PlaintextMail extends Mailable
     use Queueable, SerializesModels;
 
     public $title;
-    public $context;
+    public $message;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(String $title, String $context)
+    public function __construct(String $title, String $message)
     {
         $this->title = $title;
-        $this->context = $context;
+        $this->message = $message;
     }
 
     /**

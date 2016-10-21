@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs';
-import { PlaintextMailRequest } from 'app/Http/Requests';
 import 'rxjs/add/operator/catch';
+import { Mail } from './mail.model';
 
 @Injectable()
 export class MailService {
@@ -10,9 +10,9 @@ export class MailService {
   constructor(private http: AuthHttp) {
   }
 
-  public send(plaintextMailRequest: PlaintextMailRequest) {
+  public send(mail: Mail) {
     let url = `api/send`;
-    return this.http.post(url, plaintextMailRequest)
+    return this.http.post(url, mail)
       .map((response) => response.json())
       .catch(
         (response) => {

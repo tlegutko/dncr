@@ -24,7 +24,7 @@ class StoreCourseRequest extends Request
   public function rules()
   {
     return [
-      'users' => 'required',
+      'courseId' => 'required',
       'title' => 'required',
       'context' => 'required',
     ];
@@ -33,7 +33,7 @@ class StoreCourseRequest extends Request
   public function attributes()
   {
     return [
-      'users' => 'użytkownicy',
+      'courseId' => 'id kursu',
       'title' => 'tytuł',
       'context' => 'treść',
     ];
