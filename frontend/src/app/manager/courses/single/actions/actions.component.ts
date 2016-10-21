@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
 import { MailService } from './mail.service';
-import { AttendeeService } from 'app/attendee/attendee.service';
 import { Mail } from './mail.model';
 
 @Component(
@@ -12,22 +11,19 @@ import { Mail } from './mail.model';
   }
 )
 export class ManagerCoursesActionsComponent {
-  public course: Course;
+  private mail = new Mail();
 
   constructor(route: ActivatedRoute, private mailService: MailService) {
     route.parent.data.forEach(
       (data: { course: Course }) => {
-        this.course = data.course;
+        this.mail.courseId = data.course.id;
+        this.mail.title = `Powiadomienie DNCR.pl z kursu ${data.course.name}`;
+        // TODO: Change title when styling mails
       }
     );
   }
 
-  public sendMailToAttendees(message: string) {
-    this.mailService.send(
-      new Mail(
-        this.course.id, 'Powiadomienie z' + ' DNCR.PL z: ' + this.course.name, message
-        // TODO: Change title when styling mails
-      )
-    );
+  public sendMailToAttendees() {
+    this.mailService.send(this.mail);
   }
 }
