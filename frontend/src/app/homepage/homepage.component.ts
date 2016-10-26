@@ -23,8 +23,5 @@ export class Homepage {
 
   ngOnInit() {
     this.isLoginVisible = this.service.isKnownUser();
-    if (this.service.isLoggedIn()) {
-      this.router.navigate(['reception']);
-    }
   }
 }

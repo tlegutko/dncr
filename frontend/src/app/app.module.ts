@@ -11,11 +11,11 @@ import { CommonsModule } from './_commons/commons.module';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { NoContent } from './no-content';
-import { Homepage } from './homepage/homepage.component';
+import { Homepage, HomepageGuard } from './homepage';
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS, CookieService, ...AUTH_PROVIDERS, {
+  ...APP_RESOLVER_PROVIDERS, CookieService, HomepageGuard, ...AUTH_PROVIDERS, {
     provide: XSRFStrategy,
     useValue: new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
   }
