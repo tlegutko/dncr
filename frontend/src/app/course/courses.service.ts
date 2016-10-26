@@ -15,11 +15,9 @@ export class CoursesService {
   /* tslint:disable */ // necessary for private member to appear before public one
   private courseCreatedSource = new Subject<Course>();
   private recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
-  private courseSaveRequestedSource = new Subject<string>();
 
   courseCreated = this.courseCreatedSource.asObservable();
   calendarItemsCreated = this.courseCreated.map(this.courseToCalendarItems);
-  courseSaveRequested = this.courseSaveRequestedSource.asObservable();
   recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
   /* tslint:enable */
 
@@ -44,14 +42,10 @@ export class CoursesService {
     this.recentlyClickedTimeSource.next(new CreateCourseTime(clickedTime));
   }
 
-  public broadcastCourseSaveRequest(courseName: string) {
-    this.courseSaveRequestedSource.next(courseName);
-  }
-
   public get(id: number): Observable<Course> {
     let url = `api/courses/${id}`;
     return this.http.get(url)
-      .map((response: Response) => response.json())
+      .map(Course.parseRequest)
       .catch(() => Observable.throw('Błąd pobierania kursu.'));
   }
 
@@ -67,10 +61,8 @@ export class CoursesService {
     return this.http.post(url, course)
       .map((response: Response) => response.json())
       .do((createdCourse) => this.courseCreatedSource.next(createdCourse))
-      .do(c => console.log(c.json()))
       .catch(
         (response) => {
-          console.log(response.json());
           if (response.status === 500) {
             return Observable.throw('Błąd serwera');
           } else {

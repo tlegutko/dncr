@@ -14,14 +14,12 @@ export class ManagerCoursesDetailsComponent implements OnInit {
   errors: StoreCourseErrors = new StoreCourseErrors();
 
   constructor(private route: ActivatedRoute) {
-    console.log('00');
   }
 
   ngOnInit() {
     this.route.parent.data.forEach(
       (data: { course: Course }) => {
         this.model = data.course;
-        console.log(this.model);
       }
     );
   }

@@ -13,7 +13,7 @@ import { CoursesService } from '../../../course/courses.service';
 )
 export class ManagerCoursesSingleComponent implements OnInit {
   private course: Course;
-  private errors: StoreCourseErrors = {};
+  private errors: StoreCourseErrors = new StoreCourseErrors();
 
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
   }
@@ -26,11 +26,12 @@ export class ManagerCoursesSingleComponent implements OnInit {
     );
   }
 
-  public onSave() {
-    this.coursesService.broadcastCourseSaveRequest(this.course.name);
+  onSave() {
+    this.coursesService.create(this.course).subscribe(
+      (course) => {
+        this.router.navigate(['/manager/courses', course.id]);
+      }, (errors) => this.errors = errors
+    );
   }
 
-  public close() {
-    this.router.navigate(['/manager/courses']);
-  }
 }

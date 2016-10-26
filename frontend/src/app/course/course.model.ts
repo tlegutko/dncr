@@ -1,6 +1,9 @@
+import * as moment from 'moment';
 import { Moment } from 'moment';
+import { Response } from '@angular/http';
 
 export class Course {
+
   id: number;
   companyId: number;
   name: string;
@@ -11,7 +14,13 @@ export class Course {
   description: string;
   createdAt: string;
   updatedAt: string;
-  times: CourseTime[] = [];
+  times: CourseTime[];
+
+  static parseRequest(response: Response): Course {
+    let course: Course = response.json();
+    course.times = course.times.map(CourseTime.changeTimeFormat);
+    return course;
+  }
 
   static mock(): Course { // useful for manual testing, don't delete!
 
@@ -36,7 +45,6 @@ export class Course {
 
   constructor(id?: number) {
     this.id = id;
-    this.times.push(new CourseTime());
   }
 
   setDefaultRepeatWeeksCount() {
@@ -48,59 +56,59 @@ export class Course {
     this.times[0].startTime = courseTime.startTime;
     this.times[0].endTime = courseTime.endTime;
   }
+
 }
 
 export class CourseTime {
+  static dateFormat = 'YYYY-MM-DD';
+  static backendTimeFormat = 'H:m:s';
+  static timeFormat = 'HH:mm';
+
+  id: number;
+  courseId: number;
   locationId: number;
   startDate: string;
   startTime: string;
   endTime: string;
   repeatWeeksCount: number;
   events: CourseEvent[];
-}
+  createdAt: string;
+  updatedAt: string;
 
-export class CourseEvent {
-  date: string;
-}
+  static changeTimeFormat(ct: CourseTime): CourseTime {
+    ct.startTime = CourseTime.parseTime(ct.startTime);
+    ct.endTime = CourseTime.parseTime(ct.endTime);
+    return ct;
+  }
 
-export class CreateCourseTime {
-
-  startDate: string;
-  startTime: string;
-  endTime: string;
-  dateFormat = 'YYYY-MM-DD';
-  timeFormat = 'HH:mm';
-
-  constructor(clickedTime: Moment) {
-    this.startDate = clickedTime.format(this.dateFormat);
-    this.startTime = clickedTime.format(this.timeFormat);
-    this.endTime = clickedTime.clone().add(1, 'hours').format(this.timeFormat);
+  private static parseTime(time: string) {
+    return moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
   }
 
 }
 
-// export interface StoreCourseErrors {
-//   name?: string[];
-//   price?: string[];
-//   classesCount?: string[];
-//   seatsCount?: string[];
-//   description?: string[];
-//   instructorId?: string[];
-//   times?: CourseTimeErrors[];
-// }
-//
-// export interface CourseTimeErrors {
-//   locationId?: string[];
-//   startDate?: string[];
-//   startTime?: string[];
-//   endTime?: string[];
-//   repeatWeeksCount?: string[];
-//   events?: CourseEventErrors[];
-// }
-//
-// export interface CourseEventErrors {
-//   date?: string[];
-// }
+export class CourseEvent  {
+  id: number;
+  courseTimeId: number;
+  date: string;
+  createdAt: string;
+  updatedAt: string;
+
+}
+
+export class CreateCourseTime {
+  startDate: string;
+  startTime: string;
+  endTime: string;
+
+  constructor(clickedTime: Moment) {
+    this.startDate = clickedTime.format(CourseTime.dateFormat);
+    this.startTime = clickedTime.format(CourseTime.timeFormat);
+    this.endTime = clickedTime.clone().add(1, 'hours').format(CourseTime.timeFormat);
+  }
+
+}
+
 export class StoreCourseErrors {
   name?: string[];
   price?: string[];

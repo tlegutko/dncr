@@ -24,12 +24,6 @@ export class CourseTimesComponent implements OnInit {
     this.locationsService.list().subscribe(
       (locations) => this.locations = locations, (errors) => this.errors = errors
     );
-  }
-
-  ngOnChanges() {
-    if (this.errors  == null) {
-      this.errors = [];
-    }
     if (this.errors[0] == null) {
       this.errors[0] = new CourseTimeErrors();
     }

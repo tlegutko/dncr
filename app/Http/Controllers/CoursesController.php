@@ -36,12 +36,10 @@ class CoursesController extends Controller
    */
   public function store(StoreCourseRequest $request) // TODO StoreCourseRequest
   {
+    // TODO remove mock company_id below and inject real one once DNCR-92 is merged
     $courseData = $request->only('name', 'price', 'classes_count', 'description', 'seats_count') + ['company_id' => 1];
-    // TODO remove mock company_id above and inject real one once DNCR-92 is merged
-//    $startDate = ['start_date' => (new DateTime($request->start_time))->format('Y-m-d')];
-//    $courseTimeData = $request->only('start_time', 'end_time', 'repeat_weeks_count', 'location_id') + $startDate;
-
     $courseTimeData = $request->input()['times'][0];
+
     $course = DB::transaction(function() use ($courseData, $courseTimeData)
     {
       $course = Course::create($courseData);
