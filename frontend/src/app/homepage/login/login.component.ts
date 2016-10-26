@@ -34,7 +34,7 @@ export class LoginComponent {
           if (response.hasOwnProperty('error')) {
             this.error = response.error;
           } else {
-            this.error = 'Nieprawidłowy login lub hasło.';
+            this.error = 'Nieoczekiwany błąd serwera.';
           }
         }
       );

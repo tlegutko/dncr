@@ -17,13 +17,13 @@ export class App {
   constructor(private router: Router, private authService: AuthService) {
   }
 
-  logout() {
+  public logout() {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/']);
     });
   }
 
-  isLoggedIn() {
-    return this.authService.isLoggedIn();
+  public isLoggedIn() {
+    return AuthService.isLoggedIn();
   }
 }

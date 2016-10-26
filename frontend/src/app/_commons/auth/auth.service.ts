@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { Response } from '@angular/http';
-import { Router } from '@angular/router';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
@@ -12,16 +11,16 @@ import { AuthHttp } from './http';
 @Injectable()
 export class AuthService {
   private static TOKEN = 'id_token';
-  private static refreshTimeout: any;
-  public KNOWN_USER = 'known_user';
+  private static KNOWN_USER = 'known_user';
+  private static refreshTimeoutId: any;
 
-  public static clear() {
-    clearTimeout(AuthService.refreshTimeout);
-    localStorage.removeItem(AuthService.TOKEN);
+  constructor(private cookies: CookieService, private http: AuthHttp) {
+    this.scheduleTokenRefreshing();
   }
 
-  constructor(private cookies: CookieService, private http: AuthHttp, private router: Router) {
-    this.scheduleTokenRefreshing();
+  public static clear() {
+    clearTimeout(AuthService.refreshTimeoutId);
+    localStorage.removeItem(AuthService.TOKEN);
   }
 
   public login(model: LoginModel): Observable<Response> {
@@ -34,45 +33,42 @@ export class AuthService {
       .do(() => AuthService.clear());
   }
 
-  public isLoggedIn(): boolean {
+  public static isLoggedIn(): boolean {
     try {
-      if (!tokenNotExpired()){
-        if (this.router.url !== '/') {
-          this.router.navigate(['/']);
-        }
-        return false;
-      }
-
-      return true;
+      return tokenNotExpired();
     } catch (e) {
       return false;
     }
   }
 
   public isKnownUser(): boolean {
-    return this.cookies.get(this.KNOWN_USER) === 'true';
+    return this.cookies.get(AuthService.KNOWN_USER) === 'true';
   }
 
   private saveToken(response: Response) {
     localStorage.setItem(AuthService.TOKEN, response.json().token);
-    this.cookies.put(this.KNOWN_USER, 'true');
+    this.cookies.put(AuthService.KNOWN_USER, 'true');
     this.scheduleTokenRefreshing();
   }
 
   private scheduleTokenRefreshing() {
-    if (!this.isLoggedIn()) {
+    if (!AuthService.isLoggedIn()) {
       AuthService.clear();
       return;
     }
 
-    let helper = new JwtHelper();
     let token = localStorage.getItem(AuthService.TOKEN);
-    let expiry = helper.decodeToken(token).exp * 1000;
-    let now = moment().valueOf();
-    let timeout = expiry - now - 60000; // Subtract 1 minute to be sure token is still valid
+    let timeout = AuthService.getTokenTimeout(token);
 
-    AuthService.refreshTimeout = setTimeout(
+    AuthService.refreshTimeoutId = setTimeout(
       () => this.http.post('/api/refresh-token', {}).subscribe((response) => this.saveToken(response)), timeout
     );
+  }
+
+  private static getTokenTimeout(token: string): number {
+    let expiry = moment(new JwtHelper().getTokenExpirationDate(token));
+    let now = moment();
+    // Subtract 1 minute to be sure token is still valid
+    return moment.duration(expiry.diff(now)).subtract(1, 'minute').asMilliseconds();
   }
 }
