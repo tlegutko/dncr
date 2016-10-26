@@ -54,6 +54,7 @@ module.exports = function (options) {
      */
     entry: {
 
+      'bootstrap': 'bootstrap-loader',
       'fonts': 'font-awesome-sass!./config/font-awesome.config.js',
       'polyfills': './src/polyfills.browser.ts',
       'vendor': './src/vendor.browser.ts',
@@ -188,11 +189,6 @@ module.exports = function (options) {
           exclude: [helpers.root('src/index.html')]
         },
 
-        {
-          test: /bootstrap\/dist\/js\/umd\//,
-          loader: 'imports?jQuery=jquery'
-        },
-
         /* File loader for supporting images, for example, in CSS files.
          */
         {
@@ -220,12 +216,24 @@ module.exports = function (options) {
      */
     plugins: [
       new ProvidePlugin({
-        "jQuery": 'jquery',
-        "window.jQuery": 'jquery',
-        "$": 'jquery',
-        "window.$": 'jquery',
-        "Tether": 'tether',
-        "window.Tether": 'tether'
+        'jQuery': 'jquery',
+        'window.jQuery': 'jquery',
+        '$': 'jquery',
+        'window.$': 'jquery',
+        'Tether': 'tether',
+        'window.Tether': 'tether',
+        'Tooltip': 'exports?Tooltip!bootstrap/js/dist/tooltip',
+        'Alert': 'exports?Alert!bootstrap/js/dist/alert',
+        'Button': 'exports?Button!bootstrap/js/dist/button',
+        'Carousel': 'exports?Carousel!bootstrap/js/dist/carousel',
+        'Collapse': 'exports?Collapse!bootstrap/js/dist/collapse',
+        'Dropdown': 'exports?Dropdown!bootstrap/js/dist/dropdown',
+        'Modal': 'exports?Modal!bootstrap/js/dist/modal',
+        'Popover': 'exports?Popover!bootstrap/js/dist/popover',
+        'Scrollspy': 'exports?Scrollspy!bootstrap/js/dist/scrollspy',
+        'Tab': 'exports?Tab!bootstrap/js/dist/tab',
+        'Tooltip': 'exports?Tooltip!bootstrap/js/dist/tooltip',
+        'Util': 'exports?Util!bootstrap/js/dist/util',
       }),
 
       new AssetsPlugin({
