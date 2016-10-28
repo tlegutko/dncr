@@ -16,7 +16,6 @@ import { AttendeeDetailsTitleComponent } from './title/title.component';
 export class AttendeeDetailsComponent implements OnInit {
   course = new Course();
   attendee = new Attendee();
-  @ViewChild(AttendeeDetailsTitleComponent) private titleComponent: AttendeeDetailsTitleComponent;
 
   constructor(
     private route: ActivatedRoute, private coursesService: CoursesService,
@@ -27,11 +26,11 @@ export class AttendeeDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        let attendeeId = params['attendee-id'];
+        let attendeeId = +params['attendee-id'];
         this.attendeeService.getAttendee(attendeeId).subscribe(
           (attendee) => this.attendee = attendee
         );
-        let courseId = params['course-id'];
+        let courseId = +params['course-id'];
         this.coursesService.get(courseId).subscribe(
           (course) => this.course = course
         );
