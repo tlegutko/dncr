@@ -1,0 +1,49 @@
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/clearfix';
+
+:host {
+  display: block;
+  border-bottom: 1px solid $gray-lighter;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  > div.attendee {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin: .25rem 0;
+
+    span.name {
+      display: inline-block;
+      flex-grow: 1;
+      padding: 0 0.5rem;
+    }
+
+    input[type=checkbox], span.name {
+      vertical-align: middle;
+    }
+
+    i.fa-fw {
+      width: .875rem;
+      text-align: center;
+    }
+  }
+  > div.payment {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    padding: .25rem;
+    background-color: $gray-lighter;
+
+    span.title {
+      display: inline-block;
+      flex-grow: 1;
+      padding-right: .5rem;
+      padding-left: 1.25rem;
+      text-align: right;
+    }
+  }
+}
+

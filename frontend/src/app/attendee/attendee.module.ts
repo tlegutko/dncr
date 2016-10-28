@@ -1,23 +1,30 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeRowComponent } from './attendee-row/attendee-row.component';
 import { CreateAttendeeComponent } from './create/create-attendee.component';
 import { AttendeeService } from './attendee.service';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 
 @NgModule(
   {
     declarations: [
-      AttendeeRowComponent, CreateAttendeeComponent
+      AttendeeRowComponent, CreateAttendeeComponent, PaymentConfirmationComponent
     ],
     imports: [
-      CommonModule, FormsModule, CommonsModule
+      CommonModule, FormsModule, CommonsModule, NgbModule.forRoot()
     ],
     exports: [
       AttendeeRowComponent, CreateAttendeeComponent
     ],
-    providers: [AttendeeService]
+    providers: [
+      AttendeeService
+    ],
+    entryComponents: [
+      PaymentConfirmationComponent
+    ]
   }
 )
 export class AttendeeModule {
