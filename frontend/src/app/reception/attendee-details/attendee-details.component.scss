@@ -2,19 +2,30 @@
 
 :host {
   display: block;
-  position: relative;
+
+  > div {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-top: 1rem;
+  }
+
+  > img {
+    width: 100%;
+  }
 }
 
-.att-det-container {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 1rem;
-}
-
-.profile-photo {
+.profile-photo i {
   margin-right: 1rem;
   padding: .2em .25em .15em;
   border: solid .08em $body-color;
   border-radius: .1em;
+}
+.details {
+  flex-grow: 1;
+
+  span.data-label {
+    font-weight: bold;
+    padding-right: .25rem;
+  }
 }

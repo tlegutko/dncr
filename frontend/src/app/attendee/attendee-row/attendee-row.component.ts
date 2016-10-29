@@ -11,9 +11,5 @@ import { Attendee } from 'app/attendee';
 export class AttendeeRowComponent {
   @Input() attendee: Attendee;
   @Input() checkable: boolean;
-  @Output() onOpenAttendeeDetails = new EventEmitter<Attendee>();
-
-  public openAttendeeDetails() {
-    this.onOpenAttendeeDetails.emit(this.attendee);
-  }
+  @Input() detailsRoute: string[];
 }

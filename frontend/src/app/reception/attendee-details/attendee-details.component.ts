@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CoursesService } from '../../course/courses.service';
-import { AttendeeService } from '../../attendee/attendee.service';
-import { Course } from '../../course/course.model';
-import { Attendee } from '../../attendee/attendee';
-import { AttendeeDetailsTitleComponent } from './title/title.component';
+import { Course } from 'app/course';
+import { Attendee } from 'app/attendee';
 
 @Component(
   {
@@ -13,27 +10,15 @@ import { AttendeeDetailsTitleComponent } from './title/title.component';
     styleUrls: ['./attendee-details.component.scss']
   }
 )
-export class AttendeeDetailsComponent implements OnInit {
+export class AttendeeDetailsComponent {
   course = new Course();
   attendee = new Attendee();
 
-  constructor(
-    private route: ActivatedRoute, private coursesService: CoursesService,
-    private attendeeService: AttendeeService
-  ) {
-  }
-
-  ngOnInit() {
-    this.route.params.subscribe(
-      params => {
-        let attendeeId = +params['attendee-id'];
-        this.attendeeService.getAttendee(attendeeId).subscribe(
-          (attendee) => this.attendee = attendee
-        );
-        let courseId = +params['course-id'];
-        this.coursesService.get(courseId).subscribe(
-          (course) => this.course = course
-        );
+  constructor(private route: ActivatedRoute) {
+    route.data.forEach(
+      (data: { course: Course, attendee: Attendee }) => {
+        this.course = data.course;
+        this.attendee = data.attendee;
       }
     );
   }

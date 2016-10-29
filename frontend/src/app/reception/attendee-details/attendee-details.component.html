@@ -1,18 +1,18 @@
 <attendee-details-title [title]="course.name"></attendee-details-title>
-<div class="att-det-container">
-  <div>
-    <i class="profile-photo fa fa-user fa-3x" aria-hidden="true"></i>
+<div>
+  <div class="profile-photo">
+    <i class="fa fa-user fa-3x" aria-hidden="true"></i>
   </div>
-  <div>
+  <div class="details">
     <h5>
       {{attendee.name}} {{attendee.surname}}
     </h5>
     <div>
-      <span class="hidden-sm-down"><b>Telefon: </b></span>
+      <span class="hidden-sm-down data-label">Telefon:</span>
       {{attendee.phoneNumber}}
     </div>
     <div>
-      <span class="hidden-sm-down"><b>Adres e-mail: </b></span>
+      <span class="hidden-sm-down data-label">Adres e-mail:</span>
       {{attendee.email}}
     </div>
   </div>

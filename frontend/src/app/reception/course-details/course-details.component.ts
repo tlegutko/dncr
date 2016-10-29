@@ -38,10 +38,6 @@ export class CourseDetailsComponent {
     this.isCreateFormVisible = false;
   }
 
-  public onOpenAttendeeDetails(attendee: Attendee) {
-    this.router.navigate(['./attendee-details/', attendee.id], { relativeTo: this.route });
-  }
-
   private getAttendees(course: Course) {
     this.attendeeService.getAttendees(course)
       .subscribe(

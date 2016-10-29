@@ -4,6 +4,6 @@
 <course-details-title [title]="course.title" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
 <div class="attendees" *ngIf="attendees">
   <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee" [checkable]="true"
-                (onOpenAttendeeDetails)="onOpenAttendeeDetails($event)"></attendee-row>
+                [detailsRoute]="['attendee', attendee.id]"></attendee-row>
 </div>
 <add-item-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></add-item-button>
