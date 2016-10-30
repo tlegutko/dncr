@@ -11,14 +11,6 @@ use DB;
 
 class CoursesController extends Controller
 {
-  /**
-   * CoursesController constructor.
-   */
-  public function __construct()
-  {
-    $this->middleware('api');
-  }
-
   public function index()
   {
     $courses = Course::with([
@@ -70,12 +62,5 @@ class CoursesController extends Controller
     $course = Course::findOrFail($id);
 
     return response()->json($course);
-  }
-
-  public function attendees(int $id)
-  {
-    $attendees = Attendee::query()->where('course_id', '=', $id)->get();
-
-    return response()->json($attendees);
   }
 }
