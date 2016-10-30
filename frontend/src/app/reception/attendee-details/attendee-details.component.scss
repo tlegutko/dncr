@@ -13,6 +13,10 @@
   > img {
     width: 100%;
   }
+
+  /deep/ .add-payment .modal-dialog {
+    max-width: 26rem;
+  }
 }
 
 .profile-photo i {

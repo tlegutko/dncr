@@ -1,0 +1,75 @@
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+:host {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: $grid-gutter-width-base / 2;
+
+  @media (min-width: breakpoint-min(lg)) {
+    top: 0;
+    bottom: auto;
+  }
+
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+    padding: 0;
+    border: 0;
+    background-color: rgba(0, 0, 0, .1);
+    bottom: 100%;
+    top: auto;
+
+    @media (min-width: breakpoint-min(lg)) {
+      top: 100%;
+      bottom: auto;
+    }
+
+    .dropdown-item {
+      padding: .125rem .125rem .125rem .5rem;
+      text-align: right;
+      cursor: pointer;
+
+      &:first-child {
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+      }
+      &:last-child {
+        border-bottom-left-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    span {
+      margin-right: .5rem;
+    }
+    i {
+      width: 2.15rem;
+      padding: .5rem;
+      text-align: center;
+
+      &.fa-usd {
+        background-color: $brand-success;
+      }
+      &.fa-envelope-o {
+        background-color: $brand-primary;
+      }
+    }
+  }
+  .dropdown-toggle:after {
+    display: none;
+  }
+}
+
+.btn {
+  background-color: #ffd966;
+  width: 4em;
+  height: 4em;
+  border-radius: 2em;
+  padding: 0.5em 0.25em 0.25em 0.25em;
+  font-size: 0.625rem;
+}

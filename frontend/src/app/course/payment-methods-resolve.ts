@@ -7,7 +7,9 @@ import { PaymentMethodsService } from './payment-methods.service';
 
 @Injectable()
 export class PaymentMethodsResolve implements Resolve<PaymentMethod[]> {
-  constructor(private router: Router, private service: PaymentMethodsService, private notifications: NotificationsService) {
+  constructor(
+    private router: Router, private service: PaymentMethodsService, private notifications: NotificationsService
+  ) {
   }
 
   resolve(route: ActivatedRouteSnapshot): Promise<PaymentMethod[]> {
