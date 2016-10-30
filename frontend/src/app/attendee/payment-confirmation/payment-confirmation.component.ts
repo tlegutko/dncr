@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Attendee, PaymentMethod } from 'app/attendee';
-import { Course } from 'app/course';
+import { Attendee } from 'app/attendee';
+import { Course, PaymentMethod } from 'app/course';
 
 @Component(
   {

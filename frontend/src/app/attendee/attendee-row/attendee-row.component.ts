@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Course } from 'app/course';
-import { Attendee, PaymentMethod, PaymentConfirmation, PaymentConfirmationComponent } from 'app/attendee';
+import { Course, PaymentMethod } from 'app/course';
+import { Attendee, PaymentConfirmation, PaymentConfirmationComponent } from 'app/attendee';
 
 @Component(
   {
@@ -43,7 +43,8 @@ export class AttendeeRowComponent {
           }
         );
         this.hidePayment();
-      }
+      },
+      () => {}
     );
   }
 

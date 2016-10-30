@@ -9,7 +9,7 @@ import { CourseDetailsTitleComponent } from './course-details/title/title.compon
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeModule, AttendeeResolve } from 'app/attendee';
-import { CourseModule, CourseResolve } from 'app/course';
+import { CourseModule, CourseResolve, PaymentMethodsResolve } from 'app/course';
 import { AttendeeDetailsComponent } from './attendee-details/attendee-details.component';
 import { AttendeeDetailsTitleComponent } from './attendee-details/title/title.component';
 
@@ -25,7 +25,8 @@ export const routes = [
         path: 'course-details/:course-id',
         component: CourseDetailsComponent,
         resolve: {
-          course: CourseResolve
+          course: CourseResolve,
+          methods: PaymentMethodsResolve
         }
       }, {
         path: 'course-details/:course-id/attendee/:attendee-id',

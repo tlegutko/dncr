@@ -22,7 +22,7 @@ export class AuthHttp extends BasicAuthHttp {
         if (response.status === 500) {
           console.error(response);
         }
-        return Observable.of(response);
+        return Observable.throw(response);
       });
   }
 }
