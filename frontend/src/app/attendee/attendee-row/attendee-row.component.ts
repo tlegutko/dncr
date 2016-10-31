@@ -14,6 +14,7 @@ export class AttendeeRowComponent {
   @Input() course: Course;
   @Input() attendee: Attendee;
   @Input() checkable: boolean;
+  @Input() detailsRoute: string[];
   @Input() paymentMethods: PaymentMethod[] = [];
   @Output() onPayment = new EventEmitter<PaymentConfirmation>();
 
@@ -54,4 +55,3 @@ export class AttendeeRowComponent {
     this.showPaymentForm = false;
   }
 }
-

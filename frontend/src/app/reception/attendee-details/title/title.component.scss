@@ -1,0 +1,35 @@
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+@import '~bootstrap/scss/mixins/_clearfix';
+
+:host {
+  display: block;
+  position: relative;
+  padding: 0.2em;
+
+  @media (min-width: breakpoint-min(lg)) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.title {
+  i {
+    vertical-align: middle;
+
+    @media (min-width: breakpoint-min(lg)) {
+      margin-right: 1rem;
+    }
+  }
+  h5 {
+    display: inline-block;
+    vertical-align: sub;
+    margin: 0;
+    padding: 7px 0 0;
+  }
+
+  @media (min-width: breakpoint-min(lg)) {
+    flex-grow: 1;
+  }
+}

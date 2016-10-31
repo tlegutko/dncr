@@ -3,8 +3,9 @@
 </create-attendee>
 <course-details-title [title]="course.name" [isEditing]="false" *ngIf="!isCreateFormVisible"></course-details-title>
 <div class="attendees" *ngIf="attendees">
-  <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee" [course]="course" [checkable]="true"
-                [paymentMethods]="paymentMethods" (onPayment)="confirmPayment($event)"></attendee-row>
+  <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee" [checkable]="true"
+                [detailsRoute]="['attendee', attendee.id]" [paymentMethods]="paymentMethods"
+                (onPayment)="confirmPayment($event)"></attendee-row>
 </div>
 <add-item-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></add-item-button>
 <template ngbModalContainer></template>

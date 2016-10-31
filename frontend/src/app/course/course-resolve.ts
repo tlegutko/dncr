@@ -11,7 +11,8 @@ export class CourseResolve implements Resolve<Course> {
   }
 
   resolve(route: ActivatedRouteSnapshot): Promise<Course> {
-    let id = +route.params['id'];
+    let id = +route.params['course-id'];
+
     return this.service.get(id).toPromise().then(
       (course) => course, () => {
         this.notifications.error('Błąd', 'Nie udało się pobrać kursu.');
