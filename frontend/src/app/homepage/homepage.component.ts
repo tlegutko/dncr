@@ -23,12 +23,5 @@ export class Homepage {
 
   ngOnInit() {
     this.isLoginVisible = this.service.isKnownUser();
-    this.service.check().subscribe(
-      (result) => {
-        if (result) {
-          this.router.navigate(['reception']);
-        }
-      }
-    );
   }
 }

@@ -1,12 +1,14 @@
 import { Routes } from '@angular/router';
-import { NoContent } from './no-content';
-import { Homepage } from './homepage/homepage.component';
 import { AuthGuard } from 'app/_commons/auth';
+import { NoContent } from './no-content';
+import { Homepage, HomepageGuard } from './homepage';
 
 export const ROUTES: Routes = [
   {
     path: '',
-    component: Homepage
+    pathMatch: 'full',
+    component: Homepage,
+    canActivate: [HomepageGuard]
   },
   {
     path: 'reception',

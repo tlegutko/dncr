@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from 'app/_commons/auth';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class HomepageGuard implements CanActivate {
   constructor(private router: Router) {
   }
 
   canActivate(): Observable<boolean> {
     let isLoggedIn = AuthService.isLoggedIn();
 
-    if (!isLoggedIn){
-      // TODO: Add "login required" message ;)
-      this.router.navigate(['/']);
+    if (isLoggedIn){
+      this.router.navigate(['/reception']);
     }
 
-    return Observable.of(isLoggedIn);
+    return Observable.of(!isLoggedIn);
   }
 }
