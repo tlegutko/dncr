@@ -12,7 +12,7 @@ export class Course {
   updatedAt: string;
   times: CourseTime[];
 
-  constructor(id: number) {
+  constructor(id?: number) {
     this.id = id;
   }
 }

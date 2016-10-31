@@ -41,7 +41,7 @@ export const routes = [
             path: 'create-course',
             component: CreateCourseComponent,
           }, {
-            path: ':id',
+            path: ':course-id',
             component: ManagerCoursesSingleComponent,
             children: [
               {

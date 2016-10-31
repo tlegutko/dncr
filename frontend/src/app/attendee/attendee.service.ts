@@ -20,6 +20,13 @@ export class AttendeeService {
       .catch(() => Observable.throw('Błąd pobierania kursantów.'));
   }
 
+  getAttendee(id: number): Observable<Attendee> {
+    let url = `${this.attendeesUrl}/${id}`;
+    return this.http.get(url)
+      .map((response) => response.json())
+      .catch(() => Observable.throw('Błąd pobierania kursanta'));
+  }
+
   create(attendee: Attendee): Observable<Attendee> {
     return this.http
       .post(this.attendeesUrl, attendee)
