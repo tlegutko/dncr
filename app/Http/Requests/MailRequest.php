@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StoreCourseRequest extends Request
+class MailRequest extends Request
 {
   use RequestCamelCaseConverter;
 

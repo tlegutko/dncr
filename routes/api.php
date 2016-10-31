@@ -3,8 +3,6 @@
 Route::post('authorize', 'Auth\AuthController@login');
 Route::post('logout', 'Auth\AuthController@logout')->middleware('auth');
 
-Route::post('send', 'MailController@send');
-
 Route::group(['middleware' => 'auth'], function(){
   // Attendees
   Route::get('attendees', 'AttendeesController@index');
@@ -28,4 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
 
   // Locations
   Route::get('locations', 'LocationsController@index');
+
+  // Mails
+  Route::post('send', 'MailController@send');
 });
