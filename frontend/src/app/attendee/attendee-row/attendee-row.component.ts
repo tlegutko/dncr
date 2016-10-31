@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Attendee } from 'app/attendee';
 
 @Component(
@@ -11,5 +11,5 @@ import { Attendee } from 'app/attendee';
 export class AttendeeRowComponent {
   @Input() attendee: Attendee;
   @Input() checkable: boolean;
+  @Input() detailsRoute: string[];
 }
-

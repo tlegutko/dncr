@@ -7,8 +7,10 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
-import { AttendeeModule } from 'app/attendee';
+import { AttendeeModule, AttendeeResolve } from 'app/attendee';
 import { CourseModule, CourseResolve } from 'app/course';
+import { AttendeeDetailsComponent } from './attendee-details/attendee-details.component';
+import { AttendeeDetailsTitleComponent } from './attendee-details/title/title.component';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -19,10 +21,17 @@ export const routes = [
       {
         path: ''
       }, {
-        path: 'course-details/:id',
+        path: 'course-details/:course-id',
         component: CourseDetailsComponent,
         resolve: {
           course: CourseResolve
+        }
+      }, {
+        path: 'course-details/:course-id/attendee/:attendee-id',
+        component: AttendeeDetailsComponent,
+        resolve: {
+          course: CourseResolve,
+          attendee: AttendeeResolve
         }
       }
     ]
@@ -35,7 +44,10 @@ export const routes = [
       // Components / Directives/ Pipes
       ReceptionComponent,
       CourseDetailsComponent,
-      CourseDetailsTitleComponent, ReceptionCalendarComponent
+      CourseDetailsTitleComponent,
+      ReceptionCalendarComponent,
+      AttendeeDetailsComponent,
+      AttendeeDetailsTitleComponent
     ],
     imports: [
       BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule

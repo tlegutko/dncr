@@ -10,7 +10,7 @@ export class CourseResolve implements Resolve<Course> {
   }
 
   resolve(route: ActivatedRouteSnapshot): Promise<Course> {
-    let id = +route.params['id'];
+    let id = +route.params['course-id'];
     // TODO: Would be nice to get a notification that something went wrong.
     return this.service.get(id).toPromise().then(
       (course) => course, () => this.router.navigate(route.parent.url)
