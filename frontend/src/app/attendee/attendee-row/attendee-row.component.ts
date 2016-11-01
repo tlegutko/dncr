@@ -42,8 +42,7 @@ export class AttendeeRowComponent {
             method: method
           }
         );
-        this.hidePayment();
-      }
+      }, () => this.hidePayment()
     );
   }
 
