@@ -18,8 +18,9 @@ export class ManagerCoursesDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.route.parent.data.forEach(
-      (data: { course: Course }) => {
+      (data: { course: Course, courseErrors: CourseErrors }) => {
         this.model = data.course;
+        this.errors = data.courseErrors;
       }
     );
   }

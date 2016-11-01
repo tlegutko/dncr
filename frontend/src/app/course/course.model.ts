@@ -124,7 +124,7 @@ export class CourseErrors {
   seatsCount?: string[];
   description?: string[];
   instructorId?: string[];
-  times?: CourseTimeErrors[] = [];
+  times?: CourseTimeErrors[];
 }
 
 export class CourseTimeErrors {
@@ -133,7 +133,7 @@ export class CourseTimeErrors {
   startTime?: string[];
   endTime?: string[];
   repeatWeeksCount?: string[];
-  events?: CourseEventErrors[] = [];
+  events?: CourseEventErrors[];
 }
 
 export class CourseEventErrors {

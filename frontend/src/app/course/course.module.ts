@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { CoursesService } from './courses.service';
 import { CourseResolve } from './course-resolve';
+import { CourseErrorsResolve } from './course-errors-resolve';
 
 @NgModule(
   {
@@ -11,7 +12,7 @@ import { CourseResolve } from './course-resolve';
       BrowserModule, FormsModule, CommonsModule
     ],
     providers: [
-      CoursesService, CourseResolve
+      CoursesService, CourseResolve, CourseErrorsResolve
     ]
   }
 )

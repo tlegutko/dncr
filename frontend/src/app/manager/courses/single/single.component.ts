@@ -16,15 +16,16 @@ export class ManagerCoursesSingleComponent implements OnInit {
 
   @ViewChild(CourseTitleComponent) titleComponent: CourseTitleComponent;
   private course: Course;
-  private errors: CourseErrors = new CourseErrors();
+  private errors: CourseErrors;
 
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
   }
 
   public ngOnInit() {
     this.route.data.forEach(
-      (data: { course: Course }) => {
+      (data: { course: Course, courseErrors: CourseErrors }) => {
         this.course = data.course;
+        this.errors = data.courseErrors;
       }
     );
   }
@@ -35,8 +36,8 @@ export class ManagerCoursesSingleComponent implements OnInit {
         this.course = course;
         this.titleComponent.onSuccessfulSave();
       }, (errors) => {
+        Object.assign(this.errors, errors);
         this.titleComponent.onEditCourseErrors();
-        return this.errors = errors;
       }
     );
   }

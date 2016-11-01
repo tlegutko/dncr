@@ -46,7 +46,8 @@ export class CourseTitleComponent implements OnInit {
   }
 
   private isEditing(): boolean {
-    return this.state === TitleState.Editing || this.state === TitleState.EditingUndoable;
+    return this.state === TitleState.Editing || this.state === TitleState.EditingUndoable ||
+      this.state === TitleState.PendingSave;
   }
 
   private isEditable(): boolean {

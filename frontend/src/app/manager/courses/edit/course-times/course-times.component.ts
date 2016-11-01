@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, OnInit, SimpleChange } from '@angular/core';
+import { Component, Input, ViewEncapsulation, OnChanges, OnInit } from '@angular/core';
 import { CourseTime, CourseTimeErrors } from '../../../../course/course.model';
 import { CourseLocation } from '../../../locations/locations.model';
 import { LocationsService } from '../../../locations/locations.service';
@@ -11,7 +11,7 @@ import { LocationsService } from '../../../locations/locations.service';
     encapsulation: ViewEncapsulation.None,
   }
 )
-export class CourseTimesComponent implements OnInit {
+export class CourseTimesComponent implements OnInit, OnChanges {
 
   @Input() model: CourseTime[];
   @Input() errors: CourseTimeErrors[];
@@ -24,8 +24,11 @@ export class CourseTimesComponent implements OnInit {
     this.locationsService.list().subscribe(
       (locations) => this.locations = locations, (errors) => this.errors = errors
     );
-    if (this.errors[0] == null) {
-      this.errors[0] = new CourseTimeErrors();
+  }
+
+  ngOnChanges() {
+    if (this.errors == null || this.errors[0] == null) {
+      this.errors = [new CourseTimeErrors()];
     }
   }
 

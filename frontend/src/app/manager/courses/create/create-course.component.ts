@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CourseErrors, CreateCourseTime, Course } from '../../../course/course.model';
+import { CourseErrors, Course } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
 import { Router } from '@angular/router';
 import { CourseTitleComponent } from '../course-title/course-title.component';
@@ -19,7 +19,7 @@ export class CreateCourseComponent implements OnInit {
   @ViewChild(CourseTitleComponent) titleComponent: CourseTitleComponent;
 
   constructor(private router: Router, private coursesService: CoursesService) {
-    // this.model = Course.mock();
+    this.model = Course.mock();
   }
 
   public ngOnInit() {
@@ -36,8 +36,8 @@ export class CreateCourseComponent implements OnInit {
       (course) => {
         this.router.navigate(['/manager/courses', course.id]);
       }, (errors) => {
+        this.errors = errors;
         this.titleComponent.onCreateCourseErrors();
-        return this.errors = errors;
       }
     );
   }
