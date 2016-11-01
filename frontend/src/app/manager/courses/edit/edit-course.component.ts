@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StoreCourseErrors, Course } from '../../../course/course.model';
+import { CourseErrors, Course } from '../../../course/course.model';
 
 @Component(
   {
@@ -16,7 +16,7 @@ import { StoreCourseErrors, Course } from '../../../course/course.model';
 export class EditCourseComponent {
 
   @Input() model: Course;
-  @Input() errors: StoreCourseErrors;
+  @Input() errors: CourseErrors;
 
 }
 

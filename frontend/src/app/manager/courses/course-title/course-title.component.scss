@@ -4,6 +4,10 @@
   display: block;
 }
 
+.cancel-btn {
+  margin-right: 0.5rem;
+}
+
 h1 {
   display: flex;
   align-content: center;
@@ -11,11 +15,15 @@ h1 {
   font-size: 1.75rem;
   margin-bottom: 1rem;
 
+  &.errors {
+    align-items: flex-start;
+  }
+
   span {
     flex-grow: 1;
-    padding: 8px 0 3.188px 1rem;
+    padding: 8px 0 2.188px 0.5rem;
     &.editing {
-      padding: 0 0 0 1rem;
+      padding: 0 0 0 0.5rem;
     }
   }
 }

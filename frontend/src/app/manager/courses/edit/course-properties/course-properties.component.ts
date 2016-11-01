@@ -1,9 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InstructorsService } from '../../../instructors/instructors.service';
 import { Instructor } from '../../../instructors/instructor';
-import { LocationsService } from '../../../locations/locations.service';
-import { StoreCourseErrors, Course } from '../../../../course/course.model';
-import { CourseLocation } from '../../../locations/locations.model';
+import { CourseErrors, Course } from '../../../../course/course.model';
 @Component(
   {
     selector: 'course-properties',
@@ -14,10 +12,10 @@ import { CourseLocation } from '../../../locations/locations.model';
 export class CreateCoursePropertiesComponent implements OnInit {
 
   @Input() model: Course;
-  @Input() errors: StoreCourseErrors;
+  @Input() errors: CourseErrors;
   instructors: Instructor[];
 
-  constructor(private instructorsService: InstructorsService, private locationsService: LocationsService) {
+  constructor(private instructorsService: InstructorsService) {
   }
 
   public ngOnInit(): void {

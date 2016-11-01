@@ -46,6 +46,7 @@ class StoreCourseRequest extends Request
       'classesCount' => 'liczba zajęć 2',
       'seats_count' => 'liczba miejsc',
       'instructor_id' => 'prowadzący',
+      'times.*.start_date' => 'data',
       'times.*.start_time' => 'rozpoczęcie',
       'times.*.end_time' => 'zakończenie',
       'times.*.repeat_weeks_count' => 'powtarzaj co',

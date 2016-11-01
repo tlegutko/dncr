@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
-import { StoreCourseErrors } from '../../../../course/course.model';
+import { CourseErrors } from '../../../../course/course.model';
 
 @Component(
   {
@@ -11,7 +11,7 @@ import { StoreCourseErrors } from '../../../../course/course.model';
 )
 export class ManagerCoursesDetailsComponent implements OnInit {
   model: Course;
-  errors: StoreCourseErrors = new StoreCourseErrors();
+  errors: CourseErrors = new CourseErrors();
 
   constructor(private route: ActivatedRoute) {
   }
@@ -23,5 +23,4 @@ export class ManagerCoursesDetailsComponent implements OnInit {
       }
     );
   }
-
 }

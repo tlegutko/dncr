@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from 'app/course';
-import { StoreCourseErrors } from '../../../course/course.model';
+import { CourseErrors } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
+import { CourseTitleComponent } from '../course-title/course-title.component';
 
 @Component(
   {
@@ -12,8 +13,10 @@ import { CoursesService } from '../../../course/courses.service';
   }
 )
 export class ManagerCoursesSingleComponent implements OnInit {
+
+  @ViewChild(CourseTitleComponent) titleComponent: CourseTitleComponent;
   private course: Course;
-  private errors: StoreCourseErrors = new StoreCourseErrors();
+  private errors: CourseErrors = new CourseErrors();
 
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
   }
@@ -29,9 +32,17 @@ export class ManagerCoursesSingleComponent implements OnInit {
   onSave() {
     this.coursesService.create(this.course).subscribe(
       (course) => {
-        this.router.navigate(['/manager/courses', course.id]);
-      }, (errors) => this.errors = errors
+        this.course = course;
+        this.titleComponent.onSuccessfulSave();
+      }, (errors) => {
+        this.titleComponent.onEditCourseErrors();
+        return this.errors = errors;
+      }
     );
+  }
+
+  onClose() {
+    this.router.navigate(['/manager/courses']);
   }
 
 }

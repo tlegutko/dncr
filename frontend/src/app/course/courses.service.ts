@@ -16,9 +16,9 @@ export class CoursesService {
   private courseCreatedSource = new Subject<Course>();
   private recentlyClickedTimeSource = new ReplaySubject<CreateCourseTime>(1);
 
-  courseCreated = this.courseCreatedSource.asObservable();
-  calendarItemsCreated = this.courseCreated.map(this.courseToCalendarItems);
-  recentlyClickedTime = this.recentlyClickedTimeSource.asObservable();
+  courseCreated: Observable<Course> = this.courseCreatedSource.asObservable();
+  calendarItemsCreated: Observable<CalendarItem[]> = this.courseCreated.map(this.courseToCalendarItems);
+  recentlyClickedTime: Observable<CreateCourseTime> = this.recentlyClickedTimeSource.asObservable();
   /* tslint:enable */
 
   constructor(private http: AuthHttp) {
@@ -59,8 +59,8 @@ export class CoursesService {
   public create(course: Course): Observable<Course> {
     let url = `api/courses`;
     return this.http.post(url, course)
-      .map((response: Response) => response.json())
-      .do((createdCourse) => this.courseCreatedSource.next(createdCourse))
+      .map((response) => response.json())
+      .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
       .catch(
         (response) => {
           if (response.status === 500) {

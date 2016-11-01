@@ -1,4 +1,4 @@
-<course-title *ngIf="course" [model]="course" [errors]="errors" [isEditing]="false" (save)="onSave()"></course-title>
+<course-title *ngIf="course" [model]="course" [errors]="errors" (save)="onSave()" (close)="onClose()"></course-title>
 <nav class="nav nav-inline" *ngIf="course">
   <a class="nav-link" routerLinkActive="active" [routerLink]="['/manager/courses', course.id]"
      [routerLinkActiveOptions]="{ exact: true }">Szczegóły</a>

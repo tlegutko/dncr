@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { StoreCourseErrors, CreateCourseTime, Course } from '../../../course/course.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CourseErrors, CreateCourseTime, Course } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
 import { Router } from '@angular/router';
+import { CourseTitleComponent } from '../course-title/course-title.component';
 @Component(
   {
     selector: 'create-course',
     template: `
-      <course-title [model]="model" [errors]="errors" [isEditing]="true" (save)="onSave()"></course-title>
+      <course-title [model]="model" [errors]="errors" (save)="onSave()" (close)="onClose()"></course-title>
       <edit-course [model]="model" [errors]="errors"></edit-course>
     `,
     styles: [':host { display: block }'],
@@ -14,10 +15,11 @@ import { Router } from '@angular/router';
 )
 export class CreateCourseComponent implements OnInit {
   model = new Course();
-  errors: StoreCourseErrors = new StoreCourseErrors();
+  errors: CourseErrors = new CourseErrors();
+  @ViewChild(CourseTitleComponent) titleComponent: CourseTitleComponent;
 
   constructor(private router: Router, private coursesService: CoursesService) {
-    this.model = Course.mock(); // TODO remove and handle undefined
+    // this.model = Course.mock();
   }
 
   public ngOnInit() {
@@ -33,8 +35,15 @@ export class CreateCourseComponent implements OnInit {
     this.coursesService.create(this.model).subscribe(
       (course) => {
         this.router.navigate(['/manager/courses', course.id]);
-      }, (errors) => this.errors = errors
+      }, (errors) => {
+        this.titleComponent.onCreateCourseErrors();
+        return this.errors = errors;
+      }
     );
+  }
+
+  onClose() {
+    this.router.navigate(['/manager/courses']);
   }
 
 }

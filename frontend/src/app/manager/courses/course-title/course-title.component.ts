@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { StoreCourseErrors, Course } from '../../../course/course.model';
+import { CourseErrors, Course } from '../../../course/course.model';
 import { Router, NavigationEnd } from '@angular/router';
 @Component(
   {
@@ -11,81 +11,97 @@ import { Router, NavigationEnd } from '@angular/router';
 export class CourseTitleComponent implements OnInit {
 
   @Input() model: Course;
-  @Input() errors: StoreCourseErrors;
-  @Input() isEditing: boolean;
+  @Input() errors: CourseErrors;
 
   @Output() save = new EventEmitter<boolean>();
+  @Output() close = new EventEmitter<boolean>();
 
-  private state: TitleState;
-  private isEditIconVisible: boolean;
+  state: TitleState;
   private nameBeforeEdit: string;
-  private createCourseUrl = 'manager/courses/create-course';
-  private coursePropertiesExactUrl: string;
+  private stateRef = TitleState;
 
   constructor(private router: Router) {
-    this.router.isActive('blabla', true);
   }
 
   ngOnInit() {
-    let id = 1; // TODO model.id
-    this.coursePropertiesExactUrl = `/manager/courses/${id}`;
     this.router.events.subscribe(
       (e) => {
         if (e instanceof NavigationEnd) {
-          this.setEditProperties(e.url);
+          this.changeState(CourseTitleComponent.getStateAfterUrlChange(e.url));
         }
       }
     );
   }
 
-  private setEditProperties(url: string) {
-
-
-    let nonEditableRoutes = ['actions', 'attendees'];
-    let splitUrl = url.split('\/');
-    let isTitleEditable = nonEditableRoutes.every((elem) => !splitUrl.includes(elem));
-    this.isEditIconVisible = isTitleEditable && !splitUrl.includes('create-course');
-    if (!isTitleEditable) {
-      this.isEditing = false;
-    }
-    if (this.nameBeforeEdit) {
-      this.model.name = this.nameBeforeEdit;
-      this.nameBeforeEdit = null;
-    }
+  public onSuccessfulSave() {
+    this.changeState(TitleState.TextEditable);
   }
 
-  private getState(url: string) {
-    let state: TitleState;
-    switch (url) {
-      case this.coursePropertiesExactUrl:
-        state = TitleState.TextEditable;
+  public onCreateCourseErrors() {
+    this.changeState(TitleState.Editing);
+  }
+
+  public onEditCourseErrors() {
+    this.changeState(TitleState.EditingUndoable);
+  }
+
+  private isEditing(): boolean {
+    return this.state === TitleState.Editing || this.state === TitleState.EditingUndoable;
+  }
+
+  private isEditable(): boolean {
+    return this.state === TitleState.TextEditable || this.isEditing();
+  }
+
+  private onCancel() {
+    let newState = this.state === TitleState.EditingUndoable ? TitleState.TextEditable : TitleState.Closed;
+    this.changeState(newState);
+  }
+
+  private static getStateAfterUrlChange(url: string): TitleState {
+    let createCourseUrl = '/manager/courses/create-course';
+    let courseDetailsRegExp = /\/manager\/courses\/\d+$/;
+    let newState: TitleState;
+
+    if (courseDetailsRegExp.test(url)) {
+      newState = TitleState.TextEditable;
+    } else if (url === createCourseUrl) {
+      newState = TitleState.Editing;
+    } else {
+      newState = TitleState.Text;
+    }
+
+    return newState;
+  }
+
+  private changeState(newState: TitleState) {
+    switch (newState) { // side effects go here
+      case TitleState.PendingSave:
+        this.save.emit(true);
         break;
-      case this.createCourseUrl:
-        state = TitleState.Editing;
+      case TitleState.EditingUndoable:
+        this.nameBeforeEdit = this.model.name;
+        break;
+      case TitleState.TextEditable:
+        if (this.state === TitleState.EditingUndoable) {
+          this.model.name = this.nameBeforeEdit;
+        }
+        break;
+      case TitleState.Text:
+        if (this.state === TitleState.EditingUndoable) { // route change during edit to actions / attendees
+          this.model.name = this.nameBeforeEdit;
+        }
+        break;
+      case TitleState.Closed:
+        this.close.emit(true);
         break;
       default:
-        state = TitleState.Text;
     }
-    return state;
+    this.state = newState;
   }
 
-  private onSave() {
-    this.save.emit(true);
-    this.nameBeforeEdit = null;
-    this.isEditing = false;
-  }
-
-  private toggleEditing() {
-    this.isEditing = !this.isEditing;
-    if (this.isEditing) {
-      this.nameBeforeEdit = this.model.name;
-    } else {
-      this.model.name = this.nameBeforeEdit;
-      this.nameBeforeEdit = null;
-    }
-  }
 }
 
 enum TitleState {
-  Editing, EditingUndoable, Text, TextEditable
+  Editing, EditingUndoable, Text, TextEditable, PendingSave, Closed
 }

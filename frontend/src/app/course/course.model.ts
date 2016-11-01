@@ -34,7 +34,7 @@ export class Course {
 
     let ct = new CourseTime();
     ct.startDate = '2016-10-26';
-    ct.startTime = '11:00';
+    ct.startTime = '11:00=';
     ct.endTime = '12:00';
     ct.repeatWeeksCount = 1;
     ct.locationId = 1;
@@ -48,13 +48,21 @@ export class Course {
   }
 
   setDefaultRepeatWeeksCount() {
+    this.checkIfInitialized();
     this.times[0].repeatWeeksCount = 1;
   }
 
   setTime(courseTime: CreateCourseTime) {
+    this.checkIfInitialized();
     this.times[0].startDate = courseTime.startDate;
     this.times[0].startTime = courseTime.startTime;
     this.times[0].endTime = courseTime.endTime;
+  }
+
+  private checkIfInitialized() {
+    if (this.times == null || this.times[0] == null) {
+      this.times = [new CourseTime()];
+    }
   }
 
 }
@@ -109,7 +117,7 @@ export class CreateCourseTime {
 
 }
 
-export class StoreCourseErrors {
+export class CourseErrors {
   name?: string[];
   price?: string[];
   classesCount?: string[];
