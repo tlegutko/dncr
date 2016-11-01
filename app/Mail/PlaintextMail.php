@@ -9,29 +9,31 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class PlaintextMail extends Mailable
 {
-    use Queueable, SerializesModels;
+  use Queueable, SerializesModels;
 
-    public $title;
-    public $message;
+  public $mailMessage;
+  private $title;
+  private $attendeeMails;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct(String $title, String $message)
-    {
-        $this->title = $title;
-        $this->message = $message;
-    }
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  public function __construct(string $title, string $message, $attendeeMails)
+  {
+    $this->title = $title;
+    $this->mailMessage = $message;
+    $this->attendeeMails = $attendeeMails;
+  }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('plaintext');
-    }
+  /**
+   * Build the message.
+   *
+   * @return $this
+   */
+  public function build()
+  {
+    return $this->view('mails.plaintext')->subject($this->title)->bcc($this->attendeeMails);
+  }
 }

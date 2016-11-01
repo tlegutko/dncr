@@ -26,17 +26,8 @@ class MailController extends Controller
    */
   public function send(MailRequest $request)
   {
-    \Log::info('hello!');
-    $attendees = Attendee::query()->where('course_id', '=', $request->id)->get();
+    $attendeeMails = Attendee::query()->where('course_id', '=', $request->id)->select('email')->get();
 
-    Mail::send(new PlaintextMail($request->title, $request->message),
-      function($message) use ($attendees)
-      {
-
-        foreach($attendees as $attendee)
-        {
-          $message->bcc($attendee);
-        }
-      });
+    Mail::send(new PlaintextMail($request->title, $request->message, $attendeeMails));
   }
 }
