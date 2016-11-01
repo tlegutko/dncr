@@ -9,7 +9,7 @@ import { CalendarComponent } from './calendar';
 import { AddItemButtonComponent } from './add-item-button';
 import { AuthHttp, AuthService, AuthGuard } from './auth';
 import { LabelledFormField } from './labelled-form-field';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @NgModule(
   {
@@ -24,8 +24,7 @@ import { NotificationsService } from 'angular2-notifications';
         provide: AuthHttp,
         useFactory: (notifications, http) => {
           return new AuthHttp(
-            notifications,
-            new AuthConfig(
+            notifications, new AuthConfig(
               {
                 globalHeaders: [{ 'Content-Type': 'application/json' }, { 'Accept': 'application/json' }],
                 noJwtError: true

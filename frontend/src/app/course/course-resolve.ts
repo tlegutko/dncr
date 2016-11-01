@@ -3,7 +3,7 @@ import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 import { CoursesService } from './courses.service';
 import { Course } from './course.model';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @Injectable()
 export class CourseResolve implements Resolve<Course> {
