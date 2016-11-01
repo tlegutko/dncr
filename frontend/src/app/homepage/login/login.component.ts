@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthService } from 'app/_commons/auth';
 import { LoginModel } from './login.model';
-import { NgForm } from '@angular/common';
 
 @Component(
   {
@@ -16,7 +17,7 @@ export class LoginComponent {
   error = '';
   isKnownUser = false;
 
-  constructor(private service: AuthService) {
+  constructor(private router: Router, private service: AuthService) {
   }
 
   ngOnInit() {
@@ -24,15 +25,18 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.service.login(this.model).catch(
-      (body) => {
-        let response = body.json();
-        if (response.hasOwnProperty('error')) {
-          this.error = response.error;
-        } else {
-          this.error = 'Nieprawidłowy login lub hasło.';
+    this.service.login(this.model)
+      .subscribe(
+        () => {
+          this.router.navigate(['/reception']);
+        }, (body) => {
+          let response = body.json();
+          if (response.hasOwnProperty('error')) {
+            this.error = response.error;
+          } else {
+            this.error = 'Nieoczekiwany błąd serwera.';
+          }
         }
-      }
-    );
+      );
   }
 }

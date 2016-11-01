@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
@@ -24,7 +25,6 @@ class AuthController extends Controller
 
     try
     {
-      // attempt to verify the credentials and create a token for the user
       if(!$token = \JWTAuth::attempt($credentials))
       {
         return response()->json(['error' => \Lang::get('auth.failed')], 401);
@@ -32,7 +32,19 @@ class AuthController extends Controller
     }
     catch(JWTException $e)
     {
-      // something went wrong whilst attempting to encode the token
+      return response()->json(['error' => \Lang::get('auth.could_not_create_token')], 500);
+    }
+
+    return response()->json(['token' => $token]);
+  }
+  public function refresh()
+  {
+    try
+    {
+      $token = \JWTAuth::refresh();
+    }
+    catch(JWTException $e)
+    {
       return response()->json(['error' => \Lang::get('auth.could_not_create_token')], 500);
     }
 
@@ -59,14 +71,18 @@ class AuthController extends Controller
    *
    * @return \Illuminate\Http\RedirectResponse
    */
-  protected function sendLockoutResponse(\Illuminate\Http\Request $request)
+  protected function sendLockoutResponse(Request $request)
   {
-    $seconds = $this->secondsRemainingOnLockout($request);
+    $seconds = $this->limiter()->availableIn(
+      $this->throttleKey($request)
+    );
 
-    return response()->json(['error' => $this->getLockoutErrorMessage($seconds)])->setStatusCode(429);
+    $message = \Lang::get('auth.throttle', ['seconds' => $seconds]);
+
+    return response()->json(['error' => $message])->setStatusCode(429);
   }
 
-  protected function loginUsername()
+  protected function username()
   {
     return 'email';
   }

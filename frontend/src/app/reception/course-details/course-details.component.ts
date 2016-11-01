@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Attendee, AttendeeService } from 'app/attendee';
 import { Course } from 'app/course';
 
@@ -16,7 +16,7 @@ export class CourseDetailsComponent {
   isCreateFormVisible = false;
   error = '';
 
-  constructor(private attendeeService: AttendeeService, route: ActivatedRoute) {
+  constructor(private attendeeService: AttendeeService, private router: Router, private route: ActivatedRoute) {
     route.data.forEach(
       (data: { course: Course }) => {
         this.course = data.course;
@@ -44,4 +44,5 @@ export class CourseDetailsComponent {
         (attendees) => this.attendees = attendees, (error: any) => this.error = error
       );
   }
+
 }
