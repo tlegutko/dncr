@@ -24,18 +24,18 @@ class MailRequest extends Request
   public function rules()
   {
     return [
-      'courseId' => 'required',
+      'course_id' => 'required',
       'title' => 'required',
-      'context' => 'required',
+      'message' => 'required',
     ];
   }
 
   public function attributes()
   {
     return [
-      'courseId' => 'id kursu',
+      'course_id' => 'id kursu',
       'title' => 'tytuł',
-      'context' => 'treść',
+      'message' => 'treść',
     ];
   }
 }

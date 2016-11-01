@@ -24,6 +24,9 @@ export class ManagerCoursesActionsComponent {
   }
 
   public sendMailToAttendees() {
-    this.mailService.send(this.mail);
+    this.mailService.send(this.mail).subscribe(
+      () => {},
+      errors => console.log(errors), // TODO some better handling
+    );
   }
 }

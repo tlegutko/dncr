@@ -28,5 +28,5 @@ Route::group(['middleware' => 'auth'], function(){
   Route::get('locations', 'LocationsController@index');
 
   // Mails
-  Route::post('send', 'MailController@send');
+  Route::post('mail', 'MailController@send');
 });

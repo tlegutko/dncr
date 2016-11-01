@@ -1,14 +1,22 @@
 <?php
 
-namespace Http\Controllers;
+namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\MailRequest;
 use App\Mail\PlaintextMail;
+use App\Models\Attendee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\Controller;
 
 class MailController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->middleware('api');
+  }
+
   /**
    * Send the given mail.
    *
@@ -18,9 +26,10 @@ class MailController extends Controller
    */
   public function send(MailRequest $request)
   {
-    $attendees = Attendee::query()->where('course_id', '=', $request->id())->get();
+    \Log::info('hello!');
+    $attendees = Attendee::query()->where('course_id', '=', $request->id)->get();
 
-    Mail::send(new PlaintextMail($request->title(), $request->message()),
+    Mail::send(new PlaintextMail($request->title, $request->message),
       function($message) use ($attendees)
       {
 
