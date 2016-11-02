@@ -11,17 +11,20 @@ trait CompanyRelated
 {
   public static function bootCompanyRelated()
   {
-    static::addGlobalScope(new class implements Scope
-    {
-      public function apply(Builder $builder, Model $model)
-      {
-        $builder->where('company_id', JWTAuth::parseToken()->authenticate()->company->id);
-      }
-    });
+    static::addGlobalScope(new CompanyScope());
 
     static::creating(function(Model $model)
     {
+      static::$user;
       $model->company_id = JWTAuth::parseToken()->authenticate()->company->id;
     });
+  }
+}
+
+class CompanyScope implements Scope
+{
+  public function apply(Builder $builder, Model $model)
+  {
+    $builder->where('company_id', JWTAuth::parseToken()->authenticate()->company->id);
   }
 }
