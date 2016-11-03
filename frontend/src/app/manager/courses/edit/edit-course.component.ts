@@ -1,22 +1,51 @@
-import { Component, Input } from '@angular/core';
-import { CourseErrors, Course } from '../../../course/course.model';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { CourseErrors, Course, CourseTime, CourseTimeErrors, CreateCourseTime } from '../../../course/course.model';
+import { CourseLocation } from '../../locations/locations.model';
+import { LocationsService } from '../../locations/locations.service';
 
 @Component(
   {
     selector: 'edit-course',
-    template: `
-      <hr/>
-      <course-times [model]="model.times" [errors]="errors.times"></course-times>
-      <hr/>
-      <course-properties [model]="model" [errors]="errors"></course-properties>
-    `,
+    templateUrl: './edit-course.component.html',
     styleUrls: ['./edit-course.component.scss'],
   }
 )
-export class EditCourseComponent {
+export class EditCourseComponent implements OnInit, OnChanges {
 
   @Input() model: Course;
   @Input() errors: CourseErrors;
+  locations: CourseLocation[];
+
+  constructor(private locationsService: LocationsService) {
+  }
+
+  ngOnInit(): void {
+    this.locationsService.list().subscribe(
+      (locations) => this.locations = locations, (errors) => this.errors = errors
+    );
+  }
+
+  public setTime(courseTime: CreateCourseTime) {
+    this.model.times[this.model.times.length - 1].setTime(courseTime);
+  }
+
+  addCourseTime() {
+    this.model.times.push(CourseTime.withDefaultRepeatCount());
+    this.errors.times.push(new CourseTimeErrors());
+  }
+
+  ngOnChanges() {
+    this.reinitializeErrors();
+  }
+
+  private reinitializeErrors() {
+    for (let i = 0; i < this.model.times.length; i++) {
+      if (this.errors.times[i] == null) {
+        this.errors.times[i] = new CourseTimeErrors();
+      }
+    }
+  }
 
 }
+
 

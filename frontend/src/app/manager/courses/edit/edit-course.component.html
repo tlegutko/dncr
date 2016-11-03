@@ -1,0 +1,14 @@
+<hr/>
+<div class="row">
+  <div class="col-xl-9 col-sm-8 col-xs-6">
+    <h4>Terminy</h4>
+  </div>
+  <div class="col-xl-3 col-sm-4 col-xs-6">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="addCourseTime()">
+      <i class="fa fa-plus" aria-hidden="true"></i> Dodaj termin
+    </button>
+  </div>
+</div>
+<course-time *ngFor="let time of model.times; let i=index" [model]="time" [errors]="errors.times[i]"
+             [locations]="locations"></course-time>
+<course-properties [model]="model" [errors]="errors"></course-properties>

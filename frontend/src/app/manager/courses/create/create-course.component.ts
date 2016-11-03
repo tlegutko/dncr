@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CourseErrors, Course } from '../../../course/course.model';
+import { CourseErrors, Course, CourseTime } from '../../../course/course.model';
 import { CoursesService } from '../../../course/courses.service';
 import { Router } from '@angular/router';
 import { CourseTitleComponent } from '../course-title/course-title.component';
+import { EditCourseComponent } from '../edit/edit-course.component';
 @Component(
   {
     selector: 'create-course',
@@ -17,18 +18,19 @@ export class CreateCourseComponent implements OnInit {
   model = new Course();
   errors: CourseErrors = new CourseErrors();
   @ViewChild(CourseTitleComponent) titleComponent: CourseTitleComponent;
+  @ViewChild(EditCourseComponent) editComponent: EditCourseComponent;
 
   constructor(private router: Router, private coursesService: CoursesService) {
-    this.model = Course.mock();
+    // this.model = Course.mock();
   }
 
   public ngOnInit() {
-    this.model.setDefaultRepeatWeeksCount();
+    this.model.times = [CourseTime.withDefaultRepeatCount()];
     this.coursesService.recentlyClickedTime.subscribe(
       (courseTime) => {
-        this.model.setTime(courseTime);
+        this.editComponent.setTime(courseTime);
       }
-    );
+    ); // TODO handle it in edit-course
   }
 
   onSave() {

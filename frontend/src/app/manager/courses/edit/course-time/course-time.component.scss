@@ -1,0 +1,12 @@
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins/breakpoints';
+:host {
+  display: block;
+}
+
+course-time labelled-form-field form-field label {
+  @media (min-width: breakpoint-min(sm)) {
+    text-align: right;
+  }
+  height: 1.8rem;
+}

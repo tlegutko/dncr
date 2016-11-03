@@ -47,24 +47,6 @@ export class Course {
     this.id = id;
   }
 
-  setDefaultRepeatWeeksCount() {
-    this.checkIfInitialized();
-    this.times[0].repeatWeeksCount = 1;
-  }
-
-  setTime(courseTime: CreateCourseTime) {
-    this.checkIfInitialized();
-    this.times[0].startDate = courseTime.startDate;
-    this.times[0].startTime = courseTime.startTime;
-    this.times[0].endTime = courseTime.endTime;
-  }
-
-  private checkIfInitialized() {
-    if (this.times == null || this.times[0] == null) {
-      this.times = [new CourseTime()];
-    }
-  }
-
 }
 
 export class CourseTime {
@@ -82,6 +64,18 @@ export class CourseTime {
   events: CourseEvent[];
   createdAt: string;
   updatedAt: string;
+
+  setTime(courseTime: CreateCourseTime) {
+    this.startDate = courseTime.startDate;
+    this.startTime = courseTime.startTime;
+    this.endTime = courseTime.endTime;
+  }
+
+  static withDefaultRepeatCount(): CourseTime {
+    let c = new CourseTime();
+    c.repeatWeeksCount = 1;
+    return c;
+  }
 
   static changeTimeFormat(ct: CourseTime): CourseTime {
     ct.startTime = CourseTime.parseTime(ct.startTime);
@@ -124,7 +118,7 @@ export class CourseErrors {
   seatsCount?: string[];
   description?: string[];
   instructorId?: string[];
-  times?: CourseTimeErrors[];
+  times?: CourseTimeErrors[] = [];
 }
 
 export class CourseTimeErrors {
@@ -133,7 +127,7 @@ export class CourseTimeErrors {
   startTime?: string[];
   endTime?: string[];
   repeatWeeksCount?: string[];
-  events?: CourseEventErrors[];
+  events?: CourseEventErrors[] = [];
 }
 
 export class CourseEventErrors {
