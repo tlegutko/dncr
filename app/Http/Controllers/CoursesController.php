@@ -8,7 +8,6 @@ use App\Models\Course;
 use DateInterval;
 use DateTime;
 use DB;
-use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
@@ -36,22 +35,28 @@ class CoursesController extends Controller
    */
   public function store(StoreCourseRequest $request) // TODO StoreCourseRequest
   {
-    // TODO remove mock company_id below and inject real one once DNCR-92 is merged
-    $courseData = $request->only('name', 'price', 'classes_count', 'description', 'seats_count') + ['company_id' => 1];
-    $courseTimeData = $request->input()['times'][0];
-
-    $course = DB::transaction(function() use ($courseData, $courseTimeData)
+    $course = DB::transaction(function() use ($request)
     {
+      // TODO remove mock company_id below and inject real one once DNCR-92 is merged
+      $courseData = $request->only('name',
+                                   'price',
+                                   'classes_count',
+                                   'description',
+                                   'seats_count') + ['company_id' => 1];
       $course = Course::create($courseData);
-      $courseTime = $course->times()->create($courseTimeData);
 
-      $startDate = new DateTime($courseTime->start_date);
-      $step = $courseTime->repeat_weeks_count;
-      foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
+      foreach($request->input()['times'] as $courseTimeData)
       {
-        $startDateCopy = clone($startDate);
-        $eventDate = ['date' => $startDateCopy->add(new DateInterval("P{$week}W"))];
-        $courseTime->events()->create($eventDate);
+        $courseTime = $course->times()->create($courseTimeData);
+        $startDate = new DateTime($courseTime->start_date);
+        $step = $courseTime->repeat_weeks_count;
+
+        foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
+        {
+          $startDateCopy = clone($startDate);
+          $eventDate = ['date' => $startDateCopy->add(new DateInterval("P{$week}W"))];
+          $courseTime->events()->create($eventDate);
+        }
       }
 
       return $course;

@@ -45,6 +45,7 @@ export class Course {
 
   constructor(id?: number) {
     this.id = id;
+    this.times = [];
   }
 
 }

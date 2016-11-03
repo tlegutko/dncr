@@ -21,7 +21,6 @@ export class CreateCourseComponent implements OnInit {
   @ViewChild(EditCourseComponent) editComponent: EditCourseComponent;
 
   constructor(private router: Router, private coursesService: CoursesService) {
-    // this.model = Course.mock();
   }
 
   public ngOnInit() {
@@ -30,7 +29,7 @@ export class CreateCourseComponent implements OnInit {
       (courseTime) => {
         this.editComponent.setTime(courseTime);
       }
-    ); // TODO handle it in edit-course
+    );
   }
 
   onSave() {

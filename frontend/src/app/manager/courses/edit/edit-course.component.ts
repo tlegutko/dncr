@@ -15,18 +15,26 @@ export class EditCourseComponent implements OnInit, OnChanges {
   @Input() model: Course;
   @Input() errors: CourseErrors;
   locations: CourseLocation[];
+  timeToSet: CreateCourseTime = null;
 
   constructor(private locationsService: LocationsService) {
   }
 
   ngOnInit(): void {
+    if (this.timeToSet != null) {
+      this.setTime(this.timeToSet);
+    }
     this.locationsService.list().subscribe(
       (locations) => this.locations = locations, (errors) => this.errors = errors
     );
   }
 
   public setTime(courseTime: CreateCourseTime) {
-    this.model.times[this.model.times.length - 1].setTime(courseTime);
+    if (this.model != null) {
+      this.model.times[this.model.times.length - 1].setTime(courseTime);
+    } else {
+      this.timeToSet = courseTime;
+    }
   }
 
   addCourseTime() {
