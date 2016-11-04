@@ -36,7 +36,7 @@ export class ManagerCoursesSingleComponent implements OnInit {
   }
 
   onSave(callback: (result: boolean) => void) {
-    this.coursesService.create(this.course).subscribe(
+    this.coursesService.updateAll(this.course).subscribe(
       (course) => {
         this.course = course;
         this.errors.clear();
