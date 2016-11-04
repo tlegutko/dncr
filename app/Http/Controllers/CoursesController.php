@@ -3,11 +3,15 @@ declare(strict_types = 1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Attendee;
 use App\Models\Course;
+use App\Models\CourseEvent;
+use App\Models\CourseTime;
 use DateInterval;
 use DateTime;
 use DB;
+use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
@@ -37,17 +41,12 @@ class CoursesController extends Controller
   {
     $course = DB::transaction(function() use ($request)
     {
-      // TODO remove mock company_id below and inject real one once DNCR-92 is merged
-      $courseData = $request->only('name',
-                                   'price',
-                                   'classes_count',
-                                   'description',
-                                   'seats_count') + ['company_id' => 1];
-      $course = Course::create($courseData);
+
+      $course = Course::create($this->extractCourseData($request));
 
       foreach($request->input()['times'] as $courseTimeData)
       {
-        $courseTime = $course->times()->create($courseTimeData);
+        $courseTime = $course->times()->create($this->extractCourseTimeData($courseTimeData));
         $startDate = new DateTime($courseTime->start_date);
         $step = $courseTime->repeat_weeks_count;
 
@@ -56,6 +55,33 @@ class CoursesController extends Controller
           $startDateCopy = clone($startDate);
           $eventDate = ['date' => $startDateCopy->add(new DateInterval("P{$week}W"))];
           $courseTime->events()->create($eventDate);
+        }
+      }
+
+      return $course;
+    });
+
+    $course->load('times.events');
+
+    return response()->json($course);
+  }
+
+  public function updateAll(UpdateCourseRequest $request)
+  {
+    $course = DB::transaction(function() use ($request)
+    {
+      $course = Course::findOrFail($request->id);
+      $course->update($this->extractCourseData($request));
+
+      foreach($request->input()['times'] as $courseTimeData)
+      {
+        $courseTime = CourseTime::findOrFail($courseTimeData['id']);
+        $courseTime->update($this->extractCourseTimeData($courseTimeData));
+
+        foreach($courseTimeData['events'] as $courseEventData)
+        {
+          $courseEvent = CourseEvent::findOrFail($courseEventData['id']);
+          $courseEvent->update(array_only($courseEventData, ['date']));
         }
       }
 
@@ -79,5 +105,28 @@ class CoursesController extends Controller
     $attendees = Attendee::query()->where('course_id', '=', $id)->get();
 
     return response()->json($attendees);
+  }
+
+  private function extractCourseData(Request $request) : array
+  {
+    // TODO remove mock company_id below and inject real one once DNCR-92 is merged
+    return $request->only('name',
+                          'price',
+                          'classes_count',
+                          'description',
+                          'seats_count') + ['company_id' => 1];
+  }
+
+  private function extractCourseTimeData(array $courseTimeData): array
+  {
+    $attributes = [
+      'start_date',
+      'start_time',
+      'end_time',
+      'repeat_weeks_count',
+      'location_id',
+    ];
+
+    return array_only($courseTimeData, $attributes);
   }
 }

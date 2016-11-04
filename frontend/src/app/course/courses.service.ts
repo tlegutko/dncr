@@ -59,7 +59,7 @@ export class CoursesService {
   public create(course: Course): Observable<Course> {
     let url = `api/courses`;
     return this.http.post(url, course)
-      .map((response) => response.json())
+      .map(Course.parseRequest)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
       .catch(
         (response) => {
@@ -70,6 +70,16 @@ export class CoursesService {
           }
         }
       );
+  }
+
+  public updateAll(course: Course): Observable<Course> {
+    let url = `api/courses/${course.id}/all`;
+    console.log(course);
+    return this.http.put(url, course)
+      .map((response) => response.json())
+      // .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
+      // TODO modify events instead of adding above
+      .catch(response => Observable.throw(response.json()));
   }
 
   private mapCoursesToEvents(courses: Course[]): CalendarItem[] {

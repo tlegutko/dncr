@@ -31,7 +31,7 @@ export class ManagerCoursesSingleComponent implements OnInit {
   }
 
   onSave() {
-    this.coursesService.create(this.course).subscribe(
+    this.coursesService.updateAll(this.course).subscribe(
       (course) => {
         this.course = course;
         this.titleComponent.onSuccessfulSave();
