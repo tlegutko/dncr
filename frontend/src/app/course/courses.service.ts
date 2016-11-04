@@ -76,9 +76,8 @@ export class CoursesService {
     let url = `api/courses/${course.id}/all`;
     console.log(course);
     return this.http.put(url, course)
-      .map((response) => response.json())
-      // .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      // TODO modify events instead of adding above
+      .map(Course.parseRequest)
+      .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
       .catch(response => Observable.throw(response.json()));
   }
 
