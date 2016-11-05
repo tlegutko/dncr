@@ -8,11 +8,11 @@ import { AuthHttp } from 'app/_commons/auth';
 import { PaymentMethod } from './payment-method.model';
 
 @Injectable()
-export class PaymentMethodsService {
+export class PaymentsService {
   constructor(private http: AuthHttp) {
   }
 
-  public list(): Observable<PaymentMethod[]> {
+  public listPaymentMethods(): Observable<PaymentMethod[]> {
     let url = 'api/payment-methods';
     return this.http.get(url)
       .map((response: Response) => response.json() as PaymentMethod[])

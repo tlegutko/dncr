@@ -5,7 +5,7 @@ import { CommonsModule } from 'app/_commons/commons.module';
 import { CoursesService } from './courses.service';
 import { CourseResolve } from './course-resolve';
 import { PaymentMethodsResolve } from './payment-methods-resolve';
-import { PaymentMethodsService } from './payment-methods.service';
+import { PaymentsService } from './payments.service';
 
 @NgModule(
   {
@@ -13,7 +13,7 @@ import { PaymentMethodsService } from './payment-methods.service';
       CommonModule, FormsModule, CommonsModule
     ],
     providers: [
-      CoursesService, CourseResolve, PaymentMethodsService, PaymentMethodsResolve
+      CoursesService, CourseResolve, PaymentsService, PaymentMethodsResolve
     ]
   }
 )

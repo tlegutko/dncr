@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Attendee, AttendeeService, PaymentConfirmation } from 'app/attendee';
-import { Course, PaymentMethod, PaymentMethodsService } from 'app/course';
+import { Course, PaymentMethod, PaymentsService } from 'app/course';
 import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @Component(
@@ -20,7 +20,7 @@ export class CourseDetailsComponent {
 
   constructor(
     private route: ActivatedRoute, private router: Router, private attendeeService: AttendeeService,
-    private paymentService: PaymentMethodsService, private notifications: NotificationsService
+    private paymentsService: PaymentsService, private notifications: NotificationsService
   ) {
     route.data.forEach(
       (data: { course: Course, methods: PaymentMethod[] }) => {
@@ -37,7 +37,7 @@ export class CourseDetailsComponent {
   }
 
   public confirmPayment(confirmation: PaymentConfirmation) {
-    this.paymentService.create(confirmation).subscribe(
+    this.paymentsService.create(confirmation).subscribe(
       () => this.notifications.success('Zapłacono!', 'Płatność została zapisana.'),
       (error) => this.notifications.error('Błąd', 'Nie udało się zapisać płatności.')
     );

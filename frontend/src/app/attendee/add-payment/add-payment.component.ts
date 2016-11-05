@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 import { Attendee } from 'app/attendee';
-import { Course, PaymentMethodsService, PaymentMethod } from 'app/course';
+import { Course, PaymentsService, PaymentMethod } from 'app/course';
 
 @Component(
   {
@@ -18,13 +18,13 @@ export class AddPaymentComponent implements OnInit {
   methods: PaymentMethod[];
 
   constructor(
-    private modal: NgbActiveModal, private paymentService: PaymentMethodsService,
+    private modal: NgbActiveModal, private paymentService: PaymentsService,
     private notifications: NotificationsService
   ) {
   }
 
   ngOnInit() {
-    this.paymentService.list().subscribe(
+    this.paymentService.listPaymentMethods().subscribe(
       (methods) => this.methods = methods, () => {
         this.notifications.error('Błąd', 'Nie udało się pobrać metod płatności');
         this.modal.dismiss();

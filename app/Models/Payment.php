@@ -15,6 +15,7 @@ class Payment extends Model
     'attendee_id',
     'course_id',
     'payment_type_id',
+    'amount'
   ];
 
   public $timestamps = false;

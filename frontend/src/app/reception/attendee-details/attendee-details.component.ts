@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications/src/notifications.service';
-import { Course, PaymentMethodsService } from 'app/course';
+import { Course, PaymentsService } from 'app/course';
 import { Attendee, PaymentConfirmation } from 'app/attendee';
 
 @Component(
@@ -16,7 +16,7 @@ export class AttendeeDetailsComponent {
   attendee = new Attendee();
 
   constructor(
-    private route: ActivatedRoute, private router: Router, private paymentService: PaymentMethodsService,
+    private route: ActivatedRoute, private router: Router, private paymentService: PaymentsService,
     private notifications: NotificationsService
   ) {
     route.data.forEach(

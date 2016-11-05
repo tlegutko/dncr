@@ -7,7 +7,7 @@
   position: relative;
   padding: 0.2em;
 
-  @media (min-width: breakpoint-min(lg)) {
+  @media (min-width: breakpoint-min(md)) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,8 +26,8 @@
   i {
     vertical-align: middle;
 
-    @media (min-width: breakpoint-min(lg)) {
-      margin-right: 1rem;
+    @media (min-width: breakpoint-min(md)) {
+      margin-right: 0.5rem;
     }
   }
   h5 {
@@ -37,7 +37,7 @@
     padding: 7px 0 0;
   }
 
-  @media (min-width: breakpoint-min(lg)) {
+  @media (min-width: breakpoint-min(md)) {
     flex-grow: 1;
   }
 }
