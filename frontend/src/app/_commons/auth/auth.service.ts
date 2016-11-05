@@ -25,7 +25,7 @@ export class AuthService {
 
   public login(model: LoginModel): Observable<Response> {
     return this.http.post('/api/authorize', model)
-      .do((response) => this.saveToken(response));
+      .do((response: Response) => this.saveToken(response));
   }
 
   public logout(): Observable<Response> {

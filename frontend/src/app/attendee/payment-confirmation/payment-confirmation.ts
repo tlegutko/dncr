@@ -4,6 +4,6 @@ import { Course } from 'app/course';
 
 export class PaymentConfirmation {
   public method: PaymentMethod;
-  public person: Attendee;
+  public attendee: Attendee;
   public course: Course;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Attendee, AttendeeService, PaymentMethod, PaymentConfirmation } from 'app/attendee';
 import { Course } from 'app/course';
 
@@ -23,7 +23,7 @@ export class CourseDetailsComponent {
   isCreateFormVisible = false;
   error = '';
 
-  constructor(private attendeeService: AttendeeService, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private attendeeService: AttendeeService, private router: Router) {
     route.data.forEach(
       (data: { course: Course }) => {
         this.course = data.course;
@@ -47,6 +47,10 @@ export class CourseDetailsComponent {
 
   public hideCreateForm() {
     this.isCreateFormVisible = false;
+  }
+
+  public close() {
+    this.router.navigate(['/reception']);
   }
 
   private getAttendees(course: Course) {

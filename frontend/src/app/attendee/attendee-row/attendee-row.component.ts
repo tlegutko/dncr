@@ -31,23 +31,24 @@ export class AttendeeRowComponent {
       }
     );
     modal.componentInstance.method = method;
-    modal.componentInstance.person = this.attendee;
+    modal.componentInstance.attendee = this.attendee;
     modal.componentInstance.course = this.course;
     modal.result.then(
       () => {
         this.onPayment.emit(
           {
-            person: this.attendee,
+            attendee: this.attendee,
             course: this.course,
             method: method
           }
         );
-      }, () => this.hidePayment()
+        this.hidePayment();
+      }, () => {}
     );
   }
 
   public showPayment() {
-    this.showPaymentForm = this.paymentMethods.length > 0 && true;
+    this.showPaymentForm = this.paymentMethods.length > 0;
   }
 
   public hidePayment() {
