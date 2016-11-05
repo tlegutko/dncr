@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { CommonsModule } from './_commons/commons.module';
@@ -34,7 +35,8 @@ const APP_PROVIDERS = [
       HttpModule,
       CommonsModule,
       RouterModule.forRoot(ROUTES, { useHash: false }),
-      SimpleNotificationsModule
+      SimpleNotificationsModule,
+      NgbModule.forRoot()
     ],
     providers: [
       ENV_PROVIDERS, APP_PROVIDERS

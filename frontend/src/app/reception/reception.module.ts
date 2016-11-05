@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReceptionComponent } from './reception.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
@@ -50,7 +51,7 @@ export const routes = [
       AttendeeDetailsTitleComponent
     ],
     imports: [
-      CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
+      CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule, NgbModule
     ]
   }
 )
