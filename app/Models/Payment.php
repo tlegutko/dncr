@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Payment extends Model
 {
@@ -18,17 +19,17 @@ class Payment extends Model
 
   public $timestamps = false;
 
-  public function course()
+  public function course(): HasOne
   {
     return $this->hasOne(Course::class, 'id', 'course_id');
   }
 
-  public function attendee()
+  public function attendee(): HasOne
   {
     return $this->hasOne(Attendee::class, 'id', 'attendee_id');
   }
 
-  public function paymentType()
+  public function paymentType(): HasOne
   {
     return $this->hasOne(PaymentType::class, 'id', 'payment_type_id');
   }

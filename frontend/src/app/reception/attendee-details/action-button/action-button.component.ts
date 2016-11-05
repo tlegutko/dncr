@@ -31,7 +31,7 @@ export class AttendeeActionButtonComponent {
       (method: PaymentMethod) => {
         this.onPayment.emit(
           {
-            person: this.attendee,
+            attendee: this.attendee,
             course: this.course,
             method: method
           }

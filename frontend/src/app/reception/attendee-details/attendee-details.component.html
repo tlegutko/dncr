@@ -1,4 +1,4 @@
-<attendee-details-title [title]="course.name"></attendee-details-title>
+<attendee-details-title [title]="course.name" (onCancel)="close()"></attendee-details-title>
 <attendee-action-button [attendee]="attendee" [course]="course"
                         (onPayment)="confirmPayment($event)"></attendee-action-button>
 <div>

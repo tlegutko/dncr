@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Company;
-use App\Models\CompanyPaymentType;
 use App\Models\PaymentType;
 use Illuminate\Database\Seeder;
 
@@ -14,27 +13,21 @@ class CompanyPaymentTypesTableSeeder extends Seeder
    */
   public function run()
   {
-    $company1Id = Company::where('name', 'Firma 1')->first()->id;
-    $company2Id = Company::where('name', 'Firma 2')->first()->id;
-    $moneyId = PaymentType::where('internal_name', 'money')->first()->id;
-    $cardId = PaymentType::where('internal_name', 'card')->first()->id;
-    $benefitId = PaymentType::where('internal_name', 'benefit')->first()->id;
-    $okSystemId = PaymentType::where('internal_name', 'ok_system')->first()->id;
+    $money = PaymentType::query()->where('internal_name', 'money')->first();
+    $card = PaymentType::query()->where('internal_name', 'card')->first();
+    $benefit = PaymentType::query()->where('internal_name', 'benefit')->first();
+    $okSystem = PaymentType::query()->where('internal_name', 'ok_system')->first();
 
-    $this->create($company1Id, $moneyId);
-    $this->create($company1Id, $benefitId, 20.00);
-    $this->create($company1Id, $okSystemId, 10.00);
-    $this->create($company2Id, $moneyId);
-    $this->create($company2Id, $cardId);
-    $this->create($company2Id, $okSystemId, 15.00);
-  }
+    /** @var Company $company */
+    $company = Company::query()->where('name', 'Firma 1')->first();
+    $company->paymentTypes()->attach($money);
+    $company->paymentTypes()->attach($benefit, ['deposit' => 20.00]);
+    $company->paymentTypes()->attach($okSystem, ['deposit' => 10.00]);
 
-  private function create($companyId, $typeId, $deposit = null)
-  {
-    CompanyPaymentType::create([
-                                 'company_id' => $companyId,
-                                 'payment_type_id' => $typeId,
-                                 'deposit' => $deposit,
-                               ]);
+    /** @var Company $company */
+    $company = Company::query()->where('name', 'Firma 2')->first();
+    $company->paymentTypes()->attach($money);
+    $company->paymentTypes()->attach($card);
+    $company->paymentTypes()->attach($okSystem, ['deposit' => 15.00]);
   }
 }

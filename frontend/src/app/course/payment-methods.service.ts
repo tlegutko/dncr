@@ -23,7 +23,7 @@ export class PaymentMethodsService {
     let url = `api/courses/${confirmation.course.id}/pay`;
     let request = {
       paymentTypeId: confirmation.method.id,
-      attendeeId: confirmation.person.id,
+      attendeeId: confirmation.attendee.id,
       isManual: true // TODO: For now we have only manual payment
     };
     return this.http.post(url, request);

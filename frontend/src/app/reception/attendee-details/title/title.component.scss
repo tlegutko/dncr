@@ -14,6 +14,14 @@
   }
 }
 
+.btn {
+  padding: 0.3rem 0.62rem 0.35rem 0.72rem;
+
+  &.cancel {
+    margin-right: 1rem;
+  }
+}
+
 .title {
   i {
     vertical-align: middle;

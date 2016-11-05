@@ -7,7 +7,7 @@
     <dt class="col-xs-6">Sposób płatności</dt>
     <dd class="col-xs-6">{{ method.name }}</dd>
     <dt class="col-xs-6">Osoba płacąca</dt>
-    <dd class="col-xs-6">{{ person.name }} {{ person.surname }}</dd>
+    <dd class="col-xs-6">{{ attendee.name }} {{ attendee.surname }}</dd>
     <dt class="col-xs-6">Kwota</dt>
     <dd class="col-xs-6">{{ course.price }}</dd>
     <dt class="col-xs-6" *ngIf="method.deposit > 0">Kaucja</dt>

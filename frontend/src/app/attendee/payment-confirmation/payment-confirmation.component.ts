@@ -13,7 +13,7 @@ import { Course, PaymentMethod } from 'app/course';
 export class PaymentConfirmationComponent {
   @Input() method: PaymentMethod;
   @Input() course: Course;
-  @Input() person: Attendee;
+  @Input() attendee: Attendee;
 
   constructor(private modal: NgbActiveModal) {
   }

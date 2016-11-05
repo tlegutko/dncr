@@ -1,5 +1,5 @@
 <div ngbDropdown [autoClose]="true" #dropdown="ngbDropdown">
-  <button type="button" class="btn" id="attendee-action-menu" ngbDropdownToggle>
+  <button type="button" class="btn" id="attendee-action-menu" (click)="$event.stopPropagation(); dropdown.toggle();">
     <i class="fa fa-plus fa-2x" *ngIf="!dropdown.isOpen()"></i>
     <i class="fa fa-times fa-2x" *ngIf="dropdown.isOpen()"></i>
   </button>
