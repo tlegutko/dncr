@@ -4,7 +4,7 @@ import { AuthHttp as BasicAuthHttp, AuthConfig } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
 import { AuthService } from './auth.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @Injectable()
 export class AuthHttp extends BasicAuthHttp {
@@ -20,6 +20,7 @@ export class AuthHttp extends BasicAuthHttp {
           AuthService.clear();
         }
         if (response.status === 500) {
+          this.notifications.error('Błąd', 'Wystąpił błąd serwera.');
           console.error(response);
         }
         return Observable.throw(response);

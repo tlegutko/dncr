@@ -14,7 +14,7 @@ import { AuthService } from 'app/_commons/auth';
   }
 )
 export class App {
-  public options = {
+  public notificationsOptions = {
     position: ['top', 'right'],
     timeOut: 3000,
     lastOnBottom: false

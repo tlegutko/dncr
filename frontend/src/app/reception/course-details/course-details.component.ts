@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Attendee, AttendeeService, PaymentConfirmation } from 'app/attendee';
 import { Course, PaymentMethod, PaymentMethodsService } from 'app/course';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @Component(
   {
@@ -19,7 +19,7 @@ export class CourseDetailsComponent {
   error = '';
 
   constructor(
-    private route: ActivatedRoute, private attendeeService: AttendeeService,
+    private route: ActivatedRoute, private router: Router, private attendeeService: AttendeeService,
     private paymentService: PaymentMethodsService, private notifications: NotificationsService
   ) {
     route.data.forEach(
@@ -49,6 +49,10 @@ export class CourseDetailsComponent {
 
   public hideCreateForm() {
     this.isCreateFormVisible = false;
+  }
+
+  public close() {
+    this.router.navigate(['/reception']);
   }
 
   private getAttendees(course: Course) {
