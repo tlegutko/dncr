@@ -31,7 +31,7 @@ export class AttendeeRowComponent {
       }
     );
     modal.componentInstance.method = method;
-    modal.componentInstance.attendee = this.attendee;
+    modal.componentInstance.person = this.attendee;
     modal.componentInstance.course = this.course;
     modal.result.then(
       () => {
