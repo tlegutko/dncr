@@ -49,18 +49,11 @@ export class CoursesService {
       .catch(() => Observable.throw('Błąd pobierania kursu.'));
   }
 
-  public getAttendees(courseId: number): Observable<Attendee[]> {
-    let url = `api/courses/${courseId}/attendees`;
-    return this.http.get(url)
-      .map((response: Response) => response.json())
-      .catch(() => Observable.throw('Błąd pobierania kursantów.'));
-  }
-
   public create(course: Course): Observable<Course> {
     let url = `api/courses`;
     return this.http.post(url, course)
-      .map((response) => response.json())
-      .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
+      .map((response: Response) => response.json() as Course)
+      .do((result: Course) => this.courseCreatedSource.next(result))
       .catch(
         (response) => {
           if (response.status === 500) {
