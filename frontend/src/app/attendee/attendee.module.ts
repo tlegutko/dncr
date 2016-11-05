@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { RouterModule } from '@angular/router';
 import { AttendeeRowComponent } from './attendee-row/attendee-row.component';
@@ -14,7 +14,7 @@ import { AttendeeResolve } from './attendee-resolve';
       AttendeeRowComponent, CreateAttendeeComponent
     ],
     imports: [
-      BrowserModule, FormsModule, CommonsModule, RouterModule
+      CommonModule, FormsModule, CommonsModule, RouterModule
     ],
     exports: [
       AttendeeRowComponent, CreateAttendeeComponent

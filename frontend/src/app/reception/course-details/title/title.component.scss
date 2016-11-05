@@ -3,31 +3,46 @@
 @import '~bootstrap/scss/mixins/_clearfix';
 
 :host {
-  display: block;
+  display: flex;
   position: relative;
   padding: 0.2em;
 }
 
-div {
-  display: flex;
-  align-items: center;
+.btn {
+  padding: 0.3rem 0.62rem 0.35rem 0.72rem;
+
+  &.cancel {
+    margin-right: 1rem;
+  }
 }
 
-.btn.save {
-  margin-left: auto;
-}
+.title {
+  flex-grow: 1;
 
-i.fa-users {
-  margin-left: 0.5rem;
-}
+  &.editing {
+    i {
+      display: none;
 
-span {
-  margin-right: 0.5rem;
-}
+      @media (min-width: breakpoint-min(lg)) {
+        display: inline-block;
+      }
+    }
+  }
 
-h5 {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 0 0 0.5rem;
-  padding: 7px 0 0;
+  i {
+    display: none;
+    vertical-align: middle;
+
+    @media (min-width: breakpoint-min(lg)) {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+  }
+
+  h5 {
+    display: inline-block;
+    vertical-align: sub;
+    margin: 0;
+    padding-top: 5px;
+  }
 }

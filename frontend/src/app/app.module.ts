@@ -5,13 +5,14 @@ import { HttpModule, XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { CommonsModule } from './_commons/commons.module';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { NoContent } from './no-content';
-import { Homepage, HomepageGuard } from './homepage';
+import { Homepage, HomepageGuard, LoginComponent } from './homepage';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -25,10 +26,15 @@ const APP_PROVIDERS = [
   {
     bootstrap: [App],
     declarations: [
-      App, Homepage, NoContent
+      App, Homepage, NoContent, LoginComponent
     ],
     imports: [
-      BrowserModule, FormsModule, HttpModule, CommonsModule, RouterModule.forRoot(ROUTES, { useHash: false })
+      BrowserModule,
+      FormsModule,
+      HttpModule,
+      CommonsModule,
+      RouterModule.forRoot(ROUTES, { useHash: false }),
+      SimpleNotificationsModule
     ],
     providers: [
       ENV_PROVIDERS, APP_PROVIDERS

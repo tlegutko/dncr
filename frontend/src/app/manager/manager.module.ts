@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ManagerComponent } from './manager.component';
 import { ManagerCoursesComponent } from './courses/courses.component';
 import { ManagerInstructorsComponent } from './instructors/instructors.component';
@@ -88,7 +88,7 @@ export const routes = [
       CreateCoursePropertiesComponent
     ],
     imports: [
-      BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
+      CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
     ],
     providers: [
       InstructorsService, LocationsService

@@ -6,5 +6,6 @@
 *.woff
 *.woff2
 assets/
+webpack-assets.json
 index.css
 index.html
