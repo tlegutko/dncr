@@ -17,6 +17,7 @@
 .btn {
   position: absolute;
   top: 2px;
+  padding: 0.3rem 0.62rem 0.35rem 0.72rem;
 
   &.cancel {
     left: 2px;
@@ -41,13 +42,15 @@
       padding-left: 0;
       text-align: left;
     }
+    h5 {
+      vertical-align: baseline;
+    }
   }
 
   h5 {
     display: inline-block;
     vertical-align: sub;
     margin: 0;
-    padding: 7px 0 0;
   }
 
   @media (min-width: breakpoint-min(lg)) {

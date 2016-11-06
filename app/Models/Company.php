@@ -20,6 +20,14 @@ class Company extends Model
   ];
 
   /**
+   * @return User[]
+   */
+  public function users()
+  {
+    return $this->hasMany(User::class);
+  }
+
+  /**
    * @return Course[]
    */
   public function courses()

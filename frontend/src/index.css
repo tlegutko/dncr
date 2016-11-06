@@ -13,3 +13,8 @@ app > span.loader {
 html, body {
   height: 100%;
 }
+
+/* Firefox required input workaround */
+input:invalid {
+ box-shadow: none;
+}
