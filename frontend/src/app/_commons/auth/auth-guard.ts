@@ -5,20 +5,17 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router) {
   }
 
   canActivate(): Observable<boolean> {
-    let check = this.authService.check();
-    check.subscribe(
-      (result) => {
-        if (!result) {
-          // TODO: Add "login required" message ;)
-          this.router.navigate(['/']);
-        }
-      }
-    );
+    let isLoggedIn = AuthService.isLoggedIn();
 
-    return check;
+    if (!isLoggedIn){
+      // TODO: Add "login required" message ;)
+      this.router.navigate(['/']);
+    }
+
+    return Observable.of(isLoggedIn);
   }
 }

@@ -2,6 +2,7 @@
 
 Route::post('authorize', 'Auth\AuthController@login');
 Route::post('logout', 'Auth\AuthController@logout')->middleware('auth');
+Route::post('refresh-token', 'Auth\AuthController@refresh')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function(){
   // Attendees
@@ -22,11 +23,17 @@ Route::group(['middleware' => 'auth'], function(){
   Route::get('courses', 'CoursesController@index');
   Route::post('courses', 'CoursesController@store');
   Route::get('courses/{id}', 'CoursesController@show');
-  Route::get('courses/{id}/attendees', 'CoursesController@attendees');
+  Route::get('courses/{id}/attendees', 'Courses\AttendeesController@index');
 
   // Locations
   Route::get('locations', 'LocationsController@index');
 
   // Mails
   Route::post('mail', 'MailController@send');
+
+  // Payment methods
+  Route::get('payment-methods', 'PaymentMethodsController@index');
+
+  // Payment
+  Route::post('courses/{id}/pay', 'Courses\PaymentController@store');
 });

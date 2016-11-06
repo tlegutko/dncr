@@ -1,0 +1,22 @@
+<div class="attendee">
+  <input type="checkbox" value="" *ngIf="checkable">
+  <span class="name">{{ attendee.name }} {{ attendee.surname }}</span>
+  <span class="float-xs-right btn-group">
+    <button class="btn btn-secondary btn-sm" *ngIf="paymentMethods.length > 0 && !showPaymentForm"
+            (click)="showPayment()">
+      <i class="fa fa-fw fa-usd"></i>
+    </button>
+    <button class="btn btn-secondary btn-sm" *ngIf="showPaymentForm" (click)="hidePayment()">
+      <i class="fa fa-fw fa-times"></i>
+    </button>
+    <a class="btn btn-secondary btn-sm" [routerLink]="detailsRoute"><i class="fa fa-eye"></i></a>
+  </span>
+</div>
+<div class="payment" *ngIf="showPaymentForm">
+  <span class="title">Wybierz sposób płatności:</span>
+  <span class="float-xs-right btn-group">
+    <button class="btn btn-secondary btn-sm" *ngFor="let method of paymentMethods" (click)="payUsing(method)">
+      {{ method.name }}
+    </button>
+  </span>
+</div>

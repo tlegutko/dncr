@@ -1,14 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReceptionComponent } from './reception.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsTitleComponent } from './course-details/title/title.component';
 import { ReceptionCalendarComponent } from './reception-calendar/reception-calendar.component';
 import { CommonsModule } from 'app/_commons/commons.module';
-import { AttendeeModule } from 'app/attendee';
-import { CourseModule, CourseResolve } from 'app/course';
+import { AttendeeModule, AttendeeResolve } from 'app/attendee';
+import { CourseModule, CourseResolve, PaymentMethodsResolve } from 'app/course';
+import { AttendeeDetailsComponent } from './attendee-details/attendee-details.component';
+import { AttendeeDetailsTitleComponent } from './attendee-details/title/title.component';
+import { AttendeeActionButtonComponent } from './attendee-details/action-button';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -19,10 +23,18 @@ export const routes = [
       {
         path: ''
       }, {
-        path: 'course-details/:id',
+        path: 'course-details/:course-id',
         component: CourseDetailsComponent,
         resolve: {
-          course: CourseResolve
+          course: CourseResolve,
+          methods: PaymentMethodsResolve
+        }
+      }, {
+        path: 'course-details/:course-id/attendee/:attendee-id',
+        component: AttendeeDetailsComponent,
+        resolve: {
+          course: CourseResolve,
+          attendee: AttendeeResolve
         }
       }
     ]
@@ -35,10 +47,14 @@ export const routes = [
       // Components / Directives/ Pipes
       ReceptionComponent,
       CourseDetailsComponent,
-      CourseDetailsTitleComponent, ReceptionCalendarComponent
+      CourseDetailsTitleComponent,
+      ReceptionCalendarComponent,
+      AttendeeDetailsComponent,
+      AttendeeDetailsTitleComponent,
+      AttendeeActionButtonComponent
     ],
     imports: [
-      BrowserModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
+      CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule, NgbModule
     ]
   }
 )

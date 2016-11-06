@@ -1,0 +1,15 @@
+.modal-header h4 {
+  text-align: center;
+}
+.modal-body {
+  > p {
+    text-align: center;
+  }
+  dt.col-xs-6 {
+    text-align: right;
+  }
+}
+.modal-footer .btn {
+  display: inline-block;
+  width: calc(50% - 2px); // This subtraction is for button borders
+}

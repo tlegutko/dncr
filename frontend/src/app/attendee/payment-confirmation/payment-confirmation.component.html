@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Potwierdź płatność</h4>
+</div>
+<div class="modal-body">
+  <p>Czy potwierdzasz płatność za kurs <strong>{{ course.name }}</strong>?</p>
+  <dl class="row">
+    <dt class="col-xs-6">Sposób płatności</dt>
+    <dd class="col-xs-6">{{ method.name }}</dd>
+    <dt class="col-xs-6">Osoba płacąca</dt>
+    <dd class="col-xs-6">{{ attendee.name }} {{ attendee.surname }}</dd>
+    <dt class="col-xs-6">Kwota</dt>
+    <dd class="col-xs-6">{{ course.price }}</dd>
+    <dt class="col-xs-6" *ngIf="method.deposit > 0">Kaucja</dt>
+    <dd class="col-xs-6" *ngIf="method.deposit > 0">{{ method.deposit }}</dd>
+  </dl>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">Nie</button>
+  <button type="button" class="btn btn-primary" (click)="confirm()">Tak</button>
+</div>

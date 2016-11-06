@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
+import { Http } from '@angular/http';
+import { AuthConfig } from 'angular2-jwt';
 import { FormField } from './form-field';
 import { CalendarComponent } from './calendar';
 import { AddItemButtonComponent } from './add-item-button';
-import { AuthService, AuthGuard } from './auth';
+import { AuthHttp, AuthService, AuthGuard } from './auth';
 import { LabelledFormField } from './labelled-form-field';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @NgModule(
   {
@@ -14,10 +17,23 @@ import { LabelledFormField } from './labelled-form-field';
       FormField, LabelledFormField, CalendarComponent, AddItemButtonComponent
     ],
     imports: [
-      BrowserModule, FormsModule, ScheduleModule
+      CommonModule, FormsModule, ScheduleModule
     ],
     providers: [
-      AuthService, AuthGuard
+      AuthService, AuthGuard, {
+        provide: AuthHttp,
+        useFactory: (notifications, http) => {
+          return new AuthHttp(
+            notifications, new AuthConfig(
+              {
+                globalHeaders: [{ 'Content-Type': 'application/json' }, { 'Accept': 'application/json' }],
+                noJwtError: true
+              }
+            ), http
+          );
+        },
+        deps: [NotificationsService, Http]
+      }
     ],
     exports: [
       FormField, LabelledFormField, CalendarComponent, AddItemButtonComponent

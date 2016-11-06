@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CourseTime extends Model
 {
@@ -17,17 +20,17 @@ class CourseTime extends Model
     'repeat_weeks_count',
   ];
 
-  public function course()
+  public function course(): BelongsTo
   {
     return $this->belongsTo(Course::class);
   }
 
-  public function location()
+  public function location(): HasOne
   {
     return $this->hasOne(Location::class, 'id', 'location_id');
   }
 
-  public function events()
+  public function events(): HasMany
   {
     return $this->hasMany(CourseEvent::class);
   }

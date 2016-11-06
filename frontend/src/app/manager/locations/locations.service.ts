@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import { CourseLocation } from './locations.model';
+import { AuthHttp } from 'app/_commons/auth';
 
 @Injectable()
 export class LocationsService {
@@ -13,6 +13,6 @@ export class LocationsService {
     let url = 'api/locations';
     return this.http.get(url)
       .map((response) => response.json())
-      .catch((response) => Observable.throw('Błąd pobierania sal.'));
+      .catch(() => Observable.throw('Błąd pobierania sal.'));
   }
 }
