@@ -15,11 +15,13 @@ class CoursesTableSeeder extends Seeder
     $company = DB::table('companies')->where('name', '=', 'Firma 1')->first();
     /** @var stdClass $location */
     $location = DB::table('locations')->where('name', '=', 'Lokacja 1')->first();
+    /** @var stdClass $instructor */
+    $instructor = DB::table('users')->where('email', '=', 'jan@kowalski.com')->first();
 
-    $this->addFirstCourse($company, $location);
+    $this->addFirstCourse($company, $location, $instructor);
   }
 
-  private function addFirstCourse(stdClass $company, stdClass $location)
+  private function addFirstCourse(stdClass $company, stdClass $location, stdClass $instructor)
   {
     $courseId = DB::table('courses')->insertGetId([
                                                     'company_id' => $company->id,
@@ -45,6 +47,10 @@ class CoursesTableSeeder extends Seeder
                                          'course_time_id' => $timeId,
                                          'date' => $date->add(new DateInterval('P7D')),
                                        ]);
+    DB::table('course_time_instructor')->insert([
+                                                    'course_time_id' => $timeId,
+                                                    'instructor_id' => $instructor->id,
+                                                  ]);
     $date = (new DateTime())->add(new DateInterval('P2D'));
     $timeId = DB::table('course_times')->insertGetId([
                                                        'course_id' => $courseId,
@@ -62,5 +68,9 @@ class CoursesTableSeeder extends Seeder
                                          'course_time_id' => $timeId,
                                          'date' => $date->add(new DateInterval('P7D')),
                                        ]);
+    DB::table('course_time_instructor')->insert([
+                                                    'course_time_id' => $timeId,
+                                                    'instructor_id' => $instructor->id,
+                                                  ]);
   }
 }

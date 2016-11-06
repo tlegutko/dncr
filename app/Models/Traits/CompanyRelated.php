@@ -15,7 +15,6 @@ trait CompanyRelated
 
     static::creating(function(Model $model)
     {
-      static::$user;
       $model->company_id = JWTAuth::parseToken()->authenticate()->company->id;
     });
   }

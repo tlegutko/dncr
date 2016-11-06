@@ -12,15 +12,20 @@ class LocationsTableSeeder extends Seeder
   public function run()
   {
     /** @var stdClass $company */
-    $company = DB::table('companies')->where('name', '=', 'Firma 1')->first();
+    $company1 = DB::table('companies')->where('name', '=', 'Firma 1')->first();
+    $company2 = DB::table('companies')->where('name', '=', 'Firma 2')->first();
 
     DB::table('locations')->insert([
-                                     'company_id' => $company->id,
+                                     'company_id' => $company1->id,
                                      'name' => 'Lokacja 1',
                                    ]);
     DB::table('locations')->insert([
-                                     'company_id' => $company->id,
+                                     'company_id' => $company1->id,
                                      'name' => 'Lokacja 2',
+                                   ]);
+    DB::table('locations')->insert([
+                                     'company_id' => $company2->id,
+                                     'name' => 'Lokacja Y',
                                    ]);
   }
 }

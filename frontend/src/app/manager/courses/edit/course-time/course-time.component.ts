@@ -1,6 +1,7 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CourseTime, CourseTimeErrors } from '../../../../course/course.model';
 import { CourseLocation } from '../../../locations/locations.model';
+import { Instructor } from '../../../instructors/instructor';
 
 @Component(
   {
@@ -11,9 +12,8 @@ import { CourseLocation } from '../../../locations/locations.model';
   }
 )
 export class CourseTimeComponent {
-
-  @Input() model: CourseTime = new CourseTime();
+  @Input() model: CourseTime;
   @Input() errors: CourseTimeErrors;
   @Input() locations: CourseLocation[];
-
+  @Input() instructors: Instructor[];
 }

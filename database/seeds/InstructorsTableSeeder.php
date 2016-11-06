@@ -22,6 +22,13 @@ class InstructorsTableSeeder extends Seeder
                                    'type' => User::TYPE_INSTRUCTOR,
                                  ]);
     factory(User::class)->create([
+                                   'name' => 'Grzegorz',
+                                   'surname' => 'Grzejszczak',
+                                   'email' => 'grzegorz@grzejszczak.com',
+                                   'company_id' => Company::where('name', 'Firma 1')->first()->id,
+                                   'type' => User::TYPE_INSTRUCTOR,
+                                 ]);
+    factory(User::class)->create([
                                    'name' => 'Michał',
                                    'surname' => 'Nowak',
                                    'email' => 'michał@nowak.com',

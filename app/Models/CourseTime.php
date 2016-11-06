@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CourseTime extends Model
 {
@@ -30,5 +31,10 @@ class CourseTime extends Model
   public function events()
   {
     return $this->hasMany(CourseEvent::class);
+  }
+
+  public function instructors(): BelongsToMany
+  {
+    return $this->belongsToMany(Instructor::class);
   }
 }

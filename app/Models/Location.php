@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\CompanyRelated;
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-  use ModelCamelCaseConverter;
+  use ModelCamelCaseConverter, CompanyRelated;
 
   protected $fillable = [
     'name',

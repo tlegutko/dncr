@@ -25,7 +25,7 @@ class CoursesController extends Controller
 
   public function index()
   {
-    $courses = Course::with('times.events')->get();
+    $courses = Course::with('times.events', 'times.instructors')->get();
 
     return response()->json($courses);
   }
@@ -37,19 +37,17 @@ class CoursesController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreCourseRequest $request) // TODO StoreCourseRequest
+  public function store(StoreCourseRequest $request)
   {
     $course = DB::transaction(function() use ($request)
     {
-
       $course = Course::create($this->extractCourseData($request));
-
       foreach($request->input()['times'] as $courseTimeData)
       {
         $courseTime = $course->times()->create($this->extractCourseTimeData($courseTimeData));
+        $courseTime->instructors()->sync($this->extractInstructorIds($courseTimeData));
         $startDate = new DateTime($courseTime->start_date);
         $step = $courseTime->repeat_weeks_count;
-
         foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
         {
           $startDateCopy = clone($startDate);
@@ -61,7 +59,7 @@ class CoursesController extends Controller
       return $course;
     });
 
-    $course->load('times.events');
+    $course->load('times.events', 'times.instructors');
 
     return response()->json($course);
   }
@@ -76,6 +74,7 @@ class CoursesController extends Controller
       foreach($request->input()['times'] as $courseTimeData)
       {
         $courseTime = CourseTime::findOrFail($courseTimeData['id']);
+        $courseTime->instructors()->sync($this->extractInstructorIds($courseTimeData));
         $courseTime->update($this->extractCourseTimeData($courseTimeData));
 
         foreach($courseTimeData['events'] as $courseEventData)
@@ -88,14 +87,14 @@ class CoursesController extends Controller
       return $course;
     });
 
-    $course->load('times.events');
+    $course->load('times.events', 'times.instructors');
 
     return response()->json($course);
   }
 
   public function show(int $id)
   {
-    $course = Course::with('times.events')->findOrFail($id);
+    $course = Course::with('times.events', 'times.instructors')->findOrFail($id);
 
     return response()->json($course);
   }
@@ -109,12 +108,11 @@ class CoursesController extends Controller
 
   private function extractCourseData(Request $request) : array
   {
-    // TODO remove mock company_id below and inject real one once DNCR-92 is merged
     return $request->only('name',
                           'price',
                           'classes_count',
                           'description',
-                          'seats_count') + ['company_id' => 1];
+                          'seats_count');
   }
 
   private function extractCourseTimeData(array $courseTimeData): array
@@ -128,5 +126,14 @@ class CoursesController extends Controller
     ];
 
     return array_only($courseTimeData, $attributes);
+  }
+
+  private function extractInstructorIds(array $courseTimeData): array
+  {
+    return array_map(function($instructor)
+    {
+      return $instructor['id'];
+    },
+      $courseTimeData['instructors']);
   }
 }

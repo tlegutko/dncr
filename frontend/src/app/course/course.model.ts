@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { Response } from '@angular/http';
+import { Instructor } from '../manager/instructors/instructor';
 
 export class Course {
 
@@ -10,7 +11,6 @@ export class Course {
   price: number;
   classesCount: number;
   seatsCount: number;
-  instructorId: number;
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -30,7 +30,6 @@ export class Course {
     c.classesCount = 1;
     c.seatsCount = 1;
     c.description = 'najlepszy kurs';
-    c.instructorId = 1;
 
     let ct = new CourseTime();
     ct.startDate = '2016-10-26';
@@ -38,6 +37,8 @@ export class Course {
     ct.endTime = '12:00';
     ct.repeatWeeksCount = 1;
     ct.locationId = 1;
+    ct.instructors = [new Instructor()];
+    ct.instructors[0].id = 3;
     c.times = [ct];
 
     return c;
@@ -45,7 +46,6 @@ export class Course {
 
   constructor(id?: number) {
     this.id = id;
-    this.times = [];
   }
 
 }
@@ -58,6 +58,7 @@ export class CourseTime {
   id: number;
   courseId: number;
   locationId: number;
+  instructors: Instructor[];
   startDate: string;
   startTime: string;
   endTime: string;
@@ -90,13 +91,12 @@ export class CourseTime {
 
 }
 
-export class CourseEvent  {
+export class CourseEvent {
   id: number;
   courseTimeId: number;
   date: string;
   createdAt: string;
   updatedAt: string;
-
 }
 
 export class CreateCourseTime {
@@ -109,7 +109,6 @@ export class CreateCourseTime {
     this.startTime = clickedTime.format(CourseTime.timeFormat);
     this.endTime = clickedTime.clone().add(1, 'hours').format(CourseTime.timeFormat);
   }
-
 }
 
 export class CourseErrors {
@@ -118,12 +117,12 @@ export class CourseErrors {
   classesCount?: string[];
   seatsCount?: string[];
   description?: string[];
-  instructorId?: string[];
   times?: CourseTimeErrors[] = [];
 }
 
 export class CourseTimeErrors {
   locationId?: string[];
+  instructors?: InstructorErrors[] = [new InstructorErrors()];
   startDate?: string[];
   startTime?: string[];
   endTime?: string[];
@@ -133,4 +132,8 @@ export class CourseTimeErrors {
 
 export class CourseEventErrors {
   date?: string[];
+}
+
+export class InstructorErrors {
+  id?: string[];
 }

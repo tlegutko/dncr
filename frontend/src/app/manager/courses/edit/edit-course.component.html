@@ -10,5 +10,5 @@
   </div>
 </div>
 <course-time *ngFor="let time of model.times; let i=index" [model]="time" [errors]="errors.times[i]"
-             [locations]="locations"></course-time>
+             [locations]="locations" [instructors]="instructors"></course-time>
 <course-properties [model]="model" [errors]="errors"></course-properties>

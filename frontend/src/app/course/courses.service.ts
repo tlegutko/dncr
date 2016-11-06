@@ -61,24 +61,15 @@ export class CoursesService {
     return this.http.post(url, course)
       .map(Course.parseRequest)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      .catch(
-        (response) => {
-          if (response.status === 500) {
-            return Observable.throw('Błąd serwera');
-          } else {
-            return Observable.throw(response.json());
-          }
-        }
-      );
+      .catch((response: Response) => Observable.throw(response.json()));
   }
 
   public updateAll(course: Course): Observable<Course> {
     let url = `api/courses/${course.id}/all`;
-    console.log(course);
     return this.http.put(url, course)
       .map(Course.parseRequest)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      .catch(response => Observable.throw(response.json()));
+      .catch((response: Response) => Observable.throw(response.json()));
   }
 
   private mapCoursesToEvents(courses: Course[]): CalendarItem[] {

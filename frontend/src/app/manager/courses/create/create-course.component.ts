@@ -21,6 +21,7 @@ export class CreateCourseComponent implements OnInit {
   @ViewChild(EditCourseComponent) editComponent: EditCourseComponent;
 
   constructor(private router: Router, private coursesService: CoursesService) {
+    this.model = Course.mock();
   }
 
   public ngOnInit() {
