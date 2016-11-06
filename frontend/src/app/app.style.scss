@@ -4,10 +4,17 @@
 :host {
   display: block;
   height: 100%;
+}
 
-  // Firefox required input workaround
-  input:invalid {
-    box-shadow: none;
+:host /deep/ simple-notifications .simple-notification-wrapper {
+  z-index: 1100;
+
+  &.top {
+    top: 4rem;
+
+    @media (min-width: breakpoint-min(md)) {
+      width: 400px;
+    }
   }
 }
 

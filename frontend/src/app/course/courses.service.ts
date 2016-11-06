@@ -59,7 +59,7 @@ export class CoursesService {
   public create(createCourseRequest: CreateCourseRequest): Observable<Course> {
     let url = `api/courses`;
     return this.http.post(url, createCourseRequest)
-      .map((response: Response) => response.json())
+      .map((response: Response) => response.json() as Course)
       .do((course) => this.courseCreatedSource.next(course))
       .catch(
         (response) => {
