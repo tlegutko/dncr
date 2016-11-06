@@ -24,7 +24,6 @@ class MailRequest extends Request
   public function rules()
   {
     return [
-      'course_id' => 'required',
       'title' => 'required',
       'message' => 'required',
     ];
@@ -33,7 +32,6 @@ class MailRequest extends Request
   public function attributes()
   {
     return [
-      'course_id' => 'id kursu',
       'title' => 'tytuł',
       'message' => 'treść',
     ];

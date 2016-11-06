@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-
-  public function __construct()
-  {
-    $this->middleware('api');
-  }
-
   /**
    * Send the given mail.
    *
@@ -24,9 +18,9 @@ class MailController extends Controller
    *
    * @return Response
    */
-  public function send(MailRequest $request)
+  public function send($id, MailRequest $request)
   {
-    $attendeeMails = Attendee::query()->where('course_id', '=', $request->course_id)->select('email')->get();
+    $attendeeMails = Attendee::query()->where('course_id', '=', $id)->select('email')->get();
 
     Mail::send(new PlaintextMail($request->title, $request->message, $attendeeMails));
   }

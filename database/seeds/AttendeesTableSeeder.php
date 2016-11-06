@@ -18,7 +18,7 @@ class AttendeesTableSeeder extends Seeder
                                      'course_id' => $course->id,
                                      'name' => 'Bartosz',
                                      'surname' => 'Rakoczy',
-                                     'email' => 'bartosz.rakoczy@gmail.com',
+                                     'email' => 'brakoczy@dncr.pl',
                                      'phone_number' => '123456789',
                                    ]);
     DB::table('attendees')->insert([
