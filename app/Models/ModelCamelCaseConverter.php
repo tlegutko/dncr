@@ -8,35 +8,45 @@ trait ModelCamelCaseConverter
 {
   public function fill(array $attributes)
   {
-    // Convert keys from camelCase to snake_case
-    $results = $this->convertRecursive($attributes, $this->convertingFunction('normalize'));
-
     /** @noinspection PhpUndefinedClassInspection */
-    return parent::fill($results);
+    return parent::fill($this->normalize($attributes));
+  }
+
+  private function normalize(array $source)
+  {
+    $normalizer = new CamelCaseToSnakeCaseNameConverter();
+    $result = [];
+
+    foreach ($source as $key => $value)
+    {
+      if (is_array($value))
+      {
+        $value = $this->normalize($value);
+      }
+
+      $result[$normalizer->normalize($key)] = $value;
+    }
+
+    return $result;
   }
 
   public function toArray()
   {
     // Convert keys from snake_case to camelCase
     /** @noinspection PhpUndefinedClassInspection */
-    return $this->convertRecursive(parent::toArray(), $this->convertingFunction('denormalize'));
+    return $this->denormalize(parent::toArray());
   }
 
-  private function convertingFunction(string $functionName) : callable
+  private function denormalize(array $source)
   {
-    return [
-      new CamelCaseToSnakeCaseNameConverter(),
-      $functionName,
-    ];
-  }
+    $normalizer = new CamelCaseToSnakeCaseNameConverter();
+    $result = [];
 
-  private function convertRecursive(array $arr, callable $convertingFun): array
-  {
-    return collect($arr)->mapWithKeys(function($item, $key) use ($convertingFun)
+    foreach ($source as $key => $value)
     {
-      $newItem = is_array($item) ? $this->convertRecursive($item, $convertingFun) : $item;
+      $result[$normalizer->denormalize($key)] = $value;
+    }
 
-      return [$convertingFun($key) => $newItem];
-    })->toArray();
+    return $result;
   }
 }

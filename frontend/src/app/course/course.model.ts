@@ -1,9 +1,6 @@
-import * as moment from 'moment';
 import { Moment } from 'moment';
-import { Response } from '@angular/http';
 
 export class Course {
-
   id: number;
   companyId: number;
   name: string;
@@ -14,57 +11,49 @@ export class Course {
   description: string;
   createdAt: string;
   updatedAt: string;
-  times: CourseTime[];
-
-  static parseRequest(response: Response): Course {
-    let course: Course = response.json();
-    course.times = course.times.map(CourseTime.changeTimeFormat);
-    return course;
-  }
+  times: CourseTime[] = [new CourseTime()];
 
   static mock(): Course { // useful for manual testing, don't delete!
-
-    let c = new Course();
-    c.name = 'Salsa (początkujący)';
-    c.price = 60.00;
-    c.classesCount = 1;
-    c.seatsCount = 1;
-    c.description = 'najlepszy kurs';
-    c.instructorId = 1;
-
-    let ct = new CourseTime();
-    ct.startDate = '2016-10-26';
-    ct.startTime = '11:00=';
-    ct.endTime = '12:00';
-    ct.repeatWeeksCount = 1;
-    ct.locationId = 1;
-    c.times = [ct];
-
-    return c;
+    return new Course({
+      id: 1,
+      companyId: 1,
+      name: 'Salsa (początkujący)',
+      price: 60.00,
+      classesCount: 1,
+      seatsCount: 1,
+      instructorId: 1,
+      description: 'Najlepszy kurs',
+      times: [new CourseTime({
+        startDate: '2016-10-26',
+        startTime: '11:00',
+        endTime: '12:00',
+        repeatWeeksCount: 1,
+        locationId: 1
+      })]
+    });
   }
 
-  constructor(id?: number) {
-    this.id = id;
+  constructor(fields?: {
+    id?: number,
+    companyId?: number,
+    name?: string,
+    price?: number,
+    classesCount?: number,
+    seatsCount?: number,
+    instructorId?: number,
+    description?: string,
+    times?: CourseTime[]
+  }) {
+    if (fields) {
+      Object.assign(this, fields);
+    }
   }
 
-  setDefaultRepeatWeeksCount() {
-    this.checkIfInitialized();
-    this.times[0].repeatWeeksCount = 1;
-  }
-
-  setTime(courseTime: CreateCourseTime) {
-    this.checkIfInitialized();
+  public setTime(courseTime: CreateCourseTime) {
     this.times[0].startDate = courseTime.startDate;
     this.times[0].startTime = courseTime.startTime;
     this.times[0].endTime = courseTime.endTime;
   }
-
-  private checkIfInitialized() {
-    if (this.times == null || this.times[0] == null) {
-      this.times = [new CourseTime()];
-    }
-  }
-
 }
 
 export class CourseTime {
@@ -78,30 +67,33 @@ export class CourseTime {
   startDate: string;
   startTime: string;
   endTime: string;
-  repeatWeeksCount: number;
+  repeatWeeksCount: number = 1;
   events: CourseEvent[];
   createdAt: string;
   updatedAt: string;
 
-  static changeTimeFormat(ct: CourseTime): CourseTime {
-    ct.startTime = CourseTime.parseTime(ct.startTime);
-    ct.endTime = CourseTime.parseTime(ct.endTime);
-    return ct;
+  constructor(fields?: {
+    id?: number,
+    courseId?: number,
+    locationId?: number,
+    startDate?: string,
+    startTime?: string,
+    endTime?: string,
+    repeatWeeksCount?: number,
+    events?: CourseEvent[]
+  }) {
+    if (fields) {
+      Object.assign(this, fields);
+    }
   }
-
-  private static parseTime(time: string) {
-    return moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
-  }
-
 }
 
-export class CourseEvent  {
+export interface CourseEvent  {
   id: number;
   courseTimeId: number;
   date: string;
   createdAt: string;
   updatedAt: string;
-
 }
 
 export class CreateCourseTime {
@@ -114,7 +106,6 @@ export class CreateCourseTime {
     this.startTime = clickedTime.format(CourseTime.timeFormat);
     this.endTime = clickedTime.clone().add(1, 'hours').format(CourseTime.timeFormat);
   }
-
 }
 
 export class CourseErrors {
@@ -124,7 +115,22 @@ export class CourseErrors {
   seatsCount?: string[];
   description?: string[];
   instructorId?: string[];
-  times?: CourseTimeErrors[];
+  times?: CourseTimeErrors[] = [new CourseTimeErrors()];
+
+  public clear() {
+    this.name = undefined;
+    this.price = undefined;
+    this.classesCount = undefined;
+    this.seatsCount = undefined;
+    this.description = undefined;
+    this.instructorId = undefined;
+    this.times = [new CourseTimeErrors()];
+  }
+
+  public update(errors: CourseErrors) {
+    this.clear();
+    Object.assign(this, errors);
+  }
 }
 
 export class CourseTimeErrors {
@@ -133,7 +139,7 @@ export class CourseTimeErrors {
   startTime?: string[];
   endTime?: string[];
   repeatWeeksCount?: string[];
-  events?: CourseEventErrors[];
+  events?: CourseEventErrors[] = [];
 }
 
 export class CourseEventErrors {

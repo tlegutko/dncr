@@ -8,7 +8,6 @@ import { LocationsService } from '../../../locations/locations.service';
     selector: 'course-times',
     templateUrl: './course-times.component.html',
     styleUrls: ['./course-times.component.scss'],
-    encapsulation: ViewEncapsulation.None,
   }
 )
 export class CourseTimesComponent implements OnInit, OnChanges {

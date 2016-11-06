@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { CourseErrors, Course } from '../../../course/course.model';
+import { CourseErrors, Course } from 'app/course';
 
 @Component(
   {
     selector: 'edit-course',
     template: `
-      <hr/>
       <course-times [model]="model.times" [errors]="errors.times"></course-times>
       <hr/>
       <course-properties [model]="model" [errors]="errors"></course-properties>

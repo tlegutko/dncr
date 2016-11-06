@@ -9,33 +9,33 @@
   </div>
 </div>
 <labelled-form-field [errors]="errors[0].startDate" [for]="startDate" [label]="'Data'">
-  <p class="form-control-static">{{model[0].startDate}}</p>
+  <p class="form-control-static mb-0">{{model[0].startDate}}</p>
 </labelled-form-field>
 <labelled-form-field [errors]="errors[0].startTime" [for]="startTime" [label]="'Rozpoczęcie'">
-  <div class="input-group input-group-sm">
-    <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors[0].startTime"
+  <div class="input-group">
+    <input type="text" class="form-control" [class.form-control-danger]="errors[0].startTime"
            [(ngModel)]="model[0].startTime" name="startTime" id="startTime" required
            placeholder="Podaj datę rozpoczęcia ...">
     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors[0].endTime" [for]="endTime" [label]="'Zakończenie'">
-  <div class="input-group input-group-sm">
-    <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors[0].endTime"
+  <div class="input-group">
+    <input type="text" class="form-control" [class.form-control-danger]="errors[0].endTime"
            [(ngModel)]="model[0].endTime" name="endTime" id="endTime" required
            placeholder="Podaj datę zakończenia ...">
     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors[0].repeatWeeksCount" [for]="repeatWeeksCount" [label]="'Powtarzaj co'">
-  <div class="input-group input-group-sm">
-    <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors[0].repeatWeeksCount"
+  <div class="input-group">
+    <input type="number" class="form-control" [class.form-control-danger]="errors[0].repeatWeeksCount"
            [(ngModel)]="model[0].repeatWeeksCount" name="repeatWeeksCount" id="repeatWeeksCount" required>
     <span class="input-group-addon">tydzień</span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors[0].locationId" [for]="locationId" [label]="'Sala'">
-  <select class="form-control form-control-sm" [class.form-control-danger]="errors[0].locationId"
+  <select class="form-control" [class.form-control-danger]="errors[0].locationId"
           [(ngModel)]="model[0].locationId" name="locationId" id="locationId" required>
     <option *ngFor="let l of locations" [value]="l.id">{{l.name}}</option>
   </select>

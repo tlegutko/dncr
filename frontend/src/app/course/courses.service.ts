@@ -5,8 +5,7 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Course, CreateCourseTime } from './course.model';
-import { Attendee } from 'app/attendee';
+import { Course, CreateCourseTime, CourseTime } from './course.model';
 import { CalendarItem } from 'app/_commons/calendar';
 import { AuthHttp } from 'app/_commons/auth';
 
@@ -35,7 +34,10 @@ export class CoursesService {
     let url = 'api/courses';
     return this.http.get(url)
       .map((response: Response) => this.mapCoursesToEvents(response.json()))
-      .catch(() => Observable.throw('Błąd pobierania wydarzeń.'));
+      .catch((e) => {
+        console.error('Error during calendarEvents()', e);
+        return Observable.throw('Błąd pobierania wydarzeń.');
+      });
   }
 
   public broadcastCalendarDateClick(clickedTime: Moment) {
@@ -45,7 +47,7 @@ export class CoursesService {
   public get(id: number): Observable<Course> {
     let url = `api/courses/${id}`;
     return this.http.get(url)
-      .map(Course.parseRequest)
+      .map((response: Response) => this.mapToCourse(response))
       .catch(() => Observable.throw('Błąd pobierania kursu.'));
   }
 
@@ -63,6 +65,16 @@ export class CoursesService {
           }
         }
       );
+  }
+
+  private mapToCourse(response: Response): Course {
+    let course: Course = response.json();
+    let formatTime = (time) => moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
+    course.times.forEach((time: CourseTime) => {
+      time.startTime = formatTime(time.startTime);
+      time.endTime = formatTime(time.endTime);
+    });
+    return course;
   }
 
   private mapCoursesToEvents(courses: Course[]): CalendarItem[] {
