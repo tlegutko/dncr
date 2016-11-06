@@ -23,8 +23,14 @@ Route::group(['middleware' => 'auth'], function(){
   Route::get('courses', 'CoursesController@index');
   Route::post('courses', 'CoursesController@store');
   Route::get('courses/{id}', 'CoursesController@show');
-  Route::get('courses/{id}/attendees', 'CoursesController@attendees');
+  Route::get('courses/{id}/attendees', 'Courses\AttendeesController@index');
 
   // Locations
   Route::get('locations', 'LocationsController@index');
+
+  // Payment methods
+  Route::get('payment-methods', 'PaymentMethodsController@index');
+
+  // Payment
+  Route::post('courses/{id}/pay', 'Courses\PaymentController@store');
 });

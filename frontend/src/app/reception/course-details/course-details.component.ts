@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Attendee, AttendeeService, PaymentMethod, PaymentConfirmation } from 'app/attendee';
-import { Course } from 'app/course';
+import { Attendee, AttendeeService, PaymentConfirmation } from 'app/attendee';
+import { Course, PaymentMethod, PaymentsService } from 'app/course';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @Component(
   {
@@ -13,20 +14,18 @@ import { Course } from 'app/course';
 export class CourseDetailsComponent {
   public course: Course;
   public attendees: Attendee[];
-  public paymentMethods: PaymentMethod[] = [
-    {
-      label: 'Gotówka'
-    }, {
-      label: 'Benefit'
-    }
-  ];
+  public paymentMethods: PaymentMethod[];
   isCreateFormVisible = false;
   error = '';
 
-  constructor(private route: ActivatedRoute, private attendeeService: AttendeeService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute, private router: Router, private attendeeService: AttendeeService,
+    private paymentsService: PaymentsService, private notifications: NotificationsService
+  ) {
     route.data.forEach(
-      (data: { course: Course }) => {
+      (data: { course: Course, methods: PaymentMethod[] }) => {
         this.course = data.course;
+        this.paymentMethods = data.methods;
         this.getAttendees(this.course);
       }
     );
@@ -38,7 +37,10 @@ export class CourseDetailsComponent {
   }
 
   public confirmPayment(confirmation: PaymentConfirmation) {
-    console.log('confirmed', confirmation);
+    this.paymentsService.create(confirmation).subscribe(
+      () => this.notifications.success('Zapłacono!', 'Płatność została zapisana.'),
+      (error) => this.notifications.error('Błąd', 'Nie udało się zapisać płatności.')
+    );
   }
 
   public showCreateForm() {

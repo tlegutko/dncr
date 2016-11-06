@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
 {
@@ -22,7 +24,7 @@ class Company extends Model
   /**
    * @return Course[]
    */
-  public function courses()
+  public function courses(): HasMany
   {
     return $this->hasMany(Course::class);
   }
@@ -30,8 +32,13 @@ class Company extends Model
   /**
    * @return Location[]
    */
-  public function locations()
+  public function locations(): HasMany
   {
     return $this->hasMany(Location::class);
+  }
+
+  public function paymentTypes(): BelongsToMany
+  {
+    return $this->belongsToMany(PaymentType::class)->withPivot('deposit');
   }
 }

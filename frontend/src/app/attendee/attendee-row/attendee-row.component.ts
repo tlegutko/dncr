@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Course } from 'app/course';
-import { Attendee, PaymentMethod, PaymentConfirmation, PaymentConfirmationComponent } from 'app/attendee';
+import { Course, PaymentMethod } from 'app/course';
+import { Attendee, PaymentConfirmation, PaymentConfirmationComponent } from 'app/attendee';
 
 @Component(
   {
@@ -31,7 +31,7 @@ export class AttendeeRowComponent {
       }
     );
     modal.componentInstance.method = method;
-    modal.componentInstance.person = this.attendee;
+    modal.componentInstance.attendee = this.attendee;
     modal.componentInstance.course = this.course;
     modal.result.then(
       () => {
@@ -43,7 +43,8 @@ export class AttendeeRowComponent {
           }
         );
         this.hidePayment();
-      }, () => {}
+      },
+      () => {}
     );
   }
 
