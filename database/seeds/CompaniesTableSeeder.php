@@ -3,8 +3,6 @@
 use App\Models\Company;
 use Illuminate\Database\Seeder;
 
-use App\Models\Company;
-
 class CompaniesTableSeeder extends Seeder
 {
   /**

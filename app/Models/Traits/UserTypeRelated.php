@@ -14,7 +14,7 @@ trait UserTypeRelated
   {
     $type = static::type();
     static::addGlobalScope(new UserTypeScope($type));
-    static::creating(function($user) use ($type)
+    static::creating(function(Model $user) use ($type)
     {
       $user->type = $type;
     });
