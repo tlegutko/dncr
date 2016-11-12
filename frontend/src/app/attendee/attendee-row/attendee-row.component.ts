@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, HostBinding, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Course, PaymentMethod } from 'app/course';
 import { Attendee, PaymentConfirmation, PaymentConfirmationComponent } from 'app/attendee';
@@ -10,17 +10,22 @@ import { Attendee, PaymentConfirmation, PaymentConfirmationComponent } from 'app
     styleUrls: ['./attendee-row.component.scss'],
   }
 )
-export class AttendeeRowComponent {
+export class AttendeeRowComponent extends OnInit {
   @Input() course: Course;
   @Input() attendee: Attendee;
   @Input() checkable: boolean;
   @Input() detailsRoute: string[];
   @Input() paymentMethods: PaymentMethod[] = [];
   @Output() onPayment = new EventEmitter<PaymentConfirmation>();
+  @HostBinding('attr.class') status = '';
 
   showPaymentForm: boolean = false;
 
   constructor(private modal: NgbModal) {
+  }
+
+  public ngOnInit(): void {
+    this.status = this.attendee.paymentStatus;
   }
 
   public payUsing(method: PaymentMethod) {
