@@ -12,12 +12,12 @@ import { Mail } from './mail.model';
 )
 export class ManagerCoursesActionsComponent {
   private mail = new Mail();
-  private courseId;
+  private course: Course;
 
   constructor(route: ActivatedRoute, private mailService: MailService) {
     route.parent.data.forEach(
       (data: { course: Course }) => {
-        this.courseId = data.course.id;
+        this.course = data.course;
         this.mail.title = `Powiadomienie DNCR.pl z kursu ${data.course.name}`;
         // TODO: Change title when styling mails
       }
@@ -25,7 +25,7 @@ export class ManagerCoursesActionsComponent {
   }
 
   public sendMailToAttendees() {
-    this.mailService.sendMessageForCourse(this.courseId, this.mail).subscribe(
+    this.mailService.sendMessageForCourse(this.course, this.mail).subscribe(
       () => {},
       errors => console.log(errors), // TODO some better handling
     );

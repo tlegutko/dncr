@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Courses;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MailRequest;
