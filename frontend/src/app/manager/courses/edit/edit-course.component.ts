@@ -13,9 +13,7 @@ import { CourseErrors, Course } from 'app/course';
   }
 )
 export class EditCourseComponent {
-
   @Input() model: Course;
   @Input() errors: CourseErrors;
-
 }
 

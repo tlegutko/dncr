@@ -1,7 +1,6 @@
-import { Component, Input, ViewEncapsulation, OnChanges, OnInit } from '@angular/core';
-import { CourseTime, CourseTimeErrors } from '../../../../course/course.model';
-import { CourseLocation } from '../../../locations/locations.model';
-import { LocationsService } from '../../../locations/locations.service';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { CourseTime, CourseTimeErrors } from 'app/course';
+import { CourseLocation, LocationsService } from 'app/manager/locations';
 
 @Component(
   {
@@ -11,7 +10,6 @@ import { LocationsService } from '../../../locations/locations.service';
   }
 )
 export class CourseTimesComponent implements OnInit, OnChanges {
-
   @Input() model: CourseTime[];
   @Input() errors: CourseTimeErrors[];
   locations: CourseLocation[];
@@ -30,5 +28,4 @@ export class CourseTimesComponent implements OnInit, OnChanges {
       this.errors = [new CourseTimeErrors()];
     }
   }
-
 }
