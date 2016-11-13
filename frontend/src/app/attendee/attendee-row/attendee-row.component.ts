@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, OnInit } from '@angular/core';
+import { Component, Input, Output, HostBinding, OnInit, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Course, PaymentMethod } from 'app/course';
 import { Attendee, PaymentConfirmation, PaymentConfirmationComponent } from 'app/attendee';
@@ -10,7 +10,7 @@ import { Attendee, PaymentConfirmation, PaymentConfirmationComponent } from 'app
     styleUrls: ['./attendee-row.component.scss'],
   }
 )
-export class AttendeeRowComponent extends OnInit {
+export class AttendeeRowComponent implements OnInit {
   @Input() course: Course;
   @Input() attendee: Attendee;
   @Input() checkable: boolean;
