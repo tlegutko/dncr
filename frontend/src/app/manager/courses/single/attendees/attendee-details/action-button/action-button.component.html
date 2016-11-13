@@ -1,0 +1,14 @@
+<div ngbDropdown [autoClose]="true" #dropdown="ngbDropdown">
+  <button type="button" class="btn" id="attendee-action-menu" (click)="$event.stopPropagation(); dropdown.toggle();">
+    <i class="fa fa-plus fa-2x" *ngIf="!dropdown.isOpen()"></i>
+    <i class="fa fa-times fa-2x" *ngIf="dropdown.isOpen()"></i>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="attendee-action-menu">
+    <button class="dropdown-item" (click)="addPayment()">
+      <span>Dodaj płatność</span><i class="fa fa-usd"></i>
+    </button>
+    <button class="dropdown-item">
+      <span>Wyślij wiadomość</span><i class="fa fa-envelope-o"></i>
+    </button>
+  </div>
+</div>

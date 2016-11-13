@@ -1,0 +1,43 @@
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+@import '~bootstrap/scss/mixins/_clearfix';
+
+:host {
+  display: block;
+  position: relative;
+  padding: 0.2em;
+
+  @media (min-width: breakpoint-min(md)) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.btn {
+  padding: 0.3rem 0.62rem 0.35rem 0.72rem;
+
+  &.cancel {
+    margin-right: 1rem;
+  }
+}
+
+.title {
+  i {
+    vertical-align: middle;
+
+    @media (min-width: breakpoint-min(md)) {
+      margin-right: 0.5rem;
+    }
+  }
+  h5 {
+    display: inline-block;
+    vertical-align: sub;
+    margin: 0;
+    padding: 7px 0 0;
+  }
+
+  @media (min-width: breakpoint-min(md)) {
+    flex-grow: 1;
+  }
+}
