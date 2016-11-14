@@ -31,4 +31,8 @@ export class ManagerCoursesAttendeesComponent {
   public hideCreateForm() {
     this.isCreateFormVisible = false;
   }
+
+  public onAttendeeSaved(){
+    console.log('attendee save attempt');
+  }
 }
