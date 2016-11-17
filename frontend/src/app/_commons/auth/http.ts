@@ -4,10 +4,11 @@ import { AuthHttp as BasicAuthHttp, AuthConfig } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
 import { AuthService } from './auth.service';
+import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 
 @Injectable()
 export class AuthHttp extends BasicAuthHttp {
-  constructor(options: AuthConfig, http: Http, defOpts?: RequestOptions) {
+  constructor(private notifications: NotificationsService, options: AuthConfig, http: Http, defOpts?: RequestOptions) {
     super(options, http, defOpts);
   }
 
@@ -15,10 +16,11 @@ export class AuthHttp extends BasicAuthHttp {
     return super.request(url, options)
       .catch((response: Response) => {
         if ([401, 403].indexOf(response.status) !== -1) {
-          // TODO: Add notification about invalid response - logout
+          this.notifications.error('Brak autoryzacji', 'Proszę zalogować się ponownie.');
           AuthService.clear();
         }
         if (response.status === 500) {
+          this.notifications.error('Błąd', 'Wystąpił błąd serwera.');
           console.error(response);
         }
         return Observable.throw(response);

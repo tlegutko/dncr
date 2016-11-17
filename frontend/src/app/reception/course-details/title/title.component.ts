@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 @Component(
   {
     selector: 'course-details-title',

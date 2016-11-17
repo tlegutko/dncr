@@ -1,14 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CourseErrors, Course, CourseTime } from '../../../course/course.model';
-import { CoursesService } from '../../../course/courses.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseTitleComponent } from '../course-title/course-title.component';
-import { EditCourseComponent } from '../edit/edit-course.component';
+import { CourseErrors, Course, CoursesService } from 'app/course';
+
 @Component(
   {
     selector: 'create-course',
     template: `
-      <course-title [model]="model" [errors]="errors" (save)="onSave()" (close)="onClose()"></course-title>
+      <course-title [model]="model" [editable]="true" [errors]="errors.name" (save)="onSave($event)" 
+                    (close)="onClose()"></course-title>
       <edit-course [model]="model" [errors]="errors"></edit-course>
     `,
     styles: [':host { display: block }'],
@@ -17,14 +16,12 @@ import { EditCourseComponent } from '../edit/edit-course.component';
 export class CreateCourseComponent implements OnInit {
   model = new Course();
   errors: CourseErrors = new CourseErrors();
-  @ViewChild(CourseTitleComponent) titleComponent: CourseTitleComponent;
   @ViewChild(EditCourseComponent) editComponent: EditCourseComponent;
 
   constructor(private router: Router, private coursesService: CoursesService) {
   }
 
   public ngOnInit() {
-    this.model.times = [CourseTime.withDefaultRepeatCount()];
     this.coursesService.recentlyClickedTime.subscribe(
       (courseTime) => {
         this.editComponent.setTime(courseTime);
@@ -32,13 +29,14 @@ export class CreateCourseComponent implements OnInit {
     );
   }
 
-  onSave() {
+  onSave(callback: (result: boolean) => void) {
     this.coursesService.create(this.model).subscribe(
       (course) => {
         this.router.navigate(['/manager/courses', course.id]);
+        callback(true);
       }, (errors) => {
-        this.errors = errors;
-        this.titleComponent.onCreateCourseErrors();
+        this.errors.update(errors);
+        callback(false);
       }
     );
   }
@@ -46,5 +44,4 @@ export class CreateCourseComponent implements OnInit {
   onClose() {
     this.router.navigate(['/manager/courses']);
   }
-
 }

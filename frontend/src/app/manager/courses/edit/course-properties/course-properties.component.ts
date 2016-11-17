@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { InstructorsService } from '../../../instructors/instructors.service';
-import { Instructor } from '../../../instructors/instructor';
-import { CourseErrors, Course } from '../../../../course/course.model';
+import { Instructor, InstructorsService } from 'app/manager/instructors';
+import { CourseErrors, Course } from 'app/course';
+
 @Component(
   {
     selector: 'course-properties',
@@ -10,7 +10,6 @@ import { CourseErrors, Course } from '../../../../course/course.model';
   }
 )
 export class CreateCoursePropertiesComponent implements OnInit {
-
   @Input() model: Course;
   @Input() errors: CourseErrors;
   instructors: Instructor[];
@@ -23,5 +22,4 @@ export class CreateCoursePropertiesComponent implements OnInit {
       (instructors) => this.instructors = instructors, (errors) => this.errors = errors
     );
   }
-
 }

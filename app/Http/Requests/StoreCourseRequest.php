@@ -43,7 +43,6 @@ class StoreCourseRequest extends Request
       'name' => 'nazwa',
       'price' => 'cena',
       'classes_count' => 'liczba zajęć',
-      'classesCount' => 'liczba zajęć 2',
       'seats_count' => 'liczba miejsc',
       'instructor_id' => 'prowadzący',
       'times.*.start_date' => 'data',

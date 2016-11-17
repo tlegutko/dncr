@@ -6,4 +6,8 @@
   .attendees {
     padding: .5rem .25rem;
   }
+
+  /deep/ .payment-confirmation .modal-dialog {
+    max-width: 26rem;
+  }
 }

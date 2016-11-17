@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginComponent } from './login';
 import { AuthService } from 'app/_commons/auth';
 
 @Component(
   {
     selector: 'homepage',
-    directives: [LoginComponent],
     styleUrls: ['./homepage.component.scss'],
     templateUrl: './homepage.component.html'
   }
