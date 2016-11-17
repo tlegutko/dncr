@@ -14,45 +14,47 @@ export class Course {
   times: CourseTime[] = [new CourseTime()];
 
   static mock(): Course { // useful for manual testing, don't delete!
-    return new Course({
-      id: 1,
-      companyId: 1,
-      name: 'Salsa (początkujący)',
-      price: 60.00,
-      classesCount: 1,
-      seatsCount: 1,
-      instructorId: 1,
-      description: 'Najlepszy kurs',
-      times: [new CourseTime({
-        startDate: '2016-10-26',
-        startTime: '11:00',
-        endTime: '12:00',
-        repeatWeeksCount: 1,
-        locationId: 1
-      })]
-    });
+    return new Course(
+      {
+        id: 1,
+        companyId: 1,
+        name: 'Salsa (początkujący)',
+        price: 60.00,
+        classesCount: 1,
+        seatsCount: 1,
+        instructorId: 1,
+        description: 'Najlepszy kurs',
+        times: [
+          new CourseTime(
+            {
+              startDate: '2016-10-26',
+              startTime: '11:00',
+              endTime: '12:00',
+              repeatWeeksCount: 1,
+              locationId: 1
+            }
+          )
+        ]
+      }
+    );
   }
 
-  constructor(fields?: {
-    id?: number,
-    companyId?: number,
-    name?: string,
-    price?: number,
-    classesCount?: number,
-    seatsCount?: number,
-    instructorId?: number,
-    description?: string,
-    times?: CourseTime[]
-  }) {
+  constructor(
+    fields?: {
+      id?: number,
+      companyId?: number,
+      name?: string,
+      price?: number,
+      classesCount?: number,
+      seatsCount?: number,
+      instructorId?: number,
+      description?: string,
+      times?: CourseTime[]
+    }
+  ) {
     if (fields) {
       Object.assign(this, fields);
     }
-  }
-
-  public setTime(courseTime: CreateCourseTime) {
-    this.times[0].startDate = courseTime.startDate;
-    this.times[0].startTime = courseTime.startTime;
-    this.times[0].endTime = courseTime.endTime;
   }
 }
 
@@ -72,23 +74,31 @@ export class CourseTime {
   createdAt: string;
   updatedAt: string;
 
-  constructor(fields?: {
-    id?: number,
-    courseId?: number,
-    locationId?: number,
-    startDate?: string,
-    startTime?: string,
-    endTime?: string,
-    repeatWeeksCount?: number,
-    events?: CourseEvent[]
-  }) {
+  constructor(
+    fields?: {
+      id?: number,
+      courseId?: number,
+      locationId?: number,
+      startDate?: string,
+      startTime?: string,
+      endTime?: string,
+      repeatWeeksCount?: number,
+      events?: CourseEvent[]
+    }
+  ) {
     if (fields) {
       Object.assign(this, fields);
     }
   }
+
+  public setTime(courseTime: CreateCourseTime) {
+    this.startDate = courseTime.startDate;
+    this.startTime = courseTime.startTime;
+    this.endTime = courseTime.endTime;
+  }
 }
 
-export interface CourseEvent  {
+export interface CourseEvent {
   id: number;
   courseTimeId: number;
   date: string;
@@ -124,12 +134,25 @@ export class CourseErrors {
     this.seatsCount = undefined;
     this.description = undefined;
     this.instructorId = undefined;
-    this.times = [new CourseTimeErrors()];
+    this.times = this.times.map(() => new CourseTimeErrors());
   }
 
   public update(errors: CourseErrors) {
     this.clear();
+    errors.times = CourseErrors.mergeTimesErrors(this.times, errors.times);
     Object.assign(this, errors);
+  }
+
+  private static mergeTimesErrors(currTimes: CourseTimeErrors[], newTimes: CourseTimeErrors[]): CourseTimeErrors[] {
+    if (newTimes == null) {
+      return currTimes;
+    }
+    for (let i = 0; i < currTimes.length; i++) {
+      if (newTimes[i] == null) {
+        newTimes[i] = currTimes[i];
+      }
+    }
+    return Object.values(newTimes);
   }
 }
 
@@ -144,4 +167,5 @@ export class CourseTimeErrors {
 
 export class CourseEventErrors {
   date?: string[];
+
 }

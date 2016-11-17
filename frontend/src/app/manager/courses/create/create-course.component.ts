@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CourseErrors, Course, CoursesService } from 'app/course';
+import { CourseLocation } from 'app/manager/locations';
 
 @Component(
   {
@@ -8,7 +9,7 @@ import { CourseErrors, Course, CoursesService } from 'app/course';
     template: `
       <course-title [model]="model" [editable]="true" [errors]="errors.name" (save)="onSave($event)" 
                     (close)="onClose()"></course-title>
-      <edit-course [model]="model" [errors]="errors"></edit-course>
+      <edit-course [model]="model" [errors]="errors" [locations]="locations" [updateTime]="true"></edit-course>
     `,
     styles: [':host { display: block }'],
   }
@@ -16,15 +17,15 @@ import { CourseErrors, Course, CoursesService } from 'app/course';
 export class CreateCourseComponent implements OnInit {
   model = new Course();
   errors: CourseErrors = new CourseErrors();
-  @ViewChild(EditCourseComponent) editComponent: EditCourseComponent;
+  locations: CourseLocation[];
 
-  constructor(private router: Router, private coursesService: CoursesService) {
+  constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
   }
 
   public ngOnInit() {
-    this.coursesService.recentlyClickedTime.subscribe(
-      (courseTime) => {
-        this.editComponent.setTime(courseTime);
+    this.route.data.forEach(
+      (data: { locations: CourseLocation[]}) => {
+        this.locations = data.locations;
       }
     );
   }

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { CourseErrors, Course, CourseTime, CourseTimeErrors, CreateCourseTime } from '../../../course/course.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { CourseErrors, Course, CourseTime, CourseTimeErrors } from '../../../course/course.model';
 import { CourseLocation } from '../../locations/locations.model';
-import { LocationsService } from '../../locations/locations.service';
+import { CoursesService } from '../../../course/courses.service';
 
 @Component(
   {
@@ -10,48 +10,29 @@ import { LocationsService } from '../../locations/locations.service';
     styleUrls: ['./edit-course.component.scss'],
   }
 )
-export class EditCourseComponent implements OnInit, OnChanges {
+export class EditCourseComponent implements OnInit {
 
   @Input() model: Course;
   @Input() errors: CourseErrors;
-  locations: CourseLocation[];
-  timeToSet: CreateCourseTime = null;
+  @Input() locations: CourseLocation[];
+  @Input() updateTime: boolean;
 
-  constructor(private locationsService: LocationsService) {
+  constructor(private coursesService: CoursesService) {
   }
 
   ngOnInit(): void {
-    if (this.timeToSet != null) {
-      this.setTime(this.timeToSet);
-    }
-    this.locationsService.list().subscribe(
-      (locations) => this.locations = locations, (errors) => this.errors = errors
-    );
-  }
-
-  public setTime(courseTime: CreateCourseTime) {
-    if (this.model != null) {
-      this.model.times[this.model.times.length - 1].setTime(courseTime);
-    } else {
-      this.timeToSet = courseTime;
+    if (this.updateTime) {
+      this.coursesService.recentlyClickedTime.subscribe(
+        (courseTime) => {
+          this.model.times[this.model.times.length - 1].setTime(courseTime);
+        }
+      );
     }
   }
 
   addCourseTime() {
-    this.model.times.push(CourseTime.withDefaultRepeatCount());
+    this.model.times.push(new CourseTime());
     this.errors.times.push(new CourseTimeErrors());
-  }
-
-  ngOnChanges() {
-    this.reinitializeErrors();
-  }
-
-  private reinitializeErrors() {
-    for (let i = 0; i < this.model.times.length; i++) {
-      if (this.errors.times[i] == null) {
-        this.errors.times[i] = new CourseTimeErrors();
-      }
-    }
   }
 
 }

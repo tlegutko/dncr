@@ -1,18 +1,17 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CourseTime, CourseTimeErrors } from '../../../../course/course.model';
-import { CourseLocation } from '../../../locations/locations.model';
+import { Component, Input } from '@angular/core';
+import { CourseTime, CourseTimeErrors } from 'app/course';
+import { CourseLocation } from 'app/manager/locations';
 
 @Component(
   {
     selector: 'course-time',
     templateUrl: 'course-time.component.html',
     styleUrls: ['course-time.component.scss'],
-    encapsulation: ViewEncapsulation.None,
   }
 )
 export class CourseTimeComponent {
 
-  @Input() model: CourseTime = new CourseTime();
+  @Input() model: CourseTime;
   @Input() errors: CourseTimeErrors;
   @Input() locations: CourseLocation[];
 

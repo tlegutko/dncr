@@ -18,9 +18,9 @@ import { CourseTitleComponent } from './courses/course-title/course-title.compon
 import { CourseTimeComponent } from './courses/edit/course-time/course-time.component';
 import { CreateCoursePropertiesComponent } from './courses/edit/course-properties/course-properties.component';
 import { InstructorsService } from './instructors/instructors.service';
-import { LocationsService } from './locations/locations.service';
 import { CreateCourseComponent } from './courses/create/create-course.component';
 import { EditCourseComponent } from './courses/edit/edit-course.component';
+import { LocationsModule, LocationsResolve } from 'app/manager/locations';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -41,6 +41,9 @@ export const routes = [
           }, {
             path: 'create-course',
             component: CreateCourseComponent,
+            resolve: {
+              locations: LocationsResolve,
+            }
           }, {
             path: ':course-id',
             component: ManagerCoursesSingleComponent,
@@ -58,7 +61,8 @@ export const routes = [
             ],
             resolve: {
               course: CourseResolve,
-              courseErrors: CourseErrorsResolve
+              courseErrors: CourseErrorsResolve,
+              locations: LocationsResolve
             }
           }
         ]
@@ -91,10 +95,16 @@ export const routes = [
       CreateCoursePropertiesComponent
     ],
     imports: [
-      CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
+      CommonModule,
+      FormsModule,
+      RouterModule.forChild(routes),
+      CommonsModule,
+      AttendeeModule,
+      CourseModule,
+      LocationsModule
     ],
     providers: [
-      InstructorsService, LocationsService
+      InstructorsService
     ]
   }
 )
