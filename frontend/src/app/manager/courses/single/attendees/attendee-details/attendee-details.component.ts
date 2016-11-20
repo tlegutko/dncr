@@ -35,6 +35,6 @@ export class AttendeeDetailsComponent {
   }
 
   public close() {
-    this.router.navigate(['/reception/course-details', this.course.id]);
+    this.router.navigate(['/manager/courses', this.course.id]);
   }
 }

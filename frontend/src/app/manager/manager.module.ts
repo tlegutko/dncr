@@ -8,7 +8,6 @@ import { ManagerInstructorsComponent } from './instructors/instructors.component
 import { ManagerCalendarComponent } from './courses/manager-calendar/manager-calendar.component';
 import { InstructorCreateComponent } from './instructors/create/instructor-create.component';
 import { CommonsModule } from 'app/_commons/commons.module';
-import { AttendeeModule } from 'app/attendee';
 import { CourseModule, CourseResolve } from 'app/course';
 import {
   ManagerCoursesSingleComponent, ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent,
@@ -20,6 +19,12 @@ import { CourseTimesComponent } from './courses/create/course-times/course-times
 import { CreateCoursePropertiesComponent } from './courses/create/course-properties/course-properties.component';
 import { InstructorsService } from './instructors/instructors.service';
 import { LocationsService } from './locations/locations.service';
+import { AttendeeDetailsComponent } from './courses/single/attendees/attendee-details/attendee-details.component';
+import { AttendeeModule, AttendeeResolve } from 'app/attendee';
+// import { AttendeeDetailsTitleComponent } from './courses/single/attendees/attendee-details/title/title.component';
+// import {
+//   AttendeeActionButtonComponent
+// } from './courses/single/attendees/attendee-details/action-button/action-button.component';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -52,7 +57,19 @@ export const routes = [
                 component: ManagerCoursesActionsComponent
               }, {
                 path: 'attendees',
-                component: ManagerCoursesAttendeesComponent
+                component: ManagerCoursesAttendeesComponent,
+                children: [
+                  {
+                    path: ''
+                  }, {
+                    path: ':attendee-id',
+                    component: AttendeeDetailsComponent,
+                    resolve: {
+                      course: CourseResolve,
+                      attendee: AttendeeResolve
+                    }
+                  }
+                ]
               }
             ],
             resolve: {
@@ -85,7 +102,10 @@ export const routes = [
       CreateCourseComponent,
       CreateCourseTitleComponent,
       CourseTimesComponent,
-      CreateCoursePropertiesComponent
+      CreateCoursePropertiesComponent,
+      AttendeeDetailsComponent,
+      // AttendeeDetailsTitleComponent,
+      // AttendeeActionButtonComponent
     ],
     imports: [
       CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
