@@ -12,8 +12,8 @@ class LocationsTableSeeder extends Seeder
   public function run()
   {
     /** @var stdClass $company */
-    $company1 = DB::table('companies')->where('name', '=', 'Firma 1')->first();
-    $company2 = DB::table('companies')->where('name', '=', 'Firma 2')->first();
+    $company1 = DB::table('companies')->where('name', 'Firma 1')->first();
+    $company2 = DB::table('companies')->where('name', 'Firma 2')->first();
 
     DB::table('locations')->insert([
                                      'company_id' => $company1->id,

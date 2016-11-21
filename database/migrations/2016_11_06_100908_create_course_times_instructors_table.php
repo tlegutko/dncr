@@ -16,11 +16,10 @@ class CreateCourseTimesInstructorsTable extends Migration
     Schema::create('course_time_instructor',
       function(Blueprint $table)
       {
-        $table->increments('id');
-        $table->integer('course_time_id')->unsigned()->nullable();
+        $table->integer('course_time_id')->unsigned();
         $table->foreign('course_time_id')->references('id')->on('course_times')->onDelete('cascade');
 
-        $table->integer('instructor_id')->unsigned()->nullable();
+        $table->integer('instructor_id')->unsigned();
         $table->foreign('instructor_id')->references('id')->on('users')->onDelete('cascade');
       });
   }
@@ -32,6 +31,6 @@ class CreateCourseTimesInstructorsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('course_time_instructor');
+    Schema::drop('course_time_instructor');
   }
 }

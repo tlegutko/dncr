@@ -1,7 +1,7 @@
 <labelled-form-field [errors]="errors.startDate" [for]="startDate" [label]="'Data'">
   <div class="input-group input-group-sm">
     <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.startDate"
-           [(ngModel)]="model.startDate" name="startTime" id="startDate" required
+           [(ngModel)]="model.startDate" name="startDate" id="startDate" required
            placeholder="Podaj datę rozpoczęcia ...">
     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
   </div>
