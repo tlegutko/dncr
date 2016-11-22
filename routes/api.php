@@ -22,9 +22,7 @@ Route::group(['middleware' => 'auth'], function(){
   // Courses
   Route::get('courses', 'CoursesController@index');
   Route::post('courses', 'CoursesController@store');
-  Route::put('courses/{id}/all', 'CoursesController@updateAll');
-  Route::put('courses/{id}/following', 'CoursesController@updateFollowing');
-  Route::put('courses/{id}/one', 'CoursesController@updateOne');
+  Route::put('courses/{id}', 'CoursesController@update');
   Route::get('courses/{id}', 'CoursesController@show');
   Route::get('courses/{id}/attendees', 'CoursesController@attendees');
 

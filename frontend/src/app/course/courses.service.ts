@@ -34,10 +34,12 @@ export class CoursesService {
     let url = 'api/courses';
     return this.http.get(url)
       .map((response: Response) => this.mapCoursesToEvents(response.json()))
-      .catch((e) => {
-        console.error('Error during calendarEvents()', e);
-        return Observable.throw('Błąd pobierania wydarzeń.');
-      });
+      .catch(
+        (e) => {
+          console.error('Error during calendarEvents()', e);
+          return Observable.throw('Błąd pobierania wydarzeń.');
+        }
+      );
   }
 
   public broadcastCalendarDateClick(clickedTime: Moment) {
@@ -68,8 +70,8 @@ export class CoursesService {
   }
 
   public updateAll(course: Course): Observable<Course> {
-    let url = `api/courses/${course.id}/all`;
-    console.log(course);
+    let url = `api/courses/${course.id}`;
+    course['strategy'] = 'all';
     return this.http.put(url, course)
       .map(this.mapToCourse)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
@@ -79,10 +81,12 @@ export class CoursesService {
   private mapToCourse(response: Response): Course {
     let course: Course = response.json();
     let formatTime = (time) => moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
-    course.times.forEach((time: CourseTime) => {
-      time.startTime = formatTime(time.startTime);
-      time.endTime = formatTime(time.endTime);
-    });
+    course.times.forEach(
+      (time: CourseTime) => {
+        time.startTime = formatTime(time.startTime);
+        time.endTime = formatTime(time.endTime);
+      }
+    );
     return course;
   }
 

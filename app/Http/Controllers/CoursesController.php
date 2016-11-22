@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\CreateCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Attendee;
 use App\Models\Course;
@@ -33,20 +33,20 @@ class CoursesController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  StoreCourseRequest $request
+   * @param  CreateCourseRequest $request
    *
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreCourseRequest $request) // TODO StoreCourseRequest
+  public function store(CreateCourseRequest $request) // TODO StoreCourseRequest
   {
     $course = DB::transaction(function() use ($request)
     {
 
-      $course = Course::create($this->extractCourseData($request));
+      $course = Course::create($request->extractCourseData());
 
       foreach($request->input()['times'] as $courseTimeData)
       {
-        $courseTime = $course->times()->create($this->extractCourseTimeData($courseTimeData));
+        $courseTime = $course->times()->create($request->extractCourseTimeData($courseTimeData));
         $startDate = new DateTime($courseTime->start_date);
         $step = $courseTime->repeat_weeks_count;
 
@@ -66,17 +66,29 @@ class CoursesController extends Controller
     return response()->json($course);
   }
 
-  public function updateAll(UpdateCourseRequest $request)
+  public function update(UpdateCourseRequest $request, int $id)
   {
-    $course = DB::transaction(function() use ($request)
+    if($request->input('strategy') === 'all')
     {
-      $course = Course::findOrFail($request->id);
-      $course->update($this->extractCourseData($request));
+      return $this->updateAll($request, $id);
+    }
+    else
+    {
+      return response()->json(['reason' => 'Unsupported update strategy'], 400);
+    }
+  }
+
+  public function updateAll(UpdateCourseRequest $request, int $id)
+  {
+    $course = DB::transaction(function() use ($request, $id)
+    {
+      $course = Course::findOrFail($id);
+      $course->update($request->extractCourseData());
 
       foreach($request->input()['times'] as $courseTimeData)
       {
         $courseTime = CourseTime::findOrFail($courseTimeData['id']);
-        $courseTime->update($this->extractCourseTimeData($courseTimeData));
+        $courseTime->update($request->extractCourseTimeData($courseTimeData));
 
         foreach($courseTimeData['events'] as $courseEventData)
         {
@@ -107,26 +119,4 @@ class CoursesController extends Controller
     return response()->json($attendees);
   }
 
-  private function extractCourseData(Request $request) : array
-  {
-    // TODO remove mock company_id below and inject real one once DNCR-92 is merged
-    return $request->only('name',
-                          'price',
-                          'classes_count',
-                          'description',
-                          'seats_count') + ['company_id' => 1];
-  }
-
-  private function extractCourseTimeData(array $courseTimeData): array
-  {
-    $attributes = [
-      'start_date',
-      'start_time',
-      'end_time',
-      'repeat_weeks_count',
-      'location_id',
-    ];
-
-    return array_only($courseTimeData, $attributes);
-  }
 }
