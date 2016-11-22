@@ -37,14 +37,14 @@ class CoursesController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function store(CreateCourseRequest $request) // TODO StoreCourseRequest
+  public function create(CreateCourseRequest $request) // TODO StoreCourseRequest
   {
     $course = DB::transaction(function() use ($request)
     {
 
       $course = Course::create($request->extractCourseData());
 
-      foreach($request->input()['times'] as $courseTimeData)
+      foreach($request->input('times') as $courseTimeData)
       {
         $courseTime = $course->times()->create($request->extractCourseTimeData($courseTimeData));
         $startDate = new DateTime($courseTime->start_date);
@@ -68,7 +68,8 @@ class CoursesController extends Controller
 
   public function update(UpdateCourseRequest $request, int $id)
   {
-    if($request->input('strategy') === 'all')
+    \Log::info($request->input('update_strategy'));
+    if($request->input('update_strategy') === 'all')
     {
       return $this->updateAll($request, $id);
     }
@@ -85,7 +86,7 @@ class CoursesController extends Controller
       $course = Course::findOrFail($id);
       $course->update($request->extractCourseData());
 
-      foreach($request->input()['times'] as $courseTimeData)
+      foreach($request->input('times') as $courseTimeData)
       {
         $courseTime = CourseTime::findOrFail($courseTimeData['id']);
         $courseTime->update($request->extractCourseTimeData($courseTimeData));

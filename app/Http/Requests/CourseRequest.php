@@ -28,9 +28,9 @@ trait CourseRequest
   function courseUpdateRules(): array
   {
     return [
-      'strategy' => [
+      'update_strategy' => [
         'required',
-        'regex:all|one|following',
+        'regex:/all|one|following/',
       ],
       'times.*.id' => 'required | integer',
       'times.*.events.*.id' => 'required | integer',
@@ -56,7 +56,7 @@ trait CourseRequest
   function courseUpdateAttributes(): array
   {
     return [
-      'strategy' => 'strategia edycji',
+      'update_strategy' => 'strategia edycji',
       'times.*.id' => 'id',
       'times.*.events.*.id' => 'id',
     ];

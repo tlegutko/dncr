@@ -71,11 +71,14 @@ export class CoursesService {
 
   public updateAll(course: Course): Observable<Course> {
     let url = `api/courses/${course.id}`;
-    course['strategy'] = 'all';
+    course['updateStrategy'] = 'all';
     return this.http.put(url, course)
       .map(this.mapToCourse)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      .catch(response => Observable.throw(response.json()));
+      .catch(response => {
+        console.log(response);
+        return Observable.throw(response.json());
+      });
   }
 
   private mapToCourse(response: Response): Course {
