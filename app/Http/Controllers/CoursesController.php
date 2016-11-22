@@ -44,9 +44,13 @@ class CoursesController extends Controller
 
       $course = Course::create($request->extractCourseData());
 
-      foreach($request->input('times') as $courseTimeData)
+      foreach($request->input('course.times') as $courseTimeData)
       {
+        \Log::info($request->extractCourseData());
         $courseTime = $course->times()->create($request->extractCourseTimeData($courseTimeData));
+        \Log::info($course);
+        \Log::info($course->classes_count);
+        \Log::info($course['classes_count']);
         $startDate = new DateTime($courseTime->start_date);
         $step = $courseTime->repeat_weeks_count;
 
@@ -68,14 +72,13 @@ class CoursesController extends Controller
 
   public function update(UpdateCourseRequest $request, int $id)
   {
-    \Log::info($request->input('update_strategy'));
     if($request->input('update_strategy') === 'all')
     {
       return $this->updateAll($request, $id);
     }
     else
     {
-      return response()->json(['reason' => 'Unsupported update strategy'], 400);
+      return response()->json(['error' => 'Unsupported update strategy'], 400);
     }
   }
 
@@ -86,7 +89,7 @@ class CoursesController extends Controller
       $course = Course::findOrFail($id);
       $course->update($request->extractCourseData());
 
-      foreach($request->input('times') as $courseTimeData)
+      foreach($request->input('course.times') as $courseTimeData)
       {
         $courseTime = CourseTime::findOrFail($courseTimeData['id']);
         $courseTime->update($request->extractCourseTimeData($courseTimeData));

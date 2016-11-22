@@ -13,6 +13,6 @@ class CreateCourseRequest extends Request
 
   public function attributes()
   {
-    $this->courseFieldsAttributes();
+    return $this->courseFieldsAttributes();
   }
 }
