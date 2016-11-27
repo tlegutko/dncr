@@ -1,10 +1,7 @@
-import * as moment from 'moment';
 import { Moment } from 'moment';
-import { Response } from '@angular/http';
 import { Instructor } from '../manager/instructors/instructor';
 
 export class Course {
-
   id: number;
   companyId: number;
   name: string;
@@ -14,40 +11,51 @@ export class Course {
   description: string;
   createdAt: string;
   updatedAt: string;
-  times: CourseTime[];
-
-  static parseRequest(response: Response): Course {
-    let course: Course = response.json();
-    course.times = course.times.map(CourseTime.changeTimeFormat);
-    return course;
-  }
+  times: CourseTime[] = [new CourseTime()];
 
   static mock(): Course { // useful for manual testing, don't delete!
-
-    let c = new Course();
-    c.name = 'Salsa (początkujący)';
-    c.price = 60.00;
-    c.classesCount = 1;
-    c.seatsCount = 1;
-    c.description = 'najlepszy kurs';
-
-    let ct = new CourseTime();
-    ct.startDate = '2016-10-26';
-    ct.startTime = '11:00=';
-    ct.endTime = '12:00';
-    ct.repeatWeeksCount = 1;
-    ct.locationId = 1;
-    ct.instructors = [new Instructor()];
-    ct.instructors[0].id = 3;
-    c.times = [ct];
-
-    return c;
+    return new Course(
+      {
+        id: 1,
+        companyId: 1,
+        name: 'Salsa (początkujący)',
+        price: 60.00,
+        classesCount: 1,
+        seatsCount: 1,
+        instructorId: 1,
+        description: 'Najlepszy kurs',
+        times: [
+          new CourseTime(
+            {
+              startDate: '2016-10-26',
+              startTime: '11:00',
+              endTime: '12:00',
+              repeatWeeksCount: 1,
+              locationId: 1
+            }
+          )
+        ]
+      }
+    );
   }
 
-  constructor(id?: number) {
-    this.id = id;
+  constructor(
+    fields?: {
+      id?: number,
+      companyId?: number,
+      name?: string,
+      price?: number,
+      classesCount?: number,
+      seatsCount?: number,
+      instructorId?: number,
+      description?: string,
+      times?: CourseTime[]
+    }
+  ) {
+    if (fields) {
+      Object.assign(this, fields);
+    }
   }
-
 }
 
 export class CourseTime {
@@ -62,36 +70,36 @@ export class CourseTime {
   startDate: string;
   startTime: string;
   endTime: string;
-  repeatWeeksCount: number;
+  repeatWeeksCount: number = 1;
   events: CourseEvent[];
   createdAt: string;
   updatedAt: string;
 
-  setTime(courseTime: CreateCourseTime) {
+  constructor(
+    fields?: {
+      id?: number,
+      courseId?: number,
+      locationId?: number,
+      startDate?: string,
+      startTime?: string,
+      endTime?: string,
+      repeatWeeksCount?: number,
+      events?: CourseEvent[]
+    }
+  ) {
+    if (fields) {
+      Object.assign(this, fields);
+    }
+  }
+
+  public setTime(courseTime: CreateCourseTime) {
     this.startDate = courseTime.startDate;
     this.startTime = courseTime.startTime;
     this.endTime = courseTime.endTime;
   }
-
-  static withDefaultRepeatCount(): CourseTime {
-    let c = new CourseTime();
-    c.repeatWeeksCount = 1;
-    return c;
-  }
-
-  static changeTimeFormat(ct: CourseTime): CourseTime {
-    ct.startTime = CourseTime.parseTime(ct.startTime);
-    ct.endTime = CourseTime.parseTime(ct.endTime);
-    return ct;
-  }
-
-  private static parseTime(time: string) {
-    return moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
-  }
-
 }
 
-export class CourseEvent {
+export interface CourseEvent {
   id: number;
   courseTimeId: number;
   date: string;
@@ -111,13 +119,64 @@ export class CreateCourseTime {
   }
 }
 
+export type CourseUpdateStrategy = 'all' | 'single' | 'following';
+export class CreateCourseRequest {
+  course: Course;
+
+  constructor(course: Course) {
+    this.course = course;
+  }
+}
+
+export class UpdateCourseRequest {
+  course: Course;
+  updateStrategy: CourseUpdateStrategy;
+
+  constructor(course: Course, updateStrategy: CourseUpdateStrategy) {
+    this.course = course;
+    this.updateStrategy = updateStrategy;
+  }
+}
+
+export class CourseErrorsResponse {
+  course: CourseErrors;
+}
+
 export class CourseErrors {
   name?: string[];
   price?: string[];
   classesCount?: string[];
   seatsCount?: string[];
   description?: string[];
-  times?: CourseTimeErrors[] = [];
+  times?: CourseTimeErrors[] = [new CourseTimeErrors()];
+
+  public clear() {
+    this.name = undefined;
+    this.price = undefined;
+    this.classesCount = undefined;
+    this.seatsCount = undefined;
+    this.description = undefined;
+    this.instructorId = undefined;
+    this.times = this.times.map(() => new CourseTimeErrors());
+  }
+
+  public update(errors: CourseErrors) {
+    this.clear();
+    errors.times = CourseErrors.mergeTimesErrors(this.times, errors.times);
+    Object.assign(this, errors);
+  }
+
+  private static mergeTimesErrors(currTimes: CourseTimeErrors[], newTimes: CourseTimeErrors[]): CourseTimeErrors[] {
+    if (newTimes == null) {
+      return currTimes;
+    }
+    for (let i = 0; i < currTimes.length; i++) {
+      if (newTimes[i] == null) {
+        newTimes[i] = currTimes[i];
+      }
+    }
+    return Object.values(newTimes);
+  }
 }
 
 export class CourseTimeErrors {
@@ -132,6 +191,7 @@ export class CourseTimeErrors {
 
 export class CourseEventErrors {
   date?: string[];
+
 }
 
 export class InstructorErrors {

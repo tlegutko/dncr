@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { CourseErrors, Course, CourseTime, CourseTimeErrors, CreateCourseTime } from '../../../course/course.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { CourseErrors, Course, CourseTime, CourseTimeErrors } from '../../../course/course.model';
 import { CourseLocation } from '../../locations/locations.model';
 import { LocationsService } from '../../locations/locations.service';
 import { InstructorsService } from '../../instructors/instructors.service';
 import { Instructor } from '../../instructors/instructor';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { CoursesService } from '../../../course/courses.service';
 
 @Component(
   {
@@ -14,57 +15,38 @@ import { Moment } from 'moment';
     styleUrls: ['./edit-course.component.scss'],
   }
 )
-export class EditCourseComponent implements OnInit, OnChanges {
+export class EditCourseComponent implements OnInit {
 
   @Input() model: Course;
   @Input() errors: CourseErrors;
-  locations: CourseLocation[];
+  @Input() locations: CourseLocation[];
+  @Input() updateTime: boolean;
   instructors: Instructor[];
-  timeToSet: CreateCourseTime = null;
 
-  constructor(private locationsService: LocationsService, private instructorsService: InstructorsService) {
+  constructor(private locationsService: LocationsService, private instructorsService: InstructorsService, private coursesService: CoursesService) {
   }
 
   ngOnInit(): void {
-    if (this.timeToSet != null) {
-      this.setTime(this.timeToSet);
+    if (this.updateTime) {
+      this.coursesService.recentlyClickedTime.subscribe(
+        (courseTime) => {
+          this.model.times[this.model.times.length - 1].setTime(courseTime);
+        }
+      );
     }
     this.model.times = this.sortCourseTimes(this.model.times);
-    this.locationsService.list().subscribe(
-      (locations) => this.locations = locations, (errors) => this.errors = errors
-    );
     this.instructorsService.list().subscribe(
       (instructors) => this.instructors = instructors, (errors) => this.errors = errors
     );
   }
 
-  public setTime(courseTime: CreateCourseTime) {
-    if (this.model != null) {
-      this.model.times[this.model.times.length - 1].setTime(courseTime);
-    } else {
-      this.timeToSet = courseTime;
-    }
-  }
-
   addCourseTime() {
     let lastCourseTime = this.model.times[this.model.times.length - 1];
-    let newCourseTime = CourseTime.withDefaultRepeatCount();
+    let newCourseTime = new CourseTime();
     newCourseTime.instructors = lastCourseTime.instructors;
     newCourseTime.locationId = lastCourseTime.locationId;
     this.model.times.push(newCourseTime);
     this.errors.times.push(new CourseTimeErrors());
-  }
-
-  ngOnChanges() {
-    this.reinitializeErrors();
-  }
-
-  private reinitializeErrors() {
-    for (let i = 0; i < this.model.times.length; i++) {
-      if (this.errors.times[i] == null) {
-        this.errors.times[i] = new CourseTimeErrors();
-      }
-    }
   }
 
   private sortCourseTimes(times: CourseTime[]): CourseTime[] {

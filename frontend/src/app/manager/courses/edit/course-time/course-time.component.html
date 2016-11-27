@@ -1,42 +1,42 @@
 <labelled-form-field [errors]="errors.startDate" [for]="startDate" [label]="'Data'">
   <div class="input-group input-group-sm">
-    <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.startDate"
+    <input type="text" class="form-control form-control" [class.form-control-danger]="errors.startDate"
            [(ngModel)]="model.startDate" name="startDate" id="startDate" required
            placeholder="Podaj datę rozpoczęcia ...">
     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors.startTime" [for]="startTime" [label]="'Rozpoczęcie'">
-  <div class="input-group input-group-sm">
-    <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.startTime"
+  <div class="input-group">
+    <input type="text" class="form-control" [class.form-control-danger]="errors.startTime"
            [(ngModel)]="model.startTime" name="startTime" id="startTime" required
            placeholder="Podaj godzinę rozpoczęcia ...">
     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors.endTime" [for]="endTime" [label]="'Zakończenie'">
-  <div class="input-group input-group-sm">
-    <input type="text" class="form-control form-control-sm" [class.form-control-danger]="errors.endTime"
+  <div class="input-group">
+    <input type="text" class="form-control" [class.form-control-danger]="errors.endTime"
            [(ngModel)]="model.endTime" name="endTime" id="endTime" required
            placeholder="Podaj godzinę zakończenia ...">
     <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors.repeatWeeksCount" [for]="repeatWeeksCount" [label]="'Powtarzaj co'">
-  <div class="input-group input-group-sm">
-    <input type="number" class="form-control form-control-sm" [class.form-control-danger]="errors.repeatWeeksCount"
+  <div class="input-group">
+    <input type="number" class="form-control" [class.form-control-danger]="errors.repeatWeeksCount"
            [(ngModel)]="model.repeatWeeksCount" name="repeatWeeksCount" id="repeatWeeksCount" required>
     <span class="input-group-addon">tydzień</span>
   </div>
 </labelled-form-field>
 <labelled-form-field [errors]="errors.instructors[0].id" [for]="instructorId" [label]="'Prowadzący'">
-  <select class="form-control form-control-sm" [class.form-control-danger]="errors.instructors[0].id"
+  <select class="form-control form-control" [class.form-control-danger]="errors.instructors[0].id"
           [(ngModel)]="model.instructors[0].id" name="instructorId" id="instructorId" required>
     <option *ngFor="let i of instructors" [value]="i.id">{{i.name + ' ' + i.surname}}</option>
   </select>
 </labelled-form-field>
 <labelled-form-field [errors]="errors.locationId" [for]="locationId" [label]="'Sala'">
-  <select class="form-control form-control-sm" [class.form-control-danger]="errors.locationId"
+  <select class="form-control" [class.form-control-danger]="errors.locationId"
           [(ngModel)]="model.locationId" name="locationId" id="locationId" required>
     <option *ngFor="let l of locations" [value]="l.id">{{l.name}}</option>
   </select>

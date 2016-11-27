@@ -9,6 +9,7 @@ import { CourseErrors } from './course.model';
  */
 @Injectable()
 export class CourseErrorsResolve implements Resolve<CourseErrors> {
+
   public resolve(): Observable<CourseErrors> {
     return Observable.of(new CourseErrors());
   }

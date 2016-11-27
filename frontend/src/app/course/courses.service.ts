@@ -5,8 +5,9 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Course, CreateCourseTime } from './course.model';
-import { Attendee } from 'app/attendee';
+import {
+  Course, CreateCourseTime, CourseTime, UpdateCourseRequest, CourseErrors, CourseErrorsResponse, CreateCourseRequest
+} from './course.model';
 import { CalendarItem } from 'app/_commons/calendar';
 import { AuthHttp } from 'app/_commons/auth';
 
@@ -35,7 +36,12 @@ export class CoursesService {
     let url = 'api/courses';
     return this.http.get(url)
       .map((response: Response) => this.mapCoursesToEvents(response.json()))
-      .catch(() => Observable.throw('Błąd pobierania wydarzeń.'));
+      .catch(
+        (e) => {
+          console.error('Error during calendarEvents()', e);
+          return Observable.throw('Błąd pobierania wydarzeń.');
+        }
+      );
   }
 
   public broadcastCalendarDateClick(clickedTime: Moment) {
@@ -45,31 +51,48 @@ export class CoursesService {
   public get(id: number): Observable<Course> {
     let url = `api/courses/${id}`;
     return this.http.get(url)
-      .map(Course.parseRequest)
+      .map((response: Response) => this.mapToCourse(response))
       .catch(() => Observable.throw('Błąd pobierania kursu.'));
-  }
-
-  public getAttendees(courseId: number): Observable<Attendee[]> {
-    let url = `api/courses/${courseId}/attendees`;
-    return this.http.get(url)
-      .map((response: Response) => response.json())
-      .catch(() => Observable.throw('Błąd pobierania kursantów.'));
   }
 
   public create(course: Course): Observable<Course> {
     let url = `api/courses`;
-    return this.http.post(url, course)
-      .map(Course.parseRequest)
+    return this.http.post(url, new CreateCourseRequest(course))
+      .map(this.mapToCourse)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      .catch((response: Response) => Observable.throw(response.json()));
+      .catch(
+        (response) => {
+          if (response.status === 500) {
+            return Observable.throw('Błąd serwera');
+          } else {
+            return Observable.throw(this.mapCourseErrors(response));
+          }
+        }
+      );
   }
 
   public updateAll(course: Course): Observable<Course> {
-    let url = `api/courses/${course.id}/all`;
-    return this.http.put(url, course)
-      .map(Course.parseRequest)
+    let url = `api/courses/${course.id}`;
+    return this.http.put(url, new UpdateCourseRequest(course, 'all'))
+      .map(this.mapToCourse)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      .catch((response: Response) => Observable.throw(response.json()));
+      .catch(response => Observable.throw(this.mapCourseErrors(response)));
+  }
+
+  private mapCourseErrors(response: Response): CourseErrors {
+    return (response.json() as CourseErrorsResponse).course;
+  }
+
+  private mapToCourse(response: Response): Course {
+    let course: Course = response.json();
+    let formatTime = (time) => moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
+    course.times.forEach(
+      (time: CourseTime) => {
+        time.startTime = formatTime(time.startTime);
+        time.endTime = formatTime(time.endTime);
+      }
+    );
+    return course;
   }
 
   private mapCoursesToEvents(courses: Course[]): CalendarItem[] {

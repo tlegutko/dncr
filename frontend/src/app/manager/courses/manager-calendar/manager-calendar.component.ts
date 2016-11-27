@@ -44,7 +44,7 @@ export class ManagerCalendarComponent implements OnInit {
   }
 
   onEventClick(e: CalendarEvent) {
-    this.courseClick.emit(new Course(+e.calEvent.id));
+    this.courseClick.emit(new Course({ id: +e.calEvent.id }));
   }
 
   onDayClick(e: CalendarDayClick) {

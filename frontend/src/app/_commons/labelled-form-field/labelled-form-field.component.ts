@@ -4,12 +4,17 @@ import { Component, Input } from '@angular/core';
   {
     selector: 'labelled-form-field',
     template: `
-      <form-field [errors]="errors" class="row m-r-0">
+      <div class="form-group" [class.has-danger]="errors">
         <label [attr.for]="labelFor" class="col-xs-12 col-sm-3 col-xl-2 col-form-label">{{ label }}</label>
         <div class="col-xs-12 col-sm-9 col-xl-10 p-x-0">
           <ng-content></ng-content>
+          <div class="form-control-feedback" *ngIf="errors">
+            <ul>
+              <li *ngFor="let error of errors">{{ error }} </li>
+            </ul>
+          </div>
         </div>
-      </form-field>
+      </div>
     `,
     styleUrls: ['./labelled-form-field.component.scss'],
   }

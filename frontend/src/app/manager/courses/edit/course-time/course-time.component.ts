@@ -8,7 +8,6 @@ import { Instructor } from '../../../instructors/instructor';
     selector: 'course-time',
     templateUrl: 'course-time.component.html',
     styleUrls: ['course-time.component.scss'],
-    encapsulation: ViewEncapsulation.None,
   }
 )
 export class CourseTimeComponent {

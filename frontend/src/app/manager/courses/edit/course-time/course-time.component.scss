@@ -1,12 +1,17 @@
-@import '../../../../../../node_modules/bootstrap/scss/variables';
-@import '../../../../../../node_modules/bootstrap/scss/mixins/breakpoints';
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+@import '~bootstrap/scss/mixins/_clearfix';
+
 :host {
   display: block;
 }
 
-course-time labelled-form-field form-field label {
+/deep/ labelled-form-field label {
   @media (min-width: breakpoint-min(sm)) {
     text-align: right;
   }
-  height: 1.82rem;
+}
+
+.form-group {
+  @include clearfix();
 }

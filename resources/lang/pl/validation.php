@@ -9,6 +9,7 @@ return [
   'email' => 'Podany adres email jest niepoprawny.',
   'integer' => 'Pole ":attribute" musi być liczbą całkowitą.',
   'min.numeric' => 'Pole ":attribute" nie może być mniejsze niż :min.',
+  'regex' => 'Pole ":attribute" jest w niepoprawnym formacie.',
   'required' => 'Pole ":attribute" jest wymagane.',
   'unique' => 'Podany :attribute został już wykorzystany w systemie.',
 ];

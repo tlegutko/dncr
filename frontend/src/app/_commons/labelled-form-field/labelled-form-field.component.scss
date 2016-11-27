@@ -1,12 +1,29 @@
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/mixins/clearfix";
+@import "~bootstrap/scss/mixins/grid";
+
 :host {
   display: block;
+
+  @include make-row();
 }
 
 label {
-  padding: 0.5rem 1rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
   font-weight: bold;
 }
 
-form-field div {
-  padding-left: 0;
+.form-group {
+  padding: 0.1rem;
+  margin-bottom: 0;
+}
+
+ul {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: 1rem;
 }
