@@ -11,7 +11,6 @@ use App\Models\CourseTime;
 use DateInterval;
 use DateTime;
 use DB;
-use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
@@ -37,7 +36,7 @@ class CoursesController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create(CreateCourseRequest $request) // TODO StoreCourseRequest
+  public function create(CreateCourseRequest $request)
   {
     $course = DB::transaction(function() use ($request)
     {
@@ -46,14 +45,9 @@ class CoursesController extends Controller
 
       foreach($request->input('course.times') as $courseTimeData)
       {
-        \Log::info($request->extractCourseData());
         $courseTime = $course->times()->create($request->extractCourseTimeData($courseTimeData));
-        \Log::info($course);
-        \Log::info($course->classes_count);
-        \Log::info($course['classes_count']);
         $startDate = new DateTime($courseTime->start_date);
         $step = $courseTime->repeat_weeks_count;
-
         foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
         {
           $startDateCopy = clone($startDate);

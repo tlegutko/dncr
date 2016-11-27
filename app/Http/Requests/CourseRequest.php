@@ -62,14 +62,18 @@ trait CourseRequest
     ];
   }
 
-  function extractCourseData() : array
+  function extractCourseData(): array
   {
+    $attributes = [
+      'name',
+      'price',
+      'classes_count',
+      'description',
+      'seats_count',
+    ];
+
     // TODO remove mock company_id below and inject real one once DNCR-92 is merged
-    return $this->only('course.name', // TODO without course => array here!
-                       'course.price',
-                       'course.classes_count',
-                       'course.description',
-                       'course.seats_count') + ['company_id' => 1];
+    return array_only($this->input(['course']), $attributes) + ['company_id' => 1];
   }
 
   function extractCourseTimeData(array $courseTimeData): array
