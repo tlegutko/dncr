@@ -83,15 +83,36 @@ class CoursesController extends Controller
       $course->update($request->extractCourseData());
       foreach($request->input('course.times') as $courseTimeData)
       {
-        $courseTime = CourseTime::findOrFail($courseTimeData['id']);
-        $courseTime->instructors()->sync($request->extractInstructorIds($courseTimeData));
-        $courseTime->update($request->extractCourseTimeData($courseTimeData));
-
-        foreach($courseTimeData['events'] as $courseEventData)
+        $courseTime = $this->createOrUpdateCourseTime($courseTimeData, $request, $course);
+        $datesArray = [];
+        if(array_key_exists('events', $courseTimeData)) // update existing
         {
-          $courseEvent = CourseEvent::findOrFail($courseEventData['id']);
-          $courseEvent->update(array_only($courseEventData, ['date']));
+          foreach($courseTimeData['events'] as $courseEventData)
+          {
+            $courseEvent = CourseEvent::findOrFail($courseEventData['id']);
+            $courseEvent->update(array_only($courseEventData, ['date']));
+            $datesArray[$courseEventData['date']] = $courseEventData['id'];
+          }
         }
+        $startDate = new DateTime($courseTime->start_date);
+        $step = $courseTime->repeat_weeks_count;
+        $addedEventsIds = [];
+        foreach(range(0, $step * ($course->classes_count - 1), $step) as $week) // add new events
+        {
+          $startDateCopy = clone($startDate);
+          $dateString = $startDateCopy->add(new DateInterval("P{$week}W"))->format('Y-m-d');
+          if(!array_key_exists($dateString, $datesArray))
+          {
+            $eventId = $courseTime->events()->create(['date' => $dateString])->id;
+          }
+          else
+          {
+            $eventId = $datesArray[$dateString];
+          }
+          array_push($addedEventsIds, $eventId);
+        }
+        // delete other events
+        CourseEvent::query()->where('course_time_id', $courseTime->id)->whereNotIn('id', $addedEventsIds)->delete();
       }
 
       return $course;
@@ -100,6 +121,22 @@ class CoursesController extends Controller
     $course->load('times.events', 'times.instructors');
 
     return response()->json($course);
+  }
+
+  private function createOrUpdateCourseTime(array $courseTimeData, UpdateCourseRequest $request, Course $course): CourseTime
+  {
+    if(array_key_exists('id', $courseTimeData))
+    {
+      $courseTime = CourseTime::findOrFail($courseTimeData['id']);
+      $courseTime->update($request->extractCourseTimeData($courseTimeData));
+    }
+    else
+    {
+      $courseTime = $course->times()->create($request->extractCourseTimeData($courseTimeData));
+    }
+    $courseTime->instructors()->sync($request->extractInstructorIds($courseTimeData));
+
+    return $courseTime;
   }
 
   public function show(int $id)

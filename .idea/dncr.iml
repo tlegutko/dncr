@@ -6,7 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/database" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/frontend/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/server" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -32,8 +32,8 @@ trait CourseRequest
         'required',
         'regex:/all|single|following/',
       ],
-      'course.times.*.id' => 'required | integer',
-      'course.times.*.events.*.id' => 'required | integer',
+      'course.times.*.id' => 'integer',
+      'course.times.*.events.*.id' => 'integer',
     ];
   }
 

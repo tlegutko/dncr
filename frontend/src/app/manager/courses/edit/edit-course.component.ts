@@ -39,6 +39,7 @@ export class EditCourseComponent implements OnInit {
     let newCourseTime = new CourseTime();
     newCourseTime.instructors = lastCourseTime.instructors;
     newCourseTime.locationId = lastCourseTime.locationId;
+    newCourseTime.repeatWeeksCount = lastCourseTime.repeatWeeksCount;
     this.model.times.push(newCourseTime);
     this.errors.times.push(new CourseTimeErrors());
   }
