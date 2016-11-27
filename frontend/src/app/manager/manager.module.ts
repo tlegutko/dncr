@@ -4,9 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ManagerComponent } from './manager.component';
 import { ManagerCoursesComponent } from './courses/courses.component';
-import { ManagerInstructorsComponent } from './instructors/instructors.component';
 import { ManagerCalendarComponent } from './courses/manager-calendar/manager-calendar.component';
-import { InstructorCreateComponent } from './instructors/create/instructor-create.component';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeModule } from 'app/attendee';
 import { CourseModule, CourseResolve, CourseErrorsResolve } from 'app/course';
@@ -17,10 +15,10 @@ import {
 import { CourseTitleComponent } from './courses/course-title/course-title.component';
 import { CourseTimeComponent } from './courses/edit/course-time/course-time.component';
 import { CreateCoursePropertiesComponent } from './courses/edit/course-properties/course-properties.component';
-import { InstructorsService } from './instructors/instructors.service';
 import { CreateCourseComponent } from './courses/create/create-course.component';
 import { EditCourseComponent } from './courses/edit/edit-course.component';
-import { LocationsModule, LocationsResolve } from 'app/manager/locations';
+import { LocationsModule, LocationsResolve } from './locations';
+import { InstructorsModule, InstructorsResolve, ManagerInstructorsComponent } from './instructors';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -43,6 +41,7 @@ export const routes = [
             component: CreateCourseComponent,
             resolve: {
               locations: LocationsResolve,
+              instructors: InstructorsResolve,
             }
           }, {
             path: ':course-id',
@@ -62,13 +61,17 @@ export const routes = [
             resolve: {
               course: CourseResolve,
               courseErrors: CourseErrorsResolve,
-              locations: LocationsResolve
+              locations: LocationsResolve,
+              instructors: InstructorsResolve,
             }
           }
         ]
       }, {
         path: 'instructors',
-        component: ManagerInstructorsComponent
+        component: ManagerInstructorsComponent,
+        resolve: {
+          instructors: InstructorsResolve,
+        }
       }
     ]
   }
@@ -86,8 +89,6 @@ export const routes = [
       ManagerCourseAttendeesTitleComponent,
       ManagerCoursesActionsComponent,
       ManagerCalendarComponent,
-      ManagerInstructorsComponent,
-      InstructorCreateComponent,
       EditCourseComponent,
       CreateCourseComponent,
       CourseTitleComponent,
@@ -101,11 +102,9 @@ export const routes = [
       CommonsModule,
       AttendeeModule,
       CourseModule,
-      LocationsModule
+      LocationsModule,
+      InstructorsModule,
     ],
-    providers: [
-      InstructorsService
-    ]
   }
 )
 export default class ManagerModule {

@@ -1,12 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CourseErrors, Course, CourseTime, CourseTimeErrors } from '../../../course/course.model';
-import { CourseLocation } from '../../locations/locations.model';
-import { LocationsService } from '../../locations/locations.service';
-import { InstructorsService } from '../../instructors/instructors.service';
-import { Instructor } from '../../instructors/instructor';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { CoursesService } from '../../../course/courses.service';
+import { Course, CourseErrors, CoursesService, CourseTime, CourseTimeErrors } from 'app/course';
+import { CourseLocation } from 'app/manager/locations';
+import { Instructor } from 'app/manager/instructors';
 
 @Component(
   {
@@ -21,9 +18,9 @@ export class EditCourseComponent implements OnInit {
   @Input() errors: CourseErrors;
   @Input() locations: CourseLocation[];
   @Input() updateTime: boolean;
-  instructors: Instructor[];
+  @Input() instructors: Instructor[];
 
-  constructor(private locationsService: LocationsService, private instructorsService: InstructorsService, private coursesService: CoursesService) {
+  constructor(private coursesService: CoursesService) {
   }
 
   ngOnInit(): void {
@@ -35,9 +32,6 @@ export class EditCourseComponent implements OnInit {
       );
     }
     this.model.times = this.sortCourseTimes(this.model.times);
-    this.instructorsService.list().subscribe(
-      (instructors) => this.instructors = instructors, (errors) => this.errors = errors
-    );
   }
 
   addCourseTime() {

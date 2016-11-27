@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InstructorsService } from './instructors.service';
-import { Instructor } from './instructor';
+import { Instructor } from './instructors.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component(
   {
@@ -10,12 +11,16 @@ import { Instructor } from './instructor';
     providers: [InstructorsService]
   }
 )
-export class ManagerInstructorsComponent {
+export class ManagerInstructorsComponent implements OnInit {
   instructors: Instructor[] = [];
 
-  constructor(private instructorsService: InstructorsService) {
-    this.instructorsService.list()
-      .subscribe(instructors => this.instructors = instructors);
+  constructor(private route: ActivatedRoute, private instructorsService: InstructorsService) {
+  }
+
+  ngOnInit() {
+    this.route.data.forEach(
+      (data: { instructors: Instructor[]}) => this.instructors = data.instructors
+    );
   }
 
   public remove(instructor: Instructor) {

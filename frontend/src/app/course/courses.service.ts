@@ -51,21 +51,21 @@ export class CoursesService {
   public get(id: number): Observable<Course> {
     let url = `api/courses/${id}`;
     return this.http.get(url)
-      .map((response: Response) => this.mapToCourse(response))
+      .map((response: Response) => CoursesService.mapToCourse(response))
       .catch(() => Observable.throw('Błąd pobierania kursu.'));
   }
 
   public create(course: Course): Observable<Course> {
     let url = `api/courses`;
     return this.http.post(url, new CreateCourseRequest(course))
-      .map(this.mapToCourse)
+      .map(CoursesService.mapToCourse)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
       .catch(
         (response) => {
           if (response.status === 500) {
             return Observable.throw('Błąd serwera');
           } else {
-            return Observable.throw(this.mapCourseErrors(response));
+            return Observable.throw(CoursesService.mapCourseErrors(response));
           }
         }
       );
@@ -74,16 +74,16 @@ export class CoursesService {
   public updateAll(course: Course): Observable<Course> {
     let url = `api/courses/${course.id}`;
     return this.http.put(url, new UpdateCourseRequest(course, 'all'))
-      .map(this.mapToCourse)
+      .map(CoursesService.mapToCourse)
       .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
-      .catch(response => Observable.throw(this.mapCourseErrors(response)));
+      .catch(response => Observable.throw(CoursesService.mapCourseErrors(response)));
   }
 
-  private mapCourseErrors(response: Response): CourseErrors {
+  private static mapCourseErrors(response: Response): CourseErrors {
     return (response.json() as CourseErrorsResponse).course;
   }
 
-  private mapToCourse(response: Response): Course {
+  private static mapToCourse(response: Response): Course {
     let course: Course = response.json();
     let formatTime = (time) => moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
     course.times.forEach(

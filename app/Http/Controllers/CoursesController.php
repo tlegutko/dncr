@@ -11,7 +11,6 @@ use App\Models\CourseTime;
 use DateInterval;
 use DateTime;
 use DB;
-use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
@@ -41,14 +40,11 @@ class CoursesController extends Controller
   {
     $course = DB::transaction(function() use ($request)
     {
-
       $course = Course::create($request->extractCourseData());
-
       foreach($request->input('course.times') as $courseTimeData)
       {
-        $courseTime = $course->times()->create($this->extractCourseTimeData($courseTimeData)); // TODO move to request or smthn
-        $courseTime->instructors()->sync($this->extractInstructorIds($courseTimeData));
         $courseTime = $course->times()->create($request->extractCourseTimeData($courseTimeData));
+        $courseTime->instructors()->sync($request->extractInstructorIds($courseTimeData));
         $startDate = new DateTime($courseTime->start_date);
         $step = $courseTime->repeat_weeks_count;
         foreach(range(0, $step * ($course->classes_count - 1), $step) as $week)
@@ -56,34 +52,6 @@ class CoursesController extends Controller
           $startDateCopy = clone($startDate);
           $eventDate = ['date' => $startDateCopy->add(new DateInterval("P{$week}W"))];
           $courseTime->events()->create($eventDate);
-        }
-      }
-
-      return $course;
-    });
-
-    $course->load('times.events', 'times.instructors');
-
-    return response()->json($course);
-  }
-
-  public function updateAll(UpdateCourseRequest $request)
-  {
-    $course = DB::transaction(function() use ($request)
-    {
-      $course = Course::findOrFail($request->id);
-      $course->update($this->extractCourseData($request));
-
-      foreach($request->input()['times'] as $courseTimeData)
-      {
-        $courseTime = CourseTime::findOrFail($courseTimeData['id']);
-        $courseTime->instructors()->sync($this->extractInstructorIds($courseTimeData));
-        $courseTime->update($this->extractCourseTimeData($courseTimeData));
-
-        foreach($courseTimeData['events'] as $courseEventData)
-        {
-          $courseEvent = CourseEvent::findOrFail($courseEventData['id']);
-          $courseEvent->update(array_only($courseEventData, ['date']));
         }
       }
 
@@ -113,10 +81,10 @@ class CoursesController extends Controller
     {
       $course = Course::findOrFail($id);
       $course->update($request->extractCourseData());
-
       foreach($request->input('course.times') as $courseTimeData)
       {
         $courseTime = CourseTime::findOrFail($courseTimeData['id']);
+        $courseTime->instructors()->sync($request->extractInstructorIds($courseTimeData));
         $courseTime->update($request->extractCourseTimeData($courseTimeData));
 
         foreach($courseTimeData['events'] as $courseEventData)
@@ -129,7 +97,7 @@ class CoursesController extends Controller
       return $course;
     });
 
-    $course->load('times.events');
+    $course->load('times.events', 'times.instructors');
 
     return response()->json($course);
   }
@@ -146,35 +114,5 @@ class CoursesController extends Controller
     $attendees = Attendee::query()->where('course_id', '=', $id)->get();
 
     return response()->json($attendees);
-  }
-  private function extractCourseData(Request $request) : array
-  {
-    return $request->only('name',
-                          'price',
-                          'classes_count',
-                          'description',
-                          'seats_count');
-  }
-
-  private function extractCourseTimeData(array $courseTimeData): array
-  {
-    $attributes = [
-      'start_date',
-      'start_time',
-      'end_time',
-      'repeat_weeks_count',
-      'location_id',
-    ];
-
-    return array_only($courseTimeData, $attributes);
-  }
-
-  private function extractInstructorIds(array $courseTimeData): array
-  {
-    return array_map(function($instructor)
-    {
-      return $instructor['id'];
-    },
-      $courseTimeData['instructors']);
   }
 }

@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { Instructor } from '../manager/instructors/instructor';
+import { Instructor } from '../manager/instructors/instructors.model';
 
 export class Course {
   id: number;
@@ -22,7 +22,6 @@ export class Course {
         price: 60.00,
         classesCount: 1,
         seatsCount: 1,
-        instructorId: 1,
         description: 'Najlepszy kurs',
         times: [
           new CourseTime(
@@ -47,7 +46,6 @@ export class Course {
       price?: number,
       classesCount?: number,
       seatsCount?: number,
-      instructorId?: number,
       description?: string,
       times?: CourseTime[]
     }
@@ -66,7 +64,7 @@ export class CourseTime {
   id: number;
   courseId: number;
   locationId: number;
-  instructors: Instructor[];
+  instructors: Instructor[] = [new Instructor()];
   startDate: string;
   startTime: string;
   endTime: string;
@@ -156,7 +154,6 @@ export class CourseErrors {
     this.classesCount = undefined;
     this.seatsCount = undefined;
     this.description = undefined;
-    this.instructorId = undefined;
     this.times = this.times.map(() => new CourseTimeErrors());
   }
 
@@ -173,6 +170,9 @@ export class CourseErrors {
     for (let i = 0; i < currTimes.length; i++) {
       if (newTimes[i] == null) {
         newTimes[i] = currTimes[i];
+      }
+      else if (newTimes[i].instructors == null) {
+        newTimes[i].instructors = [new InstructorErrors()];
       }
     }
     return Object.values(newTimes);

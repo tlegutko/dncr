@@ -3,7 +3,6 @@ import { NotificationsService } from 'angular2-notifications/src/notifications.s
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CourseLocation } from './locations.model';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class LocationsResolve implements Resolve<CourseLocation[]> {

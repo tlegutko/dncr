@@ -18,7 +18,7 @@ class CoursesTableSeeder extends Seeder
     /** @var stdClass $instructor */
     $instructor1 = DB::table('users')->where('email', 'jan@kowalski.com')->first();
     /** @var stdClass $instructor */
-    $instructor2 = DB::table('users')->where('email', 'jan@kowalski.com')->first();
+    $instructor2 = DB::table('users')->where('email', 'grzegorz@grzejszczak.com')->first();
 
     $this->addFirstCourse($company, $location, $instructor1, $instructor2);
   }

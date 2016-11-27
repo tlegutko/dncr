@@ -1,7 +1,7 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CourseTime, CourseTimeErrors } from '../../../../course/course.model';
 import { CourseLocation } from '../../../locations/locations.model';
-import { Instructor } from '../../../instructors/instructor';
+import { Instructor } from '../../../instructors/instructors.model';
 
 @Component(
   {
