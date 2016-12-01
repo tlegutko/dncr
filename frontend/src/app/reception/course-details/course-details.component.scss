@@ -3,8 +3,16 @@
   position: relative;
   height: 100%;
 
-  i {
-    font-size: 2rem;
-    cursor: help;
+  .attendees {
+    padding: .5rem .25rem;
   }
+
+  /deep/ .payment-confirmation .modal-dialog {
+    max-width: 26rem;
+  }
+}
+
+i {
+  font-size: 2rem;
+  cursor: help;
 }
