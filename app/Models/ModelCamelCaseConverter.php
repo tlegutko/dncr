@@ -8,28 +8,43 @@ trait ModelCamelCaseConverter
 {
   public function fill(array $attributes)
   {
-    // Convert keys from camelCase to snake_case
-    $converter = new CamelCaseToSnakeCaseNameConverter();
-    $results = [];
-    foreach($attributes as $key => $value)
+    /** @noinspection PhpUndefinedClassInspection */
+    return parent::fill($this->normalize($attributes));
+  }
+
+  private function normalize(array $source)
+  {
+    $normalizer = new CamelCaseToSnakeCaseNameConverter();
+    $result = [];
+
+    foreach ($source as $key => $value)
     {
-      $results[$converter->normalize($key)] = $value;
+      if (is_array($value))
+      {
+        $value = $this->normalize($value);
+      }
+
+      $result[$normalizer->normalize($key)] = $value;
     }
 
-    /** @noinspection PhpUndefinedClassInspection */
-    return parent::fill($results);
+    return $result;
   }
 
   public function toArray()
   {
     // Convert keys from snake_case to camelCase
-    $converter = new CamelCaseToSnakeCaseNameConverter();
     /** @noinspection PhpUndefinedClassInspection */
-    $values = parent::toArray();
+    return $this->denormalize(parent::toArray());
+  }
+
+  private function denormalize(array $source)
+  {
+    $normalizer = new CamelCaseToSnakeCaseNameConverter();
     $result = [];
-    foreach($values as $key => $value)
+
+    foreach ($source as $key => $value)
     {
-      $result[$converter->denormalize($key)] = $value;
+      $result[$normalizer->denormalize($key)] = $value;
     }
 
     return $result;

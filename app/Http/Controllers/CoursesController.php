@@ -8,15 +8,13 @@ use App\Models\Course;
 use DateInterval;
 use DateTime;
 use DB;
+use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
   public function index()
   {
-    $courses = Course::with([
-                              'times',
-                              'times.events',
-                            ])->get();
+    $courses = Course::with('times.events')->get();
 
     return response()->json($courses);
   }
@@ -28,12 +26,11 @@ class CoursesController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreCourseRequest $request)
+  public function store(StoreCourseRequest $request) // TODO StoreCourseRequest
   {
+    // TODO remove mock company_id below and inject real one once DNCR-92 is merged
     $courseData = $request->only('name', 'price', 'classes_count', 'description', 'seats_count') + ['company_id' => 1];
-    // TODO remove mock company_id above and inject real one once DNCR-92 is merged
-    $startDate = ['start_date' => (new DateTime($request->start_time))->format('Y-m-d')];
-    $courseTimeData = $request->only('start_time', 'end_time', 'repeat_weeks_count', 'location_id') + $startDate;
+    $courseTimeData = $request->input()['times'][0];
 
     $course = DB::transaction(function() use ($courseData, $courseTimeData)
     {
@@ -59,7 +56,7 @@ class CoursesController extends Controller
 
   public function show(int $id)
   {
-    $course = Course::findOrFail($id);
+    $course = Course::with('times.events')->findOrFail($id);
 
     return response()->json($course);
   }

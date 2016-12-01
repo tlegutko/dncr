@@ -9,17 +9,18 @@ import { ManagerCalendarComponent } from './courses/manager-calendar/manager-cal
 import { InstructorCreateComponent } from './instructors/create/instructor-create.component';
 import { CommonsModule } from 'app/_commons/commons.module';
 import { AttendeeModule } from 'app/attendee';
-import { CourseModule, CourseResolve } from 'app/course';
+import { CourseModule, CourseResolve, CourseErrorsResolve } from 'app/course';
 import {
   ManagerCoursesSingleComponent, ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent,
   ManagerCoursesActionsComponent, ManagerCourseAttendeesTitleComponent
 } from './courses/single';
-import { CreateCourseComponent } from './courses/create/create-course.component';
-import { CreateCourseTitleComponent } from './courses/create/course-title/course-title.component';
-import { CourseTimesComponent } from './courses/create/course-times/course-times.component';
-import { CreateCoursePropertiesComponent } from './courses/create/course-properties/course-properties.component';
+import { CourseTitleComponent } from './courses/course-title/course-title.component';
+import { CourseTimesComponent } from './courses/edit/course-times/course-times.component';
+import { CreateCoursePropertiesComponent } from './courses/edit/course-properties/course-properties.component';
 import { InstructorsService } from './instructors/instructors.service';
 import { LocationsService } from './locations/locations.service';
+import { CreateCourseComponent } from './courses/create/create-course.component';
+import { EditCourseComponent } from './courses/edit/edit-course.component';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -56,7 +57,8 @@ export const routes = [
               }
             ],
             resolve: {
-              course: CourseResolve
+              course: CourseResolve,
+              courseErrors: CourseErrorsResolve
             }
           }
         ]
@@ -82,8 +84,9 @@ export const routes = [
       ManagerCalendarComponent,
       ManagerInstructorsComponent,
       InstructorCreateComponent,
+      EditCourseComponent,
       CreateCourseComponent,
-      CreateCourseTitleComponent,
+      CourseTitleComponent,
       CourseTimesComponent,
       CreateCoursePropertiesComponent
     ],

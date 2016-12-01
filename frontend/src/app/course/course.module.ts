@@ -6,6 +6,7 @@ import { CoursesService } from './courses.service';
 import { CourseResolve } from './course-resolve';
 import { PaymentMethodsResolve } from './payment-methods-resolve';
 import { PaymentsService } from './payments.service';
+import { CourseErrorsResolve } from './course-errors-resolve';
 
 @NgModule(
   {
@@ -13,7 +14,7 @@ import { PaymentsService } from './payments.service';
       CommonModule, FormsModule, CommonsModule
     ],
     providers: [
-      CoursesService, CourseResolve, PaymentsService, PaymentMethodsResolve
+      CoursesService, CourseResolve, PaymentsService, PaymentMethodsResolve, CourseErrorsResolve
     ]
   }
 )
