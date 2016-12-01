@@ -1,0 +1,22 @@
+<create-attendee (onSave)="onAttendeeSaved($event)" [courseId]="course.id" *ngIf="isCreateFormVisible && course">
+  <button type="button" class="cancel btn btn-secondary" (click)="hideCreateForm">
+    <i class="fa fa-times"></i>
+    <span class="sr-only">Anuluj</span>
+  </button>
+  <ng-content select=".list-title-on-edit"></ng-content>
+  <button type="submit" class="save btn btn-primary">
+    <i class="fa fa-floppy-o"></i> Zapisz
+  </button>
+</create-attendee>
+<ng-content select=".list-title" *ngIf="!(isCreateFormVisible && course)"></ng-content>
+<div class="attendees" *ngIf="attendees">
+  <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee" [course]="course" [checkable]="true"
+                [detailsRoute]="['attendee', attendee.id]" [paymentMethods]="paymentMethods"
+                (onPayment)="confirmPayment($event)"></attendee-row>
+</div>
+
+<i class="fa fa-question-circle-o"
+   title="Kursanci oznaczeni na zielono opłacili bieżący kurs.&#013;Kursanci oznaczeni na biało nie zapłacili za bieżący
+   kurs.&#013;Kursanci oznaczeni na czerwono zalegają z płatnościami za więcej niż jeden kurs."></i>
+<add-item-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></add-item-button>
+<template ngbModalContainer></template>
