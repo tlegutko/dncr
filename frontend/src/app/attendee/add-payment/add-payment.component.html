@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Dodaj płatność</h4>
+</div>
+<div class="modal-body">
+  <dl class="row">
+    <dt class="col-xs-6">Kurs</dt>
+    <dd class="col-xs-6">{{ course.name }}</dd>
+    <dt class="col-xs-6">Do zapłaty</dt>
+    <dd class="col-xs-6">{{ course.price }}</dd>
+    <dt class="col-xs-6">Kursant</dt>
+    <dd class="col-xs-6">{{ person.name }} {{ person.surname }}</dd>
+  </dl>
+  <div [(ngModel)]="method" ngbRadioGroup name="method">
+    <label class="btn btn-secondary" *ngFor="let m of methods"><input type="radio" [value]="m"> {{ m.name }}</label>
+  </div>
+  <dl class="row" *ngIf="method && method.deposit > 0">
+    <dt class="col-xs-6">Kaucja</dt>
+    <dd class="col-xs-6">{{ method.deposit }}</dd>
+  </dl>
+  <p *ngIf="method">Czy potwierdzasz płatność?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">Nie</button>
+  <button type="button" class="btn btn-primary" [disabled]="!canConfirm()" (click)="confirm()">Tak</button>
+</div>

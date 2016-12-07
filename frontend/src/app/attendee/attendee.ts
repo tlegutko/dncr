@@ -4,5 +4,6 @@ export class Attendee {
   public surname: string;
   public email: string;
   public phoneNumber: string;
+  public paymentStatus: string;
   public courseId: number;
 }
