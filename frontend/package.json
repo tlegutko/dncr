@@ -4,10 +4,24 @@
   "description": "An app for dance schools to manage its customers and classes.",
   "keywords": [],
   "authors": [
-    "Amadeusz Starzykiewicz <megawebmaster@gmail.com>"
-  ],
+        {
+            "name": "Tomasz Legutko",
+        },
+		{
+            "name": "Amadeusz Starzykiewicz",
+        },
+		{
+            "name": "Bartosz Rakoczy",
+        },
+		{
+            "name": "Szymon Łabuz",
+        },
+		{
+            "name": "Marek Łakomy",
+        }
+    ],
   "homepage": "https://github.com/tlegutko/dncr",
-  "license": "Proprietary",
+  "license": "Apache v2.0",
   "scripts": {
     "rimraf": "rimraf",
     "tslint": "tslint",

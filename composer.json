@@ -2,7 +2,7 @@
   "name": "startup-time/dncr",
   "description": "DNCR (pronounced 'dancer') is a dance school management system.",
   "keywords": [],
-  "license": "proprietary",
+  "license": "Apache v2.0",
   "type": "project",
   "require": {
     "php": ">=7.0.0",
@@ -49,5 +49,22 @@
   },
   "config": {
     "preferred-install": "dist"
-  }
+  },
+  "authors": [
+        {
+            "name": "Tomasz Legutko",
+        },
+		{
+            "name": "Amadeusz Starzykiewicz",
+        },
+		{
+            "name": "Bartosz Rakoczy",
+        },
+		{
+            "name": "Szymon Łabuz",
+        },
+		{
+            "name": "Marek Łakomy",
+        }
+    ]
 }
