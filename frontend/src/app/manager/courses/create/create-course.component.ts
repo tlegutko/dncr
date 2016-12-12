@@ -1,28 +1,46 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { CalendarEvent } from '../../../_commons/calendar/calendar-events.interface';
-import { CreateCourseErrors, CreateCourseRequest } from '../../../course/course.model';
-import { CoursesService } from '../../../course/courses.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CourseErrors, Course, CoursesService } from 'app/course';
 
 @Component(
   {
     selector: 'create-course',
-    templateUrl: './create-course.component.html',
-    styleUrls: ['./create-course.component.scss'],
+    template: `
+      <course-title [model]="model" [editable]="true" [errors]="errors.name" (save)="onSave($event)" 
+                    (close)="onClose()"></course-title>
+      <edit-course [model]="model" [errors]="errors"></edit-course>
+    `,
+    styles: [':host { display: block }'],
   }
 )
-export class CreateCourseComponent {
-
-  @Output() save = new EventEmitter<CalendarEvent>();
-  errors: CreateCourseErrors = {};
-  model = new CreateCourseRequest();
+export class CreateCourseComponent implements OnInit {
+  model = new Course();
+  errors: CourseErrors = new CourseErrors();
 
   constructor(private router: Router, private coursesService: CoursesService) {
   }
 
-  createCourse() {
-    this.coursesService.create(this.model).subscribe(
-      (course) => this.router.navigate(['/manager/courses', course.id]), (errors) => this.errors = errors
+  public ngOnInit() {
+    this.coursesService.recentlyClickedTime.subscribe(
+      (courseTime) => {
+        this.model.setTime(courseTime);
+      }
     );
+  }
+
+  onSave(callback: (result: boolean) => void) {
+    this.coursesService.create(this.model).subscribe(
+      (course) => {
+        this.router.navigate(['/manager/courses', course.id]);
+        callback(true);
+      }, (errors) => {
+        this.errors.update(errors);
+        callback(false);
+      }
+    );
+  }
+
+  onClose() {
+    this.router.navigate(['/manager/courses']);
   }
 }

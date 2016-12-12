@@ -1,1 +1,11 @@
-<h2>Akcje</h2>
+<form (ngSubmit)="sendMailToAttendees()">
+  <div class="form-group">
+    <label for="message">Wyślij wiadomość do uczestników kursu:</label>
+    <textarea class="form-control" id="message" name="message" rows="3" required
+              [(ngModel)]="mail.message"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary pull-xs-right">
+    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+    Wyślij
+  </button>
+</form>
