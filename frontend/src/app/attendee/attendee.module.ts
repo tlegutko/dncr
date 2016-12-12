@@ -9,11 +9,12 @@ import { CreateAttendeeComponent } from './create/create-attendee.component';
 import { AttendeeService } from './attendee.service';
 import { AttendeeResolve } from './attendee-resolve';
 import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
+import { AddPaymentComponent } from './add-payment/add-payment.component';
 
 @NgModule(
   {
     declarations: [
-      AttendeeRowComponent, CreateAttendeeComponent, PaymentConfirmationComponent
+      AttendeeRowComponent, CreateAttendeeComponent, PaymentConfirmationComponent, AddPaymentComponent
     ],
     imports: [
       CommonModule, FormsModule, CommonsModule, NgbModule.forRoot(), RouterModule
@@ -25,7 +26,7 @@ import { PaymentConfirmationComponent } from './payment-confirmation/payment-con
       AttendeeService, AttendeeResolve
     ],
     entryComponents: [
-      PaymentConfirmationComponent
+      PaymentConfirmationComponent, AddPaymentComponent
     ]
   }
 )

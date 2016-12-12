@@ -8,6 +8,14 @@
     border-bottom: 0;
   }
 
+  &.ok {
+    background-color: lighten($brand-success, 25%);
+  }
+
+  &.danger {
+    background-color: lighten($brand-danger, 25%);
+  }
+
   > div.attendee {
     display: flex;
     align-items: center;

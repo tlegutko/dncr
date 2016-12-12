@@ -4,10 +4,24 @@
   "description": "An app for dance schools to manage its customers and classes.",
   "keywords": [],
   "authors": [
-    "Amadeusz Starzykiewicz <megawebmaster@gmail.com>"
-  ],
+        {
+            "name": "Tomasz Legutko"
+        },
+		{
+            "name": "Amadeusz Starzykiewicz"
+        },
+		{
+            "name": "Bartosz Rakoczy"
+        },
+		{
+            "name": "Szymon Łabuz"
+        },
+		{
+            "name": "Marek Łakomy"
+        }
+    ],
   "homepage": "https://github.com/tlegutko/dncr",
-  "license": "Proprietary",
+  "license": "Apache v2.0",
   "scripts": {
     "rimraf": "rimraf",
     "tslint": "tslint",
@@ -51,7 +65,7 @@
     "@angular/platform-server": "2.1.2",
     "@angular/router": "3.1.1",
     "@angularclass/conventions-loader": "1.0.12",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.9",
+    "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.11",
     "assets-webpack-plugin": "3.5.0",
     "angular2-cookie": "1.2.5",
     "angular2-jwt": "0.1.25",
