@@ -167,5 +167,4 @@ export class CourseTimeErrors {
 
 export class CourseEventErrors {
   date?: string[];
-
 }

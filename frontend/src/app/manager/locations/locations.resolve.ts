@@ -13,7 +13,7 @@ export class LocationsResolve implements Resolve<CourseLocation[]> {
   resolve(route: ActivatedRouteSnapshot): Promise<CourseLocation[]> {
     return this.service.list().toPromise().then(
       (locations) => locations, () => {
-        this.notifications.error('Błąd', 'Nie udało się pobrać lokacji.');
+        this.notifications.error('Błąd', 'Nie udało się pobrać sal.');
         this.router.navigate(route.parent.url);
       }
     );
