@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Company;
 use Illuminate\Database\Seeder;
 
 use App\Models\Company;
@@ -13,7 +14,13 @@ class CompaniesTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(Company::class)->create(['name' => 'Firma 1']);
-    factory(Company::class)->create(['name' => 'Firma 2']);
+    Company::create([
+                      'name' => 'Firma 1',
+                      'valid_to' => (new DateTime())->add(new DateInterval('P30D')),
+                    ]);
+    Company::create([
+                      'name' => 'Firma 2',
+                      'valid_to' => (new DateTime())->add(new DateInterval('P10D')),
+                    ]);
   }
 }

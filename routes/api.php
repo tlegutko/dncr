@@ -24,8 +24,15 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('courses', 'CoursesController@create');
   Route::put('courses/{id}', 'CoursesController@update');
   Route::get('courses/{id}', 'CoursesController@show');
-  Route::get('courses/{id}/attendees', 'CoursesController@attendees');
+  Route::get('courses/{id}/attendees', 'Courses\AttendeesController@index');
+  Route::post('courses/{id}/send-message', 'Courses\MailController@send');
 
   // Locations
   Route::get('locations', 'LocationsController@index');
+
+  // Payment methods
+  Route::get('payment-methods', 'PaymentMethodsController@index');
+
+  // Payment
+  Route::post('courses/{id}/pay', 'Courses\PaymentController@store');
 });

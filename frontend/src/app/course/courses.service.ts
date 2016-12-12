@@ -36,12 +36,7 @@ export class CoursesService {
     let url = 'api/courses';
     return this.http.get(url)
       .map((response: Response) => this.mapCoursesToEvents(response.json()))
-      .catch(
-        (e) => {
-          console.error('Error during calendarEvents()', e);
-          return Observable.throw('Błąd pobierania wydarzeń.');
-        }
-      );
+      .catch((e) => Observable.throw('Błąd pobierania wydarzeń.'));
   }
 
   public broadcastCalendarDateClick(clickedTime: Moment) {

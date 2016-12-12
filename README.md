@@ -193,3 +193,7 @@ Unfortunately we have no idea why is it coming up like this.
 ## I have `permission denied` errors after generating file with artisan!
 
 1. Use `dartisan.sh` script. Type `./dartisan.sh -h` for more info.
+
+# Copyright and license
+Code copyright 2016 by Tomasz Legutko, Amadeusz Starzykiewicz, Bartosz Rakoczy, Szymon Łabuz and Marek Łakomy under the [Apache 2.0 License](https://github.com/tlegutko/dncr/blob/develop/LICENSE).
+

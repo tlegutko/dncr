@@ -11,9 +11,7 @@ $factory->define(Company::class,
     ];
   });
 
-$factory->define(User::class,
-  function(Faker\Generator $faker)
-  {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
       'phone_number' => random_int(111111111, 999999999),
       'password' => bcrypt('admin1'),

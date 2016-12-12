@@ -19,6 +19,7 @@ import { CreateCourseComponent } from './courses/create/create-course.component'
 import { EditCourseComponent } from './courses/edit/edit-course.component';
 import { LocationsModule, LocationsResolve } from './locations';
 import { InstructorsModule, InstructorsResolve, ManagerInstructorsComponent } from './instructors';
+import { MailService } from './courses/single/actions/mail.service';
 
 // async components must be named routes for WebpackAsyncRoute
 export const routes = [
@@ -105,6 +106,9 @@ export const routes = [
       LocationsModule,
       InstructorsModule,
     ],
+    providers: [
+      MailService
+    ]
   }
 )
 export default class ManagerModule {

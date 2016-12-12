@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\CompanyRelated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Location extends Model
 {
@@ -14,7 +15,7 @@ class Location extends Model
     'company_id',
   ];
 
-  public function company(): Company
+  public function company(): BelongsTo
   {
     return $this->belongsTo(Company::class);
   }

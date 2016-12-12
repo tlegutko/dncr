@@ -4,11 +4,11 @@
 
 :host {
   display: block;
-}
 
-/deep/ labelled-form-field label {
-  @media (min-width: breakpoint-min(sm)) {
-    text-align: right;
+  /deep/ labelled-form-field label {
+    @media (min-width: breakpoint-min(sm)) {
+      text-align: right;
+    }
   }
 }
 

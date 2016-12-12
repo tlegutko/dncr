@@ -2,19 +2,26 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateCourseRequest extends FormRequest
+class UpdateCourseRequest extends CreateCourseRequest
 {
-  use RequestCamelCaseConverter, CourseRequest;
-
   public function rules()
   {
-    return $this->courseFieldsRules() + $this->courseUpdateRules();
+    return parent::rules() + [
+        'update_strategy' => [
+          'required',
+          'regex:/all|single|following/',
+        ],
+        'course.times.*.id' => 'required | integer',
+        'course.times.*.events.*.id' => 'required | integer',
+      ];
   }
 
   public function attributes()
   {
-    return $this->courseFieldsAttributes() + $this->courseUpdateAttributes();
+    return parent::attributes() + [
+        'update_strategy' => 'strategia edycji',
+        'times.*.id' => 'id',
+        'times.*.events.*.id' => 'id',
+      ];
   }
 }

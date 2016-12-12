@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Traits\CompanyRelated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
@@ -18,7 +20,7 @@ class Course extends Model
     'description',
   ];
 
-  public function company()
+  public function company(): BelongsTo
   {
     return $this->belongsTo(Company::class);
   }
@@ -26,7 +28,7 @@ class Course extends Model
   /**
    * @return CourseTime[]
    */
-  public function times()
+  public function times(): HasMany
   {
     return $this->hasMany(CourseTime::class);
   }
