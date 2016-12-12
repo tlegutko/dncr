@@ -16,6 +16,8 @@ class CreateCoursesTable extends Migration
       function(Blueprint $table)
       {
         $table->increments('id');
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->nullable()->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
         $table->integer('company_id')->unsigned();
         $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         $table->string('name', 50);
@@ -23,8 +25,6 @@ class CreateCoursesTable extends Migration
         $table->integer('classes_count')->unsigned();
         $table->integer('seats_count')->unsigned();
         $table->text('description')->nullable();
-        $table->timestamp('created_at')->default(DB::raw('NOW()'));
-        $table->timestamp('updated_at')->nullable();
       });
   }
 

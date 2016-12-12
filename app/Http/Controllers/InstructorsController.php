@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInstructorRequest;
 use App\Models\Instructor;
-use Illuminate\Http\Request;
 
 class InstructorsController extends Controller
 {
