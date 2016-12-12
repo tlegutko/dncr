@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+@import '~bootstrap/scss/mixins/_clearfix';
+
+:host {
+  display: block;
+
+  /deep/ labelled-form-field label {
+    @media (min-width: breakpoint-min(sm)) {
+      text-align: right;
+    }
+  }
+}
+
+.form-group {
+  @include clearfix();
+}

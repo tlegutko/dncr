@@ -12,44 +12,53 @@ trait RequestCamelCaseConverter
   {
     /** @noinspection PhpUndefinedClassInspection */
     $source = parent::input($key, $default);
-    $converter = new CamelCaseToSnakeCaseNameConverter();
 
-    $results = [];
-    foreach($source as $key => $value)
-    {
-      $results[$converter->normalize($key)] = $value;
-    }
-
-    return $results;
+    return $this->normalize($source);
   }
 
   public function json($key = null, $default = null)
   {
     /** @noinspection PhpUndefinedClassInspection */
-    $source = parent::json($key, $default);
-    $converter = new CamelCaseToSnakeCaseNameConverter();
+    $source = parent::json($key, $default)->all();
 
-    $results = [];
-    foreach($source as $key => $value)
+    return new ParameterBag($this->normalize($source));
+  }
+
+  private function normalize(array $source)
+  {
+    $normalizer = new CamelCaseToSnakeCaseNameConverter();
+    $result = [];
+
+    foreach ($source as $key => $value)
     {
-      $results[$converter->normalize($key)] = $value;
+      if (is_array($value))
+      {
+        $value = $this->normalize($value);
+      }
+
+      $newKey = is_int($key) ? $key : $normalizer->normalize($key);
+      $result[$newKey] = $value;
     }
 
-    return new ParameterBag($results);
+    return $result;
   }
 
   protected function formatErrors(Validator $validator)
   {
     /** @noinspection PhpUndefinedClassInspection */
     $source = parent::formatErrors($validator);
-    $converter = new CamelCaseToSnakeCaseNameConverter();
+    $result = [];
 
-    $results = [];
-    foreach($source as $key => $value)
+    $normalizer = new CamelCaseToSnakeCaseNameConverter();
+    foreach ($source as $key => $value)
     {
-      $results[$converter->denormalize($key)] = $value;
+      $path = implode('.', array_map(function($part) use ($normalizer) {
+        return $normalizer->denormalize($part);
+      }, explode('.', $key)));
+
+      array_set($result, $path, $value);
     }
 
-    return $results;
+    return $result;
   }
 }

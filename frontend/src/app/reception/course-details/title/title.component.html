@@ -1,7 +1,7 @@
 <button type="button" class="cancel btn btn-secondary" (click)="onCancel.emit(true)">
   <i class="fa fa-times" *ngIf="isEditing"></i>
-  <i class="fa fa-arrow-left" *ngIf="!isEditing"></i>
   <span class="sr-only" *ngIf="isEditing">Anuluj</span>
+  <i class="fa fa-arrow-left" *ngIf="!isEditing"></i>
   <span class="sr-only" *ngIf="!isEditing">Zamknij</span>
 </button>
 <div class="title" [class.editing]="isEditing">
