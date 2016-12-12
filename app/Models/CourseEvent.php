@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CourseEvent extends Model
 {
@@ -13,7 +14,7 @@ class CourseEvent extends Model
     'date',
   ];
 
-  public function courseTime()
+  public function courseTime(): BelongsTo
   {
     return $this->belongsTo(CourseTime::class);
   }

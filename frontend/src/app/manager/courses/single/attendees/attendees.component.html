@@ -5,4 +5,6 @@
 <div class="attendees" *ngIf="course">
   <attendee-row *ngFor="let attendee of attendees" [attendee]="attendee"></attendee-row>
 </div>
+<i class="fa fa-question-circle-o"
+   title="Kursanci oznaczeni na zielono opłacili bieżący kurs.&#013;Kursanci oznaczeni na biało nie zapłacili za bieżący kurs.&#013;Kursanci oznaczeni na czerwono zalegają z płatnościami za więcej niż jeden kurs."></i>
 <add-item-button (onClick)="showCreateForm()" *ngIf="!isCreateFormVisible"></add-item-button>
