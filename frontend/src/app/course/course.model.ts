@@ -129,12 +129,7 @@ export class CreateCourseRequest {
 }
 
 export class UpdateCourseRequest {
-  course: Course;
-  updateStrategy: CourseUpdateStrategy;
-
-  constructor(course: Course, updateStrategy: CourseUpdateStrategy) {
-    this.course = course;
-    this.updateStrategy = updateStrategy;
+  constructor(public course: Course, public updateStrategy: CourseUpdateStrategy) {
   }
 }
 
