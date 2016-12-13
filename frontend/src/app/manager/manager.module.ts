@@ -58,18 +58,12 @@ export const routes = [
               }, {
                 path: 'attendees',
                 component: ManagerCoursesAttendeesComponent,
-                children: [
-                  {
-                    path: ''
-                  }, {
-                    path: ':attendee-id',
-                    component: AttendeeDetailsComponent,
-                    resolve: {
-                      course: CourseResolve,
-                      attendee: AttendeeResolve
-                    }
-                  }
-                ]
+              }, {
+                path: 'attendee/:attendee-id',
+                component: AttendeeDetailsComponent,
+                resolve: {
+                  attendee: AttendeeResolve
+                }
               }
             ],
             resolve: {
