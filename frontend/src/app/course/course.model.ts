@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { Instructor } from '../manager/instructors/instructors.model';
 
 export class Course {
   id: number;
@@ -7,7 +8,6 @@ export class Course {
   price: number;
   classesCount: number;
   seatsCount: number;
-  instructorId: number;
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -22,7 +22,6 @@ export class Course {
         price: 60.00,
         classesCount: 1,
         seatsCount: 1,
-        instructorId: 1,
         description: 'Najlepszy kurs',
         times: [
           new CourseTime(
@@ -47,7 +46,6 @@ export class Course {
       price?: number,
       classesCount?: number,
       seatsCount?: number,
-      instructorId?: number,
       description?: string,
       times?: CourseTime[]
     }
@@ -66,6 +64,7 @@ export class CourseTime {
   id: number;
   courseId: number;
   locationId: number;
+  instructors: Instructor[] = [new Instructor()];
   startDate: string;
   startTime: string;
   endTime: string;
@@ -119,7 +118,6 @@ export class CreateCourseTime {
 }
 
 export type CourseUpdateStrategy = 'all' | 'single' | 'following';
-
 export class CreateCourseRequest {
   course: Course;
 
@@ -143,7 +141,6 @@ export class CourseErrors {
   classesCount?: string[];
   seatsCount?: string[];
   description?: string[];
-  instructorId?: string[];
   times?: CourseTimeErrors[] = [new CourseTimeErrors()];
 
   public clear() {
@@ -152,7 +149,6 @@ export class CourseErrors {
     this.classesCount = undefined;
     this.seatsCount = undefined;
     this.description = undefined;
-    this.instructorId = undefined;
     this.times = this.times.map(() => new CourseTimeErrors());
   }
 
@@ -170,6 +166,9 @@ export class CourseErrors {
       if (newTimes[i] == null) {
         newTimes[i] = currTimes[i];
       }
+      else if (newTimes[i].instructors == null) {
+        newTimes[i].instructors = [new InstructorErrors()];
+      }
     }
     return Object.values(newTimes);
   }
@@ -177,6 +176,7 @@ export class CourseErrors {
 
 export class CourseTimeErrors {
   locationId?: string[];
+  instructors?: InstructorErrors[] = [new InstructorErrors()];
   startDate?: string[];
   startTime?: string[];
   endTime?: string[];
@@ -186,4 +186,8 @@ export class CourseTimeErrors {
 
 export class CourseEventErrors {
   date?: string[];
+}
+
+export class InstructorErrors {
+  id?: string[];
 }

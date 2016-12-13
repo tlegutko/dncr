@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Instructor } from './instructor';
+import { Instructor } from './instructors.model';
 import { Observable } from 'rxjs';
 import { AuthHttp } from 'app/_commons/auth';
 

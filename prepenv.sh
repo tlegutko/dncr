@@ -58,7 +58,7 @@ do
 	if [[ $var == "-k" || $var == "--generate-key" ]]; then
 		    echo -e "${COLOR}### generating secret key ###${NC}"
 			cp .env.dev .env
-			./dartisan.sh key:2generate
+			./dartisan.sh key:generate
 	fi
 	if [[ $var == "-p" || $var == "--set-permissions" ]]; then
 				echo -e "${COLOR}### setting permissions ###${NC}"

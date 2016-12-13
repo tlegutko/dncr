@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { Instructor, InstructorsService } from 'app/manager/instructors';
 import splice = require('core-js/fn/array/splice');
+import { Instructor } from '../instructors.model';
+import { InstructorsService } from '../instructors.service';
 
 interface CreateInstructorErrors {
   name?: string[];
@@ -14,7 +15,6 @@ interface CreateInstructorErrors {
     selector: 'instructor-create',
     templateUrl: './instructor-create.component.html',
     styleUrls: ['./instructor-create.component.scss'],
-    providers: [InstructorsService]
   }
 )
 export class InstructorCreateComponent {

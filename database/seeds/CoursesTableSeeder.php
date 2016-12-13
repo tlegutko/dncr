@@ -12,14 +12,18 @@ class CoursesTableSeeder extends Seeder
   public function run()
   {
     /** @var stdClass $company */
-    $company = DB::table('companies')->where('name', '=', 'Firma 1')->first();
+    $company = DB::table('companies')->where('name', 'Firma 1')->first();
     /** @var stdClass $location */
-    $location = DB::table('locations')->where('name', '=', 'Lokacja 1')->first();
+    $location = DB::table('locations')->where('name', 'Lokacja 1')->first();
+    /** @var stdClass $instructor */
+    $instructor1 = DB::table('users')->where('email', 'jan@kowalski.com')->first();
+    /** @var stdClass $instructor */
+    $instructor2 = DB::table('users')->where('email', 'grzegorz@grzejszczak.com')->first();
 
-    $this->addFirstCourse($company, $location);
+    $this->addFirstCourse($company, $location, $instructor1, $instructor2);
   }
 
-  private function addFirstCourse(stdClass $company, stdClass $location)
+  private function addFirstCourse(stdClass $company, stdClass $location, stdClass $instructor1, stdClass $instructor2)
   {
     $courseId = DB::table('courses')->insertGetId([
                                                     'company_id' => $company->id,
@@ -45,6 +49,10 @@ class CoursesTableSeeder extends Seeder
                                          'course_time_id' => $timeId,
                                          'date' => $date->add(new DateInterval('P7D')),
                                        ]);
+    DB::table('course_time_instructor')->insert([
+                                                  'course_time_id' => $timeId,
+                                                  'instructor_id' => $instructor1->id,
+                                                  ]);
     $date = (new DateTime())->add(new DateInterval('P2D'));
     $timeId = DB::table('course_times')->insertGetId([
                                                        'course_id' => $courseId,
@@ -62,5 +70,9 @@ class CoursesTableSeeder extends Seeder
                                          'course_time_id' => $timeId,
                                          'date' => $date->add(new DateInterval('P7D')),
                                        ]);
+    DB::table('course_time_instructor')->insert([
+                                                    'course_time_id' => $timeId,
+                                                    'instructor_id' => $instructor2->id,
+                                                  ]);
   }
 }

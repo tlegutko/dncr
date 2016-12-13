@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CourseErrors, Course, CoursesService } from 'app/course';
 import { CourseLocation } from 'app/manager/locations';
+import { Instructor } from 'app/manager/instructors';
 
 @Component(
   {
@@ -9,7 +10,8 @@ import { CourseLocation } from 'app/manager/locations';
     template: `
       <course-title [model]="model" [editable]="true" [errors]="errors.name" (save)="onSave($event)" 
                     (close)="onClose()"></course-title>
-      <edit-course [model]="model" [errors]="errors" [locations]="locations" [updateTime]="true"></edit-course>
+      <edit-course [model]="model" [errors]="errors" [locations]="locations" [instructors]="instructors" 
+                   [updateTime]="true"></edit-course>
     `,
     styles: [':host { display: block }'],
   }
@@ -18,14 +20,16 @@ export class CreateCourseComponent implements OnInit {
   model = new Course();
   errors: CourseErrors = new CourseErrors();
   locations: CourseLocation[];
+  instructors: Instructor[];
 
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) {
   }
 
   public ngOnInit() {
     this.route.data.forEach(
-      (data: { locations: CourseLocation[]}) => {
+      (data: { locations: CourseLocation[], instructors: Instructor[]}) => {
         this.locations = data.locations;
+        this.instructors = data.instructors;
       }
     );
   }

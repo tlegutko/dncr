@@ -6,6 +6,8 @@ use App\Http\Requests\Request;
 
 class StoreInstructorRequest extends Request
 {
+  use RequestCamelCaseConverter;
+
   /**
    * Determine if the user is authorized to make this request.
    *
@@ -27,7 +29,7 @@ class StoreInstructorRequest extends Request
              'name' => 'required',
              'surname' => 'required',
              'email' => 'required | email | unique:attendees',
-             'phoneNumber' => 'required | digits:9 | unique:attendees',
+             'phone_number' => 'required | digits:9 | unique:attendees',
     ];
   }
 
@@ -37,7 +39,7 @@ class StoreInstructorRequest extends Request
       'name' => 'imię',
       'surname' => 'nazwisko',
       'email' => 'adres e-mail',
-      'phoneNumber' => 'numer telefonu',
+      'phone_number' => 'numer telefonu',
     ];
   }
 }

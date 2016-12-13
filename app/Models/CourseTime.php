@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -33,5 +34,10 @@ class CourseTime extends Model
   public function events(): HasMany
   {
     return $this->hasMany(CourseEvent::class);
+  }
+
+  public function instructors(): BelongsToMany
+  {
+    return $this->belongsToMany(Instructor::class);
   }
 }

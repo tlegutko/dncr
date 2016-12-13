@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { CourseTime, CourseTimeErrors } from 'app/course';
-import { CourseLocation } from 'app/manager/locations';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { CourseTime, CourseTimeErrors } from '../../../../course/course.model';
+import { CourseLocation } from '../../../locations/locations.model';
+import { Instructor } from '../../../instructors/instructors.model';
 
 @Component(
   {
@@ -10,9 +11,8 @@ import { CourseLocation } from 'app/manager/locations';
   }
 )
 export class CourseTimeComponent {
-
   @Input() model: CourseTime;
   @Input() errors: CourseTimeErrors;
   @Input() locations: CourseLocation[];
-
+  @Input() instructors: Instructor[];
 }

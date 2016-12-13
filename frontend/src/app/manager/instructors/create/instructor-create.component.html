@@ -1,4 +1,4 @@
-<form class="form clearfix" (ngSubmit)="createInstructor()" #createInstructorForm="ngForm">
+<form class="form clearfix" (ngSubmit)="createInstructor()" #createInstructorFqorm="ngForm">
   <p class="alert alert-danger" role="alert" *ngIf="error">{{ error }}</p>
   <form-field [errors]="errors.name" class="col-xs-3">
     <input type="text" class="form-control" [class.form-control-danger]="errors.name" placeholder="Imię..." required

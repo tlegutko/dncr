@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateCompaniesTable extends Migration
 {
@@ -16,10 +16,10 @@ class CreateCompaniesTable extends Migration
       function(Blueprint $table)
       {
         $table->increments('id');
-        $table->string('name', 50);
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->nullable()->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
         $table->timestamp('valid_to');
-        $table->timestamp('created_at')->default(DB::raw('NOW()'));
-        $table->timestamp('updated_at')->nullable();
+        $table->string('name', 50);
       });
   }
 
