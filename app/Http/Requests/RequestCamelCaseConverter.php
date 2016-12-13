@@ -12,8 +12,9 @@ trait RequestCamelCaseConverter
   {
     /** @noinspection PhpUndefinedClassInspection */
     $source = parent::input($key, $default);
+    $result = is_array($source) ? $this->normalize($source) : $source;
 
-    return $this->normalize($source);
+    return $result;
   }
 
   public function json($key = null, $default = null)
@@ -29,9 +30,9 @@ trait RequestCamelCaseConverter
     $normalizer = new CamelCaseToSnakeCaseNameConverter();
     $result = [];
 
-    foreach ($source as $key => $value)
+    foreach($source as $key => $value)
     {
-      if (is_array($value))
+      if(is_array($value))
       {
         $value = $this->normalize($value);
       }
@@ -50,11 +51,14 @@ trait RequestCamelCaseConverter
     $result = [];
 
     $normalizer = new CamelCaseToSnakeCaseNameConverter();
-    foreach ($source as $key => $value)
+    foreach($source as $key => $value)
     {
-      $path = implode('.', array_map(function($part) use ($normalizer) {
-        return $normalizer->denormalize($part);
-      }, explode('.', $key)));
+      $path = implode('.',
+                      array_map(function($part) use ($normalizer)
+                      {
+                        return $normalizer->denormalize($part);
+                      },
+                        explode('.', $key)));
 
       array_set($result, $path, $value);
     }

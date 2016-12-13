@@ -118,6 +118,25 @@ export class CreateCourseTime {
   }
 }
 
+export type CourseUpdateStrategy = 'all' | 'single' | 'following';
+
+export class CreateCourseRequest {
+  course: Course;
+
+  constructor(course: Course) {
+    this.course = course;
+  }
+}
+
+export class UpdateCourseRequest {
+  constructor(public course: Course, public updateStrategy: CourseUpdateStrategy) {
+  }
+}
+
+export class CourseErrorsResponse {
+  course: CourseErrors;
+}
+
 export class CourseErrors {
   name?: string[];
   price?: string[];

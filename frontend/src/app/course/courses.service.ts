@@ -5,7 +5,9 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { Course, CreateCourseTime, CourseTime } from './course.model';
+import {
+  Course, CreateCourseTime, CourseTime, UpdateCourseRequest, CourseErrors, CourseErrorsResponse, CreateCourseRequest
+} from './course.model';
 import { CalendarItem } from 'app/_commons/calendar';
 import { AuthHttp } from 'app/_commons/auth';
 
@@ -50,27 +52,41 @@ export class CoursesService {
 
   public create(course: Course): Observable<Course> {
     let url = `api/courses`;
-    return this.http.post(url, course)
-      .map((response: Response) => response.json() as Course)
-      .do((result: Course) => this.courseCreatedSource.next(result))
+    return this.http.post(url, new CreateCourseRequest(course))
+      .map(this.mapToCourse)
+      .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
       .catch(
         (response) => {
           if (response.status === 500) {
             return Observable.throw('Błąd serwera');
           } else {
-            return Observable.throw(response.json());
+            return Observable.throw(this.mapCourseErrors(response));
           }
         }
       );
   }
 
+  public updateAll(course: Course): Observable<Course> {
+    let url = `api/courses/${course.id}`;
+    return this.http.put(url, new UpdateCourseRequest(course, 'all'))
+      .map(this.mapToCourse)
+      .do((createdCourse: Course) => this.courseCreatedSource.next(createdCourse))
+      .catch(response => Observable.throw(this.mapCourseErrors(response)));
+  }
+
+  private mapCourseErrors(response: Response): CourseErrors {
+    return (response.json() as CourseErrorsResponse).course;
+  }
+
   private mapToCourse(response: Response): Course {
     let course: Course = response.json();
     let formatTime = (time) => moment(time, CourseTime.backendTimeFormat).format(CourseTime.timeFormat);
-    course.times.forEach((time: CourseTime) => {
-      time.startTime = formatTime(time.startTime);
-      time.endTime = formatTime(time.endTime);
-    });
+    course.times.forEach(
+      (time: CourseTime) => {
+        time.startTime = formatTime(time.startTime);
+        time.endTime = formatTime(time.endTime);
+      }
+    );
     return course;
   }
 

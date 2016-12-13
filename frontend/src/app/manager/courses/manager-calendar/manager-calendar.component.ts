@@ -28,8 +28,9 @@ export class ManagerCalendarComponent implements OnInit {
   public ngOnInit(): void {
     this.service.calendarEvents().subscribe((events) => this.events = events);
     this.service.calendarItemsCreated.subscribe(
-      (events) => {
-        this.events = this.events.concat(events);
+      (events: CalendarItem[]) => {
+        let eventsIds = events.map(event => event.id);
+        this.events = this.events.filter(elem => eventsIds.indexOf(elem.id) < 0).concat(events);
       }
     );
   }
