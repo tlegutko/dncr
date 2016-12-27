@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-xl-9 col-sm-8 col-xs-6">
+    <h4>Terminy</h4>
+  </div>
+  <div class="col-xl-3 col-sm-4 col-xs-6">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" disabled>
+      <i class="fa fa-plus" aria-hidden="true"></i> Dodaj termin
+    </button>
+  </div>
+</div>
+<labelled-form-field [errors]="errors[0].startDate" [for]="startDate" [label]="'Data'">
+  <p class="form-control-static mb-0">{{model[0].startDate}}</p>
+</labelled-form-field>
+<labelled-form-field [errors]="errors[0].startTime" [for]="startTime" [label]="'Rozpoczęcie'">
+  <div class="input-group">
+    <input type="text" class="form-control" [class.form-control-danger]="errors[0].startTime"
+           [(ngModel)]="model[0].startTime" name="startTime" id="startTime" required
+           placeholder="Podaj datę rozpoczęcia ...">
+    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+  </div>
+</labelled-form-field>
+<labelled-form-field [errors]="errors[0].endTime" [for]="endTime" [label]="'Zakończenie'">
+  <div class="input-group">
+    <input type="text" class="form-control" [class.form-control-danger]="errors[0].endTime"
+           [(ngModel)]="model[0].endTime" name="endTime" id="endTime" required
+           placeholder="Podaj datę zakończenia ...">
+    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+  </div>
+</labelled-form-field>
+<labelled-form-field [errors]="errors[0].repeatWeeksCount" [for]="repeatWeeksCount" [label]="'Powtarzaj co'">
+  <div class="input-group">
+    <input type="number" class="form-control" [class.form-control-danger]="errors[0].repeatWeeksCount"
+           [(ngModel)]="model[0].repeatWeeksCount" name="repeatWeeksCount" id="repeatWeeksCount" required>
+    <span class="input-group-addon">tydzień</span>
+  </div>
+</labelled-form-field>
+<labelled-form-field [errors]="errors[0].locationId" [for]="locationId" [label]="'Sala'">
+  <select class="form-control" [class.form-control-danger]="errors[0].locationId"
+          [(ngModel)]="model[0].locationId" name="locationId" id="locationId" required>
+    <option *ngFor="let l of locations" [value]="l.id">{{l.name}}</option>
+  </select>
+</labelled-form-field>

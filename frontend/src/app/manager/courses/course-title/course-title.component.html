@@ -1,0 +1,22 @@
+<h1 [class.errors]="errors">
+  <button type="button" class="cancel btn btn-secondary" (click)="cancel()">
+    <i class="fa fa-times" *ngIf="isEditing"></i>
+    <span class="sr-only" *ngIf="isEditing">Anuluj</span>
+    <i class="fa fa-arrow-left" *ngIf="!isEditing"></i>
+    <span class="sr-only" *ngIf="!isEditing">Zamknij</span>
+  </button>
+  <i class="fa fa-info-circle fa-lg"></i>
+  <form-field [errors]="errors" *ngIf="isEditing">
+    <input type="text" class="form-control" placeholder="Podaj nazwę kursu ..."
+           [(ngModel)]="model.name" name="name" id="name" required>
+  </form-field>
+  <span *ngIf="!isEditing">
+    {{ model.name }}
+    <button *ngIf="editable" type="button" class="btn btn-sm btn-secondary" (click)="edit()">
+      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    </button>
+  </span>
+  <button *ngIf="editable" type="button" (click)="submit()" class="btn btn-primary">
+    <i class="fa fa-floppy-o" aria-hidden="true"></i> Zapisz
+  </button>
+</h1>

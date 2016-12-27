@@ -16,6 +16,8 @@ class CreateCourseTimesTable extends Migration
       function(Blueprint $table)
       {
         $table->increments('id');
+        $table->timestamp('created_at')->useCurrent();
+        $table->timestamp('updated_at')->nullable()->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
         $table->integer('course_id')->unsigned();
         $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         $table->integer('location_id')->unsigned();
@@ -24,8 +26,6 @@ class CreateCourseTimesTable extends Migration
         $table->time('start_time');
         $table->time('end_time');
         $table->integer('repeat_weeks_count');
-        $table->timestamp('created_at')->default(DB::raw('NOW()'));
-        $table->timestamp('updated_at')->nullable();
       });
   }
 
