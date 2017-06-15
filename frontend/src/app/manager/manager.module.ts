@@ -8,7 +8,6 @@ import { ManagerInstructorsComponent } from './instructors/instructors.component
 import { ManagerCalendarComponent } from './courses/manager-calendar/manager-calendar.component';
 import { InstructorCreateComponent } from './instructors/create/instructor-create.component';
 import { CommonsModule } from 'app/_commons/commons.module';
-import { AttendeeModule } from 'app/attendee';
 import { CourseModule, CourseResolve, CourseErrorsResolve } from 'app/course';
 import {
   ManagerCoursesSingleComponent, ManagerCoursesDetailsComponent, ManagerCoursesAttendeesComponent,
@@ -19,6 +18,8 @@ import { CourseTimesComponent } from './courses/edit/course-times/course-times.c
 import { CreateCoursePropertiesComponent } from './courses/edit/course-properties/course-properties.component';
 import { InstructorsService } from './instructors/instructors.service';
 import { LocationsService } from './locations/locations.service';
+import { AttendeeDetailsComponent } from './courses/single/attendees/attendee-details/attendee-details.component';
+import { AttendeeModule, AttendeeResolve } from 'app/attendee';
 import { CreateCourseComponent } from './courses/create/create-course.component';
 import { EditCourseComponent } from './courses/edit/edit-course.component';
 import { MailService } from './courses/single/actions/mail.service';
@@ -54,7 +55,13 @@ export const routes = [
                 component: ManagerCoursesActionsComponent
               }, {
                 path: 'attendees',
-                component: ManagerCoursesAttendeesComponent
+                component: ManagerCoursesAttendeesComponent,
+              }, {
+                path: 'attendee/:attendee-id',
+                component: AttendeeDetailsComponent,
+                resolve: {
+                  attendee: AttendeeResolve
+                }
               }
             ],
             resolve: {
@@ -89,7 +96,8 @@ export const routes = [
       CreateCourseComponent,
       CourseTitleComponent,
       CourseTimesComponent,
-      CreateCoursePropertiesComponent
+      CreateCoursePropertiesComponent,
+      AttendeeDetailsComponent
     ],
     imports: [
       CommonModule, FormsModule, RouterModule.forChild(routes), CommonsModule, AttendeeModule, CourseModule
