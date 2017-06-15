@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications/src/notifications.service';
 import { Course, CourseErrors, CoursesService } from 'app/course';
+import { CourseTimeErrors } from '../../../course/course.model';
 
 @Component(
   {
@@ -25,6 +26,11 @@ export class ManagerCoursesSingleComponent implements OnInit {
       (data: { course: Course, courseErrors: CourseErrors }) => {
         this.course = data.course;
         this.errors = data.courseErrors;
+        for (let i = 0; i < this.course.times.length; i++) {
+          if (this.errors.times[i] == null) {
+            this.errors.times[i] = new CourseTimeErrors();
+          }
+        }
       }
     );
   }
